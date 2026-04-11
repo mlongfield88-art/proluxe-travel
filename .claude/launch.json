@@ -1,0 +1,4 @@
+{
+  "command": "npx serve dist -l 3457",
+  "port": 3457
+}
