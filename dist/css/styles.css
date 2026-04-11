@@ -10,7 +10,7 @@
 
 /* ---------- RESET & BASE ---------- */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%}
 body{
   font-family:'Raleway',sans-serif;
   font-weight:400;
@@ -74,6 +74,11 @@ h1,h2,h3,h4,h5,h6{
   transition:opacity .3s;
 }
 .nav__wordmark:hover{opacity:.8}
+.nav__logo-img{
+  height:clamp(28px,3vw,38px);
+  width:auto;
+  display:block;
+}
 .nav__links{
   display:flex;
   gap:36px;
@@ -196,14 +201,19 @@ h1,h2,h3,h4,h5,h6{
   justify-content:center;
   overflow:hidden;
 }
-.hero__video-wrap{
+.hero__bg-wrap{
   position:absolute;
   inset:0;
   z-index:0;
 }
-.hero__video{
+.hero__bg{
   width:100%;height:100%;
-  object-fit:cover;
+  background:url('../img/hero-banner.webp') center center / cover no-repeat;
+  animation:heroKenBurns 25s ease-in-out infinite alternate;
+}
+@keyframes heroKenBurns{
+  0%{transform:scale(1) translate(0,0)}
+  100%{transform:scale(1.12) translate(-1.5%,-1%)}
 }
 .hero__overlay{
   position:absolute;
@@ -214,6 +224,12 @@ h1,h2,h3,h4,h5,h6{
     rgba(66,70,50,.5) 40%,
     rgba(26,26,26,.85) 100%
   );
+}
+.hero__canvas{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
 }
 .hero__content{
   position:relative;
@@ -265,15 +281,9 @@ h1,h2,h3,h4,h5,h6{
   50%{opacity:1;transform:scaleY(1)}
 }
 
-/* Hero reveal animation */
+/* Hero reveal — GSAP handles animation, set initial state */
 .reveal-hero{
   opacity:0;
-  transform:translateY(30px);
-  transition:opacity .8s cubic-bezier(.25,.46,.45,.94),transform .8s cubic-bezier(.25,.46,.45,.94);
-}
-.reveal-hero.is-visible{
-  opacity:1;
-  transform:translateY(0);
 }
 
 /* ============================================================
@@ -451,13 +461,8 @@ h1,h2,h3,h4,h5,h6{
   line-height:1.7;
 }
 
-/* Reveal animation for cards */
-.reveal-card{
-  opacity:0;
-  transform:translateY(40px);
-  transition:opacity .7s cubic-bezier(.25,.46,.45,.94),transform .7s cubic-bezier(.25,.46,.45,.94);
-}
-.reveal-card.is-visible{opacity:1;transform:translateY(0)}
+/* Card image overflow for parallax */
+.card__image-wrap{position:relative}
 
 @media(max-width:1024px){
   .card-grid{grid-template-columns:repeat(2,1fr)}
@@ -501,13 +506,7 @@ h1,h2,h3,h4,h5,h6{
   line-height:1.7;
 }
 
-/* Pillar reveal */
-.reveal-pillar{
-  opacity:0;
-  transform:translateY(30px);
-  transition:opacity .6s cubic-bezier(.25,.46,.45,.94),transform .6s cubic-bezier(.25,.46,.45,.94);
-}
-.reveal-pillar.is-visible{opacity:1;transform:translateY(0)}
+/* Pillar — GSAP handles reveal */
 
 @media(max-width:1024px){
   .pillars{grid-template-columns:repeat(2,1fr)}
@@ -617,12 +616,9 @@ a.info-block__value:hover{color:#424632}
   gap:40px;
   align-items:start;
 }
-.footer__wordmark{
-  font-family:'Cormorant Garamond',serif;
-  font-size:24px;
-  font-weight:600;
-  letter-spacing:.04em;
-  color:#F5F0E8;
+.footer__logo-img{
+  height:36px;
+  width:auto;
 }
 .footer__tagline{
   font-size:14px;
@@ -657,6 +653,22 @@ a.info-block__value:hover{color:#424632}
   transition:color .3s;
 }
 .footer__legal a:hover{color:#F5F0E8}
+.footer__reg{
+  font-size:12px;
+  color:#8A8A80;
+  margin-bottom:8px;
+  opacity:.7;
+}
+.footer__policy-links{
+  display:flex;
+  gap:16px;
+}
+.footer__policy-links a{
+  font-size:13px;
+  color:rgba(245,240,232,.4);
+  transition:color .3s;
+}
+.footer__policy-links a:hover{color:#F5F0E8}
 
 @media(max-width:768px){
   .footer__inner{
@@ -666,20 +678,90 @@ a.info-block__value:hover{color:#424632}
   .footer__tagline{margin:12px auto 0}
   .footer__links{align-items:center}
   .footer__legal{text-align:center}
+  .footer__policy-links{justify-content:center}
 }
 
 /* ============================================================
-   SCROLL REVEAL (general)
+   COOKIE CONSENT BANNER
    ============================================================ */
-.reveal{
-  opacity:0;
-  transform:translateY(28px);
-  transition:opacity .7s cubic-bezier(.25,.46,.45,.94),transform .7s cubic-bezier(.25,.46,.45,.94);
+.cookie-banner{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:300;
+  background:rgba(26,26,26,.95);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-top:1px solid rgba(245,240,232,.08);
+  padding:20px 0;
+  transform:translateY(100%);
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
 }
-.reveal.is-visible{
-  opacity:1;
+.cookie-banner.is-visible{
   transform:translateY(0);
 }
+.cookie-banner__inner{
+  max-width:1240px;
+  margin:0 auto;
+  padding:0 clamp(20px,5vw,48px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.cookie-banner__text{
+  font-size:14px;
+  color:rgba(245,240,232,.7);
+  line-height:1.6;
+  flex:1;
+}
+.cookie-banner__text a{
+  color:#F5F0E8;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+.cookie-banner__actions{
+  display:flex;
+  gap:10px;
+  flex-shrink:0;
+}
+.cookie-banner__btn{
+  padding:10px 24px;
+  font-family:'Raleway',sans-serif;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  border-radius:0;
+  transition:all .3s;
+  cursor:pointer;
+}
+.cookie-banner__btn--accept{
+  background:#F5F0E8;
+  color:#1A1A1A;
+  border:none;
+}
+.cookie-banner__btn--accept:hover{
+  background:#fff;
+}
+.cookie-banner__btn--decline{
+  background:transparent;
+  color:rgba(245,240,232,.6);
+  border:1px solid rgba(245,240,232,.2);
+}
+.cookie-banner__btn--decline:hover{
+  border-color:rgba(245,240,232,.4);
+  color:#F5F0E8;
+}
+
+@media(max-width:600px){
+  .cookie-banner__inner{flex-direction:column;text-align:center}
+  .cookie-banner__actions{width:100%}
+  .cookie-banner__btn{flex:1}
+}
+
+/* ============================================================
+   SCROLL REVEAL — GSAP handles all animation
+   ============================================================ */
 
 /* ============================================================
    REDUCED MOTION
@@ -690,11 +772,9 @@ a.info-block__value:hover{color:#424632}
     animation-iteration-count:1 !important;
     transition-duration:.01ms !important;
   }
-  .reveal,.reveal-hero,.reveal-card,.reveal-pillar{
+  .reveal-hero{
     opacity:1;
-    transform:none;
   }
-  html{scroll-behavior:auto}
 }
 
 /* ============================================================
