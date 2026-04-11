@@ -670,7 +670,15 @@ a.info-block__value:hover{color:#424632}
 }
 .footer__policy-links a:hover{color:#F5F0E8}
 
-@media(max-width:768px){
+@media(max-width:960px){
+  .footer__inner{
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+  .footer__brand{grid-column:1 / -1}
+  .footer__legal{text-align:left}
+}
+@media(max-width:600px){
   .footer__inner{
     grid-template-columns:1fr;
     text-align:center;
@@ -679,6 +687,18 @@ a.info-block__value:hover{color:#424632}
   .footer__links{align-items:center}
   .footer__legal{text-align:center}
   .footer__policy-links{justify-content:center}
+}
+
+/* Form success/error states */
+.btn--success{
+  background:#424632 !important;
+  border-color:#424632 !important;
+  color:#F5F0E8 !important;
+}
+.btn--error{
+  background:#8B3A3A !important;
+  border-color:#8B3A3A !important;
+  color:#F5F0E8 !important;
 }
 
 /* ============================================================

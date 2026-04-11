@@ -460,8 +460,61 @@
       }
 
       // Formspree handling
+      e.preventDefault();
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
+
+      fetch(action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function (response) {
+        if (response.ok) {
+          form.reset();
+          submitBtn.textContent = 'Message Sent';
+          submitBtn.classList.add('btn--success');
+          setTimeout(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+            submitBtn.classList.remove('btn--success');
+          }, 4000);
+        } else {
+          submitBtn.textContent = 'Something went wrong';
+          submitBtn.classList.add('btn--error');
+          setTimeout(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+            submitBtn.classList.remove('btn--error');
+          }, 3000);
+        }
+      }).catch(function () {
+        submitBtn.textContent = 'Connection error';
+        submitBtn.classList.add('btn--error');
+        setTimeout(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Message';
+          submitBtn.classList.remove('btn--error');
+        }, 3000);
+      });
+    });
+  }
+
+  /* ==========================================================
+     OFF-CANVAS FOCUS TRAP
+     ========================================================== */
+  var offcanvas = document.getElementById('offcanvas');
+  if (offcanvas) {
+    offcanvas.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var focusable = offcanvas.querySelectorAll('a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     });
   }
 
