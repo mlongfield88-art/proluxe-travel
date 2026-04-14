@@ -378,6 +378,21 @@
   });
 
   /* ==========================================================
+     SERVICE CARD VIDEO-ON-HOVER
+     ========================================================== */
+  document.querySelectorAll('.card').forEach(function (card) {
+    var video = card.querySelector('.card__video');
+    if (!video) return;
+    card.addEventListener('mouseenter', function () {
+      video.play().catch(function () {});
+    });
+    card.addEventListener('mouseleave', function () {
+      video.pause();
+      video.currentTime = 0;
+    });
+  });
+
+  /* ==========================================================
      SMOOTH SCROLL FOR ANCHOR LINKS (use Lenis if available)
      ========================================================== */
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
