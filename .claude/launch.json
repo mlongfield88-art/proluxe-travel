@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "proluxe-dev",
+      "name": "proluxe-travel",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "dist", "-l", "3457"],
+      "runtimeArgs": ["serve", "dist", "-l", "3457", "--no-clipboard"],
       "port": 3457
     }
   ]
