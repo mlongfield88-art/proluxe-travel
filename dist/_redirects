@@ -1,0 +1,13 @@
+https://proluxetravels.com/* https://www.proluxetravels.com/:splat 301!
+/about/ /#about 301
+/about /#about 301
+/contact/ /#contact 301
+/contact /#contact 301
+/services/ /#services 301
+/services /#services 301
+/approach/ /#approach 301
+/approach /#approach 301
+/terms/ /terms-and-conditions/ 301
+/privacy/ /privacy-policy.html 301
+/privacy-policy/ /privacy-policy.html 301
+/cookie-policy/ /privacy-policy.html#cookies 301
