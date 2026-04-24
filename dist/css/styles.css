@@ -107,7 +107,11 @@ h1,h2,h3,h4,h5,h6{
   display:none;
   flex-direction:column;
   gap:5px;
-  padding:6px;
+  padding:10px;
+  min-width:44px;
+  min-height:44px;
+  align-items:center;
+  justify-content:center;
 }
 .nav__hamburger span{
   display:block;
@@ -158,11 +162,17 @@ h1,h2,h3,h4,h5,h6{
 
 .offcanvas__close{
   position:absolute;
-  top:24px;right:24px;
+  top:16px;right:16px;
   font-size:32px;
   color:#F5F0E8;
   line-height:1;
   transition:opacity .3s;
+  padding:10px;
+  min-width:44px;
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 .offcanvas__close:hover{opacity:.6}
 
@@ -870,6 +880,46 @@ a.info-block__value:hover{color:#424632}
   }
   .reveal-hero{
     opacity:1;
+  }
+}
+
+/* ============================================================
+   MOBILE REFINEMENTS (375-480px)
+   ============================================================ */
+
+/* Stack hero CTAs full-width on small phones */
+@media(max-width:480px){
+  .hero__cta{
+    flex-direction:column;
+    align-items:stretch;
+    gap:12px;
+    padding:0 8px;
+  }
+  .hero__cta .btn{
+    width:100%;
+    text-align:center;
+  }
+}
+
+/* Reduce hero eyebrow letter-spacing to prevent overflow on narrow viewports */
+@media(max-width:600px){
+  .hero__eyebrow{
+    letter-spacing:.1em;
+    font-size:11px;
+  }
+}
+
+/* Ensure contact CTA button has breathing room from info block below on mobile */
+@media(max-width:768px){
+  .split__text .btn{
+    margin-bottom:8px;
+  }
+}
+
+/* Private page header: reduce side padding on small screens */
+@media(max-width:600px){
+  .private-header{
+    padding:24px 20px 0;
   }
 }
 
