@@ -152,18 +152,6 @@
       blurb: 'Grade II* Georgian mansion on its own promontory into Windermere. Adults-only, 30 rooms, landscaped gardens running to the lake.'
     },
     {
-      id: 'cedarmanor',
-      name: 'Cedar Manor',
-      kind: 'Windermere · Boutique',
-      lat: 54.3833,
-      lng: -2.9080,
-      featured: true,
-      labelPos: 'right',
-      photo: 'img/cumbria/waypoint-03-windermere.jpg',
-      distance: 'Windermere town',
-      blurb: 'Ten-bedroom boutique on Ambleside Road, owner-run. The small, precise corner of the Windermere offering, for a board of eight under one roof.'
-    },
-    {
       id: 'lodorefalls',
       name: 'Lodore Falls',
       kind: 'Borrowdale · Country house',
