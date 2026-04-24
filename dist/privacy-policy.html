@@ -48,6 +48,24 @@
     </nav>
   </header>
 
+  <!-- Off-canvas mobile nav -->
+  <div class="offcanvas" id="offcanvas" aria-hidden="true">
+    <div class="offcanvas__overlay" id="offcanvasOverlay"></div>
+    <div class="offcanvas__panel">
+      <button class="offcanvas__close" id="offcanvasClose" aria-label="Close navigation menu">&times;</button>
+      <nav class="offcanvas__nav" aria-label="Mobile navigation">
+        <a href="/#about" class="offcanvas__link">About</a>
+        <a href="/#services" class="offcanvas__link">Services</a>
+        <a href="/#approach" class="offcanvas__link">Our Approach</a>
+        <a href="/#contact" class="offcanvas__link">Contact</a>
+      </nav>
+      <div class="offcanvas__contact">
+        <p>info@proluxetravels.com</p>
+        <p>London, United Kingdom</p>
+      </div>
+    </div>
+  </div>
+
   <main class="policy">
     <a href="/" class="policy__back">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
@@ -203,6 +221,23 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    (function(){
+      var toggle = document.getElementById('navToggle');
+      var offcanvas = document.getElementById('offcanvas');
+      var overlay = document.getElementById('offcanvasOverlay');
+      var closeBtn = document.getElementById('offcanvasClose');
+      if(!toggle || !offcanvas) return;
+      function openNav(){ offcanvas.classList.add('is-open'); offcanvas.setAttribute('aria-hidden','false'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+      function closeNav(){ offcanvas.classList.remove('is-open'); offcanvas.setAttribute('aria-hidden','true'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+      toggle.addEventListener('click', openNav);
+      if(closeBtn) closeBtn.addEventListener('click', closeNav);
+      if(overlay) overlay.addEventListener('click', closeNav);
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
+      offcanvas.querySelectorAll('.offcanvas__link').forEach(function(a){ a.addEventListener('click', closeNav); });
+    })();
+  </script>
 
 </body>
 </html>
