@@ -66,7 +66,7 @@
       labelPos: 'right',
       photo: 'img/cumbria/waypoint-03-windermere.jpg',
       distance: 'Windermere valley',
-      blurb: 'Cedar spa suites, SOURCE and HRiSHi kitchens. Holds a larger group without losing the feel of the house.'
+      blurb: 'Cedar spa suites, SOURCE holds one Michelin star. Takes a larger group without losing the feel of the house.'
     },
     {
       id: 'heft',
