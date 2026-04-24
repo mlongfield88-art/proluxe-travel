@@ -93,7 +93,7 @@
       <div class="section-head">
         <p class="section__eyebrow section__eyebrow--light eyebrow eyebrow--cream">The region</p>
         <h2 class="section__title section__title--light section-head__title">The journey</h2>
-        <p class="section__intro section__intro--light section-head__lede">Nine houses across the region. Click a pin for the notes we keep on each.</p>
+        <p class="section__intro section__intro--light section-head__lede">Fourteen houses across the region. Click a pin for the notes we keep on each.</p>
       </div>
       <div class="cumbria-map__wrap">
         <div class="cumbria-map__canvas" id="cumbriaMap" role="application" aria-label="Interactive map of the Lake District journey"></div>
@@ -135,6 +135,10 @@
           <rect width="1800" height="900" class="journey-map-bg"/>
 
           <!-- Simplified lake shapes (stylised, not cartographic) -->
+          <!-- Bassenthwaite — north -->
+          <ellipse cx="1180" cy="160" rx="22" ry="60" transform="rotate(10,1180,160)" class="journey-lake"/>
+          <!-- Derwentwater — just south of Bassenthwaite, larger -->
+          <ellipse cx="1230" cy="250" rx="28" ry="55" class="journey-lake"/>
           <!-- Ullswater — northeast -->
           <ellipse cx="1380" cy="280" rx="85" ry="28" transform="rotate(-25,1380,280)" class="journey-lake"/>
           <!-- Thirlmere -->
@@ -150,6 +154,8 @@
           <ellipse cx="850" cy="600" rx="14" ry="38" class="journey-lake"/>
 
           <!-- Valley / place labels -->
+          <text x="1180" y="110" class="journey-valley-label" text-anchor="middle">Bassenthwaite</text>
+          <text x="1280" y="260" class="journey-valley-label" text-anchor="start">Derwentwater</text>
           <text x="1360" y="220" class="journey-valley-label" text-anchor="middle">Ullswater</text>
           <text x="1030" y="418" class="journey-valley-label" text-anchor="middle">Grasmere</text>
           <text x="930" y="420" class="journey-valley-label" text-anchor="start">Windermere</text>
@@ -198,6 +204,9 @@
           <!-- 5. L'Enclume, Cartmel -->
           <circle cx="590" cy="710" r="7" class="journey-marker" id="marker-5"/>
           <circle cx="590" cy="710" r="14" class="journey-marker-ring"/>
+          <!-- 6. Armathwaite / Lodore / Cottage in the Wood, north -->
+          <circle cx="1210" cy="210" r="7" class="journey-marker" id="marker-6"/>
+          <circle cx="1210" cy="210" r="14" class="journey-marker-ring"/>
 
         </svg>
       </div><!-- /.journey__map -->
@@ -214,14 +223,14 @@
         <!-- Text layer above both -->
         <div style="position:relative;z-index:2;">
           <p class="journey__intro-eyebrow">A Walk Through the Lakes</p>
-          <h2 class="journey__intro-title">From Penrith to Cartmel, west through the valleys</h2>
+          <h2 class="journey__intro-title">Through the valleys, with a chapter to the north</h2>
           <p class="journey__intro-body">A route that follows the grain of the landscape, stopping wherever someone has taken the trouble to do things properly.</p>
         </div>
       </div>
 
       <!-- WAYPOINT 1: Askham Hall -->
       <article class="journey__panel" aria-labelledby="wp1-title">
-        <span class="journey__number" aria-hidden="true">01 / 05</span>
+        <span class="journey__number" aria-hidden="true">01 / 06</span>
         <div class="journey__photo">
           <!--
             Photo: Askham Hall, Rob Farrow / Wikimedia Commons, CC-BY-SA 2.0.
@@ -249,7 +258,7 @@
 
       <!-- WAYPOINT 2: Forest Side -->
       <article class="journey__panel" aria-labelledby="wp2-title">
-        <span class="journey__number" aria-hidden="true">02 / 05</span>
+        <span class="journey__number" aria-hidden="true">02 / 06</span>
         <div class="journey__photo">
           <!--
             Photo: A view across Grasmere lake, Malcolm Neal / Wikimedia Commons, CC-BY-SA 2.0.
@@ -277,7 +286,7 @@
 
       <!-- WAYPOINT 3: Linthwaite House + Gilpin -->
       <article class="journey__panel" aria-labelledby="wp3-title">
-        <span class="journey__number" aria-hidden="true">03 / 05</span>
+        <span class="journey__number" aria-hidden="true">03 / 06</span>
         <div class="journey__photo">
           <!--
             Photo: Lake Windermere from Gummer's How, Mattbuck (Matt Buck) / Wikimedia Commons, CC-BY-SA 2.0.
@@ -305,7 +314,7 @@
 
       <!-- WAYPOINT 4: Coniston / Heft -->
       <article class="journey__panel" aria-labelledby="wp4-title">
-        <span class="journey__number" aria-hidden="true">04 / 05</span>
+        <span class="journey__number" aria-hidden="true">04 / 06</span>
         <div class="journey__photo">
           <!--
             Photo: Coniston Water, Lake District, Robert Linsdell / Wikimedia Commons, CC-BY 2.0.
@@ -333,7 +342,7 @@
 
       <!-- WAYPOINT 5: L'Enclume -->
       <article class="journey__panel" aria-labelledby="wp5-title">
-        <span class="journey__number" aria-hidden="true">05 / 05</span>
+        <span class="journey__number" aria-hidden="true">05 / 06</span>
         <div class="journey__photo">
           <!--
             Photo: L'Enclume building facade, Cartmel, Bill Boaden / Wikimedia Commons, CC-BY-SA 2.0.
@@ -355,6 +364,34 @@
           <p class="journey__meta">Three Michelin stars &middot; Simon Rogan flagship &middot; Farm-to-table, Cartmel</p>
           <a href="/#contact" class="journey__enquire" aria-label="Enquire about L'Enclume">
             Enquire about this house <span class="journey__enquire-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- WAYPOINT 6: Keswick and Bassenthwaite -->
+      <article class="journey__panel" aria-labelledby="wp6-title">
+        <span class="journey__number" aria-hidden="true">06 / 06</span>
+        <div class="journey__photo">
+          <!--
+            Photo: Armathwaite Hall on Bassenthwaite Lake.
+            Armathwaite Hall Hotels and Spa, Sam inspired / Wikimedia Commons, CC-BY-SA 4.0.
+          -->
+          <img
+            src="img/cumbria/property-10-armathwaite-hall.jpg"
+            alt="Armathwaite Hall country house on Bassenthwaite Lake in the northern Lake District"
+            loading="lazy"
+            width="1320"
+            height="880"
+          >
+        </div>
+        <div class="journey__text">
+          <p class="journey__valley">Keswick, Bassenthwaite and Borrowdale</p>
+          <h3 class="journey__house" id="wp6-title">North to Bassenthwaite</h3>
+          <p class="journey__body">North of the Penrith to Cartmel line sits a different Cumbria. Bassenthwaite in the shadow of Skiddaw, Derwentwater south of Keswick, and Whinlatter Forest folded between them. Quieter again, and less often on the circuit.</p>
+          <p class="journey__body">Armathwaite Hall on Bassenthwaite, Lodore Falls on Derwentwater, and The Cottage in the Wood inside Whinlatter hold this corner of the region for us. One-Michelin star dining in the forest, 400 acres of grand-house estate on the lake, and Borrowdale on the doorstep.</p>
+          <p class="journey__meta">Armathwaite Hall &middot; Lodore Falls &middot; The Cottage in the Wood</p>
+          <a href="/#contact" class="journey__enquire" aria-label="Enquire about the northern Lakes">
+            Enquire about these houses <span class="journey__enquire-arrow" aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </article>
@@ -497,6 +534,26 @@
         </div>
       </article>
 
+      <!-- Card 6: Keswick and Bassenthwaite -->
+      <article class="journey__card" aria-labelledby="mob-wp6-title">
+        <div class="journey__card-photo">
+          <img
+            src="img/cumbria/property-10-armathwaite-hall.jpg"
+            alt="Armathwaite Hall country house on Bassenthwaite Lake in the northern Lake District"
+            loading="lazy"
+            width="800"
+            height="600"
+          >
+        </div>
+        <div class="journey__card-body">
+          <p class="journey__card-valley">Keswick, Bassenthwaite and Borrowdale</p>
+          <h3 class="journey__card-house" id="mob-wp6-title">North to Bassenthwaite</h3>
+          <p class="journey__card-text">North of the Penrith to Cartmel line sits a different Cumbria. Bassenthwaite in the shadow of Skiddaw, Derwentwater south of Keswick, Whinlatter Forest folded between them. Armathwaite Hall, Lodore Falls, and The Cottage in the Wood hold this corner of the region for us.</p>
+          <p class="journey__card-meta">Armathwaite Hall &middot; Lodore Falls &middot; The Cottage in the Wood</p>
+          <a href="/#contact" class="journey__card-enquire" aria-label="Enquire about the northern Lakes">Enquire <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
     </div><!-- /.journey__mobile -->
 
     <!-- Closing frame also sits after the mobile cards on mobile.
@@ -529,9 +586,9 @@
   <section class="section section--cream properties" id="properties">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">The nine houses</p>
+        <p class="eyebrow">The houses</p>
         <h2 class="section-head__title">Where we put people in Cumbria</h2>
-        <p class="section-head__lede">Nine properties we return to, chosen for the kitchen as often as the view. Some you will know. Some you will not. All of them we have walked ourselves.</p>
+        <p class="section-head__lede">The properties we return to, chosen for the kitchen as often as the view. Some you will know. Some you will not. All of them we have walked ourselves.</p>
       </div>
       <div class="properties__grid">
 
@@ -621,7 +678,57 @@
           <div class="property-card__body">
             <p class="property-card__kind">Bassenthwaite Lake · Country house</p>
             <h3 class="property-card__name">Armathwaite Hall</h3>
-            <p class="property-card__blurb">Seventeenth-century manor on Bassenthwaite Lake, four hundred acres, full spa, stables. The Lake District's big grand house. Handles larger groups without feeling processed.</p>
+            <p class="property-card__blurb">Seventeenth-century manor on Bassenthwaite Lake, 400 acres, full spa, stables. The Lake District's big grand house. Handles larger groups without feeling processed.</p>
+          </div>
+        </article>
+
+        <!-- 10. Langdale Chase -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/waypoint-03-windermere.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Windermere · Country house</p>
+            <h3 class="property-card__name">Langdale Chase</h3>
+            <p class="property-card__blurb">Grade II listed manor on the eastern shore of Windermere, reopened 2023 after a full restoration. Two AA Rosettes, Small Luxury Hotels of the World.</p>
+          </div>
+        </article>
+
+        <!-- 11. Storrs Hall -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/waypoint-03-windermere.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Windermere · Country house</p>
+            <h3 class="property-card__name">Storrs Hall</h3>
+            <p class="property-card__blurb">Grade II* Georgian mansion on its own promontory into Windermere. Adults-only, 30 rooms, landscaped gardens running to the lake. Quiet by design.</p>
+          </div>
+        </article>
+
+        <!-- 12. Cedar Manor -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/waypoint-03-windermere.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Windermere · Boutique</p>
+            <h3 class="property-card__name">Cedar Manor</h3>
+            <p class="property-card__blurb">Ten-bedroom boutique on Ambleside Road, owner-run since 2008. The small, precise corner of the Windermere offering, for a board of eight under one roof.</p>
+          </div>
+        </article>
+
+        <!-- 13. Lodore Falls -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/property-10-armathwaite-hall.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Borrowdale · Country house</p>
+            <h3 class="property-card__name">Lodore Falls</h3>
+            <p class="property-card__blurb">On the southern shore of Derwentwater, with the falls rising directly behind the hotel. Spa, lake-facing rooms, and the Borrowdale valley on the doorstep.</p>
+          </div>
+        </article>
+
+        <!-- 14. The Cottage in the Wood -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/property-10-armathwaite-hall.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Whinlatter Forest · Restaurant with rooms</p>
+            <h3 class="property-card__name">The Cottage in the Wood</h3>
+            <p class="property-card__blurb">Inside the Whinlatter Forest, nine rooms and a one-star kitchen. Jack and Beth Bond took the reins in 2024. Set deep enough that the week feels properly away.</p>
           </div>
         </article>
 
@@ -666,6 +773,10 @@
           <div class="cumbria-food__item">
             <dt class="cumbria-food__name">SOURCE at The Gilpin Hotel <span class="cumbria-food__loc">Windermere</span></dt>
             <dd class="cumbria-food__note">One Michelin star &middot; sustainable tasting menu</dd>
+          </div>
+          <div class="cumbria-food__item">
+            <dt class="cumbria-food__name">The Cottage in the Wood <span class="cumbria-food__loc">Whinlatter Forest</span></dt>
+            <dd class="cumbria-food__note">One Michelin star &middot; Jack and Beth Bond</dd>
           </div>
         </dl>
 
@@ -723,7 +834,10 @@
           <a href="privacy-policy.html#cookies">Cookie Policy</a>
           <a href="terms-and-conditions.html">Terms</a>
         </div>
-        <p class="footer__photo-credits">Photography: Lake Ullswater, Paul Smith / Wikimedia Commons, CC0 1.0 &middot; Askham Hall, Rob Farrow / Wikimedia Commons, CC-BY-SA 2.0 &middot; Grasmere lake, Malcolm Neal / Wikimedia Commons, CC-BY-SA 2.0 &middot; Windermere from Gummer's How, Mattbuck / Wikimedia Commons, CC-BY-SA 2.0 &middot; Coniston Water, Robert Linsdell / Wikimedia Commons, CC-BY 2.0 &middot; L'Enclume, Cartmel, Bill Boaden / Wikimedia Commons, CC-BY-SA 2.0 &middot; Lone Hiker, Gowbarrow Fell, Alice Bennett / Wikimedia Commons, CC-BY 3.0 &middot; Windermere aerial north, Lieven Smits / Wikimedia Commons, CC-BY-SA 4.0 &middot; Holbeck Ghyll Hotel, Ian Cunliffe / Wikimedia Commons, CC-BY-SA 2.0 &middot; Armathwaite Hall Hotels and Spa, Sam inspired / Wikimedia Commons, CC-BY-SA 4.0</p>
+        <details class="footer__credits" style="margin-top:16px;">
+          <summary style="font-family:'Raleway',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.08em;text-transform:uppercase;color:#9A9589;cursor:pointer;list-style:none;opacity:0.7;">Image credits</summary>
+          <p style="margin-top:8px;font-family:'Raleway',sans-serif;font-size:10px;font-weight:300;line-height:1.6;color:#9A9589;opacity:0.75;">Photography: Lake Ullswater, Paul Smith / Wikimedia Commons, CC0 1.0 &middot; Askham Hall, Rob Farrow / Wikimedia Commons, CC-BY-SA 2.0 &middot; Grasmere lake, Malcolm Neal / Wikimedia Commons, CC-BY-SA 2.0 &middot; Windermere from Gummer's How, Mattbuck / Wikimedia Commons, CC-BY-SA 2.0 &middot; Coniston Water, Robert Linsdell / Wikimedia Commons, CC-BY 2.0 &middot; L'Enclume, Cartmel, Bill Boaden / Wikimedia Commons, CC-BY-SA 2.0 &middot; Lone Hiker, Gowbarrow Fell, Alice Bennett / Wikimedia Commons, CC-BY 3.0 &middot; Windermere aerial north, Lieven Smits / Wikimedia Commons, CC-BY-SA 4.0 &middot; Holbeck Ghyll Hotel, Ian Cunliffe / Wikimedia Commons, CC-BY-SA 2.0 &middot; Armathwaite Hall Hotels and Spa, Sam inspired / Wikimedia Commons, CC-BY-SA 4.0</p>
+        </details>
       </div>
     </div>
   </footer>

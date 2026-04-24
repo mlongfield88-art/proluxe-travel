@@ -125,7 +125,67 @@
       labelPos: 'right',
       photo: 'img/cumbria/property-10-armathwaite-hall.jpg',
       distance: 'Bassenthwaite Lake',
-      blurb: 'Seventeenth-century manor on Bassenthwaite Lake. Four hundred acres, full spa, stables. Handles larger groups without feeling processed.'
+      blurb: 'Seventeenth-century manor on Bassenthwaite Lake. 400 acres, full spa, stables. Handles larger groups without feeling processed.'
+    },
+    {
+      id: 'langdalechase',
+      name: 'Langdale Chase',
+      kind: 'Windermere · Country house',
+      lat: 54.3810,
+      lng: -2.9310,
+      featured: true,
+      labelPos: 'left',
+      photo: 'img/cumbria/waypoint-03-windermere.jpg',
+      distance: 'Eastern shore, Windermere',
+      blurb: 'Grade II listed manor on the eastern shore of Windermere, reopened 2023 after a full restoration. Two AA Rosettes, Small Luxury Hotels of the World.'
+    },
+    {
+      id: 'storrshall',
+      name: 'Storrs Hall',
+      kind: 'Windermere · Country house',
+      lat: 54.3462,
+      lng: -2.9300,
+      featured: true,
+      labelPos: 'bottom',
+      photo: 'img/cumbria/waypoint-03-windermere.jpg',
+      distance: 'South Windermere',
+      blurb: 'Grade II* Georgian mansion on its own promontory into Windermere. Adults-only, 30 rooms, landscaped gardens running to the lake.'
+    },
+    {
+      id: 'cedarmanor',
+      name: 'Cedar Manor',
+      kind: 'Windermere · Boutique',
+      lat: 54.3833,
+      lng: -2.9080,
+      featured: true,
+      labelPos: 'right',
+      photo: 'img/cumbria/waypoint-03-windermere.jpg',
+      distance: 'Windermere town',
+      blurb: 'Ten-bedroom boutique on Ambleside Road, owner-run. The small, precise corner of the Windermere offering, for a board of eight under one roof.'
+    },
+    {
+      id: 'lodorefalls',
+      name: 'Lodore Falls',
+      kind: 'Borrowdale · Country house',
+      lat: 54.5637,
+      lng: -3.1438,
+      featured: true,
+      labelPos: 'right',
+      photo: 'img/cumbria/property-10-armathwaite-hall.jpg',
+      distance: 'Derwentwater, south of Keswick',
+      blurb: 'On the southern shore of Derwentwater, with the falls rising directly behind the hotel. Spa, lake-facing rooms, and the Borrowdale valley on the doorstep.'
+    },
+    {
+      id: 'cottageinthewood',
+      name: 'The Cottage in the Wood',
+      kind: 'Whinlatter Forest · Restaurant with rooms',
+      lat: 54.6128,
+      lng: -3.2226,
+      featured: true,
+      labelPos: 'left',
+      photo: 'img/cumbria/property-10-armathwaite-hall.jpg',
+      distance: 'Whinlatter Forest',
+      blurb: 'One Michelin star in the middle of Whinlatter Forest. Jack and Beth Bond took the reins in 2024. Set deep enough that the week feels properly away.'
     }
   ];
 
