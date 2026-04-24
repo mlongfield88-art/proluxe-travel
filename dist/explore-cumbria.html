@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Cumbria | ProLuxe Travel</title>
+  <meta name="description" content="Country-house hospitality in the Lake District, handled properly. Private takeovers, multi-hotel group accommodation, and venue sourcing across Cumbria.">
+  <meta property="og:title" content="Explore Cumbria | ProLuxe Travel">
+  <meta property="og:description" content="Country-house hospitality in the Lake District, handled properly. Private takeovers, multi-hotel group accommodation, and venue sourcing across Cumbria.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://proluxetravels.com/explore-cumbria.html">
+  <meta property="og:image" content="https://proluxetravels.com/img/cumbria/hero.jpg">
+  <meta property="og:site_name" content="ProLuxe Travel">
+  <meta property="og:locale" content="en_GB">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lib/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
+</head>
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <header class="header nav--scrolled" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/" class="nav__wordmark">ProLuxe Travel</a>
+      <div class="nav__links">
+        <a href="/#about" class="nav__link">About</a>
+        <a href="/#services" class="nav__link">Services</a>
+        <a href="/#approach" class="nav__link">Our Approach</a>
+        <a href="explore-cumbria.html" class="nav__link">Explore Cumbria</a>
+        <a href="/#contact" class="nav__link">Contact</a>
+      </div>
+      <button class="nav__hamburger" id="navToggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Off-canvas mobile nav -->
+  <div class="offcanvas" id="offcanvas" aria-hidden="true">
+    <div class="offcanvas__overlay" id="offcanvasOverlay"></div>
+    <div class="offcanvas__panel">
+      <button class="offcanvas__close" id="offcanvasClose" aria-label="Close navigation menu">&times;</button>
+      <nav class="offcanvas__nav" aria-label="Mobile navigation">
+        <a href="/#about" class="offcanvas__link">About</a>
+        <a href="/#services" class="offcanvas__link">Services</a>
+        <a href="/#approach" class="offcanvas__link">Our Approach</a>
+        <a href="explore-cumbria.html" class="offcanvas__link">Explore Cumbria</a>
+        <a href="/#contact" class="offcanvas__link">Contact</a>
+      </nav>
+      <div class="offcanvas__contact">
+        <p>info@proluxetravels.com</p>
+        <p>London, United Kingdom</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HERO ==========
+       Photo: Lake Ullswater, Paul Smith / Wikimedia Commons, CC0 1.0 Public Domain.
+       https://commons.wikimedia.org/wiki/File:Lake_Ullswater_(Unsplash).jpg
+  -->
+  <section class="cumbria-hero" aria-label="Explore Cumbria">
+    <div class="cumbria-hero__bg cumbria-hero__bg--photo" aria-hidden="true"></div>
+    <div class="cumbria-hero__overlay" aria-hidden="true"></div>
+    <div class="cumbria-hero__content">
+      <p class="cumbria-hero__eyebrow">Regions &bull; United Kingdom &bull; Lake District</p>
+      <h1 class="cumbria-hero__title">Explore Cumbria</h1>
+      <p class="cumbria-hero__subtitle">Country-house hospitality, handled properly.</p>
+      <div class="cumbria-hero__cta">
+        <a href="/#contact" class="btn btn--primary">Start a Conversation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHY CUMBRIA (written intro, before the journey) ========== -->
+  <section class="section section--cream" aria-labelledby="why-cumbria-heading">
+    <div class="container">
+      <div class="about-full">
+        <p class="section__eyebrow">The Region</p>
+        <h2 class="section__title" id="why-cumbria-heading">Why Cumbria</h2>
+        <p class="section__body">Cumbria holds something England does not produce easily: scale. Country houses with enough rooms to take a leadership team under one roof, lake-front estates that still feel unhurried on a Friday afternoon, and ground between Manchester and Glasgow that brings a national team together without anyone losing a day to travel.</p>
+        <p class="section__body">The topography does the work. Ullswater to Windermere, Kentmere to Coniston, each valley reads differently. A strategy week on the eastern side carries a different tone than an off-site above the western lakes. The choice is rarely about which hotel. It is about which part of the region matches the work being done.</p>
+        <p class="section__body">And it stays private. There are no crowds at the doors, no press on the gravel, no queue at the bar. Which is part of why the region keeps finding its way onto our best clients' calendars: board meetings, partner weeks, the kind of gathering that benefits from being somewhere it can breathe.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== INTERACTIVE MAP OF CUMBRIA (Leaflet) ========== -->
+  <section class="section section--olive cumbria-map" id="the-region">
+    <div class="container">
+      <div class="section-head">
+        <p class="section__eyebrow section__eyebrow--light eyebrow eyebrow--cream">The region</p>
+        <h2 class="section__title section__title--light section-head__title">The journey</h2>
+        <p class="section__intro section__intro--light section-head__lede">Ten houses across the region. Click a pin for the notes we keep on each.</p>
+      </div>
+      <div class="cumbria-map__wrap">
+        <div class="cumbria-map__canvas" id="cumbriaMap" role="application" aria-label="Interactive map of the Lake District journey"></div>
+        <p class="cumbria-map__hint">Click the pins. Scroll the page, not the map.</p>
+      </div>
+    </div>
+  </section><!-- /.cumbria-map -->
+
+  <!-- ========== THE JOURNEY ==========
+       Desktop: pinned horizontal scroll. Five waypoint panels translate across the
+       viewport as the user scrolls. A stylised SVG map of Cumbria sits behind the
+       track; the dotted olive route draws via stroke-dashoffset driven by ScrollTrigger.
+
+       Mobile (<=900px): vertical timeline with full-width cards. Route draws vertically.
+
+       prefers-reduced-motion: no pin, no translate. Panels lay out as a vertical stack.
+  -->
+  <section class="journey" aria-label="A walk through Cumbria">
+
+    <!-- ============================================================
+         DESKTOP HORIZONTAL TRACK
+         ============================================================ -->
+    <div class="journey__track" aria-hidden="false">
+
+      <!-- Stylised SVG map of Cumbria — decorative behind the panels.
+           The map is intentionally schematic, not cartographic. Lakes are soft
+           cream-grey shapes. Valley labels in Cormorant Garamond italic.
+           The route path is animated via stroke-dashoffset in cumbria.js. -->
+      <div class="journey__map" aria-hidden="true">
+        <svg
+          id="journey-map-svg"
+          viewBox="0 0 1800 900"
+          preserveAspectRatio="xMidYMid slice"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Stylised map of Cumbria showing the route from Askham Hall to L'Enclume">
+
+          <!-- Background canvas -->
+          <rect width="1800" height="900" class="journey-map-bg"/>
+
+          <!-- Simplified lake shapes (stylised, not cartographic) -->
+          <!-- Ullswater — northeast -->
+          <ellipse cx="1380" cy="280" rx="85" ry="28" transform="rotate(-25,1380,280)" class="journey-lake"/>
+          <!-- Thirlmere -->
+          <ellipse cx="1120" cy="380" rx="22" ry="70" class="journey-lake"/>
+          <!-- Grasmere / Rydal -->
+          <ellipse cx="1040" cy="430" rx="28" ry="20" class="journey-lake"/>
+          <ellipse cx="1000" cy="460" rx="18" ry="14" class="journey-lake"/>
+          <!-- Windermere — long narrow north-south -->
+          <ellipse cx="920" cy="520" rx="30" ry="140" transform="rotate(-8,920,520)" class="journey-lake"/>
+          <!-- Coniston Water -->
+          <ellipse cx="760" cy="600" rx="22" ry="90" transform="rotate(-5,760,600)" class="journey-lake"/>
+          <!-- Esthwaite -->
+          <ellipse cx="850" cy="600" rx="14" ry="38" class="journey-lake"/>
+
+          <!-- Valley / place labels -->
+          <text x="1360" y="220" class="journey-valley-label" text-anchor="middle">Ullswater</text>
+          <text x="1030" y="418" class="journey-valley-label" text-anchor="middle">Grasmere</text>
+          <text x="930" y="420" class="journey-valley-label" text-anchor="start">Windermere</text>
+          <text x="740" y="550" class="journey-valley-label" text-anchor="middle">Coniston</text>
+          <text x="590" y="720" class="journey-valley-label" text-anchor="middle">Cartmel</text>
+
+          <!-- The route: dashed olive path, west through the valleys.
+               Points are schematic to match the five waypoints in order.
+               cumbria.js reads getTotalLength() and animates strokeDashoffset. -->
+          <path
+            id="journey-route-desktop"
+            class="journey-route"
+            d="
+              M 1360 290
+              C 1280 320, 1200 370, 1120 400
+              C 1060 420, 1020 440, 980 460
+              C 940 490, 920 520, 900 540
+              C 870 570, 820 590, 770 600
+              C 720 615, 650 670, 590 710
+            "
+          />
+
+          <!-- Distance labels between waypoints: subtle italic signposts at 12px -->
+          <!-- Askham → Grasmere: midpoint approx cx=1190, cy=345 -->
+          <text x="1205" y="355" class="journey-valley-label" font-size="12" font-style="italic" text-anchor="middle" transform="rotate(-15,1205,355)">22 miles south</text>
+          <!-- Grasmere → Windermere: midpoint approx cx=960, cy=485 -->
+          <text x="975" y="480" class="journey-valley-label" font-size="12" font-style="italic" text-anchor="middle" transform="rotate(-20,975,480)">8 miles south</text>
+          <!-- Windermere → Coniston: midpoint approx cx=835, cy=565 -->
+          <text x="840" y="555" class="journey-valley-label" font-size="12" font-style="italic" text-anchor="middle" transform="rotate(-10,840,555)">14 miles west</text>
+          <!-- Coniston → Cartmel: midpoint approx cx=680, cy=655 -->
+          <text x="680" y="645" class="journey-valley-label" font-size="12" font-style="italic" text-anchor="middle" transform="rotate(-20,680,645)">11 miles south</text>
+
+          <!-- Waypoint markers: olive filled circles with a soft ring -->
+          <!-- 1. Askham Hall -->
+          <circle cx="1360" cy="290" r="7" class="journey-marker" id="marker-1"/>
+          <circle cx="1360" cy="290" r="14" class="journey-marker-ring"/>
+          <!-- 2. Forest Side, Grasmere -->
+          <circle cx="1020" cy="440" r="7" class="journey-marker" id="marker-2"/>
+          <circle cx="1020" cy="440" r="14" class="journey-marker-ring"/>
+          <!-- 3. Linthwaite / Gilpin, Windermere -->
+          <circle cx="900" cy="530" r="7" class="journey-marker" id="marker-3"/>
+          <circle cx="900" cy="530" r="14" class="journey-marker-ring"/>
+          <!-- 4. Coniston / Heft, High Newton -->
+          <circle cx="770" cy="600" r="7" class="journey-marker" id="marker-4"/>
+          <circle cx="770" cy="600" r="14" class="journey-marker-ring"/>
+          <!-- 5. L'Enclume, Cartmel -->
+          <circle cx="590" cy="710" r="7" class="journey-marker" id="marker-5"/>
+          <circle cx="590" cy="710" r="14" class="journey-marker-ring"/>
+
+        </svg>
+      </div><!-- /.journey__map -->
+
+      <!-- Opening panel: walker motif + journey title
+           Background: The Lone Hiker, Alice Bennett / Wikimedia Commons, CC BY 3.0.
+           https://commons.wikimedia.org/wiki/File:The_Lone_Hiker_(240882459).jpeg
+      -->
+      <div class="journey__intro-panel" role="presentation" style="position:relative;overflow:hidden;">
+        <!-- Walker background image with saturate+brightness filter -->
+        <div aria-hidden="true" style="position:absolute;inset:0;background-image:url('img/cumbria/walker.jpg');background-size:cover;background-position:center 30%;filter:saturate(0.7) brightness(0.95);z-index:0;"></div>
+        <!-- Olive-tinted overlay at ~45% opacity -->
+        <div aria-hidden="true" style="position:absolute;inset:0;background-color:rgba(66,70,50,0.45);z-index:1;"></div>
+        <!-- Text layer above both -->
+        <div style="position:relative;z-index:2;">
+          <p class="journey__intro-eyebrow">A Walk Through the Lakes</p>
+          <h2 class="journey__intro-title">From Penrith to Cartmel, west through the valleys</h2>
+          <p class="journey__intro-body">A route that follows the grain of the landscape, stopping wherever someone has taken the trouble to do things properly.</p>
+        </div>
+      </div>
+
+      <!-- WAYPOINT 1: Askham Hall -->
+      <article class="journey__panel" aria-labelledby="wp1-title">
+        <span class="journey__number" aria-hidden="true">01 / 05</span>
+        <div class="journey__photo">
+          <!--
+            Photo: Askham Hall, Rob Farrow / Wikimedia Commons, CC-BY-SA 2.0.
+            https://commons.wikimedia.org/wiki/File:Askham_Hall_-_geograph.org.uk_-_8201856.jpg
+          -->
+          <img
+            src="img/cumbria/waypoint-01-askham.jpg"
+            alt="Askham Hall, a medieval country house in the Ullswater valley, Cumbria"
+            loading="lazy"
+            width="1320"
+            height="880"
+          >
+        </div>
+        <div class="journey__text">
+          <p class="journey__valley">Ullswater Valley, Penrith</p>
+          <h3 class="journey__house" id="wp1-title">Askham Hall</h3>
+          <p class="journey__body">A fourteenth-century castle gatehouse, still in Lowther family hands. The kitchen gardens feed Allium straight from the bed, and the dining has the kind of precision that wears its age lightly.</p>
+          <p class="journey__body">Set east of Ullswater, with the Lowther Estate behind and the lake valley unfolding in front. A proper place to begin a week.</p>
+          <p class="journey__meta">One Michelin star &middot; Allium at Askham Hall &middot; Estate kitchen and garden</p>
+          <a href="/#contact" class="journey__enquire" aria-label="Enquire about Askham Hall">
+            Enquire about this house <span class="journey__enquire-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- WAYPOINT 2: Forest Side -->
+      <article class="journey__panel" aria-labelledby="wp2-title">
+        <span class="journey__number" aria-hidden="true">02 / 05</span>
+        <div class="journey__photo">
+          <!--
+            Photo: A view across Grasmere lake, Malcolm Neal / Wikimedia Commons, CC-BY-SA 2.0.
+            https://commons.wikimedia.org/wiki/File:A_view_across_Grasmere_-_geograph.org.uk_-_6026584.jpg
+          -->
+          <img
+            src="img/cumbria/waypoint-02-grasmere.jpg"
+            alt="Grasmere lake looking across the still water toward the surrounding fells, Cumbria"
+            loading="lazy"
+            width="1320"
+            height="880"
+          >
+        </div>
+        <div class="journey__text">
+          <p class="journey__valley">Grasmere, Central Lakes</p>
+          <h3 class="journey__house" id="wp2-title">Forest Side</h3>
+          <p class="journey__body">A Victorian hunting lodge on the edge of Grasmere, fells rising directly behind it, the lake five minutes down the hill. The kitchen is properly serious. Tasting menus built from what is in season on the land and the shoreline right outside.</p>
+          <p class="journey__body">Small enough to hold a group on its own terms, rather than absorb it into something larger. Quiet in a way you notice after a day or so, and then find difficult to leave.</p>
+          <p class="journey__meta">One Michelin star &middot; Country-house dining &middot; Grasmere valley</p>
+          <a href="/#contact" class="journey__enquire" aria-label="Enquire about Forest Side">
+            Enquire about this house <span class="journey__enquire-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- WAYPOINT 3: Linthwaite House + Gilpin -->
+      <article class="journey__panel" aria-labelledby="wp3-title">
+        <span class="journey__number" aria-hidden="true">03 / 05</span>
+        <div class="journey__photo">
+          <!--
+            Photo: Lake Windermere from Gummer's How, Mattbuck (Matt Buck) / Wikimedia Commons, CC-BY-SA 2.0.
+            https://commons.wikimedia.org/wiki/File:Gummer%27s_How_MMB_03_Lake_Windermere.jpg
+          -->
+          <img
+            src="img/cumbria/waypoint-03-windermere.jpg"
+            alt="Windermere seen from Gummer's How fell, with the lake stretching north through the valley"
+            loading="lazy"
+            width="1320"
+            height="880"
+          >
+        </div>
+        <div class="journey__text">
+          <p class="journey__valley">Windermere, Western Shores</p>
+          <h3 class="journey__house" id="wp3-title">Linthwaite House + Gilpin</h3>
+          <p class="journey__body">Two properties within a few miles of each other on Windermere's quieter western flank. Linthwaite sits directly above the lake; the Gilpin and its Lake House sit back, in their own grounds. Three kitchens between them: Henrock, SOURCE, and HRiSHi.</p>
+          <p class="journey__body">Together, they comfortably hold a larger party without anyone losing sight of the water.</p>
+          <p class="journey__meta">Henrock: One Michelin star, Simon Rogan &middot; SOURCE and HRiSHi: Michelin-recommended</p>
+          <a href="/#contact" class="journey__enquire" aria-label="Enquire about Linthwaite and Gilpin">
+            Enquire about this house <span class="journey__enquire-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- WAYPOINT 4: Coniston / Heft -->
+      <article class="journey__panel" aria-labelledby="wp4-title">
+        <span class="journey__number" aria-hidden="true">04 / 05</span>
+        <div class="journey__photo">
+          <!--
+            Photo: Coniston Water, Lake District, Robert Linsdell / Wikimedia Commons, CC-BY 2.0.
+            https://commons.wikimedia.org/wiki/File:Coniston_Water,_Lake_District,_Cumbria_(200302)_(9451146431).jpg
+          -->
+          <img
+            src="img/cumbria/waypoint-04-coniston.jpg"
+            alt="Coniston Water in the southern Lake District, looking along the length of the lake toward the Old Man of Coniston"
+            loading="lazy"
+            width="1320"
+            height="880"
+          >
+        </div>
+        <div class="journey__text">
+          <p class="journey__valley">Southern Lakes, High Newton</p>
+          <h3 class="journey__house" id="wp4-title">Coniston and Heft</h3>
+          <p class="journey__body">Coniston Water sits south of the central fells, wider and quieter than its neighbours, with less of a crowd. The village inn at High Newton nearby wears its Michelin star as lightly as anywhere in the country. Regional produce, cooked without ceremony.</p>
+          <p class="journey__body">The southern lakes give you the landscape without the Windermere footfall. Quieter in register, and often the right answer for a smaller group.</p>
+          <p class="journey__meta">Heft: One Michelin star &middot; Village inn &middot; Regional produce</p>
+          <a href="/#contact" class="journey__enquire" aria-label="Enquire about Coniston and Heft">
+            Enquire about this house <span class="journey__enquire-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- WAYPOINT 5: L'Enclume -->
+      <article class="journey__panel" aria-labelledby="wp5-title">
+        <span class="journey__number" aria-hidden="true">05 / 05</span>
+        <div class="journey__photo">
+          <!--
+            Photo: L'Enclume building facade, Cartmel, Bill Boaden / Wikimedia Commons, CC-BY-SA 2.0.
+            https://commons.wikimedia.org/wiki/File:L%27Enclume,_Cartmel.jpg
+          -->
+          <img
+            src="img/cumbria/waypoint-05-cartmel.jpg"
+            alt="L'Enclume restaurant building in Cartmel village, the Grade II listed former smithy that houses Simon Rogan's three-star kitchen"
+            loading="lazy"
+            width="1320"
+            height="880"
+          >
+        </div>
+        <div class="journey__text">
+          <p class="journey__valley">Cartmel, Southern Cumbria</p>
+          <h3 class="journey__house" id="wp5-title">L'Enclume</h3>
+          <p class="journey__body">Simon Rogan's flagship. Three Michelin stars, inside a twelfth-century smithy in Cartmel village. The kitchen runs straight from the farm, and anything on the plate can be walked to in under an hour.</p>
+          <p class="journey__body">A private dinner here is the kind of evening a Cumbrian week quietly builds towards. Getting the room is the hard part. That side we look after for you.</p>
+          <p class="journey__meta">Three Michelin stars &middot; Simon Rogan flagship &middot; Farm-to-table, Cartmel</p>
+          <a href="/#contact" class="journey__enquire" aria-label="Enquire about L'Enclume">
+            Enquire about this house <span class="journey__enquire-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Closing frame -->
+      <div class="journey__close" role="complementary" aria-label="Journey conclusion">
+        <div class="journey__close-rule" aria-hidden="true"></div>
+        <p class="journey__close-title">That is Cumbria, walked. Tell us what you need.</p>
+        <p class="journey__close-sub">From the first arrival at the drive to the last car leaving it, we look after the lot.</p>
+        <a href="/#contact" class="btn btn--primary" style="margin-top:8px;">Start a Conversation</a>
+      </div>
+
+    </div><!-- /.journey__track -->
+
+    <!-- ============================================================
+         MOBILE VERTICAL TIMELINE (displayed <=900px, hidden >=901px)
+         ============================================================ -->
+    <div class="journey__mobile" aria-label="A walk through Cumbria">
+
+      <!-- Section header for mobile -->
+      <div style="text-align:center;padding:0 24px 56px;">
+        <p class="section__eyebrow">A Walk Through the Lakes</p>
+        <h2 class="section__title" style="margin-bottom:12px;">From Penrith to Cartmel</h2>
+        <p style="font-family:'Raleway',sans-serif;font-size:14px;font-weight:300;color:#3A3A30;line-height:1.8;max-width:440px;margin:0 auto;">West through the valleys.</p>
+      </div>
+
+      <!-- Vertical connecting line -->
+      <div class="journey__mobile-line" aria-hidden="true"></div>
+
+      <!-- SVG mobile route drawn over the vertical line -->
+      <svg
+        style="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible;"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          id="journey-route-mobile"
+          class="journey-route"
+          d="M 50% 5% L 50% 95%"
+          vector-effect="non-scaling-stroke"
+        />
+      </svg>
+
+      <!-- Card 1: Askham Hall -->
+      <article class="journey__card" aria-labelledby="mob-wp1-title">
+        <div class="journey__card-photo">
+          <img
+            src="img/cumbria/waypoint-01-askham.jpg"
+            alt="Askham Hall, a medieval country house in the Ullswater valley, Cumbria"
+            loading="lazy"
+            width="800"
+            height="600"
+          >
+        </div>
+        <div class="journey__card-body">
+          <p class="journey__card-valley">Ullswater Valley, Penrith</p>
+          <h3 class="journey__card-house" id="mob-wp1-title">Askham Hall</h3>
+          <p class="journey__card-text">A fourteenth-century castle gatehouse, still in Lowther family hands. The kitchen gardens feed Allium straight from the bed, and the dining wears its age lightly. A proper place to begin a week.</p>
+          <p class="journey__card-meta">One Michelin star &middot; Allium &middot; Estate kitchen and garden</p>
+          <a href="/#contact" class="journey__card-enquire" aria-label="Enquire about Askham Hall">Enquire <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <!-- Card 2: Forest Side -->
+      <article class="journey__card" aria-labelledby="mob-wp2-title">
+        <div class="journey__card-photo">
+          <img
+            src="img/cumbria/waypoint-02-grasmere.jpg"
+            alt="Grasmere lake looking across the still water toward the surrounding fells, Cumbria"
+            loading="lazy"
+            width="800"
+            height="600"
+          >
+        </div>
+        <div class="journey__card-body">
+          <p class="journey__card-valley">Grasmere, Central Lakes</p>
+          <h3 class="journey__card-house" id="mob-wp2-title">Forest Side</h3>
+          <p class="journey__card-text">A Victorian hunting lodge on the edge of Grasmere, fells rising directly behind. The kitchen is properly serious, tasting menus built from what is in season on the land and the shoreline right outside.</p>
+          <p class="journey__card-meta">One Michelin star &middot; Country-house dining &middot; Grasmere valley</p>
+          <a href="/#contact" class="journey__card-enquire" aria-label="Enquire about Forest Side">Enquire <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <!-- Card 3: Linthwaite + Gilpin -->
+      <article class="journey__card" aria-labelledby="mob-wp3-title">
+        <div class="journey__card-photo">
+          <img
+            src="img/cumbria/waypoint-03-windermere.jpg"
+            alt="Windermere seen from Gummer's How fell, with the lake stretching north through the valley"
+            loading="lazy"
+            width="800"
+            height="600"
+          >
+        </div>
+        <div class="journey__card-body">
+          <p class="journey__card-valley">Windermere, Western Shores</p>
+          <h3 class="journey__card-house" id="mob-wp3-title">Linthwaite House + Gilpin</h3>
+          <p class="journey__card-text">Two properties a few miles apart on Windermere's quieter western flank. Three kitchens between them: Henrock, SOURCE, and HRiSHi. Together they comfortably hold a larger party without anyone losing sight of the water.</p>
+          <p class="journey__card-meta">Henrock: One Michelin star, Simon Rogan &middot; SOURCE and HRiSHi: Michelin-recommended</p>
+          <a href="/#contact" class="journey__card-enquire" aria-label="Enquire about Linthwaite and Gilpin">Enquire <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <!-- Card 4: Coniston / Heft -->
+      <article class="journey__card" aria-labelledby="mob-wp4-title">
+        <div class="journey__card-photo">
+          <img
+            src="img/cumbria/waypoint-04-coniston.jpg"
+            alt="Coniston Water in the southern Lake District, looking along the length of the lake toward the Old Man of Coniston"
+            loading="lazy"
+            width="800"
+            height="600"
+          >
+        </div>
+        <div class="journey__card-body">
+          <p class="journey__card-valley">Southern Lakes, High Newton</p>
+          <h3 class="journey__card-house" id="mob-wp4-title">Coniston and Heft</h3>
+          <p class="journey__card-text">Coniston Water sits south of the central fells, wider and quieter than its neighbours. The village inn at High Newton wears its Michelin star as lightly as anywhere in the country. Regional produce, cooked without ceremony.</p>
+          <p class="journey__card-meta">Heft: One Michelin star &middot; Village inn &middot; Regional produce</p>
+          <a href="/#contact" class="journey__card-enquire" aria-label="Enquire about Coniston and Heft">Enquire <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <!-- Card 5: L'Enclume -->
+      <article class="journey__card" aria-labelledby="mob-wp5-title">
+        <div class="journey__card-photo">
+          <img
+            src="img/cumbria/waypoint-05-cartmel.jpg"
+            alt="L'Enclume restaurant building in Cartmel village, the Grade II listed former smithy that houses Simon Rogan's three-star kitchen"
+            loading="lazy"
+            width="800"
+            height="600"
+          >
+        </div>
+        <div class="journey__card-body">
+          <p class="journey__card-valley">Cartmel, Southern Cumbria</p>
+          <h3 class="journey__card-house" id="mob-wp5-title">L'Enclume</h3>
+          <p class="journey__card-text">Simon Rogan's flagship. Three Michelin stars, inside a twelfth-century smithy in Cartmel village. A private dinner here is the kind of evening a Cumbrian week quietly builds towards. Getting the room is the hard part. That side we look after for you.</p>
+          <p class="journey__card-meta">Three Michelin stars &middot; Simon Rogan flagship &middot; Farm-to-table, Cartmel</p>
+          <a href="/#contact" class="journey__card-enquire" aria-label="Enquire about L'Enclume">Enquire <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+    </div><!-- /.journey__mobile -->
+
+    <!-- Closing frame also sits after the mobile cards on mobile.
+         On desktop it is the last panel in the horizontal track.
+         We duplicate it here for mobile layout (hidden on desktop via JS class). -->
+    <div class="journey__close journey__close--mobile-only" role="complementary" aria-label="Journey conclusion" style="display:none;">
+      <div class="journey__close-rule" aria-hidden="true"></div>
+      <p class="journey__close-title">That is Cumbria, walked. Tell us what you need.</p>
+      <p class="journey__close-sub">From the first arrival at the drive to the last car leaving it, we look after the lot.</p>
+      <a href="/#contact" class="btn btn--primary" style="margin-top:8px;">Start a Conversation</a>
+    </div>
+
+  </section><!-- /.journey -->
+
+  <!-- ========== TOP TEN PROPERTIES ==========
+       Image credits (new images added April 2026):
+       The Samling (property-07-samling.jpg):
+         Windermere aerial North, Lieven Smits / Wikimedia Commons, CC-BY-SA 4.0.
+         https://commons.wikimedia.org/wiki/File:Windermere_aerial_North.jpg
+       Sharrow Bay (property-08-sharrow-bay.jpg):
+         Sharrow Bay Country House Hotel, Ullswater, David Dixon / Wikimedia Commons, CC-BY-SA 2.0.
+         https://commons.wikimedia.org/wiki/File:Sharrow_Bay_Country_House_Hotel,_Ullswater_-_geograph.org.uk_-_7853824.jpg
+       Holbeck Ghyll (property-09-holbeck-ghyll.jpg):
+         Holbeck Ghyll Hotel, Ian Cunliffe / Wikimedia Commons, CC-BY-SA 2.0.
+         https://commons.wikimedia.org/wiki/File:Holbeck_Ghyll_Hotel_(geograph_3406459).jpg
+       Armathwaite Hall (property-10-armathwaite-hall.jpg):
+         Armathwaite Hall Hotels and Spa, Sam inspired / Wikimedia Commons, CC-BY-SA 4.0.
+         https://commons.wikimedia.org/wiki/File:Armathwaite_Hall_Hotels_and_Spa.jpg
+       L'Enclume (property-06-lenclume.jpg, also replaces waypoint-05-cartmel.jpg):
+         L'Enclume, Cartmel, Bill Boaden / Wikimedia Commons, CC-BY-SA 2.0.
+         https://commons.wikimedia.org/wiki/File:L%27Enclume,_Cartmel.jpg
+  -->
+  <section class="section section--cream properties" id="properties">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">The ten houses</p>
+        <h2 class="section-head__title">Where we put people in Cumbria</h2>
+        <p class="section-head__lede">Ten properties we return to, chosen for the kitchen as often as the view. Some you will know. Some you will not. All of them we have walked ourselves.</p>
+      </div>
+      <div class="properties__grid">
+
+        <!-- 1. Askham Hall -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/waypoint-01-askham.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Penrith · Country house</p>
+            <h3 class="property-card__name">Askham Hall</h3>
+            <p class="property-card__blurb">Lowther estate, one Michelin star at Allium, kitchen garden on the doorstep. Medieval and unhurried.</p>
+          </div>
+        </article>
+
+        <!-- 2. Forest Side -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/waypoint-02-grasmere.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Grasmere · Country house</p>
+            <h3 class="property-card__name">Forest Side</h3>
+            <p class="property-card__blurb">Victorian gothic house on the edge of Grasmere. One Michelin star. The kind of quiet you notice after a day and then find difficult to leave.</p>
+          </div>
+        </article>
+
+        <!-- 3. Linthwaite House -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/waypoint-03-windermere.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Windermere · Country house</p>
+            <h3 class="property-card__name">Linthwaite House</h3>
+            <p class="property-card__blurb">Directly above the lake. Henrock holds one Michelin star. Simon Rogan. Tarn walks from the door and the water visible from most rooms.</p>
+          </div>
+        </article>
+
+        <!-- 4. Gilpin Hotel & Lake House -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/waypoint-03-windermere.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Windermere · Country house</p>
+            <h3 class="property-card__name">Gilpin Hotel &amp; Lake House</h3>
+            <p class="property-card__blurb">Cedar spa suites, three kitchens, family run since 1987. SOURCE and HRiSHi are both Michelin-recommended. Holds a larger party without losing the feel of the house.</p>
+          </div>
+        </article>
+
+        <!-- 5. Heft -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/waypoint-04-coniston.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">High Newton · Village inn</p>
+            <h3 class="property-card__name">Heft</h3>
+            <p class="property-card__blurb">One Michelin star worn lightly. Kevin Tickle's daily-changing tasting menu in a village inn above the southern Lakes. Regional produce, no ceremony.</p>
+          </div>
+        </article>
+
+        <!-- 6. L'Enclume -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/property-06-lenclume.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Cartmel · Restaurant with rooms</p>
+            <h3 class="property-card__name">L'Enclume</h3>
+            <p class="property-card__blurb">Simon Rogan's three-star flagship inside a twelfth-century smithy. The evening a Cumbrian week quietly builds towards. Getting the room is the hard part.</p>
+          </div>
+        </article>
+
+        <!-- 7. The Samling -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/property-07-samling.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Ambleside · Country house</p>
+            <h3 class="property-card__name">The Samling</h3>
+            <p class="property-card__blurb">Above Windermere, set on fifteen quiet acres. The rooms are properly grand and the drive up feels like leaving the century behind.</p>
+          </div>
+        </article>
+
+        <!-- 8. Sharrow Bay -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/property-08-sharrow-bay.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Ullswater · Country house</p>
+            <h3 class="property-card__name">Sharrow Bay</h3>
+            <p class="property-card__blurb">On the eastern shore of Ullswater. The place that invented the English country-house hotel in 1948, and still feels it. Lake views, afternoon tea, long dinners.</p>
+          </div>
+        </article>
+
+        <!-- 9. Holbeck Ghyll -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/property-09-holbeck-ghyll.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Windermere · Country house</p>
+            <h3 class="property-card__name">Holbeck Ghyll</h3>
+            <p class="property-card__blurb">Former hunting lodge above Windermere with views across to the Langdale Pikes. Oak-panelled rooms, two AA Rosettes, a serious wine list.</p>
+          </div>
+        </article>
+
+        <!-- 10. Armathwaite Hall -->
+        <article class="property-card">
+          <div class="property-card__photo" style="background-image:url('img/cumbria/property-10-armathwaite-hall.jpg');" aria-hidden="true"></div>
+          <div class="property-card__body">
+            <p class="property-card__kind">Bassenthwaite Lake · Country house</p>
+            <h3 class="property-card__name">Armathwaite Hall</h3>
+            <p class="property-card__blurb">Seventeenth-century manor on Bassenthwaite Lake, four hundred acres, full spa, stables. The Lake District's big grand house. Handles larger groups without feeling processed.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section><!-- /.properties -->
+
+  <!-- ========== KITCHENS OF THE REGION ========== -->
+  <section class="section section--cream" aria-labelledby="kitchens-heading">
+    <div class="container">
+      <div class="cumbria-food">
+        <p class="section__eyebrow">The food</p>
+        <h2 class="section__title" id="kitchens-heading">Kitchens of the region</h2>
+        <p class="cumbria-food__lede">Cumbria holds more Michelin stars per head of population than any English county outside London. A three-star flagship in Cartmel, several one-star kitchens along the lakes, and a working tradition of cooking that takes the landscape seriously.</p>
+        <p class="cumbria-food__lede">For a leadership week or a private dinner, the region offers a good deal more than a room. Treat the list below as a map of the neighbourhood, not a roll of partners. We put the right kitchens into your week, property by property, whether that is a table for the whole group or a dinner one evening for six.</p>
+
+        <dl class="cumbria-food__list" aria-label="Notable kitchens in Cumbria">
+          <div class="cumbria-food__item">
+            <dt class="cumbria-food__name">L'Enclume <span class="cumbria-food__loc">Cartmel</span></dt>
+            <dd class="cumbria-food__note">Three Michelin stars &middot; Simon Rogan's flagship</dd>
+          </div>
+          <div class="cumbria-food__item">
+            <dt class="cumbria-food__name">Henrock at Linthwaite House <span class="cumbria-food__loc">Windermere</span></dt>
+            <dd class="cumbria-food__note">One Michelin star &middot; Simon Rogan</dd>
+          </div>
+          <div class="cumbria-food__item">
+            <dt class="cumbria-food__name">Forest Side <span class="cumbria-food__loc">Grasmere</span></dt>
+            <dd class="cumbria-food__note">One Michelin star &middot; country-house dining</dd>
+          </div>
+          <div class="cumbria-food__item">
+            <dt class="cumbria-food__name">Old Stamp House <span class="cumbria-food__loc">Ambleside</span></dt>
+            <dd class="cumbria-food__note">One Michelin star &middot; Cumbrian tasting menu</dd>
+          </div>
+          <div class="cumbria-food__item">
+            <dt class="cumbria-food__name">Heft <span class="cumbria-food__loc">High Newton</span></dt>
+            <dd class="cumbria-food__note">One Michelin star &middot; village inn, regional produce</dd>
+          </div>
+          <div class="cumbria-food__item">
+            <dt class="cumbria-food__name">Allium at Askham Hall <span class="cumbria-food__loc">Penrith</span></dt>
+            <dd class="cumbria-food__note">One Michelin star &middot; estate kitchen and garden</dd>
+          </div>
+          <div class="cumbria-food__item">
+            <dt class="cumbria-food__name">SOURCE at The Gilpin Hotel <span class="cumbria-food__loc">Windermere</span></dt>
+            <dd class="cumbria-food__note">Michelin-recommended &middot; sustainable tasting menu</dd>
+          </div>
+          <div class="cumbria-food__item">
+            <dt class="cumbria-food__name">HRiSHi at Gilpin Hotel &amp; Lake House <span class="cumbria-food__loc">Windermere</span></dt>
+            <dd class="cumbria-food__note">Fine dining &middot; Indian-British</dd>
+          </div>
+        </dl>
+
+        <!--
+          Kitchens plate photograph: Unsplash ID 1414235077428-338989a2e8c0.
+          Standard Unsplash licence.
+        -->
+        <figure style="margin:0 0 48px;max-width:680px;">
+          <img
+            src="img/cumbria/plate.jpg"
+            alt="A single restaurant plate on a dark surface, composed with precision"
+            loading="lazy"
+            width="1200"
+            height="800"
+            style="width:100%;height:auto;display:block;"
+          >
+        </figure>
+
+        <a href="/#contact" class="link-arrow cumbria-food__cta">Plan a Cumbrian programme <span>&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== OUR PART IN THIS ========== -->
+  <section class="section section--cream" aria-labelledby="promise-heading">
+    <div class="container">
+      <div class="about-full">
+        <p class="section__eyebrow">How we work</p>
+        <h2 class="section__title" id="promise-heading">Our part in this</h2>
+        <p class="section__body">Nothing about Cumbria is treated as a template. Tell us what the week needs to feel like and we will walk it against the valleys, then come back with accommodation that actually fits the group. Rates come directly from the property, not from a preferred-supplier sheet. And once the shape of the week is agreed, everything in between is our problem to solve.</p>
+        <p class="section__body">And if Cumbria is the wrong fit for what you are planning, we will say so.</p>
+        <a href="/#contact" class="link-arrow">Start a conversation <span>&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__wordmark">ProLuxe Travel</a>
+        <p class="footer__tagline">Corporate &amp; luxury travel management.</p>
+      </div>
+      <div class="footer__links">
+        <a href="/#about">About</a>
+        <a href="/#services">Services</a>
+        <a href="/#approach">Our Approach</a>
+        <a href="explore-cumbria.html">Explore Cumbria</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <div class="footer__legal">
+        <p>&copy; 2026 ProLuxe Travel Ltd. All rights reserved.</p>
+        <p class="footer__reg">45 Welbeck Street, London, W1G 8DZ</p>
+        <div class="footer__policy-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="privacy-policy.html#cookies">Cookie Policy</a>
+          <a href="terms-and-conditions.html">Terms</a>
+        </div>
+        <p class="footer__photo-credits">Photography: Lake Ullswater, Paul Smith / Wikimedia Commons, CC0 1.0 &middot; Askham Hall, Rob Farrow / Wikimedia Commons, CC-BY-SA 2.0 &middot; Grasmere lake, Malcolm Neal / Wikimedia Commons, CC-BY-SA 2.0 &middot; Windermere from Gummer's How, Mattbuck / Wikimedia Commons, CC-BY-SA 2.0 &middot; Coniston Water, Robert Linsdell / Wikimedia Commons, CC-BY 2.0 &middot; L'Enclume, Cartmel, Bill Boaden / Wikimedia Commons, CC-BY-SA 2.0 &middot; Lone Hiker, Gowbarrow Fell, Alice Bennett / Wikimedia Commons, CC-BY 3.0 &middot; Windermere aerial north, Lieven Smits / Wikimedia Commons, CC-BY-SA 4.0 &middot; Sharrow Bay Country House Hotel, David Dixon / Wikimedia Commons, CC-BY-SA 2.0 &middot; Holbeck Ghyll Hotel, Ian Cunliffe / Wikimedia Commons, CC-BY-SA 2.0 &middot; Armathwaite Hall Hotels and Spa, Sam inspired / Wikimedia Commons, CC-BY-SA 4.0</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+
+  <!-- Off-canvas nav -->
+  <script>
+    (function(){
+      var toggle = document.getElementById('navToggle');
+      var offcanvas = document.getElementById('offcanvas');
+      var overlay = document.getElementById('offcanvasOverlay');
+      var closeBtn = document.getElementById('offcanvasClose');
+      if(!toggle || !offcanvas) return;
+      function openNav(){ offcanvas.classList.add('is-open'); offcanvas.setAttribute('aria-hidden','false'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+      function closeNav(){ offcanvas.classList.remove('is-open'); offcanvas.setAttribute('aria-hidden','true'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+      toggle.addEventListener('click', openNav);
+      if(closeBtn) closeBtn.addEventListener('click', closeNav);
+      if(overlay) overlay.addEventListener('click', closeNav);
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
+      offcanvas.querySelectorAll('.offcanvas__link').forEach(function(a){ a.addEventListener('click', closeNav); });
+    })();
+  </script>
+
+  <!-- Mobile: show the duplicate closing frame, hide the desktop one inside .journey__track -->
+  <script>
+    (function(){
+      var isMob = window.innerWidth <= 900;
+      if(isMob){
+        var mobileClose = document.querySelector('.journey__close--mobile-only');
+        if(mobileClose) mobileClose.style.display = '';
+        /* The closing frame inside .journey__track is already display:flex via CSS;
+           on mobile hide it since the track is hidden and the duplicate is shown. */
+        var trackClose = document.querySelector('.journey__track .journey__close');
+        if(trackClose) trackClose.style.display = 'none';
+      }
+    })();
+  </script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="lib/gsap.min.js"></script>
+  <script src="lib/ScrollTrigger.min.js"></script>
+  <!-- Lenis smooth scroll -->
+  <script src="lib/lenis.min.js"></script>
+  <!-- Leaflet + Cumbria map — loaded before cumbria.js -->
+  <script src="lib/leaflet/leaflet.js"></script>
+  <script src="js/cumbria-map.js"></script>
+  <!-- Journey animation — loaded only on this page -->
+  <script src="js/cumbria.js"></script>
+
+</body>
+</html>
