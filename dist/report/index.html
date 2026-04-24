@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProLuxe Master Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-gold: #C5A059; --primary-green: #133626; --bg-light: #f4f7f6; --text-dark: #222222; --danger-red: #e74c3c; }
+        body { margin: 0; font-family: 'Lato', sans-serif; background-color: var(--bg-light); color: var(--text-dark); display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .header { width: 100%; background: var(--primary-green); color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); box-sizing: border-box; }
+        .header-title h1 { margin: 0; font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 1px; text-transform: uppercase; }
+        .sync-status { color: #ffffff; font-weight: bold; font-size: 0.9rem; background: rgba(0,0,0,0.2); padding: 8px 15px; border-radius: 20px; }
+        #login-container { max-width: 400px; margin: 100px auto; background: white; padding: 40px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+        .auth-input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .auth-btn { background: var(--primary-gold); color: white; border: none; padding: 12px 20px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 4px; text-transform: uppercase; }
+        .report-container { width: 100%; max-width: 1400px; background: white; margin: 40px 0; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-radius: 4px; display: none; box-sizing: border-box; }
+        .section-title { font-family: 'Playfair Display', serif; color: var(--primary-green); border-bottom: 2px solid var(--primary-gold); padding-bottom: 10px; margin-top: 40px; font-size: 1.6rem; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+        .btn-action { background: var(--primary-gold); color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: bold; font-family: 'Lato', sans-serif; text-transform: uppercase; transition: 0.2s; }
+        .btn-action:hover { opacity: 0.9; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.85rem; }
+        th { background: #f4f4f4; text-align: left; padding: 12px; border-bottom: 2px solid #ddd; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
+        td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+        .sold-out { background-color: #ffebee; color: #c62828; font-weight: bold; }
+        .low-inventory { background-color: #fff8e1; color: #f57f17; font-weight: bold; }
+        .not-available { color: #ccc; background-color: #fafafa; font-style: italic; }
+        .ref-tag { font-weight: bold; color: var(--primary-gold); font-size: 0.75rem; white-space: nowrap; }
+        .cancel-tag { background: #ffebee; color: #c62828; padding: 3px 6px; border-radius: 3px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        
+        .notes-cell { font-size: 0.8rem; background-color: #fff8eb; color: #555; border-left: 2px solid var(--primary-gold); padding: 8px 12px !important; max-width: 250px; }
+        
+        .filter-area { margin-top: 20px; background: #f9f9f9; padding: 15px; border-radius: 4px; border: 1px solid #eee; display: flex; align-items: center; gap: 15px; }
+        .filter-label { font-weight: bold; font-size: 0.8rem; color: #666; }
+        .filter-select { padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Lato', sans-serif; font-size: 0.8rem; }
+        
+        /* --- FUN RACING GRAPH STYLES --- */
+        .race-track-container { margin-bottom: 25px; position: relative; }
+        .race-track-info { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: bold; margin-bottom: 8px; color: #333; }
+        .race-track { width: 100%; height: 24px; background-color: #eef2f5; border-radius: 12px; position: relative; border: 2px dashed #ccd1d5; overflow: visible; box-sizing: border-box; }
+        .race-car-wrapper { height: 100%; border-radius: 10px 0 0 10px; position: relative; transition: width 2s cubic-bezier(0.25, 1, 0.5, 1); width: 0%; }
+        .car-icon { position: absolute; right: -15px; top: -8px; font-size: 26px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2)); z-index: 10; white-space: nowrap; line-height: 1; }
+        .finish-line { position: absolute; right: -5px; top: -5px; font-size: 22px; z-index: 5; }
+
+        .print-only-header { display: none; }
+        @media print { 
+            .header, #login-container, .btn-action, .filter-area { display: none !important; } 
+            .report-container { box-shadow: none; margin: 0; padding: 0; display: block !important; width: 100%; } 
+            .print-only-header { display: block; text-align: center; margin-bottom: 30px; } 
+            .section-title { page-break-before: always; margin-top: 20px; border-bottom: 2px solid var(--primary-gold); } 
+            .section-title:first-of-type { page-break-before: auto; } 
+            table { width: 100% !important; page-break-inside: auto; } 
+            tr { page-break-inside: avoid; page-break-after: auto; } 
+            th, td { border: 1px solid #eee !important; } 
+            .race-car-wrapper { transition: none !important; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-title"><h1>ProLuxe Master Report</h1><p style="margin:0; font-size:0.9rem; color:var(--primary-gold);">IBA 2026 - Master Report & Inventory</p></div>
+        <div style="display: flex; align-items: center;">
+            <div class="sync-status" id="sync-status">🔒 Locked</div>
+            <button id="logout-btn" style="margin-left:15px; background:none; border:1px solid white; color:white; padding:5px 10px; cursor:pointer; display:none; border-radius:4px;">Log Out</button>
+        </div>
+    </div>
+
+    <div id="login-container">
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--primary-green);">Secure Access</h2>
+        <input type="email" id="admin-email" class="auth-input" placeholder="Admin Email">
+        <input type="password" id="admin-password" class="auth-input" placeholder="Password">
+        <button class="auth-btn" id="login-submit-btn">Access Master Report</button>
+        <div id="login-error" style="color: var(--danger-red); margin-top: 15px; font-size: 0.9rem; display: none;">Invalid credentials.</div>
+    </div>
+
+    <div class="report-container" id="report-container">
+        <div class="filter-area">
+            <span class="filter-label">Filter View by Hotel:</span>
+            <select id="hotel-filter" class="filter-select"><option value="all">Show All Hotels</option></select>
+            <div style="flex-grow:1"></div>
+            <button class="btn-action" onclick="window.print()">Print Report to PDF</button>
+        </div>
+
+        <div class="print-only-header">
+            <h1 style="font-family: 'Playfair Display', serif; color: var(--primary-green); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;">IBA 2026 Master Summary</h1>
+            <p style="color: #666; font-size: 0.9rem;">Consolidated Block Performance Report</p>
+        </div>
+        
+        <h2 class="section-title" style="page-break-before: auto;">🏁 Peak Occupancy Leaderboard</h2>
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 25px;">This graph displays the <strong>Peak Rooms</strong> booked versus the <strong>Peak Rooms</strong> contracted on your busiest night for each hotel.</p>
+        <div id="racing-graph-area" style="margin-bottom: 40px; padding: 25px; border: 1px solid #eee; border-radius: 4px; background: #fff;"></div>
+
+        <h2 class="section-title" style="page-break-before: auto;">Portfolio Performance Data</h2>
+        <div id="master-summary-area"></div>
+
+        <h2 class="section-title">Nightly Inventory Monitoring</h2>
+        <div id="inventory-area"></div>
+
+        <h2 class="section-title">Master Rooming List</h2>
+        
+        <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+            <button class="btn-action" id="export-hotel-btn" style="background: var(--primary-green);">🏨 Download Hotel Rooming List</button>
+            <button class="btn-action" id="export-iba-btn" style="background: #2c3e50;">📊 Download IBA Client Report</button>
+            <button class="btn-action" id="export-pickup-btn" style="background: #8e44ad;">📈 Download Weekly Pickup Report</button>
+            <button class="btn-action" id="export-inventory-btn" style="background: #d35400;">🗓️ Download Nightly Inventory Grid</button>
+        </div>
+        
+        <div id="bookings-area"></div>
+
+        <h2 class="section-title" style="color:var(--danger-red); border-color:var(--danger-red);">Cancellation Ledger</h2>
+        <p style="font-size: 0.9rem; color: #666;">A historical log of all rooms released back into inventory via the Admin Dashboard.</p>
+        <div id="cancellations-area"></div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD05JCADypvwknCwtu05rfz30wD4pmFjYs",
+            authDomain: "proluxe-iba-2026.firebaseapp.com",
+            projectId: "proluxe-iba-2026",
+            storageBucket: "proluxe-iba-2026.firebasestorage.app",
+            messagingSenderId: "669424250636",
+            appId: "1:669424250636:web:e36026b5a97a5ec158e329"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = "iba-2026-portal";
+
+        const hotelDirectory = { 1: "Crowne Plaza Copenhagen Towers", 2: "AC Hotel Bella Sky Copenhagen", 3: "Scandic Spectrum", 4: "Scandic Copenhagen", 5: "25 Hours Hotel Indre By", 6: "Scandic Palace Hotel", 7: "Copenhagen Marriott Hotel", 8: "Admiral Hotel", 9: "1 Hotel Copenhagen", 10: "Villa Copenhagen", 11: "Nobis Hotel Copenhagen" };
+        const dailyContractLimits = { 
+            1: { "2026-10-03": 17, "2026-10-04": 42, "2026-10-05": 42, "2026-10-06": 42, "2026-10-07": 42, "2026-10-08": 17, "2026-10-09": 17 }, 
+            2: { "2026-10-03": 345, "2026-10-04": 445, "2026-10-05": 445, "2026-10-06": 445, "2026-10-07": 445, "2026-10-08": 370, "2026-10-09": 270 }, 
+            3: { "2026-10-03": 205, "2026-10-04": 265, "2026-10-05": 265, "2026-10-06": 265, "2026-10-07": 265, "2026-10-08": 210, "2026-10-09": 185 }, 
+            4: { "2026-10-03": 105, "2026-10-04": 130, "2026-10-05": 130, "2026-10-06": 130, "2026-10-07": 130, "2026-10-08": 110, "2026-10-09": 85 }, 
+            5: { "2026-10-03": 120, "2026-10-04": 150, "2026-10-05": 150, "2026-10-06": 150, "2026-10-07": 150, "2026-10-08": 125, "2026-10-09": 105 }, 
+            6: { "2026-10-03": 35, "2026-10-04": 40, "2026-10-05": 40, "2026-10-06": 40, "2026-10-07": 40, "2026-10-08": 35, "2026-10-09": 25 }, 
+            7: { "2026-10-03": 160, "2026-10-04": 200, "2026-10-05": 200, "2026-10-06": 200, "2026-10-07": 200, "2026-10-08": 170, "2026-10-09": 130 }, 
+            8: { "2026-10-03": 145, "2026-10-04": 180, "2026-10-05": 180, "2026-10-06": 180, "2026-10-07": 180, "2026-10-08": 155, "2026-10-09": 120 }, 
+            9: { "2026-10-01": 122, "2026-10-02": 122, "2026-10-03": 97, "2026-10-04": 122, "2026-10-05": 122, "2026-10-06": 122, "2026-10-07": 122, "2026-10-08": 102, "2026-10-09": 79 }, 
+            10: { "2026-10-03": 39, "2026-10-04": 47, "2026-10-05": 47, "2026-10-06": 48, "2026-10-07": 49, "2026-10-08": 45, "2026-10-09": 35 }, 
+            11: { "2026-10-03": 30, "2026-10-04": 30, "2026-10-05": 30, "2026-10-06": 30, "2026-10-07": 30, "2026-10-08": 30, "2026-10-09": 30 } 
+        };
+
+        let masterRoomData = []; let currentFilter = 'all'; let rawBookings = []; let rawInventory = {}; 
+        let dbCancellations = []; let legacyCancellations = [];
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) { 
+                document.getElementById('login-container').style.display = 'none'; 
+                document.getElementById('report-container').style.display = 'block'; 
+                document.getElementById('sync-status').textContent = '🟢 Connected'; 
+                document.getElementById('logout-btn').style.display = 'block';
+                startSync(); 
+            } else { 
+                document.getElementById('login-container').style.display = 'block'; 
+                document.getElementById('report-container').style.display = 'none'; 
+                document.getElementById('logout-btn').style.display = 'none';
+            }
+        });
+
+        const filterSelect = document.getElementById('hotel-filter');
+        Object.values(hotelDirectory).sort().forEach(name => { const opt = document.createElement('option'); opt.value = name; opt.textContent = name; filterSelect.appendChild(opt); });
+        filterSelect.onchange = (e) => { currentFilter = e.target.value; renderReport(); };
+
+        document.getElementById('login-submit-btn').onclick = () => {
+            const errDiv = document.getElementById('login-error');
+            if(errDiv) errDiv.style.display = 'none';
+            signInWithEmailAndPassword(auth, document.getElementById('admin-email').value, document.getElementById('admin-password').value)
+            .catch(e => {
+                if(errDiv) { errDiv.style.display = 'block'; errDiv.textContent = "Invalid email or password."; }
+                else alert("Invalid email or password.");
+            });
+        };
+        document.getElementById('logout-btn').onclick = () => signOut(auth);
+
+        // --- BULLETPROOF EXPORT ENGINE START ---
+        
+        const formatIso = (britishDate) => {
+            if (!britishDate) return '';
+            const str = String(britishDate).trim();
+            if (str === '?' || str === 'TBC' || str === '' || str.toLowerCase() === 'unknown') return '';
+            const p = str.split('/'); 
+            if (p.length !== 3) return str;
+            return `${p[2]}-${p[1]}-${p[0]}`;
+        };
+
+        const formatToDDMMM = (britishDateStr) => {
+            if (!britishDateStr) return '';
+            const str = String(britishDateStr).trim();
+            if (str === '' || str === '?' || str === 'TBC' || str.toLowerCase() === 'unknown') return str;
+            const parts = str.split('/');
+            if (parts.length !== 3) return str;
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const mIndex = parseInt(parts[1], 10) - 1;
+            if (mIndex < 0 || mIndex > 11) return str;
+            return `${parts[0]}-${months[mIndex]}-${parts[2]}`;
+        };
+
+        const calcTotalNights = (britishIn, britishOut) => {
+            if (!britishIn || !britishOut) return 0;
+            const inIso = formatIso(britishIn); const outIso = formatIso(britishOut);
+            if (!inIso || !outIso) return 0;
+            if (!String(inIso).includes('-') || !String(outIso).includes('-')) return 0;
+            
+            const [sy, sm, sd] = String(inIso).split('-').map(Number);
+            const [ey, em, ed] = String(outIso).split('-').map(Number);
+            if (isNaN(sy) || isNaN(sm) || isNaN(sd) || isNaN(ey) || isNaN(em) || isNaN(ed)) return 0;
+
+            const inDate = new Date(sy, sm-1, sd); 
+            const outDate = new Date(ey, em-1, ed);
+            const diffTime = Math.abs(outDate - inDate);
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        };
+
+        const getDatesInRange = (startIso, endIso) => {
+            if (!startIso || !endIso) return [];
+            const sStart = String(startIso); const sEnd = String(endIso);
+            if (!sStart.includes('-') || !sEnd.includes('-')) return [];
+            
+            const [sy, sm, sd] = sStart.split('-').map(Number);
+            const [ey, em, ed] = sEnd.split('-').map(Number);
+            if (isNaN(sy) || isNaN(sm) || isNaN(sd) || isNaN(ey) || isNaN(em) || isNaN(ed)) return [];
+            
+            const dates = []; let curr = new Date(sy, sm-1, sd); const stop = new Date(ey, em-1, ed);
+            let loopGuard = 0; 
+            while (curr < stop && loopGuard < 100) {
+                dates.push(`${curr.getFullYear()}-${String(curr.getMonth()+1).padStart(2,'0')}-${String(curr.getDate()).padStart(2,'0')}`);
+                curr.setDate(curr.getDate() + 1);
+                loopGuard++;
+            }
+            return dates;
+        };
+
+        const downloadCSV = (csvContent, filename) => {
+            const BOM = String.fromCharCode(0xFEFF); 
+            const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob); 
+            const a = document.createElement('a'); 
+            a.href = url; 
+            a.download = filename; 
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+
+        const escapeCSV = (str) => '"' + String(str || '').replace(/"/g, '""') + '"';
+
+        // --- NEAT DATE FORMATTER FOR FILE NAMES (NO UNDERSCORES) ---
+        const getFormattedDate = () => {
+            const d = new Date();
+            const day = String(d.getDate()).padStart(2, '0');
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const month = months[d.getMonth()];
+            const year = d.getFullYear();
+            return `${day} ${month} ${year}`; 
+        };
+
+        // EXPORT 1: Hotel Operational Rooming List
+        document.getElementById('export-hotel-btn').onclick = () => {
+            const data = currentFilter === 'all' ? masterRoomData : masterRoomData.filter(r => r.hotel === currentFilter);
+            if(data.length === 0) return alert("No bookings to download.");
+            
+            const headers = [
+                "Hotel", "Booking Ref", "Booker First Name", "Booker Last Name", "Booker Email", "Booker Phone", "Company / Organization", "Country", 
+                "Guest 1 First Name", "Guest 1 Last Name", "Guest 2 First Name", "Guest 2 Last Name", 
+                "Pax", "Room Type", "Check-In", "Check-Out", "Total Nights", "Currency", "Daily Rate", "Billing Instructions", "Booking Grand Total", "Notes"
+            ];
+            
+            const CRLF = String.fromCharCode(13, 10);
+            const csvRows = [headers.map(escapeCSV).join(",")];
+            
+            data.forEach(r => {
+                const occ = (r.g2First || r.g2Last) ? 2 : 1;
+                const checkIn = formatToDDMMM(r.arrival);
+                const checkOut = formatToDDMMM(r.departure);
+                const nights = calcTotalNights(r.arrival, r.departure);
+                const billing = "Guest to pay all charges via secure link";
+                
+                const row = [ 
+                    r.hotel, r.ref, r.bookerFirst, r.bookerLast, r.email, r.phone !== '-' ? r.phone : '', r.company !== '-' ? r.company : '', r.country !== '-' ? r.country : '',
+                    r.g1First, r.g1Last, r.g2First, r.g2Last, 
+                    occ, r.type, checkIn, checkOut, nights, "DKK", r.pureRate, 
+                    billing, r.bookingTotalStr, r.notes !== '-' ? r.notes : ''
+                ].map(escapeCSV);
+                csvRows.push(row.join(","));
+            });
+            
+            const safeFilterName = currentFilter === 'all' ? 'All Hotels' : currentFilter.replace(/[^a-zA-Z0-9]/g, ' ');
+            downloadCSV(csvRows.join(CRLF), `ProLuxe Hotel Rooming List ${safeFilterName} ${getFormattedDate()}.csv`);
+        };
+
+        // EXPORT 2: IBA Client Master Report 
+        document.getElementById('export-iba-btn').onclick = () => {
+            const data = currentFilter === 'all' ? masterRoomData : masterRoomData.filter(r => r.hotel === currentFilter);
+            if(data.length === 0) return alert("No bookings to download.");
+            
+            const headers = [
+                "Booking Date", "Booking Ref", "Booker First Name", "Booker Last Name", "Booker Email", "Booker Phone", "Company / Organization", "Country", "Hotel", "Room #",
+                "Guest 1 First Name", "Guest 1 Last Name", "Guest 2 First Name", "Guest 2 Last Name", 
+                "Pax", "Room Type", "Check-In", "Check-Out", "Total Nights", "Currency", "Daily Rate", "Est. Room Total", "Total Payable (Entire Booking)", "Notes"
+            ];
+            
+            const CRLF = String.fromCharCode(13, 10);
+            const csvRows = [headers.map(escapeCSV).join(",")];
+            
+            data.forEach(r => {
+                const occ = (r.g2First || r.g2Last) ? 2 : 1;
+                const checkIn = formatToDDMMM(r.arrival);
+                const checkOut = formatToDDMMM(r.departure);
+                const nights = calcTotalNights(r.arrival, r.departure);
+                
+                let roomTotal = (nights > 0 && r.pureRate > 0) ? (nights * r.pureRate) : '';
+
+                const row = [ 
+                    r.bookingDate, r.ref, r.bookerFirst, r.bookerLast, r.email, r.phone !== '-' ? r.phone : '', r.company !== '-' ? r.company : '', r.country !== '-' ? r.country : '', r.hotel, r.roomIndex,
+                    r.g1First, r.g1Last, r.g2First, r.g2Last, 
+                    occ, r.type, checkIn, checkOut, nights, "DKK", 
+                    r.pureRate, roomTotal, r.bookingTotalStr, r.notes !== '-' ? r.notes : ''
+                ].map(escapeCSV);
+                csvRows.push(row.join(","));
+            });
+            
+            const safeFilterName = currentFilter === 'all' ? 'All Hotels' : currentFilter.replace(/[^a-zA-Z0-9]/g, ' ');
+            downloadCSV(csvRows.join(CRLF), `IBA Client Master Report ${safeFilterName} ${getFormattedDate()}.csv`);
+        };
+
+        // EXPORT 3: Weekly Pickup Report (IBA Overview)
+        document.getElementById('export-pickup-btn').onclick = () => {
+            // Recalculate dynamic dates to build the true capacity vs pickup limits
+            let dynamicDates = new Set();
+            Object.values(dailyContractLimits).forEach(limits => Object.keys(limits).forEach(d => { if(d !== 'default') dynamicDates.add(d); }));
+            masterRoomData.forEach(r => {
+                const isoIn = formatIso(r.arrival);
+                const isoOut = formatIso(r.departure);
+                if(isoIn && isoOut) {
+                    const dates = getDatesInRange(isoIn, isoOut);
+                    dates.forEach(d => dynamicDates.add(d));
+                }
+            });
+            Object.values(rawInventory).forEach(occ => Object.entries(occ).forEach(([d, count]) => { 
+                if(count > 0 && d.length === 10 && d.indexOf('-') === 4) dynamicDates.add(d); 
+            }));
+            const displayDates = Array.from(dynamicDates).sort();
+
+            const headers = ["Hotel", "Peak Contracted Rooms", "Peak Booked Rooms (Pick Up)", "Peak Rooms Remaining", "Percentage Sold"];
+            const CRLF = String.fromCharCode(13, 10);
+            const csvRows = [headers.map(escapeCSV).join(",")];
+
+            let pickupStats = [];
+            Object.keys(hotelDirectory).forEach(id => {
+                const hotelName = hotelDirectory[id];
+                if (currentFilter !== 'all' && hotelName !== currentFilter) return;
+
+                const occ = rawInventory[`hotel_${id}`] || {}; 
+                const l = dailyContractLimits[id] || {};
+                
+                let maxC = 0; let maxB = 0; 
+                displayDates.forEach(date => { 
+                    if(l[date] !== undefined && l[date] > maxC) maxC = l[date]; 
+                    if((occ[date] || 0) > maxB) maxB = occ[date] || 0; 
+                });
+                
+                const perc = maxC > 0 ? Math.round((maxB/maxC) * 100) : 0;
+                const remaining = maxC - maxB;
+                
+                pickupStats.push({ name: hotelName, contracted: maxC, booked: maxB, remaining: remaining, pct: perc });
+            });
+
+            // Sort alphabetically for clean presentation
+            pickupStats.sort((a, b) => a.name.localeCompare(b.name));
+
+            pickupStats.forEach(s => {
+                const row = [s.name, s.contracted, s.booked, s.remaining, `${s.pct}%`].map(escapeCSV);
+                csvRows.push(row.join(","));
+            });
+
+            const safeFilterName = currentFilter === 'all' ? 'All Hotels' : currentFilter.replace(/[^a-zA-Z0-9]/g, ' ');
+            downloadCSV(csvRows.join(CRLF), `IBA Weekly Pickup Summary ${safeFilterName} ${getFormattedDate()}.csv`);
+        };
+
+        // EXPORT 4: Nightly Inventory Grid (NEW)
+        document.getElementById('export-inventory-btn').onclick = () => {
+            let dynamicDates = new Set();
+            Object.values(dailyContractLimits).forEach(limits => Object.keys(limits).forEach(d => { if(d !== 'default') dynamicDates.add(d); }));
+            masterRoomData.forEach(r => {
+                const isoIn = formatIso(r.arrival);
+                const isoOut = formatIso(r.departure);
+                if(isoIn && isoOut) {
+                    const dates = getDatesInRange(isoIn, isoOut);
+                    dates.forEach(d => dynamicDates.add(d));
+                }
+            });
+            Object.values(rawInventory).forEach(occ => Object.entries(occ).forEach(([d, count]) => { 
+                if(count > 0 && d.length === 10 && d.indexOf('-') === 4) dynamicDates.add(d); 
+            }));
+            const displayDates = Array.from(dynamicDates).sort();
+
+            // Create headers with nicely formatted dates (e.g., 03 Oct)
+            const dateHeaders = displayDates.map(d => {
+                const p = String(d).split('-'); 
+                const m = p[1] === '10' ? 'Oct' : (p[1] === '09' ? 'Sep' : (p[1] === '11' ? 'Nov' : p[1]));
+                return `${p[2]} ${m}`;
+            });
+            
+            const headers = ["Hotel", ...dateHeaders];
+            const CRLF = String.fromCharCode(13, 10);
+            const csvRows = [headers.map(escapeCSV).join(",")];
+
+            // Loop through each hotel and build the exact grid you see on screen
+            Object.keys(hotelDirectory).sort((a,b) => hotelDirectory[a].localeCompare(hotelDirectory[b])).forEach(id => {
+                const hotelName = hotelDirectory[id]; 
+                if(currentFilter !== 'all' && hotelName !== currentFilter) return;
+                
+                const occ = rawInventory[`hotel_${id}`] || {}; 
+                const l = dailyContractLimits[id] || {};
+                
+                let row = [hotelName];
+                
+                displayDates.forEach(date => {
+                    const b = occ[date] || 0; 
+                    const limit = l[date]; 
+                    const isC = limit !== undefined;
+                    
+                    if(!isC && b === 0) {
+                        row.push("N/A");
+                    } else if (!isC && b > 0) {
+                        row.push(`${b} / 0 (Override)`);
+                    } else { 
+                        const rem = limit - b; 
+                        row.push(`${b} / ${limit} (${rem} left)`); 
+                    }
+                });
+                
+                csvRows.push(row.map(escapeCSV).join(","));
+            });
+
+            const safeFilterName = currentFilter === 'all' ? 'All Hotels' : currentFilter.replace(/[^a-zA-Z0-9]/g, ' ');
+            downloadCSV(csvRows.join(CRLF), `ProLuxe Nightly Inventory ${safeFilterName} ${getFormattedDate()}.csv`);
+        };
+        // --- BULLETPROOF EXPORT ENGINE END ---
+
+        function startSync() {
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'bookings'), (snap) => { 
+                rawBookings = []; 
+                dbCancellations = [];
+                snap.forEach(d => {
+                    const data = d.data();
+                    if(data.IsCancellation) {
+                        dbCancellations.push(data); 
+                    } else if(!data.Archived) {
+                        rawBookings.push(data); 
+                    }
+                }); 
+                renderReport(); 
+            });
+            
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'inventory'), (snap) => { rawInventory = {}; snap.forEach(d => rawInventory[d.id] = d.data().dailyOccupancy || {}); renderReport(); });
+            
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'cancellations'), (snap) => { 
+                legacyCancellations = []; 
+                snap.forEach(d => legacyCancellations.push(d.data())); 
+                renderReport(); 
+            }, (err) => { console.warn("Legacy folder blocked, proceeding via secure bookings route."); });
+        }
+
+        function renderReport() {
+            try {
+                // FULL CONTRACTED RATES DICTIONARY FOR AUTO-RECOVERY
+                const roomRates = {
+                    "Crowne Plaza Copenhagen Towers": { "Standard (Single Occupancy)": 1395, "Standard (Double Occupancy)": 1595 },
+                    "AC Hotel Bella Sky Copenhagen": { "Run of House (Single Occupancy)": 1575, "Run of House (Double Occupancy)": 1775 },
+                    "Scandic Spectrum": { "Standard Double (Single)": 1595, "Standard Double (Double)": 1795, "King Superior (Single)": 1695, "King Superior (Double)": 1895 },
+                    "Scandic Copenhagen": { "Superior (Single Occupancy)": 1670, "Superior (Double Occupancy)": 1870 },
+                    "25 Hours Hotel Indre By": { "Run of House (Single)": 1900, "Run of House (Double)": 2070 },
+                    "Scandic Palace Hotel": { "Superior (Single Occupancy)": 2195, "Superior (Double Occupancy)": 2395 },
+                    "Copenhagen Marriott Hotel": { "Run of House (Single)": 2445, "Run of House (Double)": 2645, "Deluxe Water View (Single)": 3200, "Deluxe Water View (Double)": 3400 },
+                    "Admiral Hotel": { "Standard (Single Occupancy)": 2490, "Standard (Double Occupancy)": 2945 },
+                    "1 Hotel Copenhagen": { "Run of House (Single)": 3920, "Run of House (Double)": 4175 },
+                    "Villa Copenhagen": { "Superior (Single Occupancy)": 3895, "Superior (Double Occupancy)": 4095 },
+                    "Nobis Hotel Copenhagen": { "Double (Single)": 4500, "Double (Double)": 4700 }
+                };
+
+                // 1. LIVE BOOKINGS (CRASH-PROOFED & RATE RECOVERED & TOTAL CALCULATED)
+                masterRoomData = [];
+                
+                rawBookings.forEach(b => {
+                    let tempRooms = [];
+                    let bookingTotalSpend = 0;
+                    let hasCustomRates = false;
+
+                    // INCREASED TO 150 TO MATCH NEW GOD MODE
+                    for(let i=1; i<=150; i++) {
+                        const f1 = b[`Room ${i} - Guest First Name`]; 
+                        const l1 = b[`Room ${i} - Guest Last Name`] || '';
+                        const legacyG = b[`Room ${i} - Guests`];
+                        
+                        const f1Valid = typeof f1 === 'string' && f1.trim() !== '';
+                        const legacyValid = typeof legacyG === 'string' && legacyG.trim() !== '';
+                        
+                        if(f1Valid || legacyValid) {
+                            let g2First = b[`Room ${i} - Guest 2 First Name`] || ''; 
+                            let g2Last = b[`Room ${i} - Guest 2 Last Name`] || '';
+                            
+                            const actualF1 = f1Valid ? f1 : (legacyValid ? legacyG.split('&')[0].trim() : '');
+                            const actualL1 = f1Valid ? l1 : '';
+                            const primaryDisplay = f1Valid ? `${f1} ${l1}` : legacyG;
+
+                            const companyName = b[`Room ${i} - Company`] || b['Booker Company'] || b['Company'] || '-';
+                            const countryName = b['Booker Country'] || b['Country'] || '-';
+                            const phoneNum = b['Booker Phone'] || b['Phone'] || '-';
+                            const hotelName = String(b['Selected Hotel'] || 'Unassigned').trim();
+                            let gType = String(b[`Room ${i} - Room Type`] || 'TBC').trim();
+                            
+                            // ---- RATE EXTRACTOR ----
+                            let rawRate = b[`Room ${i} - Rate`] || b[`Room ${i} - Daily Rate`] || b[`Rate`] || '';
+                            let pureRateNum = 0;
+                            
+                            // Check for custom multi-line rates
+                            if(String(rawRate).includes('n')) hasCustomRates = true;
+                            
+                            // Step 1: Strip out letters/commas to find any digits saved by mistake
+                            let dbDigits = String(rawRate).replace(/D/g, '');
+                            if(dbDigits.length > 0) {
+                                pureRateNum = parseInt(dbDigits, 10);
+                            }
+                            
+                            // Step 2: Auto-Recover it from the dictionary
+                            if(pureRateNum === 0 && roomRates[hotelName]) {
+                                let hRates = roomRates[hotelName];
+                                if(hRates[gType]) {
+                                    pureRateNum = hRates[gType]; 
+                                } else {
+                                    let keys = Object.keys(hRates);
+                                    let isDouble = (g2First || g2Last || gType.toLowerCase().includes('double'));
+                                    if(keys.length > 1) {
+                                        pureRateNum = isDouble ? hRates[keys[1]] : hRates[keys[0]];
+                                    } else if(keys.length === 1) {
+                                        pureRateNum = hRates[keys[0]];
+                                    }
+                                }
+                            }
+                            
+                            // Calculate Nightly Total for the Grand Booking Cost
+                            let nights = calcTotalNights(b[`Room ${i} - Arrival`], b[`Room ${i} - Departure`]);
+                            if (pureRateNum > 0 && nights > 0) {
+                                bookingTotalSpend += (pureRateNum * nights);
+                            }
+
+                            // Step 3: Format the final outputs (DKK removed from strings)
+                            let displayRateStr = pureRateNum > 0 ? `${pureRateNum}` : 'TBC';
+                            let finalPureRate = pureRateNum > 0 ? pureRateNum : '';
+                            
+                            tempRooms.push({ 
+                                ref: b.Reference || 'N/A', hotel: hotelName, 
+                                roomIndex: i,
+                                g1First: actualF1, g1Last: actualL1, g2First: g2First, g2Last: g2Last,
+                                guestDisplay: `<strong>${primaryDisplay}</strong>${ (g2First || g2Last) ? '<br><small>+ ' + g2First + ' ' + g2Last + '</small>' : '' }`, 
+                                type: gType, arrival: b[`Room ${i} - Arrival`] || 'TBC', departure: b[`Room ${i} - Departure`] || 'TBC', 
+                                dates: `${b[`Room ${i} - Arrival`] || '?'} - ${b[`Room ${i} - Departure`] || '?'}`, 
+                                notes: b[`Room ${i} - Notes`] || '-', 
+                                displayRate: displayRateStr, 
+                                pureRate: finalPureRate,     
+                                booker: b['Booker Name'] || '-', 
+                                bookerFirst: b['Booker First Name'] || (b['Booker Name'] ? String(b['Booker Name']).split(' ')[0] : ''),
+                                bookerLast: b['Booker Last Name'] || (b['Booker Name'] ? String(b['Booker Name']).split(' ').slice(1).join(' ') : ''),
+                                email: b['Booker Email'] || '-',
+                                phone: phoneNum,
+                                company: companyName,
+                                country: countryName,
+                                bookingDate: b.Date ? new Date(b.Date).toLocaleDateString('en-GB') : '-'
+                            });
+                        }
+                    }
+
+                    // Determine final booking cost formatting (DKK removed)
+                    let finalBookingTotalStr = "";
+                    if (hasCustomRates && bookingTotalSpend === 0) finalBookingTotalStr = "Review Custom Rates";
+                    else if (hasCustomRates) finalBookingTotalStr = `${bookingTotalSpend} (+ Custom Rates)`;
+                    else finalBookingTotalStr = bookingTotalSpend > 0 ? `${bookingTotalSpend}` : "0";
+
+                    // Inject the final grand total into all the temporary rooms and push to master data
+                    tempRooms.forEach(tr => {
+                        tr.bookingTotalStr = finalBookingTotalStr;
+                        masterRoomData.push(tr);
+                    });
+                });
+                
+                masterRoomData.sort((a, b) => String(a.hotel || '').localeCompare(String(b.hotel || '')) || String(a.g1Last || '').localeCompare(String(b.g1Last || '')));
+                const fRooms = currentFilter === 'all' ? masterRoomData : masterRoomData.filter(r => r.hotel === currentFilter);
+                
+                // VISUAL TABLE RENDER (Currency column added)
+                let bh = '<table><thead><tr><th>Ref</th><th>Hotel</th><th>Guest(s)</th><th>Company / Country</th><th>Type</th><th>Dates</th><th>Currency</th><th>Rate</th><th>Notes</th></tr></thead><tbody>';
+                fRooms.forEach(r => { 
+                    const notesDisplay = r.notes !== '-' ? `<td class="notes-cell">${r.notes}</td>` : `<td>-</td>`;
+                    const compDisplay = r.company !== '-' ? `<strong>${r.company}</strong>` : '<span style="color:#aaa;">N/A</span>';
+                    const countDisplay = r.country !== '-' ? `<br><small>${r.country}</small>` : '';
+
+                    bh += `<tr>
+                        <td><span class="ref-tag">${r.ref}</span></td>
+                        <td>${r.hotel}</td>
+                        <td>${r.guestDisplay}</td>
+                        <td>${compDisplay}${countDisplay}</td>
+                        <td>${r.type}</td>
+                        <td style="white-space:nowrap;">${r.dates}</td>
+                        <td style="text-align:center; color:#666; font-size: 0.8em; vertical-align: middle;">DKK</td>
+                        <td style="white-space:nowrap; font-weight:bold; color:var(--primary-gold);">${r.displayRate}</td>
+                        ${notesDisplay}
+                    </tr>`; 
+                });
+                if(fRooms.length === 0) bh += '<tr><td colspan="9" style="text-align:center; padding:30px;">No rooms found.</td></tr>';
+                bh += '</tbody></table>'; document.getElementById('bookings-area').innerHTML = bh;
+
+            } catch(e) { console.error("Error generating master list:", e); }
+
+            // -------------------------------------------------------------
+            // SECTION 2: GRAPHS & INVENTORY GRID
+            // -------------------------------------------------------------
+            try {
+                let dynamicDates = new Set();
+                Object.values(dailyContractLimits).forEach(limits => Object.keys(limits).forEach(d => { if(d !== 'default') dynamicDates.add(d); }));
+                
+                masterRoomData.forEach(r => {
+                    const isoIn = formatIso(r.arrival);
+                    const isoOut = formatIso(r.departure);
+                    if(isoIn && isoOut) {
+                        const dates = getDatesInRange(isoIn, isoOut);
+                        dates.forEach(d => dynamicDates.add(d));
+                    }
+                });
+
+                Object.values(rawInventory).forEach(occ => Object.entries(occ).forEach(([d, count]) => { 
+                    if(count > 0 && d.length === 10 && d.indexOf('-') === 4) dynamicDates.add(d); 
+                }));
+                const displayDates = Array.from(dynamicDates).sort();
+
+                // 3. STATS CALCULATION
+                let hotelStats = [];
+                Object.keys(hotelDirectory).forEach(id => {
+                    const hotelName = hotelDirectory[id]; 
+                    const occ = rawInventory[`hotel_${id}`] || {}; 
+                    const l = dailyContractLimits[id] || {};
+                    
+                    let maxC = 0; let maxB = 0; 
+                    displayDates.forEach(date => { 
+                        if(l[date] !== undefined && l[date] > maxC) maxC = l[date]; 
+                        if((occ[date] || 0) > maxB) maxB = occ[date] || 0; 
+                    });
+                    
+                    const perc = maxC > 0 ? Math.round((maxB/maxC) * 100) : 0;
+                    hotelStats.push({ name: hotelName, pct: perc, bookedPeak: maxB, totalPeak: maxC });
+                });
+
+                // RACING GRAPH 
+                hotelStats.sort((a, b) => b.pct - a.pct); 
+                let graphHtml = '';
+                hotelStats.forEach((stat, index) => {
+                    let barColor = 'var(--primary-gold)'; if (stat.pct >= 85) barColor = '#e74c3c'; else if (stat.pct < 40) barColor = '#4caf50'; 
+                    graphHtml += `
+                    <div class="race-track-container" style="page-break-inside: avoid;">
+                        <div class="race-track-info"><span><span style="color:#aaa; display:inline-block; width: 25px;">#${index+1}</span> ${stat.name}</span><span style="color: ${barColor}">${stat.pct}% Peak Sold (${stat.bookedPeak} / ${stat.totalPeak} Rooms)</span></div>
+                        <div class="race-track"><div class="race-car-wrapper" data-target="${Math.min(stat.pct, 100)}%" style="background-color: ${barColor};"><div class="car-icon">🏎️💨</div></div><div class="finish-line">🏁</div></div>
+                    </div>`;
+                });
+                document.getElementById('racing-graph-area').innerHTML = graphHtml || '<p>No data yet.</p>';
+                setTimeout(() => { document.querySelectorAll('.race-car-wrapper').forEach(car => { car.style.width = car.getAttribute('data-target'); }); }, 100);
+
+                // STATS TABLE
+                hotelStats.sort((a, b) => a.name.localeCompare(b.name));
+                let sh = '<table><thead><tr><th>Hotel</th><th>Peak Rooms Contracted</th><th>Peak Rooms Booked</th><th>Percentage Sold</th></tr></thead><tbody>';
+                hotelStats.forEach(stat => { sh += `<tr><td><strong>${stat.name}</strong></td><td>${stat.totalPeak}</td><td>${stat.bookedPeak}</td><td>${stat.pct}%</td></tr>`; });
+                sh += '</tbody></table>'; document.getElementById('master-summary-area').innerHTML = sh;
+
+                // INVENTORY GRID 
+                let ih = '<table><thead><tr><th>Hotel</th>' + displayDates.map(d => {
+                    const p = String(d).split('-'); 
+                    const m = p[1] === '10' ? 'Oct' : (p[1] === '09' ? 'Sep' : (p[1] === '11' ? 'Nov' : p[1]));
+                    return `<th>${p[2] || '?'} ${m || '?'}</th>`;
+                }).join('') + '</tr></thead><tbody>';
+                
+                Object.keys(hotelDirectory).sort((a,b) => hotelDirectory[a].localeCompare(hotelDirectory[b])).forEach(id => {
+                    const hotelName = hotelDirectory[id]; if(currentFilter !== 'all' && hotelName !== currentFilter) return;
+                    const occ = rawInventory[`hotel_${id}`] || {}; const l = dailyContractLimits[id] || {};
+                    ih += `<tr><td><strong>${hotelName}</strong></td>`;
+                    
+                    displayDates.forEach(date => {
+                        const b = occ[date] || 0; 
+                        const limit = l[date]; 
+                        const isC = limit !== undefined;
+                        
+                        if(!isC && b === 0) {
+                            ih += `<td class="not-available">N/A</td>`;
+                        } else if (!isC && b > 0) {
+                            ih += `<td class="low-inventory" style="background:#e8f4fd; color:#2980b9; border: 1px solid #b3d4fc;">${b} / 0<br><small>Override</small></td>`;
+                        } else { 
+                            const rem = limit - b; 
+                            if (rem < 0) {
+                                ih += `<td class="low-inventory" style="background:#e8f4fd; color:#2980b9; border: 1px solid #b3d4fc; font-weight:bold;">${b} / ${limit}<br><small>Override</small></td>`;
+                            } else {
+                                const cls = rem === 0 ? 'sold-out' : (rem < 5 ? 'low-inventory' : ''); 
+                                ih += `<td class="${cls}">${b} / ${limit}<br><small>${rem} left</small></td>`; 
+                            }
+                        }
+                    });
+                    ih += '</tr>';
+                });
+                ih += '</tbody></table>'; document.getElementById('inventory-area').innerHTML = ih;
+
+            } catch(e) { console.error("Error generating graphs and inventory:", e); }
+
+            // -------------------------------------------------------------
+            // SECTION 3: CANCELLATION LEDGER
+            // -------------------------------------------------------------
+            try {
+                const mergedCancellations = [...legacyCancellations, ...dbCancellations];
+                const fCancels = currentFilter === 'all' ? mergedCancellations : mergedCancellations.filter(c => c.Hotel === currentFilter);
+                fCancels.sort((a, b) => new Date(b.CancelledAt || 0) - new Date(a.CancelledAt || 0));
+
+                let ch = '<table><thead><tr><th>Reference</th><th>Hotel</th><th>Cancelled Guest</th><th>Cancelled Dates</th><th>Admin Action Date</th></tr></thead><tbody>';
+                fCancels.forEach(c => { 
+                    const actionDate = c.CancelledAt ? new Date(c.CancelledAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Unknown';
+                    ch += `<tr><td><span class="ref-tag" style="background:#f4f4f4; color:#666;">${c.Reference || 'N/A'}</span> <span class="cancel-tag">Cancelled</span></td><td>${c.Hotel || 'Unknown'}</td><td><strong>${c.GuestName || 'Unknown'}</strong><br><small>Booker: ${c.BookerName || 'Unknown'}</small></td><td style="white-space:nowrap;">${c.Dates || '?'}</td><td style="color:#666;">${actionDate}</td></tr>`; 
+                });
+                if(fCancels.length === 0) ch += '<tr><td colspan="5" style="text-align:center; padding:30px;">No cancellations recorded yet.</td></tr>';
+                ch += '</tbody></table>'; document.getElementById('cancellations-area').innerHTML = ch;
+            } catch(e) { console.error("Error generating cancellations:", e); }
+        }
+    </script>
+</body>
+</html>

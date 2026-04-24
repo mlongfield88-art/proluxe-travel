@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBA 2026 ProLuxe Travel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- WORDPRESS & IFRAME STICKY FIX --- */
+        body, #page, #content, .site, .site-content, .site-inner, .entry-content, .elementor-page {
+            overflow: visible !important;
+        }
+
+        /* --- VISUAL STYLES --- */
+        :root {
+            --primary-gold: #C5A059;
+            --text-dark: #111111;
+            --text-light: #666666;
+            --bg-light: #f9f9f9;
+            --error-red: #ffdddd;
+            --error-border: #e74c3c;
+        }
+        body { margin: 0; font-family: 'Lato', sans-serif; background-color: var(--bg-light); color: var(--text-dark); transition: background 0.3s; }
+        
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        
+        .logo { 
+            font-family: 'Playfair Display', serif; 
+            font-weight: 700; 
+            font-size: 1.2rem; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            text-decoration: none; 
+            color: var(--text-dark); 
+            cursor: pointer;
+        }
+        
+        nav a { text-decoration: none; color: var(--text-dark); margin-left: 20px; font-size: 0.9rem; font-weight: 700; cursor: pointer; }
+        nav a:hover { color: var(--primary-gold); }
+
+        .hero { 
+            position: relative; height: 450px; 
+            background-image: url('https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?q=80&w=2070'); 
+            background-size: cover; background-position: center; 
+            display: flex; align-items: center; justify-content: center;
+            transition: background-image 0.5s ease-in-out;
+        }
+        
+        .hero::before { content: ""; position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.4); }
+        .hero-card { position: relative; background: white; padding: 40px; width: 100%; max-width: 600px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-radius: 4px; }
+        h1 { font-family: 'Playfair Display', serif; margin: 0 0 10px 0; font-size: 2rem; }
+        
+        .container { max-width: 1000px; margin: -50px auto 40px auto; position: relative; z-index: 10; background: white; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: 4px; }
+        .split-layout { display: grid; grid-template-columns: 1fr 1fr; }
+        .padding-box { padding: 40px; }
+        
+        .bg-gray { background: #f4f4f4; border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
+        .hidden { display: none !important; }
+
+        .sticky-summary {
+            position: -webkit-sticky; 
+            position: sticky;
+            top: 100px; 
+            align-self: start; 
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-top: 0; }
+        h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 5px; margin-top: 20px; }
+        .policy-text { font-size: 0.85rem; color: #555; line-height: 1.4; background: white; padding: 15px; margin-bottom: 15px; border-left: 3px solid #ddd; }
+        
+        .rate-list { list-style: none; padding: 0; margin: 0; }
+        .rate-list li { 
+            display: flex; justify-content: space-between; 
+            border-bottom: 1px solid #eee; padding: 12px 0; 
+            font-size: 0.95rem; color: #444;
+        }
+        .rate-list li strong { color: var(--primary-gold); }
+
+        /* --- VISUAL AVAILABILITY CALENDAR STYLES --- */
+        .calendar-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; margin-bottom: 25px; }
+        .cal-day { padding: 8px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-align: center; border: 1px solid #ddd; flex: 1 1 calc(25% - 8px); min-width: 60px; box-sizing: border-box; }
+        .cal-available { background-color: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+        .cal-limited { background-color: #fff8e1; color: #f57f17; border-color: #ffe082; }
+        .cal-soldout { background-color: #ffebee; color: #c62828; border-color: #ef9a9a; opacity: 0.6; text-decoration: line-through; }
+        .cal-day small { display: block; font-size: 0.65rem; font-weight: normal; margin-top: 2px; text-decoration: none !important; }
+
+        .btn-primary { 
+            background: black; color: white; border: none; padding: 15px 30px; 
+            width: 100%; margin-top: 20px; cursor: pointer; 
+            text-transform: uppercase; letter-spacing: 1px; font-weight: bold; transition: 0.3s;
+        }
+        .btn-primary:hover { background: var(--primary-gold); }
+        .btn-disabled { background: #ccc; cursor: not-allowed; }
+
+        .group-message {
+            background-color: #eef2f5;
+            border: 1px solid #ccd1d5;
+            padding: 15px;
+            font-size: 0.85rem;
+            color: #333;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+        .group-message a { color: var(--primary-gold); font-weight: bold; text-decoration: none; }
+
+        .room-block { border-top: 1px dashed #ccc; padding-top: 20px; margin-top: 20px; }
+        .room-title { font-family: 'Playfair Display', serif; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; color: var(--primary-gold); }
+        
+        .helper-link {
+            font-size: 0.75rem;
+            color: var(--primary-gold);
+            text-decoration: underline;
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: normal;
+            font-family: 'Lato', sans-serif;
+        }
+        .helper-link:hover { color: black; }
+
+        select, input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; font-family: 'Lato', sans-serif; box-sizing: border-box; transition: all 0.3s; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
+        
+        input:required, select:required { border-left: 3px solid var(--primary-gold); }
+        .input-error { border: 2px solid var(--error-border) !important; background-color: var(--error-red) !important; }
+
+        input[type="date"] { position: relative; cursor: pointer; }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%; height: 100%; opacity: 0; cursor: pointer;
+        }
+
+        .date-row { display: flex; gap: 15px; margin-top: 0px; padding: 15px; background: #fff; border: 1px solid #eee; margin-bottom: 5px; }
+        .date-group { flex: 1; }
+
+        iframe { width: 100%; height: 100%; border: 0; min-height: 600px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
+
+        .summary-room-item { background: #fff; padding: 15px; border: 1px solid #eee; margin-bottom: 10px; border-radius: 4px; font-size: 0.9rem; }
+        .summary-room-item strong { color: var(--primary-gold); display: block; margin-bottom: 5px; border-bottom: 1px solid #f4f4f4; padding-bottom: 5px; }
+        .summary-room-item span { display: block; margin-bottom: 3px; }
+
+        .msg-box { padding: 15px; border-radius: 4px; margin-top: 20px; font-size: 0.9rem; text-align: center; }
+        .msg-sold-out { background: #ffebee; color: #c62828; border: 1px solid #c62828; }
+        
+        #form-error-msg { transition: all 0.3s; color: #d32f2f; font-weight: bold; margin-bottom: 15px; text-align: center; border-radius: 4px; }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; flex-direction: column; gap: 15px; }
+            .hero { height: 350px; }
+            .container { margin-top: 0; width: 95%; }
+            .split-layout { grid-template-columns: 1fr; } 
+            .padding-box { padding: 25px; }
+            .date-row { flex-direction: column; gap: 0; } 
+            .sticky-summary { position: static; max-height: none; } 
+        }
+
+        /* --- COOKIE CONSENT BANNER --- */
+        .cookie-banner {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+            background: #1a1a1a; color: #f0f0f0;
+            padding: 20px 30px; display: flex; align-items: center; justify-content: space-between;
+            gap: 20px; box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+            font-size: 0.88rem; line-height: 1.5;
+        }
+        .cookie-banner a { color: var(--primary-gold); text-decoration: underline; }
+        .cookie-banner-buttons { display: flex; gap: 10px; flex-shrink: 0; }
+        .cookie-btn {
+            padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;
+            font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .cookie-btn-accept { background: var(--primary-gold); color: white; }
+        .cookie-btn-necessary { background: transparent; color: #ccc; border: 1px solid #555; }
+        .cookie-banner.hidden { display: none; }
+        @media (max-width: 768px) {
+            .cookie-banner { flex-direction: column; text-align: center; padding: 15px; }
+        }
+
+        /* --- FOOTER --- */
+        .site-footer {
+            background: #f4f4f4; border-top: 1px solid #eee;
+            padding: 20px 40px; text-align: center;
+            font-size: 0.8rem; color: #888;
+        }
+        .site-footer a { color: var(--primary-gold); text-decoration: none; }
+        .site-footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="https://www.proluxetravels.com" class="logo">ProLuxe Travel</a>
+        <nav>
+            <a href="#" onclick="location.reload()">HOME</a>
+            <a href="https://www.ibanet.org/conference-details/CONF2635" target="_blank">IBA 2026</a>
+            <a href="mailto:IBA2026@proluxetravels.com">CONTACT</a>
+        </nav>
+    </header>
+
+    <div id="hero-section" class="hero">
+        <div class="hero-card">
+            <h1>IBA Conference 2026</h1>
+            <p>Exclusive rates for conference attendees at Copenhagen's finest hotels.</p>
+            <select id="hotel-selector">
+                <option value="" disabled selected>Select Your Hotel</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="step-2-details" class="container split-layout hidden">
+        <div class="padding-box">
+            <h2 id="display-name">Select a Hotel</h2>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="margin-top:0;">Available Rates</h3>
+                <ul id="rate-list-display" class="rate-list"></ul>
+                <div style="font-size: 0.8rem; color: #888; margin-top: 10px;">* All rates include Breakfast & VAT. Prices shown per night.</div>
+            </div>
+            
+            <div id="availability-visualizer"></div>
+
+            <div class="bg-gray" style="padding: 20px; margin-top: 20px;">
+                <h3>Booking Policy</h3>
+                <div class="policy-text" id="policy-text">Loading policy...</div>
+                <div class="group-message" style="margin-bottom: 15px;">
+                    For 10 rooms and more please contact ProLuxe Travel: <a href="mailto:IBA2026@proluxetravels.com">IBA2026@proluxetravels.com</a>
+                </div>
+                <div style="margin-top: 15px;">
+                    <input type="checkbox" id="policy-check" style="width: auto;">
+                    <label for="policy-check" style="display: inline;">I accept the booking and cancellation policy</label>
+                </div>
+                <div style="margin-top: 10px;">
+                    <input type="checkbox" id="data-consent-check" style="width: auto;">
+                    <label for="data-consent-check" style="display: inline;">I consent to my data being used to process this booking. See our <a href="https://www.proluxetravels.com/terms-and-conditions/" target="_blank" style="color: var(--primary-gold);">Privacy Policy</a></label>
+                </div>
+                <button id="proceed-btn" class="btn-primary" onclick="goToGuestDetails()">Proceed to Booking</button>
+                <div id="hotel-msg-area"></div>
+                <p id="policy-error" style="color: red; font-size: 0.8rem; display: none; margin-top: 10px;">* Please accept both the booking policy and data processing consent to proceed.</p>
+            </div>
+        </div>
+        <div class="bg-gray" style="padding:0;">
+            <iframe id="dynamic-map" src="" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <div id="step-3-form" class="container split-layout hidden">
+        <div class="padding-box">
+            <h2>Guest Details</h2>
+            <p style="color: #666;">Please enter details for all guests to finalise the reservation.</p>
+            <label>Number of Rooms *</label>
+            <select id="room-count" onchange="updateGuestFields()">
+                <option value="1">1 Room</option>
+                <option value="2">2 Rooms</option>
+                <option value="3">3 Rooms</option>
+                <option value="4">4 Rooms</option>
+                <option value="5">5 Rooms</option>
+                <option value="6">6 Rooms</option>
+                <option value="7">7 Rooms</option>
+                <option value="8">8 Rooms</option>
+                <option value="9">9 Rooms</option>
+            </select>
+            
+            <div id="booker-section" style="background: #f9f9f9; padding: 20px; border: 1px solid #eee; margin-bottom: 25px;">
+                <div id="booker-title" class="room-title">Booker / Main Contact</div>
+                <div class="date-row">
+                    <div class="date-group"><label>First Name *</label><input type="text" id="main-first" required oninput="window.updateSummary()"></div>
+                    <div class="date-group"><label>Last Name *</label><input type="text" id="main-last" required oninput="window.updateSummary()"></div>
+                </div>
+                <label>Company Name *</label><input type="text" id="main-firm" required oninput="window.updateSummary()">
+                <label>Contact Number *</label><input type="text" id="main-phone" required>
+                <label>Contact Email *</label><input type="email" id="main-email" required>
+                <label>Country of Residence *</label>
+                <select id="main-country" required></select>
+            </div>
+            
+            <div id="all-guests-container"></div>
+            
+            <div id="form-error-msg"></div>
+            
+            <button id="submit-btn" class="btn-primary" onclick="submitBooking()">Submit Request</button>
+        </div>
+        <div class="bg-gray padding-box sticky-summary">
+            <h3>Your Request Summary</h3>
+            <p><strong>Hotel:</strong> <span id="summary-hotel">...</span></p>
+            <div id="dynamic-rooms-summary"></div>
+        </div>
+    </div>
+
+    <div id="step-4-success" class="container hidden">
+        <div class="padding-box" style="text-align: center;">
+            <div style="font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary-gold); margin-bottom: 10px;">Thank You</div>
+            <p id="success-message" style="font-size: 1.2rem; font-weight: bold; color: #333;"></p>
+            <div id="next-steps-container" style="background: #f9f9f9; padding: 30px; border: 1px solid #eee; margin: 30px 0; text-align: left;"></div>
+            <p>Reference: <strong id="dynamic-ref">#...</strong></p>
+            <button class="btn-primary" onclick="location.reload()" style="max-width: 250px; margin-top:20px;">Return to Home</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, doc, runTransaction, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // LIVE Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD05JCADypvwknCwtu05rfz30wD4pmFjYs",
+            authDomain: "proluxe-iba-2026.firebaseapp.com",
+            projectId: "proluxe-iba-2026",
+            storageBucket: "proluxe-iba-2026.firebasestorage.app",
+            messagingSenderId: "669424250636",
+            appId: "1:669424250636:web:e36026b5a97a5ec158e329",
+            measurementId: "G-J56TF69MWM"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = "iba-2026-portal"; 
+
+        let currentUser = null;
+        window.liveInventory = {}; 
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'inventory'), (snap) => {
+                    snap.forEach(d => { window.liveInventory[d.id] = d.data().dailyOccupancy || {}; });
+                    checkInitialAvailability();
+                    renderAvailabilityCalendar(); // Re-draw calendar on live changes!
+                });
+            }
+        });
+        signInAnonymously(auth);
+
+        // CONFIG DATA
+        const FORMSPREE_ENDPOINT = "https://formspree.io/f/xojneppb"; 
+        const countryList = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Somalia", "South Africa", "South Korea", "Spain", "Sri Lanka", "Sudan", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"];
+        const universalPolicy = "<strong>Payment & Cancellation:</strong> Full payment is required 30 days prior to arrival. Free cancellation is permitted up to this 30-day deadline.";
+
+        const hotels = [
+            { id: 1, name: "Crowne Plaza Copenhagen Towers", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 17, "2026-10-04": 42, "2026-10-05": 42, "2026-10-06": 42, "2026-10-07": 42, "2026-10-08": 17, "2026-10-09": 17, "default": 42 }, rooms: [{ name: "Standard (Single Occupancy)", rate: "1395" }, { name: "Standard (Double Occupancy)", rate: "1595" }] },
+            { id: 2, name: "AC Hotel Bella Sky Copenhagen", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 345, "2026-10-04": 445, "2026-10-05": 445, "2026-10-06": 445, "2026-10-07": 445, "2026-10-08": 370, "2026-10-09": 270, "default": 445 }, rooms: [{ name: "Run of House (Single Occupancy)", rate: "1575" }, { name: "Run of House (Double Occupancy)", rate: "1775" }] },
+            { id: 3, name: "Scandic Spectrum", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 205, "2026-10-04": 265, "2026-10-05": 265, "2026-10-06": 265, "2026-10-07": 265, "2026-10-08": 210, "2026-10-09": 185, "default": 265 }, rooms: [{ name: "Standard Double (Single)", rate: "1595" }, { name: "Standard Double (Double)", rate: "1795" }, { name: "King Superior (Single)", rate: "1695" }, { name: "King Superior (Double)", rate: "1895" }] },
+            { id: 4, name: "Scandic Copenhagen", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 105, "2026-10-04": 130, "2026-10-05": 130, "2026-10-06": 130, "2026-10-07": 130, "2026-10-08": 110, "2026-10-09": 85, "default": 130 }, rooms: [{ name: "Superior (Single Occupancy)", rate: "1670" }, { name: "Superior (Double Occupancy)", rate: "1870" }] },
+            { id: 5, name: "25 Hours Hotel Indre By", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 120, "2026-10-04": 150, "2026-10-05": 150, "2026-10-06": 150, "2026-10-07": 150, "2026-10-08": 125, "2026-10-09": 105, "default": 150 }, rooms: [{ name: "Run of House (Single)", rate: "1900" }, { name: "Run of House (Double)", rate: "2070" }] },
+            { id: 6, name: "Scandic Palace Hotel", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 21, "2026-10-04": 26, "2026-10-05": 26, "2026-10-06": 26, "2026-10-07": 26, "2026-10-08": 21, "2026-10-09": 11, "default": 26 }, rooms: [{ name: "Superior (Single Occupancy)", rate: "2195" }, { name: "Superior (Double Occupancy)", rate: "2395" }] },
+            { id: 7, name: "Copenhagen Marriott Hotel", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 160, "2026-10-04": 200, "2026-10-05": 200, "2026-10-06": 200, "2026-10-07": 200, "2026-10-08": 170, "2026-10-09": 130, "default": 200 }, rooms: [{ name: "Run of House (Single)", rate: "2445" }, { name: "Run of House (Double)", rate: "2645" }, { name: "Deluxe Water View (Single)", rate: "3200" }, { name: "Deluxe Water View (Double)", rate: "3400" }] },
+            { id: 8, name: "Admiral Hotel", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 145, "2026-10-04": 180, "2026-10-05": 180, "2026-10-06": 180, "2026-10-07": 180, "2026-10-08": 155, "2026-10-09": 120, "default": 180 }, rooms: [{ name: "Standard (Single Occupancy)", rate: "2490" }, { name: "Standard (Double Occupancy)", rate: "2945" }] },
+            { id: 9, name: "1 Hotel Copenhagen", contractStart: "2026-10-01", contractEnd: "2026-10-10", dailyLimits: { "2026-10-01": 122, "2026-10-02": 122, "2026-10-03": 97, "2026-10-04": 122, "2026-10-05": 122, "2026-10-06": 122, "2026-10-07": 122, "2026-10-08": 102, "2026-10-09": 79, "default": 122 }, rooms: [{ name: "Run of House (Single)", rate: "3920" }, { name: "Run of House (Double)", rate: "4175" }] },
+            { id: 10, name: "Villa Copenhagen", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 39, "2026-10-04": 47, "2026-10-05": 47, "2026-10-06": 48, "2026-10-07": 49, "2026-10-08": 45, "2026-10-09": 35, "default": 50 }, rooms: [{ name: "Superior (Single Occupancy)", rate: "3895" }, { name: "Superior (Double Occupancy)", rate: "4095" }] },
+            { id: 11, name: "Nobis Hotel Copenhagen", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 30, "2026-10-04": 30, "2026-10-05": 30, "2026-10-06": 30, "2026-10-07": 30, "2026-10-08": 30, "2026-10-09": 30, "default": 30 }, rooms: [{ name: "Double (Single)", rate: "4500" }, { name: "Double (Double)", rate: "4700" }] }
+        ];
+
+        const mainCountrySelect = document.getElementById('main-country');
+        countryList.forEach(c => { let o = document.createElement('option'); o.value = c; o.textContent = c; mainCountrySelect.appendChild(o); });
+
+        let selectedHotel = null;
+        const selector = document.getElementById('hotel-selector');
+        hotels.sort((a,b) => a.name.localeCompare(b.name)).forEach(h => { let o = document.createElement('option'); o.value = h.id; o.textContent = h.name; selector.appendChild(o); });
+
+        // --- TIMEZONE AGNOSTIC DATE HELPERS ---
+        window.formatDateToBritish = function(isoDateStr) {
+            if (!isoDateStr) return "...";
+            const parts = isoDateStr.split('-');
+            if(parts.length !== 3) return isoDateStr;
+            return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
+
+        const getDatesInRange = (startStr, endStr) => {
+            const dates = [];
+            const [sy, sm, sd] = startStr.split('-').map(Number);
+            let curr = new Date(sy, sm - 1, sd);
+            
+            const [ey, em, ed] = endStr.split('-').map(Number);
+            const stop = new Date(ey, em - 1, ed);
+            
+            while (curr < stop) {
+                const y = curr.getFullYear();
+                const m = String(curr.getMonth() + 1).padStart(2, '0');
+                const d = String(curr.getDate()).padStart(2, '0');
+                dates.push(`${y}-${m}-${d}`);
+                curr.setDate(curr.getDate() + 1);
+            }
+            return dates;
+        };
+
+        // --- NEW: VISUAL AVAILABILITY CALENDAR BUILDER ---
+        window.renderAvailabilityCalendar = () => {
+            if(!selectedHotel) return;
+            const hotelId = `hotel_${selectedHotel.id}`;
+            const dailyOcc = window.liveInventory[hotelId] || {};
+            const allDates = getDatesInRange(selectedHotel.contractStart, selectedHotel.contractEnd);
+            
+            let html = `
+                <div style="border-top: 2px solid var(--primary-gold); margin-top: 30px; padding-top: 20px;">
+                    <h3 style="margin-top:0;">Nightly Availability</h3>
+                    <p style="font-size: 0.85rem; color:#666; margin-top:0;">Select dates where rooms are available. (Check-in nights)</p>
+                    <div class="calendar-grid">
+            `;
+            
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            
+            allDates.forEach(date => {
+                const limit = selectedHotel.dailyLimits[date] || selectedHotel.dailyLimits["default"];
+                const booked = dailyOcc[date] || 0;
+                const rem = limit - booked;
+                
+                const dParts = date.split('-');
+                const displayDate = `${dParts[2]} ${monthNames[parseInt(dParts[1], 10) - 1]}`;
+                
+                if (rem <= 0) {
+                    html += `<div class="cal-day cal-soldout">${displayDate}<br><small>Sold Out</small></div>`;
+                } else if (rem <= 5) {
+                    html += `<div class="cal-day cal-limited">${displayDate}<br><small>Only ${rem} Left</small></div>`;
+                } else {
+                    html += `<div class="cal-day cal-available">${displayDate}<br><small>Available</small></div>`;
+                }
+            });
+            
+            html += '</div></div>';
+            document.getElementById('availability-visualizer').innerHTML = html;
+        };
+
+        function checkInitialAvailability() {
+            if(!selectedHotel) return;
+            const hotelId = `hotel_${selectedHotel.id}`;
+            const dailyOcc = window.liveInventory[hotelId] || {};
+            let hasAnyRoom = false;
+            const allDates = getDatesInRange(selectedHotel.contractStart, selectedHotel.contractEnd);
+            allDates.forEach(date => {
+                const limit = selectedHotel.dailyLimits[date] || selectedHotel.dailyLimits["default"];
+                if((dailyOcc[date] || 0) < limit) hasAnyRoom = true;
+            });
+            const msgArea = document.getElementById('hotel-msg-area');
+            const proceedBtn = document.getElementById('proceed-btn');
+            msgArea.innerHTML = '';
+            if(!hasAnyRoom) { proceedBtn.classList.add('hidden'); msgArea.innerHTML = `<div class="msg-box msg-sold-out">üö´ All nights sold out for this hotel</div>`; }
+            else proceedBtn.classList.remove('hidden');
+        }
+
+        selector.addEventListener('change', (e) => {
+            selectedHotel = hotels.find(h => h.id == e.target.value);
+            document.getElementById('display-name').textContent = selectedHotel.name;
+            document.getElementById('policy-text').innerHTML = universalPolicy;
+            const rl = document.getElementById('rate-list-display'); rl.innerHTML = '';
+            selectedHotel.rooms.forEach(r => { let li = document.createElement('li'); li.innerHTML = `<span>${r.name}</span> <strong>${Number(r.rate).toLocaleString()} DKK</strong>`; rl.appendChild(li); });
+            document.getElementById('dynamic-map').src = `https://maps.google.com/maps?q=${encodeURIComponent(selectedHotel.name + " Copenhagen")}&output=embed`;
+            
+            document.getElementById('step-2-details').classList.remove('hidden');
+            
+            // Build the grid & Check overall status
+            renderAvailabilityCalendar();
+            checkInitialAvailability();
+            
+            window.scrollTo({ top: document.getElementById('step-2-details').offsetTop - 50, behavior: 'smooth' });
+        });
+
+        window.enforceDateLimits = (el, roomIdx) => {
+            if (!el.value) return;
+            
+            const [vy, vm, vd] = el.value.split('-');
+            const val = new Date(vy, vm-1, vd);
+            
+            const [minY, minM, minD] = el.min.split('-');
+            const min = new Date(minY, minM-1, minD);
+            
+            const [maxY, maxM, maxD] = el.max.split('-');
+            const max = new Date(maxY, maxM-1, maxD);
+            
+            let reset = false; let msg = "";
+            if (val < min) { el.value = el.min; reset = true; msg = `Room ${roomIdx}: Dates cannot be before ${formatDateToBritish(el.min)}.`; } 
+            else if (val > max) { el.value = el.max; reset = true; msg = `Room ${roomIdx}: Dates cannot be after ${formatDateToBritish(el.max)}.`; }
+            if(reset) { showError(msg); setTimeout(() => showError(""), 6000); }
+            window.updateSummary();
+        };
+
+        const showError = (msg) => {
+            const errDiv = document.getElementById('form-error-msg');
+            errDiv.textContent = msg;
+            if(msg) { errDiv.style.backgroundColor = "#ffebee"; errDiv.style.border = "1px solid #d32f2f"; errDiv.style.padding = "10px"; errDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }); } 
+            else { errDiv.style.backgroundColor = "transparent"; errDiv.style.border = "none"; errDiv.style.padding = "0"; }
+        };
+
+        window.goToGuestDetails = () => {
+            const policyChecked = document.getElementById('policy-check').checked;
+            const dataChecked = document.getElementById('data-consent-check').checked;
+            if(!policyChecked || !dataChecked) { document.getElementById('policy-error').style.display = 'block'; return; }
+            document.getElementById('policy-error').style.display = 'none';
+            document.getElementById('summary-hotel').textContent = selectedHotel.name;
+            buildAll9Rooms();
+            updateGuestFields();
+            document.getElementById('step-2-details').classList.add('hidden'); document.getElementById('hero-section').classList.add('hidden'); document.getElementById('step-3-form').classList.remove('hidden');
+            window.scrollTo(0,0);
+        };
+
+        function buildAll9Rooms() {
+            const container = document.getElementById('all-guests-container'); container.innerHTML = '';
+            let roomOpts = selectedHotel.rooms.map(r => `<option value="${r.name}|${r.rate}">${r.name} (${Number(r.rate).toLocaleString()} DKK)</option>`).join('');
+            for(let i=1; i<=9; i++) {
+                let div = document.createElement('div'); div.id = `room-block-${i}`; div.className = "room-block hidden";
+                div.innerHTML = `
+                    <div class="room-title">Room ${i} Details</div>
+                    <div class="date-row">
+                        <div class="date-group"><label>First Name *</label><input type="text" name="Guest_First_${i}" oninput="window.updateSummary()" required></div>
+                        <div class="date-group"><label>Last Name *</label><input type="text" name="Guest_Last_${i}" oninput="window.updateSummary()" required></div>
+                    </div>
+                    <label>Company * <span class="helper-link" onclick="window.copyFirm(${i})">Copy from Booker</span></label>
+                    <input type="text" name="Guest_Firm_${i}" oninput="window.updateSummary()" required>
+                    <label>Room Type *</label>
+                    <select name="Room_Type_${i}" onchange="window.toggleGuest2(${i}); window.updateSummary();" required>${roomOpts}</select>
+                    <div id="guest-2-area-${i}" class="hidden" style="background:#fff7e6; padding:15px; border:1px solid #ffe58f; margin-bottom:15px; border-radius:4px;">
+                        <div class="room-title" style="font-size:0.9rem;">Second Guest (Double Room)</div>
+                        <div class="date-row" style="padding:0; border:none; margin-bottom:0;">
+                            <div class="date-group"><label>First Name *</label><input type="text" name="Guest_2_First_${i}" oninput="window.updateSummary()"></div>
+                            <div class="date-group"><label>Last Name *</label><input type="text" name="Guest_2_Last_${i}" oninput="window.updateSummary()"></div>
+                        </div>
+                    </div>
+                    <div class="date-row">
+                        <div class="date-group"><label>Check In</label><input type="date" name="In_${i}" min="${selectedHotel.contractStart}" max="${selectedHotel.contractEnd}" value="${selectedHotel.contractStart}" onchange="window.enforceDateLimits(this, ${i})" required></div>
+                        <div class="date-group"><label>Check Out</label><input type="date" name="Out_${i}" min="${selectedHotel.contractStart}" max="${selectedHotel.contractEnd}" value="${selectedHotel.contractEnd}" onchange="window.enforceDateLimits(this, ${i})" required></div>
+                    </div>
+                    ${i === 1 ? `<span class="helper-link" onclick="window.applyDatesToAll()">‚Ü≥ Apply these dates to all rooms</span>` : ''}
+                    <label style="margin-top:15px;">Accessibility Notes (Optional)</label>
+                    <textarea name="Notes_${i}" rows="2" oninput="window.updateSummary()"></textarea>
+                `;
+                container.appendChild(div);
+            }
+        }
+
+        window.toggleGuest2 = (i) => {
+            const sel = document.querySelector(`[name="Room_Type_${i}"]`).value;
+            const area = document.getElementById(`guest-2-area-${i}`);
+            const inputF = document.querySelector(`[name="Guest_2_First_${i}"]`);
+            const inputL = document.querySelector(`[name="Guest_2_Last_${i}"]`);
+            if(sel.includes("Double")) { area.classList.remove('hidden'); inputF.required = true; inputL.required = true; }
+            else { area.classList.add('hidden'); inputF.required = false; inputL.required = false; }
+        };
+
+        window.copyFirm = (i) => { document.querySelector(`[name="Guest_Firm_${i}"]`).value = document.getElementById('main-firm').value; window.updateSummary(); };
+
+        window.applyDatesToAll = () => {
+            const checkIn = document.querySelector('[name="In_1"]').value;
+            const checkOut = document.querySelector('[name="Out_1"]').value;
+            for(let i=2; i<=9; i++) {
+                document.querySelector(`[name="In_${i}"]`).value = checkIn;
+                document.querySelector(`[name="Out_${i}"]`).value = checkOut;
+            }
+            showError(""); 
+            window.updateSummary();
+        };
+
+        window.updateGuestFields = () => {
+            const count = parseInt(document.getElementById('room-count').value);
+            for(let i=1; i<=9; i++) {
+                const b = document.getElementById(`room-block-${i}`);
+                if(i <= count) b.classList.remove('hidden'); else b.classList.add('hidden');
+            }
+            if (count >= 1 && !document.querySelector('[name="Guest_First_1"]').value) {
+                document.querySelector('[name="Guest_First_1"]').value = document.getElementById('main-first').value;
+                document.querySelector('[name="Guest_Last_1"]').value = document.getElementById('main-last').value;
+                document.querySelector('[name="Guest_Firm_1"]').value = document.getElementById('main-firm').value;
+            }
+            window.updateSummary();
+        };
+
+        window.updateSummary = () => {
+            const count = parseInt(document.getElementById('room-count').value);
+            const container = document.getElementById('dynamic-rooms-summary'); container.innerHTML = '';
+            for(let i=1; i<=count; i++) {
+                const f = document.querySelector(`[name="Guest_First_${i}"]`).value || '...';
+                const l = document.querySelector(`[name="Guest_Last_${i}"]`).value || '...';
+                const t = document.querySelector(`[name="Room_Type_${i}"]`).value.split('|')[0] || '...';
+                const g2F = document.querySelector(`[name="Guest_2_First_${i}"]`).value;
+                const g2L = document.querySelector(`[name="Guest_2_Last_${i}"]`).value;
+                container.innerHTML += `<div class="summary-room-item"><strong>Room ${i}: ${t}</strong><span>Guest 1: ${f} ${l}</span>${(g2F || g2L) ? `<span>Guest 2: ${g2F} ${g2L}</span>` : ''}</div>`;
+            }
+        };
+
+        window.submitBooking = async () => {
+            const btn = document.getElementById('submit-btn');
+            showError(""); 
+            
+            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+            let firstErr = null;
+            document.querySelectorAll('input[required]:not(.hidden input), select[required]:not(.hidden select)').forEach(el => {
+                if (!el.value && !firstErr) { el.classList.add('input-error'); firstErr = el; }
+            });
+            if (firstErr) { showError("Please complete all required fields highlighted in red."); return; }
+
+            const count = parseInt(document.getElementById('room-count').value);
+            
+            const [sy, sm, sd] = selectedHotel.contractStart.split('-');
+            const startBound = new Date(sy, sm-1, sd);
+            
+            const [ey, em, ed] = selectedHotel.contractEnd.split('-');
+            const endBound = new Date(ey, em-1, ed);
+
+            for(let i=1; i<=count; i++) {
+                const ciStr = document.querySelector(`[name="In_${i}"]`).value;
+                const coStr = document.querySelector(`[name="Out_${i}"]`).value;
+                
+                const [ciY, ciM, ciD] = ciStr.split('-');
+                const ci = new Date(ciY, ciM-1, ciD);
+                
+                const [coY, coM, coD] = coStr.split('-');
+                const co = new Date(coY, coM-1, coD);
+                
+                if (ci >= co) { showError(`Room ${i}: Check-out must be after check-in.`); return; }
+                if (ci < startBound || co > endBound) { showError(`Room ${i}: Dates outside contract block.`); return; }
+            }
+
+            btn.disabled = true; btn.textContent = "Securing Daily Inventory...";
+            const ref = 'IBA-' + Math.floor(100000 + Math.random() * 900000);
+            const hotelId = `hotel_${selectedHotel.id}`;
+            const mainEmail = document.getElementById('main-email').value;
+            const mainCountry = document.getElementById('main-country').value;
+            
+            const dbPayload = { 
+                Reference: '#' + ref, 
+                "Selected Hotel": selectedHotel.name, 
+                "Total Rooms": count, 
+                Date: new Date().toISOString(), 
+                "Booker Email": mainEmail, 
+                "Booker First Name": document.getElementById('main-first').value,
+                "Booker Last Name": document.getElementById('main-last').value,
+                "Booker Name": document.getElementById('main-first').value + " " + document.getElementById('main-last').value, 
+                "Booker Company": document.getElementById('main-firm').value, 
+                "Booker Phone": document.getElementById('main-phone').value,
+                "Booker Country": mainCountry
+            };
+
+            const zapierData = new FormData();
+            zapierData.append('email', mainEmail);
+            zapierData.append('Reference', '#' + ref);
+            zapierData.append('Selected Hotel', selectedHotel.name);
+            zapierData.append('Total Rooms', count);
+            zapierData.append('Booker Name', dbPayload["Booker Name"]);
+            zapierData.append('Booker First Name', dbPayload["Booker First Name"]);
+            zapierData.append('Booker Last Name', dbPayload["Booker Last Name"]);
+            zapierData.append('Booker Company', dbPayload["Booker Company"]);
+            zapierData.append('Booker Phone', dbPayload["Booker Phone"]);
+            zapierData.append('Booker Email', mainEmail);
+            zapierData.append('Booker Country', mainCountry);
+
+            const roomsNeededPerDate = {};
+            
+            // --- NEW: DYNAMIC MAGIC TABLE COMPILER WITH PROPER HEADERS ---
+            let magicTableHTML = `
+            <table width="100%" cellpadding="10" cellspacing="0" style="border-collapse: collapse; font-family: Arial, sans-serif; min-width: 600px;">
+                <thead>
+                    <tr style="background-color: #f4f4f4; text-align: left;">
+                        <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Rm</th>
+                        <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Guest Name</th>
+                        <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Room Type</th>
+                        <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Dates</th>
+                        <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+            
+            for(let i=1; i<=count; i++) {
+                const ci = document.querySelector(`[name="In_${i}"]`).value; const co = document.querySelector(`[name="Out_${i}"]`).value;
+                const dates = getDatesInRange(ci, co); dates.forEach(d => roomsNeededPerDate[d] = (roomsNeededPerDate[d] || 0) + 1);
+                
+                const g1F = document.querySelector(`[name="Guest_First_${i}"]`).value; 
+                const g1L = document.querySelector(`[name="Guest_Last_${i}"]`).value;
+                const g2F = document.querySelector(`[name="Guest_2_First_${i}"]`).value || '';
+                const g2L = document.querySelector(`[name="Guest_2_Last_${i}"]`).value || '';
+                const gFirm = document.querySelector(`[name="Guest_Firm_${i}"]`).value;
+                const gType = document.querySelector(`[name="Room_Type_${i}"]`).value.split('|')[0];
+                const gRate = document.querySelector(`[name="Room_Type_${i}"]`).value.split('|')[1] + " DKK";
+                const notes = document.querySelector(`[name="Notes_${i}"]`).value;
+                
+                const p = `Room ${i} - `;
+                
+                // NEW: Append Master Dates based on Room 1
+                if (i === 1) {
+                    dbPayload["Arrival"] = formatDateToBritish(ci);
+                    dbPayload["Departure"] = formatDateToBritish(co);
+                    zapierData.append("Arrival", formatDateToBritish(ci));
+                    zapierData.append("Departure", formatDateToBritish(co));
+                }
+
+                // Save to DB
+                dbPayload[p+"Guest First Name"] = g1F; 
+                dbPayload[p+"Guest Last Name"] = g1L;
+                dbPayload[p+"Guest 2 First Name"] = g2F; 
+                dbPayload[p+"Guest 2 Last Name"] = g2L;
+                dbPayload[p+"Company"] = gFirm;
+                dbPayload[p+"Room Type"] = gType;
+                dbPayload[p+"Arrival"] = formatDateToBritish(ci); 
+                dbPayload[p+"Departure"] = formatDateToBritish(co);
+                dbPayload[p+"Rate"] = gRate;
+                dbPayload[p+"Notes"] = notes;
+                
+                // Construct Table Row
+                let guestDisplay = `${g1F} ${g1L}`;
+                if(g2F !== "" || g2L !== "") {
+                    guestDisplay += `<br><span style="font-size:12px; color:#555;">+ ${g2F} ${g2L}</span>`;
+                }
+
+                magicTableHTML += `
+                <tr>
+                    <td align="center" style="font-size: 13px; color: #888; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${i}</td>
+                    <td style="font-size: 14px; font-weight: bold; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${guestDisplay}</td>
+                    <td style="font-size: 13px; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${gType}</td>
+                    <td style="font-size: 13px; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${formatDateToBritish(ci)} - ${formatDateToBritish(co)}</td>
+                    <td style="font-size: 13px; font-weight: bold; color: #111111; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${gRate}</td>
+                </tr>`;
+                
+                // Pass perfectly mapped fields to Zapier
+                zapierData.append(p+"Guest First Name", g1F);
+                zapierData.append(p+"Guest Last Name", g1L);
+                zapierData.append(p+"Guest 2 First Name", g2F);
+                zapierData.append(p+"Guest 2 Last Name", g2L);
+                zapierData.append(p+"Company", gFirm);
+                zapierData.append(p+"Room Type", gType);
+                zapierData.append(p+"Arrival", formatDateToBritish(ci));
+                zapierData.append(p+"Departure", formatDateToBritish(co));
+                zapierData.append(p+"Rate", gRate);
+                zapierData.append(p+"Notes", notes);
+                
+                // Legacy formatted field to prevent breaking older zapier maps
+                zapierData.append(p+"Guests", `${g1F} ${g1L}${g2F ? ' & ' + g2F + ' ' + g2L : ''}`);
+            }
+
+            // Append the compiled Magic Table
+            magicTableHTML += `</tbody></table>`;
+            zapierData.append('Magic_Table_HTML', magicTableHTML);
+
+            try {
+                const invRef = doc(db, 'artifacts', appId, 'public', 'data', 'inventory', hotelId);
+                await runTransaction(db, async (transaction) => {
+                    const snap = await transaction.get(invRef); const currentOcc = snap.exists() ? (snap.data().dailyOccupancy || {}) : {};
+                    for (const [date, requested] of Object.entries(roomsNeededPerDate)) {
+                        const limit = selectedHotel.dailyLimits[date] || selectedHotel.dailyLimits["default"];
+                        if ((currentOcc[date] || 0) + requested > limit) throw new Error(`Sold out for ${formatDateToBritish(date)}. Request rejected.`);
+                    }
+                    for (const [date, requested] of Object.entries(roomsNeededPerDate)) currentOcc[date] = (currentOcc[date] || 0) + requested;
+                    transaction.set(invRef, { dailyOccupancy: currentOcc, hotelName: selectedHotel.name, hotelId: selectedHotel.id }, { merge: true });
+                });
+                
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'bookings'), dbPayload);
+                
+                // HIGH LATENCY PROTECTION: Await the Zapier trigger so it never fails on slow internet
+                try {
+                    await fetch(FORMSPREE_ENDPOINT, { method: 'POST', body: zapierData, headers: { 'Accept': 'application/json' } });
+                } catch(e) {
+                    console.error("Zapier Webhook Error: ", e);
+                }
+                
+                document.getElementById('success-message').textContent = `Request Confirmed at ${selectedHotel.name}.`;
+                document.getElementById('dynamic-ref').textContent = '#' + ref;
+                document.getElementById('step-3-form').classList.add('hidden'); document.getElementById('step-4-success').classList.remove('hidden'); window.scrollTo(0,0);
+            } catch (e) { showError(e.message); btn.disabled = false; btn.textContent = "Submit Request"; }
+        };
+    </script>
+
+    <!-- COOKIE CONSENT BANNER -->
+    <div id="cookie-banner" class="cookie-banner hidden">
+        <div>
+            We use essential cookies to operate this booking portal and functional cookies (Google Maps) to display hotel locations.
+            For full details, see our <a href="https://www.proluxetravels.com/terms-and-conditions/" target="_blank">Privacy Policy</a>.
+        </div>
+        <div class="cookie-banner-buttons">
+            <button class="cookie-btn cookie-btn-necessary" onclick="acceptCookies('necessary')">Necessary Only</button>
+            <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies('all')">Accept All</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        &copy; 2026 ProLuxe Travel Ltd. All rights reserved.
+        &nbsp;|&nbsp; <a href="https://www.proluxetravels.com/terms-and-conditions/" target="_blank">Privacy Policy</a>
+        &nbsp;|&nbsp; <a href="mailto:iba2026@proluxetravels.com">Contact</a>
+    </footer>
+
+    <script>
+        (function() {
+            var consent = localStorage.getItem('cookie_consent');
+            if (!consent) { document.getElementById('cookie-banner').classList.remove('hidden'); }
+        })();
+        function acceptCookies(level) {
+            localStorage.setItem('cookie_consent', level);
+            localStorage.setItem('cookie_consent_date', new Date().toISOString());
+            document.getElementById('cookie-banner').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

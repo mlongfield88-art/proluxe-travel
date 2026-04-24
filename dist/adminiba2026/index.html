@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProLuxe Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-gold: #C5A059; --primary-green: #133626; --bg-light: #f4f7f6; --text-dark: #222222; --danger-red: #e74c3c; --success-green: #27ae60; }
+        body { margin: 0; font-family: 'Lato', sans-serif; background-color: var(--bg-light); color: var(--text-dark); display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .header { width: 100%; background: var(--primary-green); color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); box-sizing: border-box; }
+        .header-title h1 { margin: 0; font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 1px; text-transform: uppercase; }
+        #login-container { max-width: 400px; margin: 100px auto; background: white; padding: 40px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+        .auth-input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .auth-btn { background: var(--primary-gold); color: white; border: none; padding: 12px 20px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 4px; text-transform: uppercase; }
+        
+        .dashboard-container { width: 100%; max-width: 1400px; background: white; margin: 40px 0; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-radius: 4px; display: none; box-sizing: border-box; }
+        .controls-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #f9f9f9; padding: 15px; border-radius: 4px; border: 1px solid #eee; }
+        .search-box { padding: 10px; width: 300px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Lato', sans-serif; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
+        th { background: #f4f4f4; text-align: left; padding: 15px; border-bottom: 2px solid #ddd; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
+        td { padding: 15px; border-bottom: 1px solid #eee; vertical-align: top; }
+        .ref-badge { background: var(--primary-green); color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; letter-spacing: 1px; }
+        .hotel-name { font-weight: bold; color: var(--primary-gold); font-size: 1.1rem; margin-bottom: 5px; }
+        
+        .room-block { background: #fafafa; border: 1px solid #eee; padding: 10px; margin-bottom: 10px; border-radius: 4px; font-size: 0.85rem; border-left: 3px solid var(--primary-gold); }
+        .btn-action-small { background: var(--primary-gold); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; margin-top: 5px; margin-right: 5px; }
+        .btn-resend { background: #2980b9; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; margin-top: 10px; }
+        .btn-cancel { background: #e74c3c; }
+        .btn-guest-email { background: var(--success-green); }
+        .btn-cancel-group { background: #c0392b; width: 100%; margin-top: 10px; border-radius: 4px; padding: 8px; color: white; font-weight: bold; text-transform: uppercase; border: none; cursor: pointer; font-size: 0.75rem; }
+
+        .hidden { display: none !important; }
+
+        /* MODAL STYLES */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-box { background: white; padding: 30px; border-radius: 4px; width: 90%; max-width: 700px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
+        .modal-box h3 { font-family: 'Playfair Display', serif; color: var(--primary-green); margin-top: 0; border-bottom: 2px solid var(--primary-gold); padding-bottom: 10px; }
+        .modal-box label { display: block; font-size: 0.8rem; font-weight: bold; color: #666; margin-top: 15px; margin-bottom: 5px; text-transform: uppercase; }
+        .modal-box input, .modal-box select, .modal-box textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-family: 'Lato', sans-serif; }
+        .modal-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px; }
+        .btn-override { background: #95a5a6; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; text-transform: uppercase; }
+        .admin-override-notice { background: #e8f4fd; border: 1px solid #b3d4fc; padding: 10px; border-radius: 4px; font-size: 0.8rem; color: #2980b9; margin-bottom: 15px; }
+        
+        .gm-room-block { background: #fdfdfd; border: 1px solid #eee; padding: 15px; border-radius: 4px; margin-bottom: 15px; border-left: 3px solid var(--primary-gold); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-title"><h1>ProLuxe Admin</h1><p style="margin:0; font-size:0.9rem; color:var(--primary-gold);">IBA 2026 - Central Reservations</p></div>
+        <div style="display: flex; align-items: center;">
+            <div id="sync-status" style="color: white; font-weight: bold; font-size: 0.9rem; background: rgba(0,0,0,0.2); padding: 8px 15px; border-radius: 20px; margin-right:15px;">🔒 Locked</div>
+            <button id="logout-btn" style="background:none; border:1px solid white; color:white; padding:5px 10px; cursor:pointer; display:none; border-radius:4px;">Log Out</button>
+        </div>
+    </div>
+
+    <div id="login-container">
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--primary-green);">Admin Access</h2>
+        <input type="email" id="admin-email" class="auth-input" placeholder="Admin Email">
+        <input type="password" id="admin-password" class="auth-input" placeholder="Password">
+        <button class="auth-btn" id="login-submit-btn">Login to Dashboard</button>
+        <div id="login-error" style="color: var(--danger-red); margin-top: 15px; font-size: 0.9rem; display: none;">Invalid credentials.</div>
+    </div>
+
+    <div class="dashboard-container" id="dashboard-container">
+        <div class="controls-area">
+            <input type="text" id="search-input" class="search-box" placeholder="Search by name, ref, or email...">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <span style="font-size: 0.9rem; color: #666; margin-right:10px;">Showing live database records</span>
+                <button class="btn-action-small" style="background:#2c3e50; font-size:0.8rem; padding:8px 15px; margin:0;" onclick="window.openMergeModal()">🔗 Merge Bookings</button>
+                <button class="btn-action-small" style="background:var(--danger-red); font-size:0.8rem; padding:8px 15px; margin:0;" onclick="window.openNewBookingModal()">🚀 New Booking</button>
+            </div>
+        </div>
+        
+        <table>
+            <thead><tr><th>Booking Info</th><th>Hotel Details</th><th>Booker Details</th><th>Room Management (God Mode)</th></tr></thead>
+            <tbody id="bookings-table-body"></tbody>
+        </table>
+    </div>
+
+    <div id="add-room-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>➕ Add Room to Existing Booking</h3>
+            <div class="admin-override-notice">
+                🛡️ This will add a brand new room to this reference number and safely deduct the inventory from the hotel's remaining block.
+            </div>
+            
+            <input type="hidden" id="add-docId">
+            <input type="hidden" id="add-hotelName">
+            
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Guest 1 First Name</label><input type="text" id="add-g1First"></div>
+                <div style="flex:1;"><label>Guest 1 Last Name</label><input type="text" id="add-g1Last"></div>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Guest 2 First Name (Optional)</label><input type="text" id="add-g2First"></div>
+                <div style="flex:1;"><label>Guest 2 Last Name (Optional)</label><input type="text" id="add-g2Last"></div>
+            </div>
+            
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Company / Organization</label><input type="text" id="add-company"></div>
+                <div style="flex:1;"><label>Individual Guest Email</label><input type="email" id="add-gEmail" placeholder="For single-room confirmations"></div>
+            </div>
+            
+            <label>Select Room Type (<span id="add-hotel-display"></span>)</label>
+            <select id="add-roomType" onchange="window.toggleAddCustomRoomFields()"></select>
+            
+            <div id="add-custom-room-fields" style="display:none; gap:10px; margin-top:10px; background:#f9f9f9; padding:15px; border:1px dashed #ccc; border-radius:4px; border-left: 4px solid var(--primary-gold);">
+                <div style="flex:1;">
+                    <label style="margin-top:0;">Custom Upgrade Room Name</label>
+                    <input type="text" id="add-customRoomName" placeholder="e.g. Executive Suite">
+                </div>
+                <div style="flex:1;">
+                    <label style="margin-top:0;">Rate Breakdown</label>
+                    <textarea id="add-customRoomRate" rows="3" placeholder="e.g. Oct 4-6: 4500 DKK&#10;Oct 7: 3500 DKK"></textarea>
+                </div>
+            </div>
+            
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Check-In Date</label><input type="date" id="add-in"></div>
+                <div style="flex:1;"><label>Check-Out Date</label><input type="date" id="add-out"></div>
+            </div>
+            
+            <label>Internal Notes</label>
+            <textarea id="add-notes" rows="2" placeholder="Dietary, VIP, accessibility..."></textarea>
+            
+            <div class="modal-buttons">
+                <button class="btn-override" onclick="window.closeAddRoomModal()">Cancel</button>
+                <button class="btn-action-small" id="submit-add-room-btn" onclick="window.submitAddRoom()" style="margin-bottom: 0; background: var(--success-green);">Add Room to Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="merge-modal" class="modal-overlay">
+        <div class="modal-box" style="max-width: 600px;">
+            <h3>🔗 Merge Multiple Bookings</h3>
+            <div class="admin-override-notice">
+                🛡️ This tool combines multiple separated bookings into one single Master Booking. Old references will be archived, and inventory will remain safely balanced.
+            </div>
+            
+            <label>1. Select Hotel</label>
+            <select id="merge-hotel" onchange="window.renderMergeList()"></select>
+            
+            <label>2. Select Bookings to Combine</label>
+            <input type="text" id="merge-search-input" placeholder="🔍 Search by Reference Number or Booker Name..." onkeyup="window.filterMergeList()" style="margin-bottom: 10px; display: none; border-color: var(--primary-gold);">
+            
+            <div id="merge-list-container" style="max-height: 250px; overflow-y: auto; background: #f9f9f9; border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-bottom: 15px;">
+                <p style="font-size:0.85rem; color:#888; margin:0;">Please select a hotel first.</p>
+            </div>
+            
+            <label>3. Select Master Booker Details to Keep</label>
+            <select id="merge-booker-select"></select>
+            
+            <div class="modal-buttons" style="margin-top: 25px;">
+                <button class="btn-override" onclick="window.closeMergeModal()">Cancel</button>
+                <button class="btn-action-small" id="execute-merge-btn" onclick="window.executeMerge()" style="margin-bottom: 0; background: var(--primary-green);">Combine Bookings</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>Amend Room Details</h3>
+            <div class="admin-override-notice">
+                🛡️ <b>Admin God Mode:</b> You can forcefully change room types, upgrade rates, edit names, alter dates, or add notes here. Inventory will NOT be re-checked.
+            </div>
+            
+            <input type="hidden" id="edit-docId">
+            <input type="hidden" id="edit-roomIdx">
+            
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Guest 1 First Name</label><input type="text" id="edit-g1First"></div>
+                <div style="flex:1;"><label>Guest 1 Last Name</label><input type="text" id="edit-g1Last"></div>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Guest 2 First Name</label><input type="text" id="edit-g2First"></div>
+                <div style="flex:1;"><label>Guest 2 Last Name</label><input type="text" id="edit-g2Last"></div>
+            </div>
+            
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Company / Organization</label><input type="text" id="edit-company"></div>
+                <div style="flex:1;"><label>Individual Guest Email</label><input type="email" id="edit-gEmail" placeholder="For single-room confirmations"></div>
+            </div>
+            
+            <label>Select Room Type (Current Hotel)</label>
+            <select id="edit-roomType" onchange="window.toggleCustomRoomFields()"></select>
+            
+            <div id="custom-room-fields" style="display:none; gap:10px; margin-top:10px; background:#f9f9f9; padding:15px; border:1px dashed #ccc; border-radius:4px; border-left: 4px solid var(--primary-gold);">
+                <div style="flex:1;">
+                    <label style="margin-top:0;">Custom Upgrade Room Name</label>
+                    <input type="text" id="edit-customRoomName" placeholder="e.g. Executive Suite">
+                </div>
+                <div style="flex:1;">
+                    <label style="margin-top:0;">Rate Breakdown (Peak vs Shoulder)</label>
+                    <textarea id="edit-customRoomRate" rows="3" placeholder="e.g. Oct 4-6: 4500 DKK&#10;Oct 7: 3500 DKK"></textarea>
+                </div>
+            </div>
+            
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Check-In Date</label><input type="date" id="edit-in"></div>
+                <div style="flex:1;"><label>Check-Out Date</label><input type="date" id="edit-out"></div>
+            </div>
+            
+            <label>Master Booker Email (Receives full group confirmation)</label>
+            <input type="email" id="edit-booker-email">
+            
+            <label>Accessibility & Special Requests (Internal Notes)</label>
+            <textarea id="edit-notes" rows="3" placeholder="Add VIP notes, dietary requirements, etc."></textarea>
+            
+            <div class="modal-buttons">
+                <button class="btn-override" onclick="closeEditModal()">Cancel</button>
+                <button class="btn-action-small" id="save-dates-btn" onclick="saveRoomDetails()" style="margin-bottom: 0;">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="move-hotel-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>Change Hotel</h3>
+            <div class="admin-override-notice" style="padding:10px; margin-bottom: 15px;">
+                🛡️ This will transfer the inventory for <b>ALL active rooms</b> in this booking to a new hotel.
+            </div>
+            <input type="hidden" id="move-docId">
+            <input type="hidden" id="move-oldHotel">
+            
+            <label>Select New Hotel</label>
+            <select id="move-newHotel"></select>
+            
+            <p style="font-size: 0.85rem; color: var(--danger-red); font-weight: bold; margin-top: 15px;">
+                ⚠️ After moving, all room types and rates will be reset to "TBC". You MUST click "Amend Room" on each room to select the correct room types for the new hotel before resending the email.
+            </p>
+            
+            <div class="modal-buttons" style="margin-top: 20px;">
+                <button class="btn-override" onclick="window.closeMoveHotelModal()">Cancel</button>
+                <button class="btn-action-small" id="confirm-move-btn" onclick="window.confirmMoveHotel()" style="margin-bottom: 0;">Transfer Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="new-booking-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>🚀 Multi-Room Booking (God Mode)</h3>
+            <div class="admin-override-notice" style="padding:10px; margin-bottom: 15px;">
+                🛡️ This creates a complete booking under one reference number, bypassing all sold-out limits.
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <div style="flex:2;">
+                    <label>Select Hotel</label>
+                    <select id="new-hotel" onchange="window.updateNewBookingRates()"></select>
+                </div>
+                <div style="flex:1;">
+                    <label>Number of Rooms</label>
+                    <input type="number" id="new-room-count" value="1" min="1" max="150" onchange="window.updateGodModeRoomCount()" onkeyup="window.updateGodModeRoomCount()">
+                </div>
+            </div>
+
+            <h4 style="color:var(--primary-gold); margin-bottom:5px; margin-top:20px; border-bottom:1px solid #eee; padding-bottom:5px;">Master Booker Details</h4>
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>First Name</label><input type="text" id="new-b-first"></div>
+                <div style="flex:1;"><label>Last Name</label><input type="text" id="new-b-last"></div>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Master Email</label><input type="email" id="new-b-email"></div>
+                <div style="flex:1;"><label>Phone</label><input type="text" id="new-b-phone"></div>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Company</label><input type="text" id="new-b-company"></div>
+                <div style="flex:1;"><label>Country</label><input type="text" id="new-b-country"></div>
+            </div>
+
+            <h4 style="color:var(--primary-gold); margin-bottom:15px; margin-top:20px; border-bottom:1px solid #eee; padding-bottom:5px;">Room Details</h4>
+            
+            <div id="god-mode-rooms-container"></div>
+
+            <div class="modal-buttons" style="margin-top: 20px;">
+                <button class="btn-override" onclick="window.closeNewBookingModal()">Cancel</button>
+                <button class="btn-action-small" id="submit-new-booking-btn" onclick="window.submitNewBooking()" style="margin-bottom: 0; background: var(--danger-red);">Force Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, doc, getDoc, runTransaction, addDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD05JCADypvwknCwtu05rfz30wD4pmFjYs",
+            authDomain: "proluxe-iba-2026.firebaseapp.com",
+            projectId: "proluxe-iba-2026",
+            storageBucket: "proluxe-iba-2026.firebasestorage.app",
+            messagingSenderId: "669424250636",
+            appId: "1:669424250636:web:e36026b5a97a5ec158e329"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = "iba-2026-portal";
+
+        const hotels = [
+            { id: 1, name: "Crowne Plaza Copenhagen Towers", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 17, "2026-10-04": 42, "2026-10-05": 42, "2026-10-06": 42, "2026-10-07": 42, "2026-10-08": 17, "2026-10-09": 17, "default": 42 }, rooms: [{ name: "Standard (Single Occupancy)", rate: "1395" }, { name: "Standard (Double Occupancy)", rate: "1595" }] },
+            { id: 2, name: "AC Hotel Bella Sky Copenhagen", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 345, "2026-10-04": 445, "2026-10-05": 445, "2026-10-06": 445, "2026-10-07": 445, "2026-10-08": 370, "2026-10-09": 270, "default": 445 }, rooms: [{ name: "Run of House (Single Occupancy)", rate: "1575" }, { name: "Run of House (Double Occupancy)", rate: "1775" }] },
+            { id: 3, name: "Scandic Spectrum", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 205, "2026-10-04": 265, "2026-10-05": 265, "2026-10-06": 265, "2026-10-07": 265, "2026-10-08": 210, "2026-10-09": 185, "default": 265 }, rooms: [{ name: "Standard Double (Single)", rate: "1595" }, { name: "Standard Double (Double)", rate: "1795" }, { name: "King Superior (Single)", rate: "1695" }, { name: "King Superior (Double)", rate: "1895" }] },
+            { id: 4, name: "Scandic Copenhagen", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 105, "2026-10-04": 130, "2026-10-05": 130, "2026-10-06": 130, "2026-10-07": 130, "2026-10-08": 110, "2026-10-09": 85, "default": 130 }, rooms: [{ name: "Superior (Single Occupancy)", rate: "1670" }, { name: "Superior (Double Occupancy)", rate: "1870" }] },
+            { id: 5, name: "25 Hours Hotel Indre By", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 120, "2026-10-04": 150, "2026-10-05": 150, "2026-10-06": 150, "2026-10-07": 150, "2026-10-08": 125, "2026-10-09": 105, "default": 150 }, rooms: [{ name: "Run of House (Single)", rate: "1900" }, { name: "Run of House (Double)", rate: "2070" }] },
+            { id: 6, name: "Scandic Palace Hotel", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 21, "2026-10-04": 26, "2026-10-05": 26, "2026-10-06": 26, "2026-10-07": 26, "2026-10-08": 21, "2026-10-09": 11, "default": 26 }, rooms: [{ name: "Superior (Single Occupancy)", rate: "2195" }, { name: "Superior (Double Occupancy)", rate: "2395" }] },
+            { id: 7, name: "Copenhagen Marriott Hotel", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 160, "2026-10-04": 200, "2026-10-05": 200, "2026-10-06": 200, "2026-10-07": 200, "2026-10-08": 170, "2026-10-09": 130, "default": 200 }, rooms: [{ name: "Run of House (Single)", rate: "2445" }, { name: "Run of House (Double)", rate: "2645" }, { name: "Deluxe Water View (Single)", rate: "3200" }, { name: "Deluxe Water View (Double)", rate: "3400" }] },
+            { id: 8, name: "Admiral Hotel", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "2026-10-03": 145, "2026-10-04": 180, "2026-10-05": 180, "2026-10-06": 180, "2026-10-07": 180, "2026-10-08": 155, "2026-10-09": 120, "default": 180 }, rooms: [{ name: "Standard (Single Occupancy)", rate: "2490" }, { name: "Standard (Double Occupancy)", rate: "2945" }] },
+            { id: 9, name: "1 Hotel Copenhagen", contractStart: "2026-10-01", contractEnd: "2026-10-10", dailyLimits: { "2026-10-01": 122, "2026-10-02": 122, "2026-10-03": 97, "2026-10-04": 122, "2026-10-05": 122, "2026-10-06": 122, "2026-10-07": 122, "2026-10-08": 102, "2026-10-09": 79, "default": 122 }, rooms: [{ name: "Run of House (Single)", rate: "3920" }, { name: "Run of House (Double)", rate: "4175" }] },
+            { id: 10, name: "Villa Copenhagen", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "default": 0 }, rooms: [{ name: "Superior (Single Occupancy)", rate: "3895" }, { name: "Superior (Double Occupancy)", rate: "4095" }] },
+            { id: 11, name: "Nobis Hotel Copenhagen", contractStart: "2026-10-03", contractEnd: "2026-10-10", dailyLimits: { "default": 0 }, rooms: [{ name: "Double (Single)", rate: "4500" }, { name: "Double (Double)", rate: "4700" }] }
+        ];
+
+        let rawData = [];
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('dashboard-container').style.display = 'block';
+                document.getElementById('sync-status').textContent = '🟢 Connected';
+                document.getElementById('logout-btn').style.display = 'block';
+                startSync();
+            } else {
+                document.getElementById('login-container').style.display = 'block';
+                document.getElementById('dashboard-container').style.display = 'none';
+                document.getElementById('logout-btn').style.display = 'none';
+            }
+        });
+
+        document.getElementById('login-submit-btn').onclick = () => {
+            const errDiv = document.getElementById('login-error');
+            errDiv.style.display = 'none';
+            signInWithEmailAndPassword(auth, document.getElementById('admin-email').value, document.getElementById('admin-password').value)
+            .catch(e => errDiv.style.display = 'block');
+        };
+
+        document.getElementById('logout-btn').onclick = () => signOut(auth);
+
+        function startSync() {
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'bookings'), (snapshot) => {
+                rawData = [];
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if(!data.Archived && !data.IsCancellation) rawData.push({ id: doc.id, ...data });
+                });
+                renderTable();
+            });
+        }
+
+        const formatIso = (britishDate) => {
+            if(!britishDate || britishDate === '?') return '';
+            const p = britishDate.split('/'); if(p.length !== 3) return britishDate;
+            return `${p[2]}-${p[1]}-${p[0]}`;
+        };
+        const formatBritish = (isoDate) => {
+            if(!isoDate) return '';
+            const p = isoDate.split('-'); if(p.length !== 3) return isoDate;
+            return `${p[2]}/${p[1]}/${p[0]}`;
+        };
+        const getDatesInRange = (startIso, endIso) => {
+            if(!startIso || !endIso) return [];
+            const [sy, sm, sd] = startIso.split('-').map(Number);
+            const [ey, em, ed] = endIso.split('-').map(Number);
+            const dates = []; let curr = new Date(sy, sm-1, sd); const stop = new Date(ey, em-1, ed);
+            while (curr < stop) {
+                dates.push(`${curr.getFullYear()}-${String(curr.getMonth()+1).padStart(2,'0')}-${String(curr.getDate()).padStart(2,'0')}`);
+                curr.setDate(curr.getDate() + 1);
+            }
+            return dates;
+        };
+
+        function renderTable() {
+            const tbody = document.getElementById('bookings-table-body');
+            tbody.innerHTML = '';
+            
+            const term = document.getElementById('search-input').value.toLowerCase();
+            const filteredData = rawData.filter(b => {
+                const s = JSON.stringify(b).toLowerCase();
+                return s.includes(term);
+            }).sort((a,b) => new Date(b.Date || 0) - new Date(a.Date || 0));
+
+            filteredData.forEach(d => {
+                const b = d;
+                let roomListHtml = '';
+                let activeRoomCount = 0;
+                
+                for(let i=1; i<=150; i++) {
+                    const prefix = `Room ${i} - `;
+                    const f1 = b[prefix+'Guest First Name'];
+                    const legacyG = b[prefix+'Guests'];
+                    if((f1 && f1.trim() !== '') || (legacyG && legacyG.trim() !== '')) {
+                        activeRoomCount++;
+                        const inStr = b[prefix+'Arrival'];
+                        const outStr = b[prefix+'Departure'];
+                        const type = b[prefix+'Room Type'];
+                        const rate = (b[prefix+'Rate'] || 'TBC').replace(/n/g, '<br>');
+                        const l1 = b[prefix+'Guest Last Name'] || '';
+                        const g2First = b[prefix+'Guest 2 First Name'] || '';
+                        const g2Last = b[prefix+'Guest 2 Last Name'] || '';
+                        const gEmail = b[prefix+'Guest Email'] || '';
+                        const notes = b[prefix+'Notes'] || '';
+                        
+                        const primaryDisplay = f1 ? `${f1} ${l1}` : legacyG;
+                        
+                        roomListHtml += `
+                            <div class="room-block">
+                                <strong>Room ${i}:</strong> ${primaryDisplay} ${g2First ? '<span style="color:#666; font-size:0.8rem;">(+ '+g2First+' '+g2Last+')</span>' : ''}<br>
+                                ${gEmail ? `<span style="color:#2980b9; font-size:0.8rem;">✉️ ${gEmail}</span><br>` : ''}
+                                <span style="color:#666;">${type} | ${inStr} to ${outStr}</span><br>
+                                <span style="color:var(--primary-gold); font-weight:bold; display:block; margin-top:5px;">${rate}</span>
+                                ${notes ? `<br><span style="color:var(--danger-red); font-size:0.75rem;">📝 Notes: ${notes}</span>` : ''}
+                                <div style="margin-top:8px;">
+                                    <button class="btn-action-small" onclick="window.openEditModal('${d.id}', ${i}, '${b['Selected Hotel']}')">✏️ Amend Room</button>
+                                    <button class="btn-action-small btn-cancel" onclick="window.cancelRoom('${d.id}', ${i}, '${b['Selected Hotel']}')">❌ Cancel Room</button>
+                                    <button class="btn-action-small btn-guest-email" id="guest-btn-${d.id}-${i}" onclick="window.sendIndividualGuestEmail('${d.id}', ${i}, '${b['Selected Hotel']}')">✉️ Email Guest</button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+
+                if(!roomListHtml) roomListHtml = '<div style="color:red; font-size:0.8rem;">All rooms cancelled.</div>';
+
+                const safeHotelName = (b['Selected Hotel'] || '').replace(/'/g, "'");
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <span class="ref-badge">${b['Reference']}</span><br>
+                        <small style="color:#888; display:block; margin-top:5px;">${b.Date ? new Date(b.Date).toLocaleDateString() : 'N/A'}</small>
+                        ${b.MergedFrom ? `<small style="color:var(--primary-gold); display:block; margin-top:5px; font-weight:bold;">Merged From:<br>${b.MergedFrom}</small>` : ''}
+                    </td>
+                    <td>
+                        <div class="hotel-name">${b['Selected Hotel']}</div>
+                        <small>Active Rooms: ${activeRoomCount}</small><br>
+                        <button class="btn-action-small" style="background:#555; margin-top:15px;" onclick="window.openMoveHotelModal('${d.id}', '${safeHotelName}')">🏨 Change Hotel</button>
+                        <button class="btn-action-small" style="background:#8e44ad; margin-top:15px;" onclick="window.openAddRoomModal('${d.id}', '${safeHotelName}')">➕ Add Room to Ref</button>
+                        <button class="btn-cancel-group" onclick="window.cancelEntireBooking('${d.id}', '${safeHotelName}')">🚨 Cancel Entire Booking</button>
+                    </td>
+                    <td><strong>${b['Booker Name']}</strong><br><a href="mailto:${b['Booker Email']}" style="color:var(--primary-gold); text-decoration:none;">${b['Booker Email']}</a><br><small>${b['Booker Company'] || ''}</small><br><button class="btn-resend" id="resend-btn-${d.id}" onclick="window.resendConfirmation('${d.id}')">✉️ Resend Master</button></td>
+                    <td>${roomListHtml}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+            if(filteredData.length === 0) tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:30px;">No matching bookings found.</td></tr>';
+        }
+
+        document.getElementById('search-input').addEventListener('input', renderTable);
+
+        const FORMSPREE_ENDPOINT = "https://formspree.io/f/xojneppb";
+
+        // --- NEW: ADD ROOM TO EXISTING BOOKING ---
+        window.toggleAddCustomRoomFields = () => {
+            const sel = document.getElementById('add-roomType').value;
+            document.getElementById('add-custom-room-fields').style.display = (sel === 'CUSTOM') ? 'flex' : 'none';
+        };
+
+        window.openAddRoomModal = (docId, hotelName) => {
+            document.getElementById('add-docId').value = docId;
+            document.getElementById('add-hotelName').value = hotelName;
+            document.getElementById('add-hotel-display').textContent = hotelName;
+            
+            // Clear fields
+            ['add-g1First', 'add-g1Last', 'add-g2First', 'add-g2Last', 'add-company', 'add-gEmail', 'add-in', 'add-out', 'add-notes', 'add-customRoomName', 'add-customRoomRate'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+
+            const sel = document.getElementById('add-roomType');
+            sel.innerHTML = '<option value="" disabled selected>Select Room Type</option>';
+            const hotelDef = hotels.find(h => h.name === hotelName);
+            if(hotelDef) {
+                hotelDef.rooms.forEach(r => {
+                    let o = document.createElement('option'); o.value = `${r.name}|${r.rate}`; o.textContent = `${r.name} - ${r.rate} DKK`; sel.appendChild(o);
+                });
+            }
+            let customOpt = document.createElement('option'); 
+            customOpt.value = 'CUSTOM'; 
+            customOpt.textContent = '✨ Custom Room / Manual Upgrade...'; 
+            sel.appendChild(customOpt);
+
+            window.toggleAddCustomRoomFields();
+            document.getElementById('add-room-modal').style.display = 'flex';
+        };
+
+        window.closeAddRoomModal = () => {
+            document.getElementById('add-room-modal').style.display = 'none';
+        };
+
+        window.submitAddRoom = async () => {
+            const docId = document.getElementById('add-docId').value;
+            const hotelName = document.getElementById('add-hotelName').value;
+            const bData = rawData.find(d => d.id === docId);
+            if(!bData) return;
+
+            // Find the next available room index
+            let nextRoomIdx = null;
+            for(let i=1; i<=150; i++) {
+                const f1 = bData[`Room ${i} - Guest First Name`];
+                const legacyG = bData[`Room ${i} - Guests`];
+                if ((!f1 || f1.trim() === '') && (!legacyG || legacyG.trim() === '')) {
+                    nextRoomIdx = i;
+                    break;
+                }
+            }
+
+            if(nextRoomIdx === null) {
+                return alert("This booking has reached the maximum of 150 rooms. You cannot add any more.");
+            }
+
+            const g1First = document.getElementById('add-g1First').value.trim();
+            const g1Last = document.getElementById('add-g1Last').value.trim();
+            const inIso = document.getElementById('add-in').value;
+            const outIso = document.getElementById('add-out').value;
+            const roomTypeVal = document.getElementById('add-roomType').value;
+
+            if(!g1First || !inIso || !outIso || !roomTypeVal) {
+                return alert("Guest 1 First Name, Check-In, Check-Out, and Room Type are required.");
+            }
+
+            let roomName, roomRate;
+            if (roomTypeVal === 'CUSTOM') {
+                roomName = document.getElementById('add-customRoomName').value.trim();
+                roomRate = document.getElementById('add-customRoomRate').value.trim();
+                if (!roomName || !roomRate) return alert("Please fill in both the custom room name and the custom rate breakdown.");
+            } else {
+                [roomName, roomRate] = roomTypeVal.split('|');
+                roomRate = roomRate + " DKK"; 
+            }
+
+            const btn = document.getElementById('submit-add-room-btn');
+            btn.textContent = "Adding Room..."; btn.disabled = true;
+
+            const prefix = `Room ${nextRoomIdx} - `;
+            const hotelDef = hotels.find(h => h.name === hotelName);
+
+            try {
+                const bookingRef = doc(db, 'artifacts', appId, 'public', 'data', 'bookings', docId);
+                const invRef = doc(db, 'artifacts', appId, 'public', 'data', 'inventory', 'hotel_' + hotelDef.id);
+
+                await runTransaction(db, async (t) => {
+                    const invSnap = await t.get(invRef);
+                    const dailyOcc = invSnap.exists() ? (invSnap.data().dailyOccupancy || {}) : {};
+
+                    // Add new inventory
+                    getDatesInRange(inIso, outIso).forEach(d => { dailyOcc[d] = (dailyOcc[d] || 0) + 1; });
+
+                    const updates = {};
+                    updates[prefix+'Guest First Name'] = g1First;
+                    updates[prefix+'Guest Last Name'] = g1Last;
+                    updates[prefix+'Guest 2 First Name'] = document.getElementById('add-g2First').value.trim();
+                    updates[prefix+'Guest 2 Last Name'] = document.getElementById('add-g2Last').value.trim();
+                    updates[prefix+'Guest Email'] = document.getElementById('add-gEmail').value.trim();
+                    updates[prefix+'Company'] = document.getElementById('add-company').value.trim();
+                    updates[prefix+'Notes'] = document.getElementById('add-notes').value.trim();
+                    updates[prefix+'Room Type'] = roomName; 
+                    updates[prefix+'Rate'] = roomRate;       
+                    updates[prefix+'Arrival'] = formatBritish(inIso);
+                    updates[prefix+'Departure'] = formatBritish(outIso);
+                    updates[prefix+'Guests'] = '';
+
+                    t.set(invRef, { dailyOccupancy: dailyOcc }, { merge: true });
+                    t.set(bookingRef, updates, { merge: true });
+                });
+
+                alert(`Success! Room successfully added to reference ${bData.Reference} (Assigned as Room ${nextRoomIdx}). Please remember to resend the Master Confirmation.`);
+                window.closeAddRoomModal();
+            } catch(e) {
+                alert("Error adding room: " + e.message);
+            } finally {
+                btn.textContent = "Add Room to Booking"; btn.disabled = false;
+            }
+        };
+
+        // --- THE MASTER RESEND (SENDS ALL ROOMS TO THE BOOKER) ---
+        window.resendConfirmation = async (docId) => {
+            const btn = document.getElementById(`resend-btn-${docId}`);
+            const originalText = btn.textContent;
+            btn.textContent = "Sending..."; btn.disabled = true;
+
+            try {
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'bookings', docId);
+                const docSnap = await getDoc(docRef);
+                if(!docSnap.exists()) throw new Error("Booking not found");
+                
+                let bData = docSnap.data();
+
+                if(bData['Booker Email']) bData['Booker Email'] = bData['Booker Email'].trim();
+
+                if(!bData['Booker Email'] || bData['Booker Email'] === '') {
+                    alert("❌ ERROR: This booking has no email address attached! Please click 'Amend Room', add a Booker Email, save it, and try again.");
+                    btn.textContent = originalText; btn.disabled = false;
+                    return;
+                }
+
+                const zapierData = new FormData();
+                zapierData.append('email', bData['Booker Email']);
+
+                const topArrival = bData['Arrival'] || bData['Room 1 - Arrival'] || '';
+                const topDeparture = bData['Departure'] || bData['Room 1 - Departure'] || '';
+                zapierData.append('Arrival', topArrival);
+                zapierData.append('Departure', topDeparture);
+
+                let magicTableHTML = `
+                <table width="100%" cellpadding="10" cellspacing="0" style="border-collapse: collapse; font-family: Arial, sans-serif; min-width: 600px;">
+                    <thead>
+                        <tr style="background-color: #f4f4f4; text-align: left;">
+                            <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Rm</th>
+                            <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Guest Name</th>
+                            <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Room Type</th>
+                            <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Dates</th>
+                            <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                `;
+                
+                for(let i=1; i<=150; i++) {
+                    const prefix = `Room ${i} - `;
+                    const fName = bData[prefix+'Guest First Name'];
+                    if(fName && fName.trim() !== '') {
+                        const lName = bData[prefix+'Guest Last Name'] || '';
+                        const g2First = bData[prefix+'Guest 2 First Name'] || '';
+                        const g2Last = bData[prefix+'Guest 2 Last Name'] || '';
+                        const type = bData[prefix+'Room Type'] || 'TBC';
+                        const checkIn = bData[prefix+'Arrival'] || '';
+                        const checkOut = bData[prefix+'Departure'] || '';
+                        const rate = (bData[prefix+'Rate'] || 'TBC').replace(/n/g, '<br>');
+                        
+                        let guestDisplay = `${fName} ${lName}`;
+                        if(g2First !== "" || g2Last !== "") {
+                            guestDisplay += `<br><span style="font-size:12px; color:#555;">+ ${g2First} ${g2Last}</span>`;
+                        }
+                        
+                        magicTableHTML += `
+                        <tr>
+                            <td align="center" style="font-size: 13px; color: #888; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${i}</td>
+                            <td style="font-size: 14px; font-weight: bold; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${guestDisplay}</td>
+                            <td style="font-size: 13px; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${type}</td>
+                            <td style="font-size: 13px; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${checkIn} - ${checkOut}</td>
+                            <td style="font-size: 13px; font-weight: bold; color: #111111; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${rate}</td>
+                        </tr>`;
+                    }
+                }
+                
+                magicTableHTML += `</tbody></table>`;
+                zapierData.append('Magic_Table_HTML', magicTableHTML);
+
+                for (const key in bData) {
+                    if (bData[key] !== null && bData[key] !== undefined) {
+                        zapierData.append(key, bData[key]);
+                    }
+                }
+
+                const response = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    body: zapierData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if(!response.ok) throw new Error("The sending server rejected the request.");
+
+                alert("Master Confirmation resent successfully!");
+            } catch(e) {
+                console.error(e);
+                alert("Failed to resend confirmation. Error: " + e.message);
+            } finally {
+                btn.textContent = originalText; btn.disabled = false;
+            }
+        };
+
+        // --- THE INDIVIDUAL GUEST EMAILER (1 ROOM ONLY) ---
+        window.sendIndividualGuestEmail = async (docId, roomIdx, hotelName) => {
+            const btn = document.getElementById(`guest-btn-${docId}-${roomIdx}`);
+            const originalText = btn.textContent;
+            btn.textContent = "Sending..."; btn.disabled = true;
+
+            try {
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'bookings', docId);
+                const docSnap = await getDoc(docRef);
+                if(!docSnap.exists()) throw new Error("Booking not found");
+                
+                let bData = docSnap.data();
+                const prefix = `Room ${roomIdx} - `;
+                const gEmail = bData[prefix+'Guest Email'];
+
+                if(!gEmail || gEmail.trim() === '') {
+                    alert(`❌ ERROR: No email address saved for Room ${roomIdx}. Please click 'Amend Room', add the Individual Guest Email, save it, and try again.`);
+                    btn.textContent = originalText; btn.disabled = false;
+                    return;
+                }
+
+                const zapierData = new FormData();
+                zapierData.append('email', gEmail.trim());
+                zapierData.append('Booker First Name', bData[prefix+'Guest First Name'] || 'Guest');
+                zapierData.append('Booker Last Name', bData[prefix+'Guest Last Name'] || '');
+                zapierData.append('Booker Name', `${bData[prefix+'Guest First Name']} ${bData[prefix+'Guest Last Name']}`.trim());
+                zapierData.append('Reference', bData['Reference'] + `-${roomIdx}`);
+                zapierData.append('Selected Hotel', hotelName);
+                zapierData.append('Total Rooms', 1);
+
+                const checkIn = bData[prefix+'Arrival'] || '';
+                const checkOut = bData[prefix+'Departure'] || '';
+                zapierData.append('Arrival', checkIn);
+                zapierData.append('Departure', checkOut);
+
+                const fName = bData[prefix+'Guest First Name'] || '';
+                const lName = bData[prefix+'Guest Last Name'] || '';
+                const g2First = bData[prefix+'Guest 2 First Name'] || '';
+                const g2Last = bData[prefix+'Guest 2 Last Name'] || '';
+                const type = bData[prefix+'Room Type'] || 'TBC';
+                const rate = (bData[prefix+'Rate'] || 'TBC').replace(/n/g, '<br>');
+                
+                let guestDisplay = `${fName} ${lName}`;
+                if(g2First !== "" || g2Last !== "") {
+                    guestDisplay += `<br><span style="font-size:12px; color:#555;">+ ${g2First} ${g2Last}</span>`;
+                }
+
+                let magicTableHTML = `
+                <table width="100%" cellpadding="10" cellspacing="0" style="border-collapse: collapse; font-family: Arial, sans-serif; min-width: 600px;">
+                    <thead>
+                        <tr style="background-color: #f4f4f4; text-align: left;">
+                            <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Rm</th>
+                            <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Guest Name</th>
+                            <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Room Type</th>
+                            <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Dates</th>
+                            <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="center" style="font-size: 13px; color: #888; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">1</td>
+                            <td style="font-size: 14px; font-weight: bold; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${guestDisplay}</td>
+                            <td style="font-size: 13px; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${type}</td>
+                            <td style="font-size: 13px; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${checkIn} - ${checkOut}</td>
+                            <td style="font-size: 13px; font-weight: bold; color: #111111; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${rate}</td>
+                        </tr>
+                    </tbody>
+                </table>`;
+
+                zapierData.append('Magic_Table_HTML', magicTableHTML);
+
+                const response = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    body: zapierData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if(!response.ok) throw new Error("The sending server rejected the request.");
+                alert(`Success! Individual Confirmation sent to ${gEmail.trim()}`);
+            } catch(e) {
+                console.error(e);
+                alert("Failed to send guest confirmation. Error: " + e.message);
+            } finally {
+                btn.textContent = originalText; btn.disabled = false;
+            }
+        };
+
+        // --- MASTER GROUP CANCELLATION ---
+        window.cancelEntireBooking = async (docId, hotelName) => {
+            const bData = rawData.find(d => d.id === docId);
+            if (!bData) return;
+
+            if (!confirm(`🚨 WARNING: Are you sure you want to cancel the ENTIRE booking (${bData.Reference}) at ${hotelName}?nnThis will instantly cancel ALL active rooms in this group and automatically refund the inventory back to the hotel.nnThis cannot be undone.`)) {
+                return;
+            }
+
+            const hotelDef = hotels.find(h => h.name === hotelName);
+            
+            try {
+                const bookingRef = doc(db, 'artifacts', appId, 'public', 'data', 'bookings', docId);
+                const invRef = doc(db, 'artifacts', appId, 'public', 'data', 'inventory', 'hotel_' + hotelDef.id);
+
+                await runTransaction(db, async (t) => {
+                    const invSnap = await t.get(invRef);
+                    const dailyOcc = invSnap.exists() ? (invSnap.data().dailyOccupancy || {}) : {};
+
+                    let totalRoomsCancelled = 0;
+
+                    for(let i=1; i<=150; i++) {
+                        const prefix = `Room ${i} - `;
+                        const inStr = bData[prefix+'Arrival'];
+                        const outStr = bData[prefix+'Departure'];
+                        const fName = bData[prefix+'Guest First Name'] || bData[prefix+'Guests'];
+
+                        if (fName && inStr && outStr) {
+                            getDatesInRange(formatIso(inStr), formatIso(outStr)).forEach(d => {
+                                dailyOcc[d] = Math.max(0, (dailyOcc[d] || 0) - 1);
+                            });
+                            totalRoomsCancelled++;
+                        }
+                    }
+
+                    const updates = { 
+                        Archived: true, 
+                        IsCancellation: true, 
+                        Status: "Cancelled via Master Cancel",
+                        CancelledAt: new Date().toISOString() 
+                    };
+
+                    t.set(invRef, { dailyOccupancy: dailyOcc }, { merge: true });
+                    t.set(bookingRef, updates, { merge: true });
+                });
+
+                alert(`✅ Success: The entire booking has been cancelled and archived. All inventory for those rooms has been fully refunded.`);
+            } catch (e) {
+                alert("Error cancelling entire booking: " + e.message);
+            }
+        };
+
+        // --- MERGE BOOKINGS LOGIC ---
+        window.openMergeModal = () => {
+            const sel = document.getElementById('merge-hotel');
+            sel.innerHTML = '<option value="" disabled selected>Select Hotel...</option>';
+            hotels.sort((a,b) => a.name.localeCompare(b.name)).forEach(h => {
+                let o = document.createElement('option'); o.value = h.name; o.textContent = h.name; sel.appendChild(o);
+            });
+            document.getElementById('merge-list-container').innerHTML = '<p style="font-size:0.85rem; color:#888; margin:0;">Please select a hotel first.</p>';
+            
+            const searchInput = document.getElementById('merge-search-input');
+            searchInput.style.display = 'none';
+            searchInput.value = '';
+            
+            document.getElementById('merge-booker-select').innerHTML = '';
+            document.getElementById('merge-modal').style.display = 'flex';
+        };
+
+        window.closeMergeModal = () => { document.getElementById('merge-modal').style.display = 'none'; };
+
+        window.renderMergeList = () => {
+            const hotel = document.getElementById('merge-hotel').value;
+            const container = document.getElementById('merge-list-container');
+            const searchInput = document.getElementById('merge-search-input');
+            
+            container.innerHTML = '';
+            searchInput.value = ''; 
+            
+            const relevantBookings = rawData.filter(b => b['Selected Hotel'] === hotel);
+            if(relevantBookings.length === 0) {
+                container.innerHTML = '<p style="font-size:0.85rem; color:#666; margin:0;">No active bookings found for this hotel.</p>';
+                searchInput.style.display = 'none';
+                return;
+            }
+            
+            searchInput.style.display = 'block';
+            
+            relevantBookings.forEach(b => {
+                let activeRoomCount = 0;
+                for(let i=1; i<=150; i++) {
+                    if(b[`Room ${i} - Guest First Name`] || b[`Room ${i} - Guests`]) activeRoomCount++;
+                }
+
+                const div = document.createElement('div');
+                div.className = 'merge-item-row'; 
+                div.style.marginBottom = '10px';
+                div.style.padding = '5px 0';
+                div.style.borderBottom = '1px dashed #eee';
+                div.innerHTML = `
+                    <label style="display:flex; align-items:center; font-weight:normal; text-transform:none; cursor:pointer;">
+                        <input type="checkbox" value="${b.id}" class="merge-checkbox" onchange="window.updateMergeBookerSelect()" style="width:auto; margin-right:15px; transform: scale(1.2);"> 
+                        <span style="font-size:0.95rem;"><strong>${b.Reference}</strong> &nbsp;|&nbsp; ${b['Booker Name']} &nbsp;|&nbsp; <span style="color:var(--primary-gold);">${activeRoomCount} Rooms</span></span>
+                    </label>
+                `;
+                container.appendChild(div);
+            });
+        };
+
+        window.filterMergeList = () => {
+            const term = document.getElementById('merge-search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('.merge-item-row');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(term)) {
+                    row.style.display = 'block';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        };
+
+        window.updateMergeBookerSelect = () => {
+            const checkboxes = document.querySelectorAll('.merge-checkbox:checked');
+            const sel = document.getElementById('merge-booker-select');
+            sel.innerHTML = '';
+            
+            if(checkboxes.length === 0) return;
+
+            checkboxes.forEach(cb => {
+                const b = rawData.find(d => d.id === cb.value);
+                let o = document.createElement('option');
+                o.value = b.id;
+                o.textContent = `Use details from: ${b['Booker Name']} (${b['Booker Email']})`;
+                sel.appendChild(o);
+            });
+        };
+
+        window.executeMerge = async () => {
+            const hotel = document.getElementById('merge-hotel').value;
+            const checkboxes = document.querySelectorAll('.merge-checkbox:checked');
+            const masterDocId = document.getElementById('merge-booker-select').value;
+
+            if(!hotel) return alert("Please select a hotel first.");
+            if(checkboxes.length < 2) return alert("Please select at least 2 bookings to merge.");
+            if(!masterDocId) return alert("Please select which Master Booker details to keep.");
+
+            const btn = document.getElementById('execute-merge-btn');
+            btn.disabled = true; btn.textContent = "Merging Bookings...";
+
+            try {
+                const masterData = rawData.find(d => d.id === masterDocId);
+                const ref = 'IBA-' + Math.floor(100000 + Math.random() * 900000);
+
+                const newPayload = {
+                    Reference: '#' + ref,
+                    "Selected Hotel": hotel,
+                    Date: new Date().toISOString(),
+                    "Booker First Name": masterData["Booker First Name"] || '',
+                    "Booker Last Name": masterData["Booker Last Name"] || '',
+                    "Booker Name": masterData["Booker Name"] || '',
+                    "Booker Email": masterData["Booker Email"] || '',
+                    "Booker Phone": masterData["Booker Phone"] || '',
+                    "Booker Company": masterData["Booker Company"] || '',
+                    "Booker Country": masterData["Booker Country"] || '',
+                    Archived: false,
+                    MergedFrom: Array.from(checkboxes).map(cb => rawData.find(d => d.id === cb.value).Reference).join(', ')
+                };
+
+                let newRoomIdx = 1;
+                const roomKeys = ['Guest First Name', 'Guest Last Name', 'Guest 2 First Name', 'Guest 2 Last Name', 'Company', 'Room Type', 'Rate', 'Arrival', 'Departure', 'Notes', 'Guest Email', 'Guests'];
+
+                for (const cb of checkboxes) {
+                    const bData = rawData.find(d => d.id === cb.value);
+                    for(let i=1; i<=150; i++) {
+                        const oldPrefix = `Room ${i} - `;
+                        if ((bData[oldPrefix+'Guest First Name'] && bData[oldPrefix+'Guest First Name'].trim() !== '') || (bData[oldPrefix+'Guests'] && bData[oldPrefix+'Guests'].trim() !== '')) {
+                            
+                            const newPrefix = `Room ${newRoomIdx} - `;
+                            roomKeys.forEach(key => {
+                                newPayload[newPrefix + key] = bData[oldPrefix + key] || '';
+                            });
+                            
+                            if(newRoomIdx === 1) {
+                                newPayload["Arrival"] = bData[oldPrefix+'Arrival'] || '';
+                                newPayload["Departure"] = bData[oldPrefix+'Departure'] || '';
+                            }
+                            newRoomIdx++;
+                        }
+                    }
+                }
+
+                const totalRooms = newRoomIdx - 1;
+                if(totalRooms > 150) throw new Error("Cannot merge more than 150 rooms total.");
+                newPayload["Total Rooms"] = totalRooms;
+
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'bookings'), newPayload);
+
+                for (const cb of checkboxes) {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'bookings', cb.value);
+                    await updateDoc(docRef, { Archived: true, MergedInto: '#' + ref });
+                }
+
+                alert("Bookings merged successfully! New Reference: #" + ref + "nnPlease review the new booking on your dashboard and click 'Resend Email' to send the consolidated confirmation.");
+                window.closeMergeModal();
+            } catch(e) {
+                alert("Error merging: " + e.message);
+            } finally {
+                btn.disabled = false; btn.textContent = "Combine Bookings";
+            }
+        };
+
+        // --- Toggle Custom Room Fields (Edit Modal) ---
+        window.toggleCustomRoomFields = () => {
+            const sel = document.getElementById('edit-roomType').value;
+            document.getElementById('custom-room-fields').style.display = (sel === 'CUSTOM') ? 'flex' : 'none';
+        };
+
+        window.openEditModal = async (docId, roomIdx, hotelName) => {
+            const bData = rawData.find(d => d.id === docId);
+            if(!bData) return;
+
+            document.getElementById('edit-docId').value = docId;
+            document.getElementById('edit-roomIdx').value = roomIdx;
+
+            const prefix = `Room ${roomIdx} - `;
+            document.getElementById('edit-g1First').value = bData[prefix+'Guest First Name'] || (bData[prefix+'Guests'] ? bData[prefix+'Guests'].split('&')[0].trim() : '');
+            document.getElementById('edit-g1Last').value = bData[prefix+'Guest Last Name'] || '';
+            document.getElementById('edit-g2First').value = bData[prefix+'Guest 2 First Name'] || '';
+            document.getElementById('edit-g2Last').value = bData[prefix+'Guest 2 Last Name'] || '';
+            document.getElementById('edit-company').value = bData[prefix+'Company'] || bData['Booker Company'] || '';
+            document.getElementById('edit-gEmail').value = bData[prefix+'Guest Email'] || '';
+            
+            document.getElementById('edit-booker-email').value = bData['Booker Email'] || '';
+            document.getElementById('edit-notes').value = bData[prefix+'Notes'] || '';
+
+            const sel = document.getElementById('edit-roomType');
+            sel.innerHTML = '';
+            
+            const hotelDef = hotels.find(h => h.name === hotelName);
+            if(hotelDef) {
+                hotelDef.rooms.forEach(r => {
+                    let o = document.createElement('option'); o.value = `${r.name}|${r.rate}`; o.textContent = `${r.name} - ${r.rate} DKK`; sel.appendChild(o);
+                });
+            }
+            
+            let customOpt = document.createElement('option'); 
+            customOpt.value = 'CUSTOM'; 
+            customOpt.textContent = '✨ Custom Room / Manual Upgrade...'; 
+            sel.appendChild(customOpt);
+
+            const currentType = bData[prefix+'Room Type'];
+            const currentRate = bData[prefix+'Rate'];
+            
+            document.getElementById('edit-customRoomName').value = '';
+            document.getElementById('edit-customRoomRate').value = '';
+
+            if(currentType && currentType.includes("TBC")) {
+                let o = document.createElement('option'); o.value = `TBC|TBC`; o.textContent = `⚠️ PLEASE SELECT A VALID ROOM TYPE`; o.selected = true; sel.appendChild(o);
+            } else if (currentType) {
+                const rawRateNumber = currentRate ? currentRate.replace(' DKK', '').trim() : '';
+                const matchStr = `${currentType}|${rawRateNumber}`;
+                const exists = Array.from(sel.options).find(opt => opt.value === matchStr);
+                
+                if(exists) {
+                    sel.value = matchStr;
+                } else {
+                    sel.value = 'CUSTOM';
+                    document.getElementById('edit-customRoomName').value = currentType;
+                    document.getElementById('edit-customRoomRate').value = currentRate || ''; 
+                }
+            }
+
+            window.toggleCustomRoomFields(); 
+
+            const currentIn = bData[prefix+'Arrival']; const currentOut = bData[prefix+'Departure'];
+            if(currentIn) document.getElementById('edit-in').value = formatIso(currentIn); 
+            if(currentOut) document.getElementById('edit-out').value = formatIso(currentOut);
+            
+            document.getElementById('edit-modal').style.display = 'flex';
+        };
+
+        window.closeEditModal = () => { document.getElementById('edit-modal').style.display = 'none'; };
+
+        window.saveRoomDetails = async () => {
+            const docId = document.getElementById('edit-docId').value;
+            const roomIdx = document.getElementById('edit-roomIdx').value;
+            const btn = document.getElementById('save-dates-btn');
+            
+            const g1First = document.getElementById('edit-g1First').value.trim();
+            const g1Last = document.getElementById('edit-g1Last').value.trim();
+            const g2First = document.getElementById('edit-g2First').value.trim();
+            const g2Last = document.getElementById('edit-g2Last').value.trim();
+            const company = document.getElementById('edit-company').value.trim();
+            const bookerEmail = document.getElementById('edit-booker-email').value.trim();
+            const gEmail = document.getElementById('edit-gEmail').value.trim();
+            const notes = document.getElementById('edit-notes').value.trim();
+            
+            const roomTypeVal = document.getElementById('edit-roomType').value;
+            if(!roomTypeVal || roomTypeVal === 'TBC|TBC') return alert("Please select a valid Room Type.");
+            
+            let roomName, roomRate;
+            if (roomTypeVal === 'CUSTOM') {
+                roomName = document.getElementById('edit-customRoomName').value.trim();
+                roomRate = document.getElementById('edit-customRoomRate').value.trim();
+                if (!roomName || !roomRate) return alert("Please fill in both the custom room name and the custom rate breakdown.");
+            } else {
+                [roomName, roomRate] = roomTypeVal.split('|');
+                roomRate = roomRate + " DKK"; 
+            }
+
+            const inIso = document.getElementById('edit-in').value;
+            const outIso = document.getElementById('edit-out').value;
+
+            if(!g1First || !inIso || !outIso) return alert("Guest 1 First Name, Check-In, and Check-Out are required.");
+
+            btn.textContent = "Saving..."; btn.disabled = true;
+
+            const bData = rawData.find(d => d.id === docId);
+            const prefix = `Room ${roomIdx} - `;
+            const hotelDef = hotels.find(h => h.name === bData['Selected Hotel']);
+
+            try {
+                const bookingRef = doc(db, 'artifacts', appId, 'public', 'data', 'bookings', docId);
+                const invRef = doc(db, 'artifacts', appId, 'public', 'data', 'inventory', 'hotel_' + hotelDef.id);
+
+                await runTransaction(db, async (t) => {
+                    const invSnap = await t.get(invRef);
+                    const dailyOcc = invSnap.exists() ? (invSnap.data().dailyOccupancy || {}) : {};
+
+                    const oldIn = formatIso(bData[prefix+'Arrival']);
+                    const oldOut = formatIso(bData[prefix+'Departure']);
+                    if(oldIn && oldOut) {
+                        getDatesInRange(oldIn, oldOut).forEach(d => { dailyOcc[d] = Math.max(0, (dailyOcc[d] || 0) - 1); });
+                    }
+
+                    getDatesInRange(inIso, outIso).forEach(d => { dailyOcc[d] = (dailyOcc[d] || 0) + 1; });
+
+                    const updates = {};
+                    
+                    if (roomIdx == 1 || roomIdx === '1') {
+                        updates['Arrival'] = formatBritish(inIso);
+                        updates['Departure'] = formatBritish(outIso);
+                    }
+
+                    updates[prefix+'Guest First Name'] = g1First;
+                    updates[prefix+'Guest Last Name'] = g1Last;
+                    updates[prefix+'Guest 2 First Name'] = g2First;
+                    updates[prefix+'Guest 2 Last Name'] = g2Last;
+                    updates[prefix+'Guest Email'] = gEmail;
+                    updates[prefix+'Company'] = company;
+                    updates['Booker Email'] = bookerEmail; 
+                    updates[prefix+'Notes'] = notes;
+                    updates[prefix+'Room Type'] = roomName; 
+                    updates[prefix+'Rate'] = roomRate;      
+                    updates[prefix+'Arrival'] = formatBritish(inIso);
+                    updates[prefix+'Departure'] = formatBritish(outIso);
+                    
+                    updates[prefix+'Guests'] = '';
+
+                    t.set(invRef, { dailyOccupancy: dailyOcc }, { merge: true });
+                    t.set(bookingRef, updates, { merge: true });
+                });
+                
+                closeEditModal();
+            } catch(e) {
+                alert("Error saving: " + e.message);
+            } finally {
+                btn.textContent = "Save Changes"; btn.disabled = false;
+            }
+        };
+
+        window.cancelRoom = async (docId, roomIdx, hotelName) => {
+            if(!confirm(`Are you sure you want to cancel Room ${roomIdx}? Inventory will be refunded.`)) return;
+            
+            const bData = rawData.find(d => d.id === docId);
+            const hotelDef = hotels.find(h => h.name === hotelName);
+            const prefix = `Room ${roomIdx} - `;
+            
+            try {
+                const bookingRef = doc(db, 'artifacts', appId, 'public', 'data', 'bookings', docId);
+                const invRef = doc(db, 'artifacts', appId, 'public', 'data', 'inventory', 'hotel_' + hotelDef.id);
+
+                let logData = null;
+
+                await runTransaction(db, async (t) => {
+                    const invSnap = await t.get(invRef);
+                    const dailyOcc = invSnap.exists() ? (invSnap.data().dailyOccupancy || {}) : {};
+
+                    const inStr = bData[prefix+'Arrival']; const outStr = bData[prefix+'Departure'];
+                    if(inStr && outStr) {
+                        getDatesInRange(formatIso(inStr), formatIso(outStr)).forEach(d => { dailyOcc[d] = Math.max(0, (dailyOcc[d] || 0) - 1); });
+                    }
+
+                    const primaryGuest = (bData[prefix+'Guest First Name'] || bData[prefix+'Guests'] || '').split('&')[0];
+                    logData = {
+                        IsCancellation: true,
+                        Reference: bData['Reference'] || docId, Hotel: hotelName, RoomIndex: roomIdx,
+                        GuestName: `${bData[prefix+'Guest First Name'] || ''} ${bData[prefix+'Guest Last Name'] || ''}`.trim() || primaryGuest || 'Unknown',
+                        Dates: `${inStr || '?'} to ${outStr || '?'}`, CancelledAt: new Date().toISOString(), BookerName: bData['Booker Name'] || '', BookerEmail: bData['Booker Email'] || ''
+                    };
+
+                    const updates = {}; 
+                    updates[prefix+'Guest First Name'] = ''; updates[prefix+'Guest Last Name'] = '';
+                    updates[prefix+'Guest 2 First Name'] = ''; updates[prefix+'Guest 2 Last Name'] = '';
+                    updates[prefix+'Guest Email'] = '';
+                    updates[prefix+'Guests'] = ''; updates[prefix+'Arrival'] = ''; updates[prefix+'Departure'] = '';
+                    updates[prefix+'Room Type'] = ''; updates[prefix+'Rate'] = ''; updates[prefix+'Notes'] = '';
+
+                    t.set(invRef, { dailyOccupancy: dailyOcc }, { merge: true }); 
+                    t.set(bookingRef, updates, { merge: true });
+                });
+
+                if(logData) {
+                    try { await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'bookings'), logData); } 
+                    catch(logErr) { console.error(logErr); }
+                }
+
+                alert("Room cancelled successfully! Inventory refunded. Please remember to manually email the guest to confirm.");
+            } catch (e) { 
+                alert("Error cancelling room: " + e.message); 
+            }
+        };
+
+        window.openMoveHotelModal = (docId, currentHotel) => {
+            document.getElementById('move-docId').value = docId;
+            document.getElementById('move-oldHotel').value = currentHotel;
+            const sel = document.getElementById('move-newHotel');
+            sel.innerHTML = '<option value="" disabled selected>Select New Hotel...</option>';
+            hotels.sort((a,b) => a.name.localeCompare(b.name)).forEach(h => {
+                if(h.name !== currentHotel) {
+                    let o = document.createElement('option'); o.value = h.id; o.textContent = h.name; sel.appendChild(o);
+                }
+            });
+            document.getElementById('move-hotel-modal').style.display = 'flex';
+        };
+
+        window.closeMoveHotelModal = () => {
+            document.getElementById('move-hotel-modal').style.display = 'none';
+        };
+
+        window.confirmMoveHotel = async () => {
+            const docId = document.getElementById('move-docId').value;
+            const oldHotelName = document.getElementById('move-oldHotel').value;
+            const newHotelId = document.getElementById('move-newHotel').value;
+            
+            if(!newHotelId) return alert("Please select a new hotel.");
+            
+            const newHotelDef = hotels.find(h => h.id == newHotelId);
+            const oldHotelDef = hotels.find(h => h.name === oldHotelName);
+            
+            if(!newHotelDef || !oldHotelDef) return alert("Hotel definitions not found.");
+            
+            const btn = document.getElementById('confirm-move-btn');
+            btn.textContent = "Moving..."; btn.disabled = true;
+
+            const bookingRef = doc(db, 'artifacts', appId, 'public', 'data', 'bookings', docId);
+            const oldInvRef = doc(db, 'artifacts', appId, 'public', 'data', 'inventory', 'hotel_' + oldHotelDef.id);
+            const newInvRef = doc(db, 'artifacts', appId, 'public', 'data', 'inventory', 'hotel_' + newHotelDef.id);
+
+            try {
+                await runTransaction(db, async (t) => {
+                    const bSnap = await t.get(bookingRef);
+                    if(!bSnap.exists()) throw new Error("Booking not found.");
+                    const bData = bSnap.data();
+
+                    const oldInvSnap = await t.get(oldInvRef);
+                    const oldOcc = oldInvSnap.exists() ? (oldInvSnap.data().dailyOccupancy || {}) : {};
+                    
+                    const newInvSnap = await t.get(newInvRef);
+                    const newOcc = newInvSnap.exists() ? (newInvSnap.data().dailyOccupancy || {}) : {};
+
+                    const updates = { 'Selected Hotel': newHotelDef.name };
+
+                    for(let i=1; i<=150; i++) {
+                        const inStr = bData[`Room ${i} - Arrival`];
+                        const outStr = bData[`Room ${i} - Departure`];
+                        if(inStr && outStr && inStr.trim() !== '') { 
+                            const dates = getDatesInRange(formatIso(inStr), formatIso(outStr));
+                            dates.forEach(d => {
+                                oldOcc[d] = Math.max(0, (oldOcc[d] || 0) - 1);
+                                newOcc[d] = (newOcc[d] || 0) + 1;
+                            });
+                            updates[`Room ${i} - Room Type`] = "TBC - Please Amend";
+                            updates[`Room ${i} - Rate`] = "TBC";
+                        }
+                    }
+
+                    t.set(oldInvRef, { dailyOccupancy: oldOcc }, { merge: true });
+                    t.set(newInvRef, { dailyOccupancy: newOcc, hotelName: newHotelDef.name, hotelId: newHotelDef.id }, { merge: true });
+                    t.set(bookingRef, updates, { merge: true });
+                });
+                
+                alert("Booking successfully moved!nnIMPORTANT: Please click 'Amend Room' on each room to select the correct room types for the new hotel BEFORE hitting Resend Email.");
+                window.closeMoveHotelModal();
+            } catch(e) {
+                alert("Error moving hotel: " + e.message);
+            } finally {
+                btn.textContent = "Transfer Booking"; btn.disabled = false;
+            }
+        };
+
+        window.buildGodModeRooms = () => {
+            const container = document.getElementById('god-mode-rooms-container');
+            container.innerHTML = '';
+            window.updateGodModeRoomCount(); 
+        };
+
+        window.updateGodModeRoomCount = () => {
+            let count = parseInt(document.getElementById('new-room-count').value);
+            if (isNaN(count) || count < 1) count = 1;
+            if (count > 150) count = 150; 
+
+            const container = document.getElementById('god-mode-rooms-container');
+            const currentBlocks = container.children.length;
+
+            for(let i = currentBlocks + 1; i <= count; i++) {
+                let div = document.createElement('div');
+                div.id = `gm-room-block-${i}`;
+                div.className = 'gm-room-block';
+                
+                div.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                        <h5 style="margin: 0 0 10px 0; color:var(--primary-gold); font-size:1.1rem; font-family:'Playfair Display', serif;">Room ${i}</h5>
+                        <span style="font-size:0.75rem; color:#2980b9; cursor:pointer; text-decoration:underline; font-weight:bold;" onclick="window.copyBookerToGmRoom(${i})">↳ Copy Booker to Guest 1</span>
+                    </div>
+                    
+                    <div style="display:flex; gap:10px;">
+                        <div style="flex:1;"><label>Guest 1 First</label><input type="text" id="new-g1-first-${i}"></div>
+                        <div style="flex:1;"><label>Guest 1 Last</label><input type="text" id="new-g1-last-${i}"></div>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <div style="flex:1;"><label>Guest 2 First (Optional)</label><input type="text" id="new-g2-first-${i}"></div>
+                        <div style="flex:1;"><label>Guest 2 Last (Optional)</label><input type="text" id="new-g2-last-${i}"></div>
+                    </div>
+                    
+                    <label>Individual Guest Email (Optional)</label>
+                    <input type="email" id="new-g-email-${i}" placeholder="Where should this specific room confirmation go?">
+
+                    <label>Room Type & Rate</label>
+                    <select id="new-room-type-${i}" class="gm-room-type"></select>
+                    
+                    <div style="display:flex; gap:10px;">
+                        <div style="flex:1;"><label>Check-In Date</label><input type="date" id="new-in-${i}"></div>
+                        <div style="flex:1;"><label>Check-Out Date</label><input type="date" id="new-out-${i}"></div>
+                    </div>
+                    ${i === 1 ? `<span style="font-size:0.75rem; color:var(--danger-red); cursor:pointer; text-decoration:underline; display:block; margin-bottom:15px; font-weight:bold;" onclick="window.applyGmDatesToAll()">↳ Apply these dates to ALL rooms</span>` : ''}
+                    
+                    <label>Internal Notes</label>
+                    <textarea id="new-notes-${i}" rows="2" placeholder="e.g. VIP Speaker, late arrival"></textarea>
+                `;
+                container.appendChild(div);
+                window.updateNewBookingRatesForRoom(i);
+            }
+
+            for(let i = 1; i <= container.children.length; i++) {
+                const block = document.getElementById(`gm-room-block-${i}`);
+                if(i <= count) block.classList.remove('hidden');
+                else block.classList.add('hidden');
+            }
+        };
+
+        window.updateNewBookingRatesForRoom = (i) => {
+            const hotelName = document.getElementById('new-hotel').value;
+            const hotelDef = hotels.find(h => h.name === hotelName);
+            const sel = document.getElementById(`new-room-type-${i}`);
+            if(sel) {
+                sel.innerHTML = '<option value="" disabled selected>Select Room Type</option>';
+                if(hotelDef) {
+                    hotelDef.rooms.forEach(r => {
+                        let o = document.createElement('option'); o.value = `${r.name}|${r.rate}`; o.textContent = `${r.name} - ${r.rate} DKK`; sel.appendChild(o);
+                    });
+                }
+            }
+        };
+
+        window.copyBookerToGmRoom = (i) => {
+            document.getElementById(`new-g1-first-${i}`).value = document.getElementById('new-b-first').value;
+            document.getElementById(`new-g1-last-${i}`).value = document.getElementById('new-b-last').value;
+        };
+
+        window.applyGmDatesToAll = () => {
+            const checkIn = document.getElementById('new-in-1').value;
+            const checkOut = document.getElementById('new-out-1').value;
+            const count = parseInt(document.getElementById('new-room-count').value) || 1;
+            for(let i=2; i<=count; i++) {
+                const inEl = document.getElementById(`new-in-${i}`);
+                const outEl = document.getElementById(`new-out-${i}`);
+                if(inEl) inEl.value = checkIn;
+                if(outEl) outEl.value = checkOut;
+            }
+        };
+
+        window.openNewBookingModal = () => {
+            const sel = document.getElementById('new-hotel');
+            sel.innerHTML = '<option value="" disabled selected>Select Hotel...</option>';
+            hotels.sort((a,b) => a.name.localeCompare(b.name)).forEach(h => {
+                let o = document.createElement('option'); o.value = h.name; o.textContent = h.name; sel.appendChild(o);
+            });
+            
+            document.getElementById('new-room-count').value = '1';
+            
+            ['new-b-first', 'new-b-last', 'new-b-email', 'new-b-phone', 'new-b-company', 'new-b-country'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+
+            window.buildGodModeRooms();
+            window.updateGodModeRoomCount();
+            document.getElementById('new-booking-modal').style.display = 'flex';
+        };
+
+        window.closeNewBookingModal = () => {
+            document.getElementById('new-booking-modal').style.display = 'none';
+        };
+
+        window.updateNewBookingRates = () => {
+            const container = document.getElementById('god-mode-rooms-container');
+            for(let i = 1; i <= container.children.length; i++) {
+                window.updateNewBookingRatesForRoom(i);
+            }
+        };
+
+        window.submitNewBooking = async () => {
+            const hotelName = document.getElementById('new-hotel').value;
+            const bFirst = document.getElementById('new-b-first').value.trim();
+            const bLast = document.getElementById('new-b-last').value.trim();
+            const bEmail = document.getElementById('new-b-email').value.trim();
+            const count = parseInt(document.getElementById('new-room-count').value);
+
+            if(!hotelName || !bFirst || !bEmail) {
+                return alert("Please fill in Hotel Selection, Booker First Name, and Booker Email.");
+            }
+
+            const hotelDef = hotels.find(h => h.name === hotelName);
+            const ref = 'IBA-' + Math.floor(100000 + Math.random() * 900000);
+
+            const payload = {
+                Reference: '#' + ref,
+                "Selected Hotel": hotelName,
+                "Total Rooms": count,
+                Date: new Date().toISOString(),
+                "Booker First Name": bFirst,
+                "Booker Last Name": bLast,
+                "Booker Name": `${bFirst} ${bLast}`.trim(),
+                "Booker Email": bEmail,
+                "Booker Phone": document.getElementById('new-b-phone').value.trim(),
+                "Booker Company": document.getElementById('new-b-company').value.trim(),
+                "Booker Country": document.getElementById('new-b-country').value.trim(),
+            };
+
+            const zapierData = new FormData();
+            zapierData.append('email', bEmail);
+            zapierData.append('Reference', '#' + ref);
+            zapierData.append('Selected Hotel', hotelName);
+            zapierData.append('Total Rooms', count);
+            zapierData.append('Booker Name', payload["Booker Name"]);
+            zapierData.append('Booker First Name', payload["Booker First Name"]);
+            zapierData.append('Booker Last Name', payload["Booker Last Name"]);
+            zapierData.append('Booker Company', payload["Booker Company"]);
+            zapierData.append('Booker Phone', payload["Booker Phone"]);
+            zapierData.append('Booker Email', bEmail);
+            zapierData.append('Booker Country', payload["Booker Country"]);
+
+            const roomsNeededPerDate = {};
+            
+            let magicTableHTML = `
+            <table width="100%" cellpadding="10" cellspacing="0" style="border-collapse: collapse; font-family: Arial, sans-serif; min-width: 600px;">
+                <thead>
+                    <tr style="background-color: #f4f4f4; text-align: left;">
+                        <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Rm</th>
+                        <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Guest Name</th>
+                        <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Room Type</th>
+                        <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Dates</th>
+                        <th style="border: 1px solid #eeeeee; font-size: 13px; color: #333;">Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+
+            for(let i=1; i<=count; i++) {
+                const g1First = document.getElementById(`new-g1-first-${i}`).value.trim();
+                const g1Last = document.getElementById(`new-g1-last-${i}`).value.trim();
+                const roomTypeVal = document.getElementById(`new-room-type-${i}`).value;
+                const inIso = document.getElementById(`new-in-${i}`).value;
+                const outIso = document.getElementById(`new-out-${i}`).value;
+
+                if(!g1First || !roomTypeVal || !inIso || !outIso) {
+                    return alert(`Please fill in all required fields for Room ${i} (Guest 1 First Name, Room Type, Dates).`);
+                }
+
+                if (i === 1) {
+                    payload["Arrival"] = formatBritish(inIso);
+                    payload["Departure"] = formatBritish(outIso);
+                    zapierData.append("Arrival", formatBritish(inIso));
+                    zapierData.append("Departure", formatBritish(outIso));
+                }
+
+                const [roomName, roomRate] = roomTypeVal.split('|');
+                const prefix = `Room ${i} - `;
+
+                payload[prefix + "Guest First Name"] = g1First;
+                payload[prefix + "Guest Last Name"] = g1Last;
+                
+                const g2First = document.getElementById(`new-g2-first-${i}`).value.trim();
+                const g2Last = document.getElementById(`new-g2-last-${i}`).value.trim();
+                const gEmail = document.getElementById(`new-g-email-${i}`).value.trim();
+                
+                payload[prefix + "Guest 2 First Name"] = g2First;
+                payload[prefix + "Guest 2 Last Name"] = g2Last;
+                payload[prefix + "Guest Email"] = gEmail;
+                payload[prefix + "Company"] = document.getElementById('new-b-company').value.trim();
+                payload[prefix + "Room Type"] = roomName;
+                payload[prefix + "Rate"] = roomRate + " DKK";
+                payload[prefix + "Arrival"] = formatBritish(inIso);
+                payload[prefix + "Departure"] = formatBritish(outIso);
+                payload[prefix + "Notes"] = document.getElementById(`new-notes-${i}`).value.trim();
+                payload[prefix + "Guests"] = ""; 
+
+                let guestDisplay = `${g1First} ${g1Last}`;
+                if(g2First !== "" || g2Last !== "") {
+                    guestDisplay += `<br><span style="font-size:12px; color:#555;">+ ${g2First} ${g2Last}</span>`;
+                }
+
+                magicTableHTML += `
+                <tr>
+                    <td align="center" style="font-size: 13px; color: #888; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${i}</td>
+                    <td style="font-size: 14px; font-weight: bold; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${guestDisplay}</td>
+                    <td style="font-size: 13px; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${roomName}</td>
+                    <td style="font-size: 13px; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${formatBritish(inIso)} - ${formatBritish(outIso)}</td>
+                    <td style="font-size: 13px; font-weight: bold; color: #111111; border: 1px solid #eeeeee; padding: 10px; vertical-align: top;">${roomRate} DKK</td>
+                </tr>`;
+
+                zapierData.append(prefix+"Guest First Name", g1First);
+                zapierData.append(prefix+"Guest Last Name", g1Last);
+                zapierData.append(prefix+"Guest 2 First Name", g2First);
+                zapierData.append(prefix+"Guest 2 Last Name", g2Last);
+                zapierData.append(prefix+"Company", document.getElementById('new-b-company').value.trim());
+                zapierData.append(prefix+"Room Type", roomName);
+                zapierData.append(prefix+"Arrival", formatBritish(inIso));
+                zapierData.append(prefix+"Departure", formatBritish(outIso));
+                zapierData.append(prefix+"Rate", roomRate + " DKK");
+                zapierData.append(prefix+"Notes", document.getElementById(`new-notes-${i}`).value.trim());
+
+                getDatesInRange(inIso, outIso).forEach(d => { roomsNeededPerDate[d] = (roomsNeededPerDate[d] || 0) + 1; });
+            }
+            
+            magicTableHTML += `</tbody></table>`;
+            zapierData.append('Magic_Table_HTML', magicTableHTML);
+
+            const btn = document.getElementById('submit-new-booking-btn');
+            btn.textContent = "Processing..."; btn.disabled = true;
+
+            try {
+                const bookingRef = collection(db, 'artifacts', appId, 'public', 'data', 'bookings');
+                const invRef = doc(db, 'artifacts', appId, 'public', 'data', 'inventory', 'hotel_' + hotelDef.id);
+
+                await runTransaction(db, async (t) => {
+                    const invSnap = await t.get(invRef);
+                    const dailyOcc = invSnap.exists() ? (invSnap.data().dailyOccupancy || {}) : {};
+
+                    for (const [date, requested] of Object.entries(roomsNeededPerDate)) {
+                        dailyOcc[date] = (dailyOcc[date] || 0) + requested;
+                    }
+
+                    t.set(invRef, { dailyOccupancy: dailyOcc, hotelName: hotelDef.name, hotelId: hotelDef.id }, { merge: true });
+                });
+
+                await addDoc(bookingRef, payload);
+                fetch(FORMSPREE_ENDPOINT, { method: 'POST', body: zapierData, headers: { 'Accept': 'application/json' } }).catch(e => {});
+
+                alert("Multi-Room God Mode Booking Created! Ref: #" + ref);
+                window.closeNewBookingModal();
+            } catch(e) {
+                alert("Error creating booking: " + e.message);
+            } finally {
+                btn.textContent = "Force Booking"; btn.disabled = false;
+            }
+        };
+    </script>
+</body>
+</html>
