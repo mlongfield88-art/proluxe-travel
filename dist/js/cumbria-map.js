@@ -104,18 +104,6 @@
       blurb: 'Fifteen quiet acres above Windermere. Grand rooms, long views, the drive up feels like leaving the century behind.'
     },
     {
-      id: 'sharrowbay',
-      name: 'Sharrow Bay',
-      kind: 'Ullswater · Country house',
-      lat: 54.5872,
-      lng: -2.8383,
-      featured: true,
-      labelPos: 'left',
-      photo: 'img/cumbria/property-08-sharrow-bay.jpg',
-      distance: 'Eastern shore of Ullswater',
-      blurb: 'The place that invented the English country-house hotel in 1948. Lake views, long dinners, afternoon tea.'
-    },
-    {
       id: 'holbeckghyll',
       name: 'Holbeck Ghyll',
       kind: 'Windermere · Country house',
