@@ -624,6 +624,179 @@
       .villa-cal{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
     }
 
+    /* Hero primary CTA strip: WhatsApp / Email / Call */
+    .cumbria-hero__cta-strip{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:32px;
+    }
+    .villa-cta-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:14px 22px;
+      background:#F5F0E8;
+      color:#1A1A1A;
+      border:1px solid #F5F0E8;
+      border-radius:2px;
+      font-family:'Raleway', sans-serif;
+      font-size:13px;
+      font-weight:500;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      text-decoration:none;
+      transition:background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .villa-cta-btn:hover, .villa-cta-btn:focus-visible{
+      background:#424632;
+      color:#F5F0E8;
+      border-color:#424632;
+      outline:none;
+    }
+    .villa-cta-btn--ghost{
+      background:transparent;
+      color:#F5F0E8;
+      border-color:rgba(245,240,232,.55);
+    }
+    .villa-cta-btn--ghost:hover, .villa-cta-btn--ghost:focus-visible{
+      background:rgba(245,240,232,.12);
+      color:#F5F0E8;
+      border-color:#F5F0E8;
+    }
+    .villa-cta-btn svg{ width:16px; height:16px; flex-shrink:0; }
+    @media(max-width:560px){
+      .cumbria-hero__cta-strip{ gap:8px; }
+      .villa-cta-btn{ padding:11px 16px; font-size:11px; letter-spacing:.08em; }
+    }
+
+    /* Terms at a glance block: small four-point grid above Beyond the Villa */
+    .villa-terms{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:24px;
+      max-width:1080px;
+      margin:48px auto 0;
+      padding:32px;
+      background:#FAFAF7;
+      border:1px solid rgba(66,70,50,.16);
+      border-radius:2px;
+    }
+    .villa-terms__item{ text-align:center; }
+    .villa-terms__label{
+      font-family:'Raleway', sans-serif;
+      font-size:10px;
+      font-weight:500;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#8A8A80;
+      margin:0 0 8px;
+    }
+    .villa-terms__value{
+      font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-size:15px;
+      line-height:1.5;
+      color:#1A1A1A;
+      margin:0;
+    }
+    @media(max-width:720px){
+      .villa-terms{ grid-template-columns:repeat(2, minmax(0, 1fr)); padding:24px; gap:18px; }
+    }
+
+    /* Sticky contact bar: mobile bottom, desktop floating bottom-right */
+    .villa-stickybar{
+      position:fixed;
+      bottom:16px;
+      right:16px;
+      display:flex;
+      gap:8px;
+      z-index:60;
+      padding:8px;
+      background:rgba(26,26,23,0.92);
+      border:1px solid rgba(245,240,232,0.18);
+      border-radius:999px;
+      box-shadow:0 12px 36px rgba(0,0,0,0.32);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+      opacity:0;
+      transform:translateY(12px);
+      pointer-events:none;
+      transition:opacity .3s ease, transform .3s ease;
+    }
+    .villa-stickybar.is-visible{
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
+    }
+    .villa-stickybar__btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background:transparent;
+      color:#F5F0E8;
+      text-decoration:none;
+      transition:background .2s ease, color .2s ease;
+    }
+    .villa-stickybar__btn:hover, .villa-stickybar__btn:focus-visible{
+      background:#F5F0E8;
+      color:#1A1A1A;
+      outline:none;
+    }
+    .villa-stickybar__btn--primary{
+      background:#25D366;
+      color:#FFFFFF;
+    }
+    .villa-stickybar__btn--primary:hover, .villa-stickybar__btn--primary:focus-visible{
+      background:#1FB955;
+      color:#FFFFFF;
+    }
+    .villa-stickybar__btn svg{ width:18px; height:18px; }
+    @media(max-width:600px){
+      .villa-stickybar{
+        right:auto;
+        left:16px;
+        bottom:16px;
+        right:16px;
+        justify-content:center;
+      }
+    }
+
+    /* Founder signoff */
+    .villa-signoff{
+      max-width:680px;
+      margin:32px auto 0;
+      padding:32px 24px 0;
+      border-top:1px solid rgba(66,70,50,.16);
+      text-align:center;
+    }
+    .villa-signoff__line{
+      font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-style:italic;
+      font-size:18px;
+      line-height:1.55;
+      color:#3A3A3A;
+      margin:0 0 14px;
+    }
+    .villa-signoff__name{
+      font-family:'Cormorant Garamond', serif;
+      font-size:18px;
+      font-weight:600;
+      color:#1A1A1A;
+      margin:0;
+    }
+    .villa-signoff__role{
+      font-family:'Raleway', sans-serif;
+      font-size:11px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#8A8A80;
+      margin:4px 0 0;
+    }
+
     /* Closing CTA card */
     .villa-cta{
       max-width:780px;
@@ -718,6 +891,145 @@
       <p class="cumbria-hero__eyebrow">Cap de Formentor &bull; Mallorca</p>
       <h1 class="cumbria-hero__title">Villa Azzurra</h1>
       <p class="cumbria-hero__subtitle">A contemporary four bedroom villa, 300m from the Four Seasons, 150m from Formentor Beach.</p>
+      <div class="cumbria-hero__cta-strip">
+        <a class="villa-cta-btn" href="https://wa.me/447852193811?text=Hello%20Myles%2C%20I%27m%20enquiring%20about%20Villa%20Azzurra%20on%20Cap%20de%20Formentor.%0A%0APreferred%20dates%3A%0AGuests%3A%0ANotes%3A" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"></path>
+          </svg>
+          WhatsApp
+        </a>
+        <a class="villa-cta-btn villa-cta-btn--ghost" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry&body=Hello%2C%0A%0AI%27m%20enquiring%20about%20Villa%20Azzurra%20on%20Cap%20de%20Formentor.%0A%0APreferred%20dates%3A%0ANumber%20of%20guests%3A%0ANotes%3A%0A%0AThank%20you%2C">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Email
+        </a>
+        <a class="villa-cta-btn villa-cta-btn--ghost" href="tel:+447852193811">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          Call
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RATES 2026 ========== -->
+  <section class="section section--dark" aria-labelledby="rates-heading" id="rates">
+    <div class="container">
+      <div class="section-head">
+        <p class="section__eyebrow section__eyebrow--light">Rates 2026</p>
+        <h2 class="section__title section__title--light" id="rates-heading">By the Week</h2>
+        <p class="section__intro section__intro--light">All rates are weekly and inclusive of final cleaning, pool maintenance, garden maintenance and mid stay housekeeping. Longer stays by arrangement.</p>
+      </div>
+      <div class="villa-rates">
+        <div class="villa-rates__row">
+          <div>
+            <p class="villa-rates__season">Shoulder Season</p>
+            <p class="villa-rates__dates">June &middot; September &middot; October &middot; Seven night minimum</p>
+          </div>
+          <div>
+            <span class="villa-rates__price">&euro;18,000 to &euro;26,000</span>
+            <span class="villa-rates__unit">per week</span>
+          </div>
+        </div>
+        <div class="villa-rates__row">
+          <div>
+            <p class="villa-rates__season">Peak Season</p>
+            <p class="villa-rates__dates">July &middot; August &middot; Fourteen night minimum</p>
+          </div>
+          <div>
+            <span class="villa-rates__price">&euro;32,000 to &euro;38,000</span>
+            <span class="villa-rates__unit">per week</span>
+          </div>
+        </div>
+        <div class="villa-rates__row">
+          <div>
+            <p class="villa-rates__season">Low Season</p>
+            <p class="villa-rates__dates">November to May &middot; Five night minimum</p>
+          </div>
+          <div>
+            <span class="villa-rates__price">On Application</span>
+          </div>
+        </div>
+      </div>
+      <p class="villa-rates__foot">A refundable damage deposit of &euro;3,500 is held against each booking. Peak stays carry an enhanced housekeeping schedule of three cleans per week. Concierge, private chef, transfers, boats and guides on application.</p>
+    </div>
+  </section>
+
+  <!-- ========== AVAILABILITY 2026 ========== -->
+  <section class="section section--cream" aria-labelledby="availability-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="section__eyebrow">Availability 2026</p>
+        <h2 class="section__title" id="availability-heading">By the month</h2>
+        <p class="section__intro">Open from 6 June. The remainder of the season is currently fully available, including the peak fortnights of mid July and early August.</p>
+      </div>
+      <div class="villa-cal" role="list" aria-label="Villa Azzurra availability through 2026, click a month to enquire">
+        <a class="villa-cal__month villa-cal__month--booked" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20April%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20register%20interest%20in%20Villa%20Azzurra%20for%20April%202026%20in%20case%20any%20of%20the%20current%20bookings%20change.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
+          <p class="villa-cal__name">Apr</p>
+          <p class="villa-cal__status">Held</p>
+        </a>
+        <a class="villa-cal__month villa-cal__month--booked" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20May%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20register%20interest%20in%20Villa%20Azzurra%20for%20May%202026%20in%20case%20any%20of%20the%20current%20bookings%20change.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
+          <p class="villa-cal__name">May</p>
+          <p class="villa-cal__status">Held</p>
+        </a>
+        <a class="villa-cal__month villa-cal__month--partial" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20June%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20June%202026%20%28available%20from%20the%206th%20onwards%29.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
+          <p class="villa-cal__name">Jun</p>
+          <p class="villa-cal__status">From the 6th</p>
+        </a>
+        <a class="villa-cal__month villa-cal__month--pending" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20July%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20July%202026.%0A%0AI%20understand%20summer%20dates%20are%20by%20enquiry%20and%20subject%20to%20confirmation.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
+          <p class="villa-cal__name">Jul</p>
+          <p class="villa-cal__status">By enquiry</p>
+        </a>
+        <a class="villa-cal__month villa-cal__month--pending" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20August%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20August%202026.%0A%0AI%20understand%20summer%20dates%20are%20by%20enquiry%20and%20subject%20to%20confirmation.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
+          <p class="villa-cal__name">Aug</p>
+          <p class="villa-cal__status">By enquiry</p>
+        </a>
+        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20September%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20September%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
+          <p class="villa-cal__name">Sep</p>
+          <p class="villa-cal__status">Open</p>
+        </a>
+        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20October%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20October%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
+          <p class="villa-cal__name">Oct</p>
+          <p class="villa-cal__status">Open</p>
+        </a>
+        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20November%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20November%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
+          <p class="villa-cal__name">Nov</p>
+          <p class="villa-cal__status">Open</p>
+        </a>
+        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20December%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20December%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
+          <p class="villa-cal__name">Dec</p>
+          <p class="villa-cal__status">Open</p>
+        </a>
+      </div>
+      <p class="section__intro" style="text-align:center;margin:24px 0 0;font-style:italic;font-size:15px;">Click any month to open a prefilled enquiry email.</p>
+      <div class="villa-cal__legend" aria-hidden="true">
+        <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--open"></span>Open for booking</span>
+        <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--pending"></span>By enquiry</span>
+        <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--booked"></span>Held or booked</span>
+      </div>
+
+      <!-- Terms at a glance -->
+      <div class="villa-terms" aria-label="Terms at a glance">
+        <div class="villa-terms__item">
+          <p class="villa-terms__label">Cancellation</p>
+          <p class="villa-terms__value">Free cancellation up to 30 days before arrival.</p>
+        </div>
+        <div class="villa-terms__item">
+          <p class="villa-terms__label">Payment</p>
+          <p class="villa-terms__value">Full payment at confirmation. &euro;3,500 refundable damage deposit held separately.</p>
+        </div>
+        <div class="villa-terms__item">
+          <p class="villa-terms__label">Operator</p>
+          <p class="villa-terms__value">ProLuxe Travel Ltd, registered in England and Wales (15449301).</p>
+        </div>
+        <div class="villa-terms__item">
+          <p class="villa-terms__label">Licence</p>
+          <p class="villa-terms__value">ETV 5388, registered short term rental in the Balearic Islands.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -878,104 +1190,6 @@
     </div>
   </section>
 
-  <!-- ========== RATES 2026 ========== -->
-  <section class="section section--dark" aria-labelledby="rates-heading" id="rates">
-    <div class="container">
-      <div class="section-head">
-        <p class="section__eyebrow section__eyebrow--light">Rates 2026</p>
-        <h2 class="section__title section__title--light" id="rates-heading">By the Week</h2>
-        <p class="section__intro section__intro--light">All rates are weekly and inclusive of final cleaning, pool maintenance, garden maintenance and mid stay housekeeping. Longer stays by arrangement.</p>
-      </div>
-      <div class="villa-rates">
-        <div class="villa-rates__row">
-          <div>
-            <p class="villa-rates__season">Shoulder Season</p>
-            <p class="villa-rates__dates">June &middot; September &middot; October &middot; Seven night minimum</p>
-          </div>
-          <div>
-            <span class="villa-rates__price">&euro;18,000 to &euro;26,000</span>
-            <span class="villa-rates__unit">per week</span>
-          </div>
-        </div>
-        <div class="villa-rates__row">
-          <div>
-            <p class="villa-rates__season">Peak Season</p>
-            <p class="villa-rates__dates">July &middot; August &middot; Fourteen night minimum</p>
-          </div>
-          <div>
-            <span class="villa-rates__price">&euro;32,000 to &euro;38,000</span>
-            <span class="villa-rates__unit">per week</span>
-          </div>
-        </div>
-        <div class="villa-rates__row">
-          <div>
-            <p class="villa-rates__season">Low Season</p>
-            <p class="villa-rates__dates">November to May &middot; Five night minimum</p>
-          </div>
-          <div>
-            <span class="villa-rates__price">On Application</span>
-          </div>
-        </div>
-      </div>
-      <p class="villa-rates__foot">A refundable damage deposit of &euro;3,500 is held against each booking. Peak stays carry an enhanced housekeeping schedule of three cleans per week. Concierge, private chef, transfers, boats and guides on application.</p>
-    </div>
-  </section>
-
-  <!-- ========== AVAILABILITY 2026 ========== -->
-  <section class="section section--cream" aria-labelledby="availability-heading">
-    <div class="container">
-      <div class="section-head">
-        <p class="section__eyebrow">Availability 2026</p>
-        <h2 class="section__title" id="availability-heading">By the month</h2>
-        <p class="section__intro">Open from 6 June. The remainder of the season is currently fully available, including the peak fortnights of mid July and early August.</p>
-      </div>
-      <div class="villa-cal" role="list" aria-label="Villa Azzurra availability through 2026, click a month to enquire">
-        <a class="villa-cal__month villa-cal__month--booked" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20April%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20register%20interest%20in%20Villa%20Azzurra%20for%20April%202026%20in%20case%20any%20of%20the%20current%20bookings%20change.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
-          <p class="villa-cal__name">Apr</p>
-          <p class="villa-cal__status">Held</p>
-        </a>
-        <a class="villa-cal__month villa-cal__month--booked" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20May%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20register%20interest%20in%20Villa%20Azzurra%20for%20May%202026%20in%20case%20any%20of%20the%20current%20bookings%20change.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
-          <p class="villa-cal__name">May</p>
-          <p class="villa-cal__status">Held</p>
-        </a>
-        <a class="villa-cal__month villa-cal__month--partial" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20June%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20June%202026%20%28available%20from%20the%206th%20onwards%29.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
-          <p class="villa-cal__name">Jun</p>
-          <p class="villa-cal__status">From the 6th</p>
-        </a>
-        <a class="villa-cal__month villa-cal__month--pending" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20July%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20July%202026.%0A%0AI%20understand%20summer%20dates%20are%20by%20enquiry%20and%20subject%20to%20confirmation.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
-          <p class="villa-cal__name">Jul</p>
-          <p class="villa-cal__status">By enquiry</p>
-        </a>
-        <a class="villa-cal__month villa-cal__month--pending" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20August%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20August%202026.%0A%0AI%20understand%20summer%20dates%20are%20by%20enquiry%20and%20subject%20to%20confirmation.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
-          <p class="villa-cal__name">Aug</p>
-          <p class="villa-cal__status">By enquiry</p>
-        </a>
-        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20September%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20September%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
-          <p class="villa-cal__name">Sep</p>
-          <p class="villa-cal__status">Open</p>
-        </a>
-        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20October%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20October%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
-          <p class="villa-cal__name">Oct</p>
-          <p class="villa-cal__status">Open</p>
-        </a>
-        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20November%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20November%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
-          <p class="villa-cal__name">Nov</p>
-          <p class="villa-cal__status">Open</p>
-        </a>
-        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20December%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20December%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
-          <p class="villa-cal__name">Dec</p>
-          <p class="villa-cal__status">Open</p>
-        </a>
-      </div>
-      <p class="section__intro" style="text-align:center;margin:24px 0 0;font-style:italic;font-size:15px;">Click any month to open a prefilled enquiry email.</p>
-      <div class="villa-cal__legend" aria-hidden="true">
-        <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--open"></span>Open for booking</span>
-        <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--pending"></span>By enquiry</span>
-        <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--booked"></span>Held or booked</span>
-      </div>
-    </div>
-  </section>
-
   <!-- ========== AT TABLE (closing image moment) ========== -->
   <section class="section section--cream" aria-labelledby="dining-heading">
     <div class="container">
@@ -1045,8 +1259,31 @@
         <p class="section__eyebrow">How to Enquire</p>
         <h2 class="section__title" id="enquire-heading">Speak to us directly</h2>
         <p class="section__body villa-cta__lede">Villa Azzurra takes a small number of weeks each year through ProLuxe Travel directly. Enquiries are handled by Myles personally. Availability moves quickly in the shoulder months and we recommend reaching out at least 12 weeks ahead for a summer stay.</p>
-        <div class="villa-cta__buttons">
-          <a href="/#contact" class="btn btn--primary">Start a Conversation</a>
+        <div class="villa-cta__buttons" style="margin-top:8px;">
+          <a class="villa-cta-btn" style="background:#424632;color:#F5F0E8;border-color:#424632;" href="https://wa.me/447852193811?text=Hello%20Myles%2C%20I%27m%20enquiring%20about%20Villa%20Azzurra%20on%20Cap%20de%20Formentor.%0A%0APreferred%20dates%3A%0AGuests%3A%0ANotes%3A" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"></path>
+            </svg>
+            WhatsApp Myles
+          </a>
+          <a class="villa-cta-btn" style="background:transparent;color:#1A1A1A;border-color:#424632;" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry&body=Hello%2C%0A%0AI%27m%20enquiring%20about%20Villa%20Azzurra%20on%20Cap%20de%20Formentor.%0A%0APreferred%20dates%3A%0ANumber%20of%20guests%3A%0ANotes%3A%0A%0AThank%20you%2C">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Email Myles
+          </a>
+          <a class="villa-cta-btn" style="background:transparent;color:#1A1A1A;border-color:#424632;" href="tel:+447852193811">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            Call +44 7852 193811
+          </a>
+        </div>
+        <div class="villa-signoff">
+          <p class="villa-signoff__line">From first call to gate handover, you have one point of contact: me.</p>
+          <p class="villa-signoff__name">Myles Longfield</p>
+          <p class="villa-signoff__role">Founder, ProLuxe Travel</p>
         </div>
       </div>
     </div>
@@ -1096,6 +1333,53 @@
       if(overlay) overlay.addEventListener('click', closeNav);
       document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
       offcanvas.querySelectorAll('.offcanvas__link').forEach(function(a){ a.addEventListener('click', closeNav); });
+    })();
+  </script>
+
+  <!-- Sticky contact bar: hidden on hero, fades in once user scrolls past -->
+  <div class="villa-stickybar" id="villaStickybar" aria-label="Quick contact">
+    <a class="villa-stickybar__btn villa-stickybar__btn--primary" href="https://wa.me/447852193811?text=Hello%20Myles%2C%20I%27m%20enquiring%20about%20Villa%20Azzurra%20on%20Cap%20de%20Formentor." target="_blank" rel="noopener" aria-label="WhatsApp Myles">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"></path>
+      </svg>
+    </a>
+    <a class="villa-stickybar__btn" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry&body=Hello%2C%0A%0AI%27m%20enquiring%20about%20Villa%20Azzurra%20on%20Cap%20de%20Formentor.%0A%0APreferred%20dates%3A%0AGuests%3A%0ANotes%3A%0A%0AThank%20you%2C" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+        <polyline points="22,6 12,13 2,6"></polyline>
+      </svg>
+    </a>
+    <a class="villa-stickybar__btn" href="tel:+447852193811" aria-label="Call Myles">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Sticky bar visibility: appears once user scrolls past the hero -->
+  <script>
+    (function(){
+      var bar = document.getElementById('villaStickybar');
+      var hero = document.querySelector('.cumbria-hero');
+      if(!bar || !hero) return;
+      if('IntersectionObserver' in window){
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(entry.isIntersecting){
+              bar.classList.remove('is-visible');
+            } else {
+              bar.classList.add('is-visible');
+            }
+          });
+        }, { rootMargin: '-80px 0px 0px 0px' });
+        io.observe(hero);
+      } else {
+        // Fallback: show on any scroll past 320px
+        window.addEventListener('scroll', function(){
+          if(window.scrollY > 320) bar.classList.add('is-visible');
+          else bar.classList.remove('is-visible');
+        });
+      }
     })();
   </script>
 
