@@ -9,7 +9,7 @@
   <meta property="og:description" content="A contemporary four bedroom villa on Cap de Formentor, Mallorca. 300m from the Four Seasons Resort Mallorca, 150m from Formentor Beach.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://proluxetravels.com/villa-azzurra">
-  <meta property="og:image" content="https://proluxetravels.com/img/villa-azzurra/hero-pool-dusk.jpg">
+  <meta property="og:image" content="https://proluxetravels.com/img/villa-azzurra/pool-view.jpg">
   <meta property="og:site_name" content="ProLuxe Travel">
   <meta property="og:locale" content="en_GB">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,28 +21,28 @@
 
   <!-- Page-specific overrides: hero photo + a small rates table built on existing tokens -->
   <style>
-    /* Hero photograph for this page */
+    /* Hero photograph for this page (daylight pool shot for cleaner legibility) */
     .villa-hero__bg--photo{
-      background:url('img/villa-azzurra/hero-pool-dusk.jpg') center 50% / cover no-repeat;
+      background:url('img/villa-azzurra/pool-view.jpg') center 60% / cover no-repeat;
     }
 
-    /* Hero readability: darker overlay and stronger text on this page only */
+    /* Hero readability: lighter touch overlay now that we are on a bright photo */
     .cumbria-hero__overlay{
       background:linear-gradient(180deg,
-        rgba(26,26,23,0.50) 0%,
-        rgba(26,26,23,0.35) 40%,
-        rgba(26,26,23,0.70) 100%);
+        rgba(26,26,23,0.32) 0%,
+        rgba(26,26,23,0.18) 40%,
+        rgba(26,26,23,0.55) 100%);
     }
     .cumbria-hero__eyebrow{
-      text-shadow:0 1px 14px rgba(0,0,0,0.65);
+      text-shadow:0 1px 14px rgba(0,0,0,0.55);
     }
     .cumbria-hero__title{
-      text-shadow:0 2px 24px rgba(0,0,0,0.55);
+      text-shadow:0 2px 24px rgba(0,0,0,0.5);
     }
     .cumbria-hero__subtitle{
       color:#F5F0E8;
       font-size:clamp(20px, 2.2vw, 26px);
-      text-shadow:0 1px 12px rgba(0,0,0,0.7), 0 0 24px rgba(0,0,0,0.4);
+      text-shadow:0 1px 12px rgba(0,0,0,0.6), 0 0 24px rgba(0,0,0,0.35);
     }
 
     /* Two-column feature block: image and prose side by side, stacks on mobile */
@@ -388,7 +388,58 @@
       .poi-pop__photo{ height:140px; }
     }
 
-    /* Beyond the Villa: on-request services grid */
+    /* Beyond the Villa: included-vs-on-request two-column split */
+    .villa-services-split{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:48px;
+      margin:32px 0 0;
+    }
+    .villa-services-split__col-title{
+      font-family:'Playfair Display', serif;
+      font-size:clamp(20px, 2vw, 26px);
+      font-weight:500;
+      color:#F5F0E8;
+      margin:0 0 20px;
+      padding-bottom:12px;
+      border-bottom:1px solid rgba(245,240,232,.22);
+    }
+    .villa-services-split__list{
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .villa-services-split__list li{
+      font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-size:16px;
+      line-height:1.55;
+      color:rgba(245,240,232,.85);
+      padding:14px 0;
+      border-bottom:1px solid rgba(245,240,232,.08);
+    }
+    .villa-services-split__list li:last-child{ border-bottom:0; }
+    .villa-services-split__list li strong{
+      color:#F5F0E8;
+      font-weight:600;
+      font-style:normal;
+    }
+    @media(max-width:720px){
+      .villa-services-split{ grid-template-columns:1fr; gap:24px; }
+    }
+
+    /* Calendar tile clickability affordance: arrow always visible at low opacity, full on hover */
+    .villa-cal__status::after{
+      content:' \2192';
+      opacity:0.35;
+      margin-left:4px;
+      transition:opacity .2s ease;
+    }
+    a.villa-cal__month:hover .villa-cal__status::after,
+    a.villa-cal__month:focus-visible .villa-cal__status::after{
+      opacity:0.9;
+    }
+
+    /* Beyond the Villa: on-request services grid (legacy, retained for fallback) */
     .villa-services{
       display:grid;
       grid-template-columns:repeat(2, minmax(0,1fr));
@@ -1251,42 +1302,38 @@
     </div>
   </section>
 
-  <!-- ========== BEYOND THE VILLA (on-request services) ========== -->
+  <!-- ========== THE WEEK (included vs on-request split) ========== -->
   <section class="section section--olive" aria-labelledby="services-heading">
     <div class="container">
       <div class="section-head">
-        <p class="section__eyebrow section__eyebrow--light">On Request</p>
-        <h2 class="section__title section__title--light" id="services-heading">Beyond the villa</h2>
-        <p class="section__intro section__intro--light">Stays at Villa Azzurra are shaped around the guests. The standing concierge list runs as follows; full menu by arrangement.</p>
+        <p class="section__eyebrow section__eyebrow--light">The Week</p>
+        <h2 class="section__title section__title--light" id="services-heading">What is included, what is on request</h2>
+        <p class="section__intro section__intro--light">The week as it stands at the published rate, alongside the standing concierge list. Full menu by arrangement.</p>
       </div>
-      <div class="villa-services" style="border-color:rgba(245,240,232,.18);">
-        <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
-          <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
-          <h3 class="villa-service__name" style="color:#F5F0E8;">Private Chef</h3>
-          <p class="villa-service__body" style="color:rgba(245,240,232,.85);">Daily or by the evening, drawn from a small list of chefs in the Pollen&ccedil;a valley. Market menus, long-table dinners on the covered terrace (seats 12), or a full programme of breakfasts and evening menus across the week.</p>
-        </article>
-        <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
-          <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
-          <h3 class="villa-service__name" style="color:#F5F0E8;">Four Seasons Access</h3>
-          <p class="villa-service__body" style="color:rgba(245,240,232,.85);">Dinner at Shima or Mel, treatments at the Biologique Recherche spa, and a tender from Port de Pollen&ccedil;a to the resort&rsquo;s private pier. The hotel next door functions as an extended drawing room.</p>
-        </article>
-        <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
-          <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
-          <h3 class="villa-service__name" style="color:#F5F0E8;">Day Charter</h3>
-          <p class="villa-service__body" style="color:rgba(245,240,232,.85);">Skippered yachts from Puerto Pollen&ccedil;a. Sail to Sa Foradada for lunch, or around the Cap to the lighthouse bays.</p>
-        </article>
-        <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
-          <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
-          <h3 class="villa-service__name" style="color:#F5F0E8;">Private Transfers</h3>
-          <p class="villa-service__body" style="color:rgba(245,240,232,.85);">Twin engine helicopter from Palma airport to Puerto Pollen&ccedil;a, a tender to meet you off a super yacht in the bay, or a vetted driver in a private car.</p>
-        </article>
-        <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
-          <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
-          <h3 class="villa-service__name" style="color:#F5F0E8;">Cycling on the Cap</h3>
-          <p class="villa-service__body" style="color:rgba(245,240,232,.85);">Guided rides up to the lighthouse with bikes, fitting and a support car. The Cap de Formentor climb is one of the most photographed in Europe.</p>
-        </article>
+      <div class="villa-services-split">
+        <div class="villa-services-split__col">
+          <h3 class="villa-services-split__col-title">Included in the week</h3>
+          <ul class="villa-services-split__list">
+            <li>Final clean and mid-stay housekeeping (three cleans per week in peak)</li>
+            <li>Pool maintenance and garden maintenance</li>
+            <li>Linens and towels throughout</li>
+            <li>WiFi across the property and the covered terrace</li>
+            <li>Sonos sound system in the principal rooms</li>
+            <li>Two parking spaces inside the gate</li>
+          </ul>
+        </div>
+        <div class="villa-services-split__col">
+          <h3 class="villa-services-split__col-title">On request, at cost</h3>
+          <ul class="villa-services-split__list">
+            <li><strong>Private chef.</strong> Daily or by the evening, drawn from a small list in the Pollen&ccedil;a valley. Long-table dinners on the terrace (seats 12).</li>
+            <li><strong>Four Seasons access.</strong> Spa treatments at Biologique Recherche, dinner at Shima or Mel, tender from Port de Pollen&ccedil;a to the resort&rsquo;s private pier.</li>
+            <li><strong>Day charter.</strong> Skippered yachts from Puerto Pollen&ccedil;a. Sa Foradada for lunch, or around the Cap to the lighthouse bays.</li>
+            <li><strong>Private transfers.</strong> Twin engine helicopter from Palma, tender to a yacht in the bay, or a vetted driver in a private car.</li>
+            <li><strong>Cycling on the Cap.</strong> Guided rides up to the lighthouse with bikes, fitting and a support car.</li>
+            <li>Tennis coaching, babysitting, full event planning, and Michelin-starred dining at Terrae and Maca de Castro by arrangement.</li>
+          </ul>
+        </div>
       </div>
-      <p class="section__intro section__intro--light" style="margin:32px 0 0;font-style:italic;">Tennis coaching, babysitting, full event planning and Michelin-starred dining at Terrae and Maca de Castro all available by arrangement.</p>
     </div>
   </section>
 
