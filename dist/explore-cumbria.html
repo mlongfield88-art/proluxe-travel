@@ -18,6 +18,297 @@
   <link rel="stylesheet" href="lib/leaflet/leaflet.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
+
+  <!-- Page-specific UX overlays: audience strip, sticky contact, property capacity bands, filter row, terms, signoff -->
+  <style>
+    .cumbria-hero__audience{
+      font-family:'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+      font-style:italic;
+      font-size:clamp(15px, 1.6vw, 18px);
+      color:rgba(245,240,232,.82);
+      text-shadow:0 1px 10px rgba(0,0,0,0.55);
+      margin:0 auto 28px;
+      max-width:600px;
+    }
+    .cumbria-capacity{
+      background:#1A1A17;
+      color:rgba(245,240,232,.92);
+      padding:18px 20px;
+      text-align:center;
+      font-family:'Raleway', sans-serif;
+      font-size:13px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .cumbria-capacity span{ color:#F5F0E8; }
+    .cumbria-capacity .sep{ opacity:0.4; margin:0 16px; }
+    @media(max-width:720px){
+      .cumbria-capacity{ font-size:11px; letter-spacing:.10em; padding:14px 16px; }
+      .cumbria-capacity .sep{ display:none; }
+      .cumbria-capacity span{ display:block; padding:3px 0; }
+    }
+    .cumbria-hero__cta{ flex-wrap:wrap; }
+    .cumbria-cta-secondary{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:14px 22px;
+      background:transparent;
+      color:#F5F0E8;
+      border:1px solid rgba(245,240,232,.55);
+      font-family:'Raleway', sans-serif;
+      font-size:13px;
+      font-weight:500;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      text-decoration:none;
+      transition:background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .cumbria-cta-secondary:hover, .cumbria-cta-secondary:focus-visible{
+      background:rgba(245,240,232,.14);
+      border-color:#F5F0E8;
+      outline:none;
+    }
+    .cumbria-skip{
+      max-width:1180px;
+      margin:0 auto;
+      padding:14px 24px 0;
+      text-align:right;
+    }
+    .cumbria-skip a{
+      font-family:'Raleway', sans-serif;
+      font-size:11px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:rgba(245,240,232,.7);
+      text-decoration:none;
+      border-bottom:1px solid rgba(245,240,232,.3);
+      padding-bottom:2px;
+      transition:color .2s ease, border-color .2s ease;
+    }
+    .cumbria-skip a:hover, .cumbria-skip a:focus-visible{
+      color:#F5F0E8;
+      border-color:#F5F0E8;
+      outline:none;
+    }
+    .property-card__meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin:10px 0 0;
+    }
+    .property-card__band{
+      display:inline-flex;
+      align-items:center;
+      padding:4px 10px;
+      background:rgba(66,70,50,.08);
+      border:1px solid rgba(66,70,50,.18);
+      font-family:'Raleway', sans-serif;
+      font-size:10px;
+      font-weight:500;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:#424632;
+      border-radius:2px;
+    }
+    .property-card__band--michelin{ background:rgba(165,130,60,.1); border-color:rgba(165,130,60,.35); color:#7B5E1F; }
+    .properties-filter{
+      max-width:1080px;
+      margin:0 auto 32px;
+      padding:20px 24px;
+      background:#FAFAF7;
+      border:1px solid rgba(66,70,50,.16);
+      border-radius:2px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:16px 28px;
+      align-items:center;
+    }
+    .properties-filter__group{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .properties-filter__label{
+      font-family:'Raleway', sans-serif;
+      font-size:11px;
+      font-weight:500;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#5A5A52;
+      margin-right:8px;
+    }
+    .properties-filter input[type="checkbox"]{ position:absolute; opacity:0; pointer-events:none; }
+    .properties-filter__pill{
+      display:inline-flex;
+      align-items:center;
+      padding:8px 14px;
+      background:#FFFFFF;
+      border:1px solid rgba(66,70,50,.22);
+      font-family:'Raleway', sans-serif;
+      font-size:12px;
+      letter-spacing:.04em;
+      color:#1A1A1A;
+      border-radius:999px;
+      cursor:pointer;
+      transition:background .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .properties-filter__pill:hover{ border-color:#424632; }
+    .properties-filter input:checked + .properties-filter__pill{
+      background:#424632;
+      color:#F5F0E8;
+      border-color:#424632;
+    }
+    .properties-filter input:focus-visible + .properties-filter__pill{ outline:2px solid #424632; outline-offset:2px; }
+    .properties-filter__reset{
+      background:none;
+      border:0;
+      font-family:'Raleway', sans-serif;
+      font-size:11px;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:#8A8A80;
+      cursor:pointer;
+      padding:6px 4px;
+    }
+    .properties-filter__reset:hover{ color:#1A1A1A; }
+    .property-card.is-hidden{ display:none; }
+    .cumbria-stickybar{
+      position:fixed;
+      bottom:16px;
+      right:16px;
+      display:flex;
+      gap:8px;
+      z-index:60;
+      padding:8px;
+      background:rgba(26,26,23,0.92);
+      border:1px solid rgba(245,240,232,0.18);
+      border-radius:999px;
+      box-shadow:0 12px 36px rgba(0,0,0,0.32);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+      opacity:0;
+      transform:translateY(12px);
+      pointer-events:none;
+      transition:opacity .3s ease, transform .3s ease;
+      align-items:center;
+      padding-bottom:max(8px, env(safe-area-inset-bottom));
+    }
+    .cumbria-stickybar.is-visible{ opacity:1; transform:translateY(0); pointer-events:auto; }
+    .cumbria-stickybar__primary{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 18px;
+      background:#F5F0E8;
+      color:#1A1A1A;
+      border-radius:999px;
+      font-family:'Raleway', sans-serif;
+      font-size:12px;
+      font-weight:500;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-decoration:none;
+      transition:background .2s ease;
+    }
+    .cumbria-stickybar__primary:hover, .cumbria-stickybar__primary:focus-visible{
+      background:#FFFFFF;
+      outline:none;
+    }
+    .cumbria-stickybar__btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:transparent;
+      color:#F5F0E8;
+      text-decoration:none;
+      transition:background .2s ease, color .2s ease;
+    }
+    .cumbria-stickybar__btn:hover, .cumbria-stickybar__btn:focus-visible{
+      background:#F5F0E8;
+      color:#1A1A1A;
+      outline:none;
+    }
+    .cumbria-stickybar__btn svg{ width:16px; height:16px; }
+    @media(max-width:600px){
+      .cumbria-stickybar{ left:12px; right:12px; justify-content:center; }
+      .cumbria-stickybar__primary{ font-size:11px; letter-spacing:.06em; padding:9px 14px; }
+    }
+    .cumbria-terms{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:24px;
+      max-width:1080px;
+      margin:48px auto 0;
+      padding:32px;
+      background:#FAFAF7;
+      border:1px solid rgba(66,70,50,.16);
+      border-radius:2px;
+    }
+    .cumbria-terms__item{ text-align:center; }
+    .cumbria-terms__label{
+      font-family:'Raleway', sans-serif;
+      font-size:10px;
+      font-weight:500;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#8A8A80;
+      margin:0 0 8px;
+    }
+    .cumbria-terms__value{
+      font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-size:15px;
+      line-height:1.5;
+      color:#1A1A1A;
+      margin:0;
+    }
+    @media(max-width:720px){
+      .cumbria-terms{ grid-template-columns:repeat(2, minmax(0, 1fr)); padding:24px; gap:18px; }
+    }
+    .cumbria-signoff{
+      max-width:680px;
+      margin:32px auto 0;
+      padding:32px 24px 0;
+      border-top:1px solid rgba(66,70,50,.16);
+      text-align:center;
+    }
+    .cumbria-signoff__line{
+      font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-style:italic;
+      font-size:18px;
+      line-height:1.55;
+      color:#3A3A3A;
+      margin:0 0 14px;
+    }
+    .cumbria-signoff__name{
+      font-family:'Cormorant Garamond', serif;
+      font-size:18px;
+      font-weight:600;
+      color:#1A1A1A;
+      margin:0;
+    }
+    .cumbria-signoff__role{
+      font-family:'Raleway', sans-serif;
+      font-size:11px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#8A8A80;
+      margin:4px 0 0;
+    }
+    .cumbria-clients{
+      text-align:center;
+      font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-style:italic;
+      font-size:16px;
+      color:#3A3A3A;
+      max-width:680px;
+      margin:48px auto 0;
+    }
+  </style>
 </head>
 
 <body>
@@ -66,14 +357,30 @@
     <div class="cumbria-hero__bg cumbria-hero__bg--photo" aria-hidden="true"></div>
     <div class="cumbria-hero__overlay" aria-hidden="true"></div>
     <div class="cumbria-hero__content">
-      <p class="cumbria-hero__eyebrow">Regions &bull; United Kingdom &bull; Lake District</p>
+      <p class="cumbria-hero__eyebrow">Leadership weeks &bull; Partner offsites &bull; Lake District</p>
       <h1 class="cumbria-hero__title">Explore Cumbria</h1>
       <p class="cumbria-hero__subtitle">Country-house hospitality, handled properly.</p>
+      <p class="cumbria-hero__audience">For leadership weeks, partner offsites, and team gatherings of 20 to 120, across thirteen houses.</p>
       <div class="cumbria-hero__cta">
         <a href="/#contact" class="btn btn--primary">Start a Conversation</a>
+        <a class="cumbria-cta-secondary" href="mailto:info@proluxetravels.com?subject=Request%20the%20Cumbria%20book&body=Hello%2C%0A%0AI%27d%20like%20to%20receive%20the%20ProLuxe%20Travel%20Cumbria%20book.%0A%0AGroup%20size%3A%0ARough%20dates%3A%0ASingle-house%20takeover%20or%20multi-house%20programme%3A%0ANotes%3A%0A%0AThank%20you%2C">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          Request the Cumbria book
+        </a>
       </div>
     </div>
   </section>
+
+  <!-- Capacity strip directly under the hero, sets audience expectation -->
+  <div class="cumbria-capacity" aria-label="What we handle">
+    <span>Single-house takeovers</span>
+    <span class="sep">&middot;</span>
+    <span>Multi-house programmes</span>
+    <span class="sep">&middot;</span>
+    <span>13 country houses across the region</span>
+  </div>
 
   <!-- ========== WHY CUMBRIA (written intro, before the journey) ========== -->
   <section class="section section--cream" aria-labelledby="why-cumbria-heading">
@@ -113,6 +420,7 @@
        prefers-reduced-motion: no pin, no translate. Panels lay out as a vertical stack.
   -->
   <section class="journey" aria-label="A walk through Cumbria">
+    <p class="cumbria-skip"><a href="#properties">Skip to properties &rarr;</a></p>
 
     <!-- ============================================================
          DESKTOP HORIZONTAL TRACK
@@ -591,6 +899,27 @@
         <h2 class="section-head__title">Where we put people in Cumbria</h2>
         <p class="section-head__lede">The properties we return to, chosen for the kitchen as often as the view. Some you will know. Some you will not. All of them we have walked ourselves.</p>
       </div>
+
+      <div class="properties-filter" id="propertiesFilter" aria-label="Filter properties">
+        <div class="properties-filter__group">
+          <span class="properties-filter__label">Region</span>
+          <label><input type="checkbox" data-filter="region" value="north"><span class="properties-filter__pill">North</span></label>
+          <label><input type="checkbox" data-filter="region" value="central"><span class="properties-filter__pill">Central</span></label>
+          <label><input type="checkbox" data-filter="region" value="south"><span class="properties-filter__pill">South</span></label>
+        </div>
+        <div class="properties-filter__group">
+          <span class="properties-filter__label">Capacity</span>
+          <label><input type="checkbox" data-filter="capacity" value="30"><span class="properties-filter__pill">Up to 30</span></label>
+          <label><input type="checkbox" data-filter="capacity" value="60"><span class="properties-filter__pill">30 to 60</span></label>
+          <label><input type="checkbox" data-filter="capacity" value="60p"><span class="properties-filter__pill">60+</span></label>
+        </div>
+        <div class="properties-filter__group">
+          <span class="properties-filter__label">Kitchen</span>
+          <label><input type="checkbox" data-filter="michelin" value="yes"><span class="properties-filter__pill">Michelin in-house</span></label>
+        </div>
+        <button class="properties-filter__reset" id="propertiesFilterReset" type="button">Reset</button>
+      </div>
+
       <div class="properties__grid">
 
         <!-- Property cards are ordered geographically, north to south.
@@ -598,132 +927,178 @@
              approves a licensed image we can host. -->
 
         <!-- 1. Armathwaite Hall (Bassenthwaite, 54.66 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="north" data-capacity="60p" data-michelin="no">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Bassenthwaite Lake · Country house</p>
             <h3 class="property-card__name">Armathwaite Hall</h3>
             <p class="property-card__blurb">Seventeenth-century manor on Bassenthwaite Lake, 400 acres, full spa, stables. The Lake District's big grand house. Handles larger groups without feeling processed.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">60+ guests</span>
+            </div>
           </div>
         </article>
 
         <!-- 2. Askham Hall (Penrith / Ullswater, 54.63 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="north" data-capacity="30" data-michelin="yes">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Penrith · Country house</p>
             <h3 class="property-card__name">Askham Hall</h3>
             <p class="property-card__blurb">Lowther estate, one Michelin star at Allium, kitchen garden on the doorstep. Medieval and unhurried.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">Up to 30 guests</span>
+            <span class="property-card__band property-card__band--michelin">Michelin</span>
+            </div>
           </div>
         </article>
 
         <!-- 3. The Cottage in the Wood (Whinlatter Forest, 54.61 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="north" data-capacity="30" data-michelin="yes">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Whinlatter Forest · Restaurant with rooms</p>
             <h3 class="property-card__name">The Cottage in the Wood</h3>
             <p class="property-card__blurb">Inside the Whinlatter Forest. 9 bedrooms upstairs, a one-Michelin-star kitchen below. Jack and Beth Bond took the reins in 2024. Deep enough that the week feels properly away.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">Up to 30 guests</span>
+            <span class="property-card__band property-card__band--michelin">Michelin</span>
+            </div>
           </div>
         </article>
 
         <!-- 4. Lodore Falls (Derwentwater / Borrowdale, 54.56 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="north" data-capacity="60p" data-michelin="no">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Borrowdale · Country house</p>
             <h3 class="property-card__name">Lodore Falls</h3>
             <p class="property-card__blurb">On the southern shore of Derwentwater, with the falls rising directly behind the hotel. Spa, lake-facing rooms, and the Borrowdale valley on the doorstep.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">60+ guests</span>
+            </div>
           </div>
         </article>
 
         <!-- 5. Forest Side (Grasmere, 54.46 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="central" data-capacity="60" data-michelin="yes">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Grasmere · Country house</p>
             <h3 class="property-card__name">Forest Side</h3>
             <p class="property-card__blurb">Victorian gothic house on the edge of Grasmere. One Michelin star. The kind of quiet you notice after a day and then find difficult to leave.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">30-60 guests</span>
+            <span class="property-card__band property-card__band--michelin">Michelin</span>
+            </div>
           </div>
         </article>
 
         <!-- 6. Holbeck Ghyll (Windermere, 54.41 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="central" data-capacity="60" data-michelin="no">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Windermere · Country house</p>
             <h3 class="property-card__name">Holbeck Ghyll</h3>
             <p class="property-card__blurb">Former hunting lodge above Windermere with views across to the Langdale Pikes. Oak-panelled rooms, two AA Rosettes, a serious wine list.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">30-60 guests</span>
+            </div>
           </div>
         </article>
 
         <!-- 7. The Samling (Ambleside, 54.41 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="central" data-capacity="30" data-michelin="no">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Ambleside · Country house</p>
             <h3 class="property-card__name">The Samling</h3>
             <p class="property-card__blurb">Above Windermere, set on 15 quiet acres. The rooms are properly grand and the drive up feels like leaving the century behind.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">Up to 30 guests</span>
+            </div>
           </div>
         </article>
 
         <!-- 8. Langdale Chase (Windermere east shore, 54.38 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="central" data-capacity="60" data-michelin="no">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Windermere · Country house</p>
             <h3 class="property-card__name">Langdale Chase</h3>
             <p class="property-card__blurb">Grade II listed manor on the eastern shore of Windermere, reopened 2023 after a full restoration. Two AA Rosettes, Small Luxury Hotels of the World.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">30-60 guests</span>
+            </div>
           </div>
         </article>
 
         <!-- 9. Linthwaite House (Windermere, 54.35 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="central" data-capacity="60" data-michelin="yes">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Windermere · Country house</p>
             <h3 class="property-card__name">Linthwaite House</h3>
             <p class="property-card__blurb">Directly above the lake. Henrock holds one Michelin star. Simon Rogan. Tarn walks from the door and the water visible from most rooms.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">30-60 guests</span>
+            <span class="property-card__band property-card__band--michelin">Michelin</span>
+            </div>
           </div>
         </article>
 
         <!-- 10. Gilpin Hotel & Lake House (Windermere, 54.35 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="central" data-capacity="60" data-michelin="yes">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Windermere · Country house</p>
             <h3 class="property-card__name">Gilpin Hotel &amp; Lake House</h3>
             <p class="property-card__blurb">Cedar spa suites, SOURCE holds one Michelin star, family run since 1987. Takes a larger party without losing the feel of the house.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">30-60 guests</span>
+            <span class="property-card__band property-card__band--michelin">Michelin</span>
+            </div>
           </div>
         </article>
 
         <!-- 11. Storrs Hall (Windermere south, 54.35 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="central" data-capacity="60" data-michelin="no">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Windermere · Country house</p>
             <h3 class="property-card__name">Storrs Hall</h3>
             <p class="property-card__blurb">Grade II* Georgian mansion on its own promontory into Windermere. Adults-only, 30 rooms, landscaped gardens running to the lake. Quiet by design.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">30-60 guests</span>
+            </div>
           </div>
         </article>
 
         <!-- 12. Heft (High Newton, 54.24 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="south" data-capacity="30" data-michelin="yes">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">High Newton · Village inn</p>
             <h3 class="property-card__name">Heft</h3>
             <p class="property-card__blurb">One Michelin star worn lightly. Kevin Tickle's daily-changing tasting menu in a village inn above the southern Lakes. Regional produce, no ceremony.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">Up to 30 guests</span>
+            <span class="property-card__band property-card__band--michelin">Michelin</span>
+            </div>
           </div>
         </article>
 
         <!-- 13. L'Enclume (Cartmel, 54.20 N) -->
-        <article class="property-card">
+        <article class="property-card" data-region="south" data-capacity="30" data-michelin="yes">
           <div class="property-card__photo property-card__photo--placeholder" aria-hidden="true"></div>
           <div class="property-card__body">
             <p class="property-card__kind">Cartmel · Restaurant with rooms</p>
             <h3 class="property-card__name">L'Enclume</h3>
             <p class="property-card__blurb">Simon Rogan's three-star flagship inside a twelfth-century smithy. The evening a Cumbrian week quietly builds towards. Getting the room is the hard part.</p>
+            <div class="property-card__meta">
+              <span class="property-card__band">Up to 30 guests</span>
+            <span class="property-card__band property-card__band--michelin">Michelin</span>
+            </div>
           </div>
         </article>
 
@@ -795,7 +1170,7 @@
     </div>
   </section>
 
-  <!-- ========== OUR PART IN THIS ========== -->
+  <!-- ========== OUR PART IN THIS + TRUST + SIGNOFF ========== -->
   <section class="section section--cream" aria-labelledby="promise-heading">
     <div class="container">
       <div class="about-full">
@@ -803,6 +1178,29 @@
         <h2 class="section__title" id="promise-heading">Our part in this</h2>
         <p class="section__body">Nothing about Cumbria is treated as a template. Tell us what the week needs to feel like and we will walk it against the valleys, then come back with accommodation that actually fits the group. Once the shape of the week is set, the detail is ours to carry.</p>
         <a href="/#contact" class="link-arrow">Start a conversation <span>&rarr;</span></a>
+      </div>
+
+      <p class="cumbria-clients">Trusted by law firms, professional services partners, and PE leadership teams.</p>
+
+      <div class="cumbria-terms" aria-label="Terms at a glance" style="grid-template-columns:repeat(3, minmax(0,1fr));">
+        <div class="cumbria-terms__item">
+          <p class="cumbria-terms__label">Booking</p>
+          <p class="cumbria-terms__value">Deposit at confirmation, balance per the host property's terms. Single point of contact through the programme.</p>
+        </div>
+        <div class="cumbria-terms__item">
+          <p class="cumbria-terms__label">Cancellation</p>
+          <p class="cumbria-terms__value">Sliding scale per property. We surface the schedule in writing before any deposit is taken.</p>
+        </div>
+        <div class="cumbria-terms__item">
+          <p class="cumbria-terms__label">Coverage</p>
+          <p class="cumbria-terms__value">Accommodation only, no flight package, no consumer credit. Travel insurance is the guests'.</p>
+        </div>
+      </div>
+
+      <div class="cumbria-signoff">
+        <p class="cumbria-signoff__line">From the first brief to the final guest departure, you have one point of contact: me.</p>
+        <p class="cumbria-signoff__name">Myles Longfield</p>
+        <p class="cumbria-signoff__role">Founder, ProLuxe Travel</p>
       </div>
     </div>
   </section>
@@ -836,6 +1234,22 @@
       </div>
     </div>
   </footer>
+
+  <!-- Sticky contact bar: Brief programme primary, Email, Call -->
+  <div class="cumbria-stickybar" id="cumbriaStickybar" aria-label="Quick contact">
+    <a class="cumbria-stickybar__primary" href="mailto:info@proluxetravels.com?subject=Brief%20a%20Cumbria%20programme&body=Hello%2C%0A%0AI%27d%20like%20to%20brief%20a%20programme%20in%20Cumbria.%0A%0AGroup%20size%3A%0ARough%20dates%3A%0ASingle-house%20takeover%20or%20multi-house%20programme%3A%0ANotes%3A%0A%0AThank%20you%2C">Brief a programme</a>
+    <a class="cumbria-stickybar__btn" href="mailto:info@proluxetravels.com?subject=Cumbria%20enquiry" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+    </a>
+    <a class="cumbria-stickybar__btn" href="tel:+442070888291" aria-label="Call ProLuxe Travel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/>
+      </svg>
+    </a>
+  </div>
 
   <!-- ========== SCRIPTS ========== -->
 
@@ -882,6 +1296,68 @@
   <script src="js/cumbria-map.js"></script>
   <!-- Journey animation — loaded only on this page -->
   <script src="js/cumbria.js"></script>
+
+  <!-- Sticky contact bar visibility (appears once user scrolls past hero) -->
+  <script>
+    (function(){
+      var bar = document.getElementById('cumbriaStickybar');
+      var hero = document.querySelector('.cumbria-hero');
+      if(!bar || !hero) return;
+      if('IntersectionObserver' in window){
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(entry.isIntersecting) bar.classList.remove('is-visible');
+            else bar.classList.add('is-visible');
+          });
+        }, { rootMargin: '-80px 0px 0px 0px' });
+        io.observe(hero);
+      } else {
+        window.addEventListener('scroll', function(){
+          if(window.scrollY > 320) bar.classList.add('is-visible');
+          else bar.classList.remove('is-visible');
+        });
+      }
+    })();
+  </script>
+
+  <!-- Properties filter (region / capacity / Michelin) -->
+  <script>
+    (function(){
+      var panel = document.getElementById('propertiesFilter');
+      var resetBtn = document.getElementById('propertiesFilterReset');
+      var cards = document.querySelectorAll('.property-card');
+      if(!panel || !cards.length) return;
+
+      function selectedValues(filterType){
+        var inputs = panel.querySelectorAll('input[data-filter="' + filterType + '"]:checked');
+        return Array.from(inputs).map(function(i){ return i.value; });
+      }
+
+      function apply(){
+        var regions = selectedValues('region');
+        var caps = selectedValues('capacity');
+        var michelin = selectedValues('michelin');
+        cards.forEach(function(card){
+          var r = card.getAttribute('data-region');
+          var c = card.getAttribute('data-capacity');
+          var m = card.getAttribute('data-michelin');
+          var passes = true;
+          if(regions.length && regions.indexOf(r) === -1) passes = false;
+          if(caps.length && caps.indexOf(c) === -1) passes = false;
+          if(michelin.length && michelin.indexOf(m) === -1) passes = false;
+          card.classList.toggle('is-hidden', !passes);
+        });
+      }
+
+      panel.addEventListener('change', apply);
+      if(resetBtn){
+        resetBtn.addEventListener('click', function(){
+          panel.querySelectorAll('input[type="checkbox"]').forEach(function(i){ i.checked = false; });
+          apply();
+        });
+      }
+    })();
+  </script>
 
 </body>
 </html>
