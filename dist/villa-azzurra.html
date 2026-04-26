@@ -174,12 +174,58 @@
       max-width:980px;
       margin:0 auto;
     }
+    .villa-map__plate{
+      background:#F5F0E8;
+      padding:clamp(20px, 4vw, 40px);
+      border-radius:2px;
+      max-width:820px;
+      margin:0 auto;
+      box-shadow:0 8px 32px rgba(0,0,0,0.12);
+    }
     .villa-map__svg{
       width:100%;
       height:auto;
       display:block;
       margin:0 auto;
-      max-width:760px;
+    }
+
+    /* Beyond the Villa: on-request services grid */
+    .villa-services{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:0 48px;
+      margin:32px 0 0;
+    }
+    .villa-service{
+      padding:28px 0;
+      border-top:1px solid rgba(66,70,50,.18);
+    }
+    .villa-service__eyebrow{
+      font-family:'Raleway', sans-serif;
+      font-size:11px;
+      font-weight:500;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#8A8A80;
+      margin:0 0 8px;
+    }
+    .villa-service__name{
+      font-family:'Playfair Display', serif;
+      font-size:clamp(20px, 2vw, 26px);
+      font-weight:500;
+      color:#1A1A1A;
+      margin:0 0 12px;
+      line-height:1.2;
+    }
+    .villa-service__body{
+      font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-size:17px;
+      line-height:1.6;
+      color:#3A3A3A;
+      margin:0;
+    }
+    @media(max-width:720px){
+      .villa-services{ grid-template-columns:1fr; gap:0; }
     }
     .villa-distances{
       display:grid;
@@ -253,24 +299,27 @@
 
     /* Gallery strip: horizontal scroll of images */
     .villa-gallery{
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:minmax(320px, 38vw);
+      display:flex;
       gap:16px;
       overflow-x:auto;
-      padding:0 24px 16px;
-      margin:24px -24px 0;
+      overflow-y:hidden;
+      margin:24px 0 0;
+      padding:0 0 16px;
       scroll-snap-type:x proximity;
       -webkit-overflow-scrolling:touch;
+      scrollbar-width:thin;
     }
     .villa-gallery::-webkit-scrollbar{ height:6px; }
     .villa-gallery::-webkit-scrollbar-thumb{ background:rgba(66,70,50,.25); border-radius:3px; }
     .villa-gallery__item{
       position:relative;
       scroll-snap-align:start;
+      flex:0 0 auto;
+      width:clamp(280px, 38vw, 460px);
       aspect-ratio:4/3;
       overflow:hidden;
       border-radius:2px;
+      margin:0;
     }
     .villa-gallery__item img{
       width:100%;
@@ -278,7 +327,10 @@
       object-fit:cover;
       display:block;
     }
-    .villa-gallery__item--wide{ grid-row:span 1; aspect-ratio:16/9; min-width:480px; }
+    .villa-gallery__item--wide{
+      width:clamp(380px, 56vw, 680px);
+      aspect-ratio:16/9;
+    }
     .villa-gallery__caption{
       position:absolute;
       left:16px;
@@ -292,7 +344,8 @@
       margin:0;
     }
     @media(max-width:720px){
-      .villa-gallery{ grid-auto-columns:minmax(260px, 80vw); }
+      .villa-gallery__item{ width:78vw; }
+      .villa-gallery__item--wide{ width:88vw; }
     }
 
     /* Availability strip: 2026 by month */
@@ -571,7 +624,10 @@
         <p class="section__intro section__intro--light">A 9km finger of limestone and pine pointing north east into the Mediterranean. The Tramuntana range shelters the southern flank, the Bay of Pollen&ccedil;a cradles it from the west, open sea on the north. Villa Azzurra sits where the road runs out and the pine takes over.</p>
       </div>
       <div class="villa-map">
-        <div class="villa-distances">
+        <div class="villa-map__plate">
+          <img class="villa-map__svg" src="img/villa-azzurra/map-formentor.svg" alt="Illustrated map of the Cap de Formentor peninsula showing Villa Azzurra, the Four Seasons Resort and Formentor Beach" loading="lazy">
+        </div>
+        <div class="villa-distances" style="margin-top:48px;">
           <div class="villa-distance">
             <p class="villa-distance__label">Formentor Beach</p>
             <p class="villa-distance__value">150m</p>
@@ -720,6 +776,40 @@
         </div>
         <div class="villa-feature__photo" style="background-image:url('img/villa-azzurra/alfresco-dining.jpg');" role="img" aria-label="Alfresco dining at Villa Azzurra"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ========== BEYOND THE VILLA (on-request services, excluding chef) ========== -->
+  <section class="section section--olive" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="section__eyebrow section__eyebrow--light">On Request</p>
+        <h2 class="section__title section__title--light" id="services-heading">Beyond the villa</h2>
+        <p class="section__intro section__intro--light">Stays at Villa Azzurra are shaped around the guests. The standing concierge list runs as follows; full menu by arrangement.</p>
+      </div>
+      <div class="villa-services" style="border-color:rgba(245,240,232,.18);">
+        <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
+          <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
+          <h3 class="villa-service__name" style="color:#F5F0E8;">Four Seasons Access</h3>
+          <p class="villa-service__body" style="color:rgba(245,240,232,.85);">Dinner at Shima or Mel, treatments at the Biologique Recherche spa, and a tender from Port de Pollen&ccedil;a to the resort&rsquo;s private pier. The hotel next door functions as an extended drawing room.</p>
+        </article>
+        <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
+          <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
+          <h3 class="villa-service__name" style="color:#F5F0E8;">Day Charter</h3>
+          <p class="villa-service__body" style="color:rgba(245,240,232,.85);">Skippered yachts from Puerto Pollen&ccedil;a. Sail to Sa Foradada for lunch, or around the Cap to the lighthouse bays.</p>
+        </article>
+        <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
+          <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
+          <h3 class="villa-service__name" style="color:#F5F0E8;">Private Transfers</h3>
+          <p class="villa-service__body" style="color:rgba(245,240,232,.85);">Twin engine helicopter from Palma airport to Puerto Pollen&ccedil;a, a tender to meet you off a super yacht in the bay, or a vetted driver in a private car.</p>
+        </article>
+        <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
+          <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
+          <h3 class="villa-service__name" style="color:#F5F0E8;">Cycling on the Cap</h3>
+          <p class="villa-service__body" style="color:rgba(245,240,232,.85);">Guided rides up to the lighthouse with bikes, fitting and a support car. The Cap de Formentor climb is one of the most photographed in Europe.</p>
+        </article>
+      </div>
+      <p class="section__intro section__intro--light" style="margin:32px 0 0;font-style:italic;">Tennis coaching, babysitting, full event planning and Michelin-starred dining at Terrae and Maca de Castro all available by arrangement.</p>
     </div>
   </section>
 
