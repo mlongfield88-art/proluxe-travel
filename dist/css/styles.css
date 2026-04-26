@@ -975,13 +975,16 @@ a.info-block__value:hover{color:#424632}
 }
 .cumbria-hero__eyebrow{
   font-family:'Raleway', sans-serif;
-  font-size:13px;
-  font-weight:500;
-  letter-spacing:.14em;
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.18em;
   text-transform:uppercase;
   color:#F5F0E8;
-  text-shadow:0 1px 12px rgba(0,0,0,0.45);
-  margin:0 0 24px;
+  background:rgba(26,26,23,0.45);
+  padding:8px 18px;
+  border-radius:2px;
+  display:inline-block;
+  margin:0 0 28px;
 }
 .cumbria-hero__title{
   font-family:'Playfair Display', serif;
@@ -1015,8 +1018,9 @@ a.info-block__value:hover{color:#424632}
     min-height:clamp(460px, 70vh, 600px);
   }
   .cumbria-hero__eyebrow{
-    letter-spacing:.12em;
-    font-size:11px;
+    letter-spacing:.16em;
+    font-size:12px;
+    padding:6px 14px;
   }
   .cumbria-hero__subtitle{
     margin-bottom:32px;
