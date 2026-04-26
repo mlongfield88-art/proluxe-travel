@@ -1971,6 +1971,31 @@ a.info-block__value:hover{color:#424632}
   transform:scale(1.03);
 }
 
+/* Placeholder treatment: shown until each property approves a licensed photo.
+   Olive panel, Cormorant italic caption in cream. Same dimensions as photo. */
+.property-card__photo--placeholder{
+  background:#424632;
+  background-image:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:24px;
+}
+.property-card__photo--placeholder::before{
+  content:"Image to follow";
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-weight:300;
+  font-size:15px;
+  letter-spacing:0.04em;
+  color:#F5F0E8;
+  opacity:0.7;
+}
+.property-card:hover .property-card__photo--placeholder{
+  transform:none;
+}
+
 .property-card__body{
   padding:28px 26px 32px;
 }
