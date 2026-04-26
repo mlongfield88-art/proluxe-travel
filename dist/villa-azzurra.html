@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lib/leaflet/leaflet.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
 
@@ -169,24 +170,222 @@
       text-align:center;
     }
 
-    /* Peninsula map */
-    .villa-map{
-      max-width:980px;
+    /* Peninsula map: Leaflet pinned map ported from the dev microsite */
+    .location__map{
+      position:relative;
+      max-width:1180px;
       margin:0 auto;
-    }
-    .villa-map__plate{
       background:#F5F0E8;
-      padding:clamp(20px, 4vw, 40px);
-      border-radius:2px;
-      max-width:820px;
-      margin:0 auto;
-      box-shadow:0 8px 32px rgba(0,0,0,0.12);
+      border:1px solid rgba(26,26,26,.08);
+      box-shadow:0 30px 80px -40px rgba(26,26,26,.22);
+      overflow:hidden;
     }
-    .villa-map__svg{
+    .location__map-canvas{
       width:100%;
-      height:auto;
-      display:block;
-      margin:0 auto;
+      height:clamp(440px, 62vh, 620px);
+      background:#EAE4D8;
+    }
+    .location__map-hint{
+      position:absolute;
+      top:20px; right:20px;
+      z-index:400;
+      font-family:'Raleway', sans-serif;
+      font-size:10px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#5A5A52;
+      background:rgba(245,240,232,.92);
+      padding:8px 14px;
+      border:1px solid rgba(26,26,26,.1);
+      backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
+      pointer-events:none;
+      animation:mapHintFade 4.5s ease-in-out 1.2s forwards;
+    }
+    @keyframes mapHintFade{
+      0%{opacity:1;transform:translateY(0)}
+      80%{opacity:1;transform:translateY(0)}
+      100%{opacity:0;transform:translateY(-6px);visibility:hidden}
+    }
+    /* Leaflet base overrides */
+    .villa-tiles{ filter:saturate(.78) brightness(1.02); }
+    .leaflet-container{ background:#EAE4D8; font-family:'Raleway',sans-serif; }
+    .leaflet-control-zoom{
+      border:none !important;
+      box-shadow:0 4px 16px rgba(26,26,26,.1) !important;
+      margin:14px !important;
+    }
+    .leaflet-control-zoom a{
+      background:#F5F0E8 !important;
+      color:#424632 !important;
+      border:1px solid rgba(66,70,50,.2) !important;
+      font-size:18px !important;
+      font-weight:300 !important;
+      width:36px !important;
+      height:36px !important;
+      line-height:34px !important;
+      transition:background .25s ease !important;
+    }
+    .leaflet-control-zoom a:hover{
+      background:#424632 !important;
+      color:#F5F0E8 !important;
+    }
+    .leaflet-control-attribution{
+      background:rgba(245,240,232,.72) !important;
+      font-size:9px !important;
+      letter-spacing:.04em;
+      color:#8A8A80 !important;
+      padding:2px 8px !important;
+    }
+    .leaflet-control-attribution a{ color:#5A5A52 !important; }
+    /* POI markers */
+    .poi-icon{ background:none !important; border:none !important; overflow:visible !important; }
+    .poi{ position:relative; width:100%; height:100%; }
+    .poi__dot{
+      position:absolute;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      width:16px; height:16px;
+      border-radius:50%;
+      background:#424632;
+      border:2px solid #F5F0E8;
+      box-shadow:0 2px 8px rgba(26,26,26,.3);
+      transition:width .25s ease, height .25s ease, box-shadow .25s ease;
+      cursor:pointer;
+      z-index:2;
+    }
+    .poi__label{
+      position:absolute;
+      top:50%;
+      left:calc(50% + 14px);
+      transform:translateY(-50%) translateX(-4px);
+      font-family:'Cormorant Garamond', serif;
+      font-size:13px;
+      font-weight:500;
+      white-space:nowrap;
+      color:#1A1A1A;
+      background:rgba(245,240,232,.94);
+      padding:4px 10px;
+      border:1px solid rgba(66,70,50,.18);
+      letter-spacing:.01em;
+      pointer-events:none;
+      opacity:0;
+      transition:opacity .25s ease, transform .25s ease;
+      z-index:1;
+    }
+    .poi:hover{ z-index:600; }
+    .poi:hover .poi__dot{
+      width:20px; height:20px;
+      box-shadow:0 4px 14px rgba(26,26,26,.45);
+    }
+    .poi:hover .poi__label{ opacity:1; transform:translateY(-50%) translateX(0); }
+    .poi--featured .poi__dot{ width:22px; height:22px; border-width:3px; }
+    .poi--featured:hover .poi__dot{ width:26px; height:26px; }
+    .poi--featured .poi__dot::before,
+    .poi--featured .poi__dot::after{
+      content:'';
+      position:absolute;
+      inset:-3px;
+      border-radius:50%;
+      border:2px solid rgba(66,70,50,.55);
+      animation:poiPulse 2.4s ease-out infinite;
+      pointer-events:none;
+    }
+    .poi--featured .poi__dot::after{ animation-delay:1.2s; }
+    @keyframes poiPulse{
+      0%{ transform:scale(1); opacity:.7; }
+      100%{ transform:scale(2.6); opacity:0; }
+    }
+    .poi--featured .poi__label{
+      left:calc(50% + 18px);
+      font-size:14px;
+      font-weight:600;
+      background:#424632;
+      color:#F5F0E8;
+      border-color:#424632;
+      opacity:1;
+    }
+    /* Leaflet popup */
+    .leaflet-popup-content-wrapper{
+      background:#F5F0E8 !important;
+      color:#1A1A1A !important;
+      border-radius:0 !important;
+      box-shadow:0 18px 60px -12px rgba(26,26,26,.25) !important;
+      padding:0 !important;
+      border:1px solid rgba(26,26,26,.08);
+    }
+    .leaflet-popup-content{
+      margin:0 !important;
+      width:auto !important;
+      line-height:1.5 !important;
+      font-family:'Raleway', sans-serif !important;
+    }
+    .leaflet-popup-tip{ background:#F5F0E8 !important; }
+    .leaflet-popup-close-button{
+      color:#8A8A80 !important;
+      font-size:22px !important;
+      padding:8px 10px !important;
+      font-weight:300 !important;
+    }
+    .leaflet-popup-close-button:hover{ color:#1A1A1A !important; }
+    .poi-pop{ width:280px; }
+    .poi-pop__photo{
+      width:100%;
+      height:170px;
+      background-size:cover;
+      background-position:center;
+      filter:sepia(.12) saturate(.86) brightness(.96);
+    }
+    .poi-pop__photo--mono{
+      background:linear-gradient(135deg, #424632 0%, #2a2d21 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      filter:none;
+    }
+    .poi-pop__mono-label{
+      font-family:'Cormorant Garamond', serif;
+      font-style:italic;
+      font-size:22px;
+      color:rgba(245,240,232,.7);
+      letter-spacing:.04em;
+    }
+    .poi-pop__body{ padding:20px 22px 22px; }
+    .poi-pop__kind{
+      font-size:10px;
+      font-weight:500;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#8A8A80;
+      margin-bottom:6px;
+    }
+    .poi-pop__name{
+      font-family:'Cormorant Garamond', serif;
+      font-size:22px;
+      font-weight:500;
+      color:#1A1A1A;
+      margin:0 0 8px;
+      line-height:1.2;
+    }
+    .poi-pop__distance{
+      font-size:11px;
+      letter-spacing:.06em;
+      color:#424632;
+      font-weight:500;
+      margin-bottom:10px;
+    }
+    .poi-pop__blurb{
+      font-size:13px;
+      line-height:1.65;
+      color:#2A2A2A;
+      font-weight:400;
+    }
+    @media(max-width:640px){
+      .location__map-canvas{ height:440px; }
+      .poi__label{ font-size:11px; padding:3px 8px; }
+      .poi--featured .poi__label{ font-size:12px; }
+      .poi-pop{ width:240px; }
+      .poi-pop__photo{ height:140px; }
     }
 
     /* Beyond the Villa: on-request services grid */
@@ -625,11 +824,16 @@
         <h2 class="section__title section__title--light" id="peninsula-heading">From the gate</h2>
         <p class="section__intro section__intro--light">A 9km finger of limestone and pine pointing north east into the Mediterranean. The Tramuntana range shelters the southern flank, the Bay of Pollen&ccedil;a cradles it from the west, open sea on the north. Villa Azzurra sits where the road runs out and the pine takes over.</p>
       </div>
-      <div class="villa-map">
-        <div class="villa-map__plate">
-          <img class="villa-map__svg" src="img/villa-azzurra/map-formentor.svg" alt="Illustrated map of the Cap de Formentor peninsula showing Villa Azzurra, the Four Seasons Resort and Formentor Beach" loading="lazy">
-        </div>
-        <div class="villa-distances" style="margin-top:48px;">
+      <div class="location__map">
+        <div class="location__map-canvas" id="capMap" aria-label="Interactive map of Cap de Formentor, Mallorca"></div>
+        <p class="location__map-hint" aria-hidden="true">Tap a pin to explore &rarr;</p>
+        <noscript>
+          <div style="padding:32px;background:#F5F0E8;text-align:center;">
+            <img src="img/villa-azzurra/map-formentor.svg" alt="Illustrated map of the Cap de Formentor peninsula" loading="lazy" style="width:100%;max-width:760px;height:auto;display:inline-block">
+          </div>
+        </noscript>
+      </div>
+      <div class="villa-distances" style="margin-top:48px;">
           <div class="villa-distance">
             <p class="villa-distance__label">Formentor Beach</p>
             <p class="villa-distance__value">150m</p>
@@ -890,6 +1094,10 @@
       offcanvas.querySelectorAll('.offcanvas__link').forEach(function(a){ a.addEventListener('click', closeNav); });
     })();
   </script>
+
+  <!-- Leaflet + Cap de Formentor pinned map -->
+  <script src="lib/leaflet/leaflet.js"></script>
+  <script src="js/villa-azzurra-map.js"></script>
 
   <!-- Hero actions: Save toggle (localStorage) + Share (Web Share API w/ clipboard fallback) -->
   <script>
