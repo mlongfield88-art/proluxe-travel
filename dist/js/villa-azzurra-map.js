@@ -134,17 +134,11 @@
   }
 
   function makePopup(poi) {
-    const photoBlock = poi.photo
-      ? `<div class="poi-pop__photo" style="background-image:url('${poi.photo}')" aria-hidden="true"></div>`
-      : `<div class="poi-pop__photo poi-pop__photo--mono" aria-hidden="true">
-           <span class="poi-pop__mono-label">${poi.kind}</span>
-         </div>`;
     const distanceBlock = poi.distance
       ? `<p class="poi-pop__distance">${poi.distance}</p>`
       : '';
     return `
-      <div class="poi-pop">
-        ${photoBlock}
+      <div class="poi-pop poi-pop--text">
         <div class="poi-pop__body">
           <p class="poi-pop__kind">${poi.kind}</p>
           <h3 class="poi-pop__name">${poi.name}</h3>
@@ -190,11 +184,39 @@
   }, 600);
 
   // ----------------------------------------------------------
-  // RESIZE HANDLING
-  // Some browsers need invalidateSize after the section reveals.
+  // RESIZE / VISIBILITY HANDLING
+  // Map needs to be told when its container has been laid out
+  // properly and when the viewport changes. Without this, the
+  // map can render off-centre below the fold or at small sizes.
   // ----------------------------------------------------------
+  function refit() {
+    map.invalidateSize();
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 12 });
+  }
+
   window.addEventListener('load', () => {
-    setTimeout(() => map.invalidateSize(), 200);
+    setTimeout(refit, 200);
+  });
+
+  // Re-fit when the map section first scrolls into view, in case
+  // the section was below the fold during initial layout.
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(refit, 50);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(container);
+  }
+
+  // Debounced resize handler keeps the map centred on viewport changes.
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(refit, 150);
   });
 
   // Expose a small API in case we want programmatic control later
