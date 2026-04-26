@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Villa Azzurra | ProLuxe Travel</title>
+  <meta name="description" content="A four bedroom contemporary villa on Cap de Formentor, Mallorca. Three hundred metres from the Four Seasons Resort Mallorca at Formentor, one hundred and fifty metres from Formentor Beach.">
+  <meta property="og:title" content="Villa Azzurra | ProLuxe Travel">
+  <meta property="og:description" content="A four bedroom contemporary villa on Cap de Formentor, Mallorca. Three hundred metres from the Four Seasons Resort Mallorca at Formentor, one hundred and fifty metres from Formentor Beach.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://proluxetravels.com/villa-azzurra">
+  <meta property="og:image" content="https://proluxetravels.com/img/villa-azzurra/hero-pool-dusk.jpg">
+  <meta property="og:site_name" content="ProLuxe Travel">
+  <meta property="og:locale" content="en_GB">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
+
+  <!-- Page-specific overrides: hero photo + a small rates table built on existing tokens -->
+  <style>
+    /* Hero photograph for this page */
+    .villa-hero__bg--photo{
+      background:url('img/villa-azzurra/hero-pool-dusk.jpg') center 50% / cover no-repeat;
+    }
+
+    /* Two-column feature block: image and prose side by side, stacks on mobile */
+    .villa-feature{
+      display:grid;
+      grid-template-columns:1.1fr 1fr;
+      gap:48px;
+      align-items:center;
+    }
+    .villa-feature__photo{
+      width:100%;
+      height:100%;
+      min-height:360px;
+      background-size:cover;
+      background-position:center;
+      border-radius:2px;
+    }
+    .villa-feature__body p{
+      margin:0 0 16px;
+    }
+    @media(max-width:860px){
+      .villa-feature{
+        grid-template-columns:1fr;
+        gap:24px;
+      }
+      .villa-feature__photo{
+        min-height:280px;
+      }
+    }
+
+    /* Facts strip */
+    .villa-facts{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:24px;
+      margin:48px 0 0;
+      padding:32px 0 0;
+      border-top:1px solid rgba(66,70,50,.18);
+    }
+    .villa-facts__item{
+      text-align:center;
+    }
+    .villa-facts__label{
+      font-family:'Raleway', sans-serif;
+      font-size:11px;
+      font-weight:500;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#8A8A80;
+      margin:0 0 8px;
+    }
+    .villa-facts__value{
+      font-family:'Playfair Display', serif;
+      font-size:clamp(22px, 2.4vw, 30px);
+      font-weight:500;
+      color:#1A1A1A;
+      margin:0 0 6px;
+      line-height:1.1;
+    }
+    .villa-facts__note{
+      font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-size:14px;
+      color:#5C5E54;
+      margin:0;
+      line-height:1.4;
+    }
+    @media(max-width:720px){
+      .villa-facts{
+        grid-template-columns:repeat(2, minmax(0,1fr));
+      }
+    }
+
+    /* Rates table on dark background, three rows */
+    .villa-rates{
+      max-width:760px;
+      margin:32px auto 0;
+    }
+    .villa-rates__row{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:32px;
+      padding:24px 0;
+      border-bottom:1px solid rgba(245,240,232,.14);
+      align-items:baseline;
+    }
+    .villa-rates__row:last-child{ border-bottom:0; }
+    .villa-rates__season{
+      font-family:'Playfair Display', serif;
+      font-size:clamp(20px, 2vw, 26px);
+      font-weight:500;
+      color:#F5F0E8;
+      margin:0 0 4px;
+    }
+    .villa-rates__dates{
+      font-family:'Raleway', sans-serif;
+      font-size:13px;
+      letter-spacing:.06em;
+      color:rgba(245,240,232,.66);
+      margin:0;
+    }
+    .villa-rates__price{
+      font-family:'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+      font-size:clamp(20px, 2.2vw, 28px);
+      font-weight:500;
+      color:#F5F0E8;
+      white-space:nowrap;
+    }
+    .villa-rates__unit{
+      display:block;
+      font-family:'Raleway', sans-serif;
+      font-size:11px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(245,240,232,.5);
+      margin-top:4px;
+      text-align:right;
+    }
+    .villa-rates__foot{
+      max-width:760px;
+      margin:32px auto 0;
+      font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-size:15px;
+      line-height:1.65;
+      color:rgba(245,240,232,.7);
+      text-align:center;
+    }
+
+    /* Closing CTA card */
+    .villa-cta{
+      max-width:780px;
+      margin:0 auto;
+      text-align:center;
+    }
+    .villa-cta__lede{
+      max-width:600px;
+      margin:0 auto 32px;
+    }
+    .villa-cta__buttons{
+      display:flex;
+      gap:16px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    @media(max-width:480px){
+      .villa-cta__buttons{
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .villa-cta__buttons .btn{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <header class="header nav--scrolled" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/" class="nav__wordmark">ProLuxe Travel</a>
+      <div class="nav__links">
+        <a href="/#about" class="nav__link">About</a>
+        <a href="/#services" class="nav__link">Services</a>
+        <a href="/#approach" class="nav__link">Our Approach</a>
+        <a href="/explore-cumbria" class="nav__link">Explore Cumbria</a>
+        <a href="/villa-azzurra" class="nav__link">Villa Azzurra</a>
+        <a href="/#contact" class="nav__link">Contact</a>
+      </div>
+      <button class="nav__hamburger" id="navToggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Off-canvas mobile nav -->
+  <div class="offcanvas" id="offcanvas" aria-hidden="true">
+    <div class="offcanvas__overlay" id="offcanvasOverlay"></div>
+    <div class="offcanvas__panel">
+      <button class="offcanvas__close" id="offcanvasClose" aria-label="Close navigation menu">&times;</button>
+      <nav class="offcanvas__nav" aria-label="Mobile navigation">
+        <a href="/#about" class="offcanvas__link">About</a>
+        <a href="/#services" class="offcanvas__link">Services</a>
+        <a href="/#approach" class="offcanvas__link">Our Approach</a>
+        <a href="/explore-cumbria" class="offcanvas__link">Explore Cumbria</a>
+        <a href="/villa-azzurra" class="offcanvas__link">Villa Azzurra</a>
+        <a href="/#contact" class="offcanvas__link">Contact</a>
+      </nav>
+      <div class="offcanvas__contact">
+        <p>info@proluxetravels.com</p>
+        <p>London, United Kingdom</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HERO ========== -->
+  <section class="cumbria-hero" aria-label="Villa Azzurra, Cap de Formentor">
+    <div class="cumbria-hero__bg villa-hero__bg--photo" aria-hidden="true"></div>
+    <div class="cumbria-hero__overlay" aria-hidden="true"></div>
+    <div class="cumbria-hero__content">
+      <p class="cumbria-hero__eyebrow">Properties &bull; Spain &bull; Mallorca &bull; Cap de Formentor</p>
+      <h1 class="cumbria-hero__title">Villa Azzurra</h1>
+      <p class="cumbria-hero__subtitle">A four bedroom contemporary villa on Cap de Formentor, three hundred metres from the Four Seasons Resort Mallorca at Formentor.</p>
+      <div class="cumbria-hero__cta">
+        <a href="https://villa-azzurra.proluxetravels.com" class="btn btn--primary" target="_blank" rel="noopener">View the Property</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHY CAP DE FORMENTOR ========== -->
+  <section class="section section--cream" aria-labelledby="why-formentor-heading">
+    <div class="container">
+      <div class="about-full">
+        <p class="section__eyebrow">The Setting</p>
+        <h2 class="section__title" id="why-formentor-heading">Why Cap de Formentor</h2>
+        <p class="section__body">Cap de Formentor is the spur of cliff and pine that finishes the north of Mallorca. It is the part of the island that has drawn writers, monarchs and discreet wealth for the better part of a century, and the part that has stayed quietest. Where the rest of the coast leans toward the marina or the village, the Cap leans toward the sea.</p>
+        <p class="section__body">In 2024 the Four Seasons Resort Mallorca at Formentor reopened on the headland, the 1929 grande dame restored and listed at number twenty four on the World&rsquo;s Fifty Best Hotels within months. The road that runs past the resort runs past Villa Azzurra three hundred metres later. One hundred and fifty metres the other way is the blue flag sweep of Formentor Beach itself.</p>
+        <p class="section__body">It is a quiet address by design. Port de Pollen&ccedil;a, with its moorings and a newly starred table in the port, sits twenty minutes back along the peninsula. The cycling climb that finishes at the lighthouse is one of the most photographed in Europe. The rest is pine, water and the kind of stillness that makes the rate make sense.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THE VILLA ========== -->
+  <section class="section section--cream" aria-labelledby="villa-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="section__eyebrow">The House</p>
+        <h2 class="section__title" id="villa-heading">Single level, contemporary, built for the light</h2>
+      </div>
+      <div class="villa-feature">
+        <div class="villa-feature__photo" style="background-image:url('img/villa-azzurra/terrace-garden.jpg');" role="img" aria-label="Terrace and garden at Villa Azzurra"></div>
+        <div class="villa-feature__body">
+          <p>A sixteen metre saltwater infinity pool, an open plan kitchen and dining room that spills onto a covered terrace, and four double bedrooms (three en suite, the fourth served by a private adjacent bathroom) framed by the Mediterranean pines that give this coast its character.</p>
+          <p>The orientation is south west across the bay, which means the light moves through the house all day and lands on the terrace in the late afternoon. The pool sits below the main level on its own platform, with a Balinese daybed at one end and the headland on the other.</p>
+          <p>The villa is registered for short term rental in the Balearics under licence ETV 5388.</p>
+        </div>
+      </div>
+      <div class="villa-facts">
+        <div class="villa-facts__item">
+          <p class="villa-facts__label">Bedrooms</p>
+          <p class="villa-facts__value">Four</p>
+          <p class="villa-facts__note">Three en suite, one with private adjacent bathroom. Doubles throughout.</p>
+        </div>
+        <div class="villa-facts__item">
+          <p class="villa-facts__label">Pool</p>
+          <p class="villa-facts__value">16 Metres</p>
+          <p class="villa-facts__note">Saltwater infinity, facing the Bay of Pollen&ccedil;a.</p>
+        </div>
+        <div class="villa-facts__item">
+          <p class="villa-facts__label">To the Beach</p>
+          <p class="villa-facts__value">150 Metres</p>
+          <p class="villa-facts__note">Formentor Beach, blue flag, on the protected northern coast.</p>
+        </div>
+        <div class="villa-facts__item">
+          <p class="villa-facts__label">To the Four Seasons</p>
+          <p class="villa-facts__value">300 Metres</p>
+          <p class="villa-facts__note">Resort Mallorca at Formentor, reopened 2024.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THE LOCATION ========== -->
+  <section class="section section--cream" aria-labelledby="location-heading">
+    <div class="container">
+      <div class="villa-feature" style="grid-template-columns:1fr 1.1fr;">
+        <div class="villa-feature__body">
+          <p class="section__eyebrow">The Neighbourhood</p>
+          <h2 class="section__title" id="location-heading" style="margin-bottom:18px;">A walk along the headland</h2>
+          <p>Step out of the gate and turn left for the Four Seasons. Walking along the coast road takes about four minutes to reach the resort gardens. Beyond it the road climbs to the lighthouse at the tip of the peninsula, an hour by foot or twenty minutes by car, with the pine forest dropping away to either side.</p>
+          <p>Right out of the gate, the path drops to Formentor Beach itself in under three minutes. The beach is blue flag, the northern face of the cap, and it is rarely as busy as Pollen&ccedil;a Bay further west. The Hotel Formentor beach club sits at the western end and takes table reservations from villa guests.</p>
+          <p>Inland, twenty minutes by car puts you in Port de Pollen&ccedil;a for moorings, a Michelin-starred kitchen and the first of the long beach restaurants. Palma is a little under an hour and the drive is one of the better ones on the island.</p>
+        </div>
+        <div class="villa-feature__photo" style="background-image:url('img/villa-azzurra/pool-view.jpg');" role="img" aria-label="View from the pool platform at Villa Azzurra"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== INSIDE THE VILLA (interior moment) ========== -->
+  <section class="section section--olive" aria-labelledby="interior-heading">
+    <div class="container">
+      <div class="villa-feature">
+        <div class="villa-feature__photo" style="background-image:url('img/villa-azzurra/living-room.jpg');" role="img" aria-label="Living room at Villa Azzurra"></div>
+        <div class="villa-feature__body" style="color:rgba(245,240,232,.86);">
+          <p class="section__eyebrow section__eyebrow--light">Inside</p>
+          <h2 class="section__title section__title--light" id="interior-heading" style="margin-bottom:18px;">Open plan, single level</h2>
+          <p>The interior runs as a single open volume from the kitchen through the dining and living rooms to the terrace doors. Bedrooms sit off a side passage, separated from the main living area by a short corridor that takes the daytime sound out of them.</p>
+          <p>The kitchen is fully equipped and fitted for a private chef where one is engaged. There is a Sonos system across the principal rooms, working WiFi on the terrace, and two parking spaces inside the gate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RATES 2026 ========== -->
+  <section class="section section--dark" aria-labelledby="rates-heading" id="rates">
+    <div class="container">
+      <div class="section-head">
+        <p class="section__eyebrow section__eyebrow--light">Rates 2026</p>
+        <h2 class="section__title section__title--light" id="rates-heading">By the Week</h2>
+        <p class="section__intro section__intro--light">All rates are weekly and inclusive of final cleaning, pool maintenance, garden maintenance and mid stay housekeeping. Longer stays by arrangement.</p>
+      </div>
+      <div class="villa-rates">
+        <div class="villa-rates__row">
+          <div>
+            <p class="villa-rates__season">Shoulder Season</p>
+            <p class="villa-rates__dates">June &middot; September &middot; October &middot; Seven night minimum</p>
+          </div>
+          <div>
+            <span class="villa-rates__price">&euro;18,000 to &euro;26,000</span>
+            <span class="villa-rates__unit">per week</span>
+          </div>
+        </div>
+        <div class="villa-rates__row">
+          <div>
+            <p class="villa-rates__season">Peak Season</p>
+            <p class="villa-rates__dates">July &middot; August &middot; Fourteen night minimum</p>
+          </div>
+          <div>
+            <span class="villa-rates__price">&euro;32,000 to &euro;38,000</span>
+            <span class="villa-rates__unit">per week</span>
+          </div>
+        </div>
+        <div class="villa-rates__row">
+          <div>
+            <p class="villa-rates__season">Low Season</p>
+            <p class="villa-rates__dates">November to May &middot; Five night minimum</p>
+          </div>
+          <div>
+            <span class="villa-rates__price">On Application</span>
+          </div>
+        </div>
+      </div>
+      <p class="villa-rates__foot">A refundable damage deposit of &euro;3,500 is held against each booking. Peak stays carry an enhanced housekeeping schedule of three cleans per week. Concierge, private chef, transfers, boats and guides on application.</p>
+    </div>
+  </section>
+
+  <!-- ========== AT TABLE (closing image moment) ========== -->
+  <section class="section section--cream" aria-labelledby="dining-heading">
+    <div class="container">
+      <div class="villa-feature" style="grid-template-columns:1fr 1.1fr;">
+        <div class="villa-feature__body">
+          <p class="section__eyebrow">At the Table</p>
+          <h2 class="section__title" id="dining-heading" style="margin-bottom:18px;">A private chef on the terrace</h2>
+          <p>The covered terrace seats ten comfortably and twelve at a stretch, and is where most guests end up taking dinner. We work with a small group of private chefs on the island and can arrange a single dinner, a week of breakfasts and dinners, or a full programme that includes a market trip the morning of arrival.</p>
+          <p>For a table off the property, Port de Pollen&ccedil;a holds the closest Michelin-starred kitchen and the Hotel Formentor beach club sits on the bay below the villa.</p>
+        </div>
+        <div class="villa-feature__photo" style="background-image:url('img/villa-azzurra/alfresco-dining.jpg');" role="img" aria-label="Alfresco dining at Villa Azzurra"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CLOSING / ENQUIRE ========== -->
+  <section class="section section--cream" aria-labelledby="enquire-heading">
+    <div class="container">
+      <div class="villa-cta">
+        <p class="section__eyebrow">How to Enquire</p>
+        <h2 class="section__title" id="enquire-heading">Speak to us directly</h2>
+        <p class="section__body villa-cta__lede">Villa Azzurra takes a small number of weeks each year through ProLuxe Travel directly. Enquiries are handled by Myles personally. Availability moves quickly in the shoulder months and we recommend reaching out at least twelve weeks ahead for a summer stay.</p>
+        <div class="villa-cta__buttons">
+          <a href="https://villa-azzurra.proluxetravels.com" class="btn btn--primary" target="_blank" rel="noopener">View the Property</a>
+          <a href="/#contact" class="btn">Start a Conversation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__wordmark">ProLuxe Travel</a>
+        <p class="footer__tagline">Corporate &amp; luxury travel management.</p>
+      </div>
+      <div class="footer__links">
+        <a href="/#about">About</a>
+        <a href="/#services">Services</a>
+        <a href="/#approach">Our Approach</a>
+        <a href="/explore-cumbria">Explore Cumbria</a>
+        <a href="/villa-azzurra">Villa Azzurra</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <div class="footer__legal">
+        <p>&copy; 2026 ProLuxe Travel Ltd. All rights reserved.</p>
+        <p class="footer__reg">45 Welbeck Street, London, W1G 8DZ</p>
+        <div class="footer__policy-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="privacy-policy.html#cookies">Cookie Policy</a>
+          <a href="terms-and-conditions.html">Terms</a>
+        </div>
+        <p class="footer__reg" style="margin-top:12px;">Villa Azzurra is registered for short term rental in the Balearic Islands under licence ETV 5388.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+
+  <!-- Off-canvas nav -->
+  <script>
+    (function(){
+      var toggle = document.getElementById('navToggle');
+      var offcanvas = document.getElementById('offcanvas');
+      var overlay = document.getElementById('offcanvasOverlay');
+      var closeBtn = document.getElementById('offcanvasClose');
+      if(!toggle || !offcanvas) return;
+      function openNav(){ offcanvas.classList.add('is-open'); offcanvas.setAttribute('aria-hidden','false'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+      function closeNav(){ offcanvas.classList.remove('is-open'); offcanvas.setAttribute('aria-hidden','true'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+      toggle.addEventListener('click', openNav);
+      if(closeBtn) closeBtn.addEventListener('click', closeNav);
+      if(overlay) overlay.addEventListener('click', closeNav);
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
+      offcanvas.querySelectorAll('.offcanvas__link').forEach(function(a){ a.addEventListener('click', closeNav); });
+    })();
+  </script>
+
+</body>
+</html>
