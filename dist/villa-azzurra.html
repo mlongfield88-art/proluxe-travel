@@ -432,7 +432,7 @@
       gap:16px;
       margin:48px 0 0;
       padding:32px 0 0;
-      border-top:1px solid rgba(245,240,232,.18);
+      border-top:1px solid rgba(66,70,50,.18);
     }
     .villa-distance{ text-align:center; }
     .villa-distance__label{
@@ -441,17 +441,24 @@
       font-weight:500;
       letter-spacing:.14em;
       text-transform:uppercase;
-      color:rgba(245,240,232,.7);
+      color:#8A8A80;
       margin:0 0 6px;
     }
     .villa-distance__value{
       font-family:'Playfair Display', serif;
       font-size:clamp(20px, 2vw, 26px);
       font-weight:500;
-      color:#F5F0E8;
+      color:#1A1A1A;
       margin:0;
       line-height:1.1;
     }
+    /* Olive / dark section overrides for the distances strip */
+    .section--olive .villa-distances,
+    .section--dark .villa-distances{ border-top-color:rgba(245,240,232,.18); }
+    .section--olive .villa-distance__label,
+    .section--dark .villa-distance__label{ color:rgba(245,240,232,.7); }
+    .section--olive .villa-distance__value,
+    .section--dark .villa-distance__value{ color:#F5F0E8; }
     @media(max-width:720px){
       .villa-distances{ grid-template-columns:repeat(2, minmax(0,1fr)); }
     }
@@ -765,6 +772,69 @@
       }
     }
 
+    /* Gallery image lightbox */
+    .villa-gallery__item img{ cursor:zoom-in; }
+    .villa-lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(26,26,23,0.94);
+      z-index:100;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease;
+    }
+    .villa-lightbox.is-open{ opacity:1; pointer-events:auto; }
+    .villa-lightbox__img{
+      max-width:90vw;
+      max-height:88vh;
+      object-fit:contain;
+      border-radius:2px;
+      box-shadow:0 30px 80px rgba(0,0,0,0.4);
+      cursor:zoom-out;
+    }
+    .villa-lightbox__btn{
+      position:absolute;
+      width:48px;
+      height:48px;
+      background:rgba(245,240,232,.16);
+      border:0;
+      border-radius:50%;
+      color:#F5F0E8;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:background .2s ease, color .2s ease;
+    }
+    .villa-lightbox__btn:hover, .villa-lightbox__btn:focus-visible{
+      background:#F5F0E8;
+      color:#1A1A1A;
+      outline:none;
+    }
+    .villa-lightbox__btn svg{ width:22px; height:22px; }
+    .villa-lightbox__close{ top:24px; right:24px; }
+    .villa-lightbox__prev{ left:24px; top:50%; transform:translateY(-50%); }
+    .villa-lightbox__next{ right:24px; top:50%; transform:translateY(-50%); }
+    .villa-lightbox__counter{
+      position:absolute;
+      bottom:24px;
+      left:50%;
+      transform:translateX(-50%);
+      font-family:'Raleway', sans-serif;
+      font-size:11px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:rgba(245,240,232,.66);
+    }
+    @media(max-width:600px){
+      .villa-lightbox__close{ top:16px; right:16px; }
+      .villa-lightbox__prev{ left:12px; }
+      .villa-lightbox__next{ right:12px; }
+    }
+
     /* Founder signoff */
     .villa-signoff{
       max-width:680px;
@@ -905,7 +975,7 @@
           </svg>
           Email
         </a>
-        <a class="villa-cta-btn villa-cta-btn--ghost" href="tel:+447852193811">
+        <a class="villa-cta-btn villa-cta-btn--ghost" href="tel:+442070888291">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
           </svg>
@@ -1046,7 +1116,7 @@
     </div>
   </section>
 
-  <!-- ========== THE VILLA ========== -->
+  <!-- ========== THE VILLA (outdoor + interior, merged) ========== -->
   <section class="section section--cream" aria-labelledby="villa-heading">
     <div class="container">
       <div class="section-head">
@@ -1060,6 +1130,15 @@
           <p>The orientation is south west across the bay, which means the light moves through the house all day and lands on the terrace in the late afternoon. The pool sits on the same level as the house, alongside the terrace, with a Balinese daybed at one end and the headland on the other.</p>
           <p>The villa is registered for short term rental in the Balearics under licence ETV 5388.</p>
         </div>
+      </div>
+      <div class="villa-feature" style="grid-template-columns:1fr 1.1fr;margin-top:64px;">
+        <div class="villa-feature__body">
+          <p class="section__eyebrow">Inside</p>
+          <h3 class="section__title" style="margin-bottom:18px;font-size:clamp(24px, 2.6vw, 32px);">Open from kitchen to terrace</h3>
+          <p>The interior runs as a single open volume from the kitchen through the dining and living rooms to the terrace doors. Bedrooms sit off a side passage, separated from the main living area by a short corridor that takes the daytime sound out of them.</p>
+          <p>The kitchen is fully equipped and fitted for a private chef where one is engaged. There is a Sonos system across the principal rooms, working WiFi on the terrace, and two parking spaces inside the gate.</p>
+        </div>
+        <div class="villa-feature__photo" style="background-image:url('img/villa-azzurra/living-room.jpg');" role="img" aria-label="Living room at Villa Azzurra"></div>
       </div>
       <div class="villa-facts">
         <div class="villa-facts__item">
@@ -1116,7 +1195,7 @@
     </div>
   </section>
 
-  <!-- ========== THE LOCATION ========== -->
+  <!-- ========== LOCATION + PENINSULA (merged) ========== -->
   <section class="section section--cream" aria-labelledby="location-heading">
     <div class="container">
       <div class="villa-feature" style="grid-template-columns:1fr 1.1fr;">
@@ -1129,27 +1208,24 @@
         </div>
         <div class="villa-feature__photo" style="background-image:url('img/villa-azzurra/pool-view.jpg');" role="img" aria-label="View from the pool platform at Villa Azzurra"></div>
       </div>
-    </div>
-  </section>
 
-  <!-- ========== THE PENINSULA (distances from the villa gate) ========== -->
-  <section class="section section--olive" aria-labelledby="peninsula-heading">
-    <div class="container">
-      <div class="section-head">
-        <p class="section__eyebrow section__eyebrow--light">The Peninsula</p>
-        <h2 class="section__title section__title--light" id="peninsula-heading">From the gate</h2>
-        <p class="section__intro section__intro--light">A 9km finger of limestone and pine pointing north east into the Mediterranean. The Tramuntana range shelters the southern flank, the Bay of Pollen&ccedil;a cradles it from the west, open sea on the north. Villa Azzurra sits where the road runs out and the pine takes over.</p>
+      <!-- Peninsula sub-section: lead, map, distances -->
+      <div style="margin-top:80px;text-align:center;">
+        <p class="section__eyebrow">The Peninsula</p>
+        <h3 class="section__title" id="peninsula-heading" style="margin-bottom:18px;font-size:clamp(24px, 2.6vw, 32px);">From the gate</h3>
+        <p class="section__body" style="max-width:760px;margin:0 auto 40px;">A 9km finger of limestone and pine pointing north east into the Mediterranean. The Tramuntana range shelters the southern flank, the Bay of Pollen&ccedil;a cradles it from the west, open sea on the north. Villa Azzurra sits where the road runs out and the pine takes over.</p>
       </div>
-      <div class="location__map">
-        <div class="location__map-canvas" id="capMap" aria-label="Interactive map of Cap de Formentor, Mallorca"></div>
-        <p class="location__map-hint" aria-hidden="true">Tap a pin to explore &rarr;</p>
-        <noscript>
-          <div style="padding:32px;background:#F5F0E8;text-align:center;">
-            <img src="img/villa-azzurra/map-formentor.svg" alt="Illustrated map of the Cap de Formentor peninsula" loading="lazy" style="width:100%;max-width:760px;height:auto;display:inline-block">
-          </div>
-        </noscript>
-      </div>
-      <div class="villa-distances" style="margin-top:48px;">
+      <div class="villa-map">
+        <div class="location__map">
+          <div class="location__map-canvas" id="capMap" aria-label="Interactive map of Cap de Formentor, Mallorca"></div>
+          <p class="location__map-hint" aria-hidden="true">Tap a pin to explore &rarr;</p>
+          <noscript>
+            <div style="padding:32px;background:#F5F0E8;text-align:center;">
+              <img src="img/villa-azzurra/map-formentor.svg" alt="Illustrated map of the Cap de Formentor peninsula" loading="lazy" style="width:100%;max-width:760px;height:auto;display:inline-block">
+            </div>
+          </noscript>
+        </div>
+        <div class="villa-distances" style="margin-top:48px;">
           <div class="villa-distance">
             <p class="villa-distance__label">Formentor Beach</p>
             <p class="villa-distance__value">150m</p>
@@ -1175,37 +1251,7 @@
     </div>
   </section>
 
-  <!-- ========== INSIDE THE VILLA (interior moment) ========== -->
-  <section class="section section--olive" aria-labelledby="interior-heading">
-    <div class="container">
-      <div class="villa-feature">
-        <div class="villa-feature__photo" style="background-image:url('img/villa-azzurra/living-room.jpg');" role="img" aria-label="Living room at Villa Azzurra"></div>
-        <div class="villa-feature__body" style="color:rgba(245,240,232,.86);">
-          <p class="section__eyebrow section__eyebrow--light">Inside</p>
-          <h2 class="section__title section__title--light" id="interior-heading" style="margin-bottom:18px;">Open from kitchen to terrace</h2>
-          <p>The interior runs as a single open volume from the kitchen through the dining and living rooms to the terrace doors. Bedrooms sit off a side passage, separated from the main living area by a short corridor that takes the daytime sound out of them.</p>
-          <p>The kitchen is fully equipped and fitted for a private chef where one is engaged. There is a Sonos system across the principal rooms, working WiFi on the terrace, and two parking spaces inside the gate.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== AT TABLE (closing image moment) ========== -->
-  <section class="section section--cream" aria-labelledby="dining-heading">
-    <div class="container">
-      <div class="villa-feature" style="grid-template-columns:1fr 1.1fr;">
-        <div class="villa-feature__body">
-          <p class="section__eyebrow">At the Table</p>
-          <h2 class="section__title" id="dining-heading" style="margin-bottom:18px;">A private chef on the terrace</h2>
-          <p>The covered terrace seats 10 comfortably and 12 at a stretch, and is where most guests end up taking dinner. We work with a small group of private chefs on the island and can arrange a single dinner, a week of breakfasts and dinners, or a full programme that includes a market trip the morning of arrival.</p>
-          <p>For a table off the property, Port de Pollen&ccedil;a holds the closest Michelin-starred kitchen and the Hotel Formentor beach club sits on the bay below the villa.</p>
-        </div>
-        <div class="villa-feature__photo" style="background-image:url('img/villa-azzurra/alfresco-dining.jpg');" role="img" aria-label="Alfresco dining at Villa Azzurra"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== BEYOND THE VILLA (on-request services, excluding chef) ========== -->
+  <!-- ========== BEYOND THE VILLA (on-request services) ========== -->
   <section class="section section--olive" aria-labelledby="services-heading">
     <div class="container">
       <div class="section-head">
@@ -1214,6 +1260,11 @@
         <p class="section__intro section__intro--light">Stays at Villa Azzurra are shaped around the guests. The standing concierge list runs as follows; full menu by arrangement.</p>
       </div>
       <div class="villa-services" style="border-color:rgba(245,240,232,.18);">
+        <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
+          <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
+          <h3 class="villa-service__name" style="color:#F5F0E8;">Private Chef</h3>
+          <p class="villa-service__body" style="color:rgba(245,240,232,.85);">Daily or by the evening, drawn from a small list of chefs in the Pollen&ccedil;a valley. Market menus, long-table dinners on the covered terrace (seats 12), or a full programme of breakfasts and evening menus across the week.</p>
+        </article>
         <article class="villa-service" style="border-top-color:rgba(245,240,232,.18);">
           <p class="villa-service__eyebrow" style="color:rgba(245,240,232,.65);">On Request</p>
           <h3 class="villa-service__name" style="color:#F5F0E8;">Four Seasons Access</h3>
@@ -1273,11 +1324,11 @@
             </svg>
             Email Myles
           </a>
-          <a class="villa-cta-btn" style="background:transparent;color:#1A1A1A;border-color:#424632;" href="tel:+447852193811">
+          <a class="villa-cta-btn" style="background:transparent;color:#1A1A1A;border-color:#424632;" href="tel:+442070888291">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
             </svg>
-            Call +44 7852 193811
+            Call +44 20 7088 8291
           </a>
         </div>
         <div class="villa-signoff">
@@ -1336,6 +1387,21 @@
     })();
   </script>
 
+  <!-- Gallery lightbox: prev/next, ESC to close, backdrop click to close -->
+  <div class="villa-lightbox" id="villaLightbox" role="dialog" aria-label="Villa Azzurra gallery viewer" aria-hidden="true">
+    <button class="villa-lightbox__btn villa-lightbox__close" id="lbClose" aria-label="Close gallery viewer" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="villa-lightbox__btn villa-lightbox__prev" id="lbPrev" aria-label="Previous image" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <img class="villa-lightbox__img" id="lbImg" alt="">
+    <button class="villa-lightbox__btn villa-lightbox__next" id="lbNext" aria-label="Next image" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <p class="villa-lightbox__counter" id="lbCounter"></p>
+  </div>
+
   <!-- Sticky contact bar: hidden on hero, fades in once user scrolls past -->
   <div class="villa-stickybar" id="villaStickybar" aria-label="Quick contact">
     <a class="villa-stickybar__btn villa-stickybar__btn--primary" href="https://wa.me/447852193811?text=Hello%20Myles%2C%20I%27m%20enquiring%20about%20Villa%20Azzurra%20on%20Cap%20de%20Formentor." target="_blank" rel="noopener" aria-label="WhatsApp Myles">
@@ -1349,12 +1415,59 @@
         <polyline points="22,6 12,13 2,6"></polyline>
       </svg>
     </a>
-    <a class="villa-stickybar__btn" href="tel:+447852193811" aria-label="Call Myles">
+    <a class="villa-stickybar__btn" href="tel:+442070888291" aria-label="Call ProLuxe Travel">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"></path>
       </svg>
     </a>
   </div>
+
+  <!-- Gallery lightbox: open on image click, prev/next, ESC, backdrop -->
+  <script>
+    (function(){
+      var lb = document.getElementById('villaLightbox');
+      var img = document.getElementById('lbImg');
+      var counter = document.getElementById('lbCounter');
+      var closeBtn = document.getElementById('lbClose');
+      var prevBtn = document.getElementById('lbPrev');
+      var nextBtn = document.getElementById('lbNext');
+      if(!lb || !img) return;
+
+      var imgs = Array.prototype.slice.call(document.querySelectorAll('.villa-gallery__item img'));
+      if(!imgs.length) return;
+      var current = 0;
+
+      function show(i){
+        current = (i + imgs.length) % imgs.length;
+        img.src = imgs[current].src;
+        img.alt = imgs[current].alt;
+        counter.textContent = (current+1) + ' / ' + imgs.length;
+        lb.classList.add('is-open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function close(){
+        lb.classList.remove('is-open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      imgs.forEach(function(el, i){
+        el.addEventListener('click', function(){ show(i); });
+      });
+      closeBtn.addEventListener('click', close);
+      prevBtn.addEventListener('click', function(){ show(current - 1); });
+      nextBtn.addEventListener('click', function(){ show(current + 1); });
+      lb.addEventListener('click', function(e){
+        if(e.target === lb || e.target === img) close();
+      });
+      document.addEventListener('keydown', function(e){
+        if(!lb.classList.contains('is-open')) return;
+        if(e.key === 'Escape') close();
+        if(e.key === 'ArrowLeft') show(current - 1);
+        if(e.key === 'ArrowRight') show(current + 1);
+      });
+    })();
+  </script>
 
   <!-- Sticky bar visibility: appears once user scrolls past the hero -->
   <script>
