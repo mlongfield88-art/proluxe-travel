@@ -364,6 +364,7 @@
     }
     .villa-cal__month--booked{ background:#F2EFE8; border-color:rgba(66,70,50,.22); }
     .villa-cal__month--open{ background:#EAEFE0; border-color:rgba(66,70,50,.32); }
+    .villa-cal__month--pending{ background:#F5EBD8; border-color:rgba(165,130,60,.32); }
     .villa-cal__month--partial{
       background:linear-gradient(135deg, #F2EFE8 0%, #F2EFE8 35%, #EAEFE0 65%, #EAEFE0 100%);
       border-color:rgba(66,70,50,.28);
@@ -407,6 +408,7 @@
     }
     .villa-cal__legend-swatch--open{ background:#EAEFE0; }
     .villa-cal__legend-swatch--booked{ background:#F2EFE8; }
+    .villa-cal__legend-swatch--pending{ background:#F5EBD8; border-color:rgba(165,130,60,.32); }
     @media(max-width:720px){
       .villa-cal{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
     }
@@ -732,13 +734,13 @@
           <p class="villa-cal__name">Jun</p>
           <p class="villa-cal__status">From the 6th</p>
         </div>
-        <div class="villa-cal__month villa-cal__month--open" role="listitem">
+        <div class="villa-cal__month villa-cal__month--pending" role="listitem">
           <p class="villa-cal__name">Jul</p>
-          <p class="villa-cal__status">Open</p>
+          <p class="villa-cal__status">By enquiry</p>
         </div>
-        <div class="villa-cal__month villa-cal__month--open" role="listitem">
+        <div class="villa-cal__month villa-cal__month--pending" role="listitem">
           <p class="villa-cal__name">Aug</p>
-          <p class="villa-cal__status">Open</p>
+          <p class="villa-cal__status">By enquiry</p>
         </div>
         <div class="villa-cal__month villa-cal__month--open" role="listitem">
           <p class="villa-cal__name">Sep</p>
@@ -759,6 +761,7 @@
       </div>
       <div class="villa-cal__legend" aria-hidden="true">
         <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--open"></span>Open for booking</span>
+        <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--pending"></span>By enquiry</span>
         <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--booked"></span>Held or booked</span>
       </div>
     </div>
