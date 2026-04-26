@@ -79,12 +79,12 @@
     C 700 218, 750 200, 800 178
   "/>
 
-  <!-- Villa Azzurra pin (central, on the peninsula) -->
+  <!-- Casa Marenya pin (central, on the peninsula) -->
   <g transform="translate(460,245)">
     <circle class="villa-ring" r="14"/>
     <circle class="villa-ring" r="22" style="opacity:.3"/>
     <circle class="villa-pin" r="4.5"/>
-    <text class="label-title" x="14" y="-8">Villa Azzurra</text>
+    <text class="label-title" x="14" y="-8">Casa Marenya</text>
     <text class="label-small" x="14" y="6">Cap de Formentor</text>
   </g>
 

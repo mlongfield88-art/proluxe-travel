@@ -1,5 +1,5 @@
 /* ============================================================
-   Villa Azzurra — Interactive Cap de Formentor map
+   Casa Marenya — Interactive Cap de Formentor map
    Leaflet 1.9.4 + CARTO Voyager tiles, custom olive markers,
    photo popups on click.
    ============================================================ */
@@ -14,7 +14,7 @@
   // ----------------------------------------------------------
   // POINTS OF INTEREST
   // Coordinates are approximate but correct to within ~100m
-  // for a visual peninsula map. Adjust Villa Azzurra to the
+  // for a visual peninsula map. Adjust Casa Marenya to the
   // exact parcel once the owner confirms.
   // ----------------------------------------------------------
   const VILLA_PHOTO = 'https://www.mallorcacollection.com/images/rooms/349/luxury-holiday-villa-mallorca-collection-formentor-villa-azure-oasis-251211-32.jpg';
@@ -23,7 +23,7 @@
   const pois = [
     {
       id: 'villa',
-      name: 'Villa Azzurra',
+      name: 'Casa Marenya',
       lat: 39.9305,
       lng: 3.1340,
       kind: 'Residence',
@@ -178,7 +178,7 @@
     markers[poi.id] = marker;
   });
 
-  // Open Villa Azzurra popup by default after first render
+  // Open Casa Marenya popup by default after first render
   setTimeout(() => {
     if (markers.villa) markers.villa.openPopup();
   }, 600);

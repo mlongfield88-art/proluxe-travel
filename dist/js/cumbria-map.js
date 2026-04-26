@@ -1,7 +1,7 @@
 /* ============================================================
    ProLuxe Travel — Cumbria interactive journey map
    Leaflet 1.9.4 + CARTO Voyager NoLabels tiles.
-   Modelled exactly on villa-azzurra/dist/js/map.js.
+   Modelled exactly on casa-marenya/dist/js/map.js.
    ============================================================ */
 
 (function () {
