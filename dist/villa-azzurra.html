@@ -560,6 +560,18 @@
       border-radius:2px;
       text-align:center;
       background:#FAFAF7;
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      cursor:pointer;
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    a.villa-cal__month:hover,
+    a.villa-cal__month:focus-visible{
+      transform:translateY(-2px);
+      box-shadow:0 4px 16px rgba(66,70,50,.18);
+      border-color:rgba(66,70,50,.5);
+      outline:none;
     }
     .villa-cal__month--booked{ background:#F2EFE8; border-color:rgba(66,70,50,.22); }
     .villa-cal__month--open{ background:#EAEFE0; border-color:rgba(66,70,50,.32); }
@@ -917,44 +929,45 @@
         <h2 class="section__title" id="availability-heading">By the month</h2>
         <p class="section__intro">Open from 6 June. The remainder of the season is currently fully available, including the peak fortnights of mid July and early August.</p>
       </div>
-      <div class="villa-cal" role="list" aria-label="Villa Azzurra availability through 2026">
-        <div class="villa-cal__month villa-cal__month--booked" role="listitem">
+      <div class="villa-cal" role="list" aria-label="Villa Azzurra availability through 2026, click a month to enquire">
+        <a class="villa-cal__month villa-cal__month--booked" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20April%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20register%20interest%20in%20Villa%20Azzurra%20for%20April%202026%20in%20case%20any%20of%20the%20current%20bookings%20change.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
           <p class="villa-cal__name">Apr</p>
           <p class="villa-cal__status">Held</p>
-        </div>
-        <div class="villa-cal__month villa-cal__month--booked" role="listitem">
+        </a>
+        <a class="villa-cal__month villa-cal__month--booked" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20May%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20register%20interest%20in%20Villa%20Azzurra%20for%20May%202026%20in%20case%20any%20of%20the%20current%20bookings%20change.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
           <p class="villa-cal__name">May</p>
           <p class="villa-cal__status">Held</p>
-        </div>
-        <div class="villa-cal__month villa-cal__month--partial" role="listitem">
+        </a>
+        <a class="villa-cal__month villa-cal__month--partial" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20June%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20June%202026%20%28available%20from%20the%206th%20onwards%29.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
           <p class="villa-cal__name">Jun</p>
           <p class="villa-cal__status">From the 6th</p>
-        </div>
-        <div class="villa-cal__month villa-cal__month--pending" role="listitem">
+        </a>
+        <a class="villa-cal__month villa-cal__month--pending" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20July%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20July%202026.%0A%0AI%20understand%20summer%20dates%20are%20by%20enquiry%20and%20subject%20to%20confirmation.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
           <p class="villa-cal__name">Jul</p>
           <p class="villa-cal__status">By enquiry</p>
-        </div>
-        <div class="villa-cal__month villa-cal__month--pending" role="listitem">
+        </a>
+        <a class="villa-cal__month villa-cal__month--pending" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20August%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20August%202026.%0A%0AI%20understand%20summer%20dates%20are%20by%20enquiry%20and%20subject%20to%20confirmation.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
           <p class="villa-cal__name">Aug</p>
           <p class="villa-cal__status">By enquiry</p>
-        </div>
-        <div class="villa-cal__month villa-cal__month--open" role="listitem">
+        </a>
+        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20September%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20September%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
           <p class="villa-cal__name">Sep</p>
           <p class="villa-cal__status">Open</p>
-        </div>
-        <div class="villa-cal__month villa-cal__month--open" role="listitem">
+        </a>
+        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20October%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20October%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
           <p class="villa-cal__name">Oct</p>
           <p class="villa-cal__status">Open</p>
-        </div>
-        <div class="villa-cal__month villa-cal__month--open" role="listitem">
+        </a>
+        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20November%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20November%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
           <p class="villa-cal__name">Nov</p>
           <p class="villa-cal__status">Open</p>
-        </div>
-        <div class="villa-cal__month villa-cal__month--open" role="listitem">
+        </a>
+        <a class="villa-cal__month villa-cal__month--open" role="listitem" href="mailto:info@proluxetravels.com?subject=Villa%20Azzurra%20enquiry%20-%20December%202026&body=Hello%2C%0A%0AI%27d%20like%20to%20enquire%20about%20Villa%20Azzurra%20for%20December%202026.%0A%0APreferred%20dates%3A%20%0ANumber%20of%20guests%3A%20%0ANotes%3A%20%0A%0AThank%20you%2C">
           <p class="villa-cal__name">Dec</p>
           <p class="villa-cal__status">Open</p>
-        </div>
+        </a>
       </div>
+      <p class="section__intro" style="text-align:center;margin:24px 0 0;font-style:italic;font-size:15px;">Click any month to open a prefilled enquiry email.</p>
       <div class="villa-cal__legend" aria-hidden="true">
         <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--open"></span>Open for booking</span>
         <span><span class="villa-cal__legend-swatch villa-cal__legend-swatch--pending"></span>By enquiry</span>
