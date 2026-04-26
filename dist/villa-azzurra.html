@@ -150,6 +150,48 @@
       text-align:center;
     }
 
+    /* Peninsula map */
+    .villa-map{
+      max-width:980px;
+      margin:0 auto;
+    }
+    .villa-map__svg{
+      width:100%;
+      height:auto;
+      display:block;
+      margin:0 auto;
+      max-width:760px;
+    }
+    .villa-distances{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0,1fr));
+      gap:16px;
+      margin:48px 0 0;
+      padding:32px 0 0;
+      border-top:1px solid rgba(245,240,232,.18);
+    }
+    .villa-distance{ text-align:center; }
+    .villa-distance__label{
+      font-family:'Raleway', sans-serif;
+      font-size:11px;
+      font-weight:500;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(245,240,232,.7);
+      margin:0 0 6px;
+    }
+    .villa-distance__value{
+      font-family:'Playfair Display', serif;
+      font-size:clamp(20px, 2vw, 26px);
+      font-weight:500;
+      color:#F5F0E8;
+      margin:0;
+      line-height:1.1;
+    }
+    @media(max-width:720px){
+      .villa-distances{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+    }
+
     /* Closing CTA card */
     .villa-cta{
       max-width:780px;
@@ -226,7 +268,7 @@
       <h1 class="cumbria-hero__title">Villa Azzurra</h1>
       <p class="cumbria-hero__subtitle">A contemporary four bedroom villa, three hundred metres from the Four Seasons.</p>
       <div class="cumbria-hero__cta">
-        <a href="https://villa-azzurra.proluxetravels.com" class="btn btn--primary" target="_blank" rel="noopener">View the Property</a>
+        <a href="https://villa-azzurra.pages.dev" class="btn btn--primary" target="_blank" rel="noopener">View the Property</a>
       </div>
     </div>
   </section>
@@ -296,6 +338,42 @@
           <p>Inland, twenty minutes by car puts you in Port de Pollen&ccedil;a for moorings, a Michelin-starred kitchen and the first of the long beach restaurants. Palma is a little under an hour and the drive is one of the better ones on the island.</p>
         </div>
         <div class="villa-feature__photo" style="background-image:url('img/villa-azzurra/pool-view.jpg');" role="img" aria-label="View from the pool platform at Villa Azzurra"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THE PENINSULA (illustrated map + distances) ========== -->
+  <section class="section section--olive" aria-labelledby="peninsula-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="section__eyebrow section__eyebrow--light">The Peninsula</p>
+        <h2 class="section__title section__title--light" id="peninsula-heading">On the map</h2>
+        <p class="section__intro section__intro--light">A nine kilometre finger of limestone and pine pointing north east into the Mediterranean. The Tramuntana range shelters the southern flank, the Bay of Pollen&ccedil;a cradles it from the west, open sea on the north. Villa Azzurra sits where the road runs out and the pine takes over.</p>
+      </div>
+      <div class="villa-map">
+        <img class="villa-map__svg" src="img/villa-azzurra/map-formentor.svg" alt="Illustrated map of the Cap de Formentor peninsula showing Villa Azzurra, the Four Seasons Resort and Formentor Beach" loading="lazy">
+        <div class="villa-distances">
+          <div class="villa-distance">
+            <p class="villa-distance__label">Formentor Beach</p>
+            <p class="villa-distance__value">150 m</p>
+          </div>
+          <div class="villa-distance">
+            <p class="villa-distance__label">Four Seasons</p>
+            <p class="villa-distance__value">300 m</p>
+          </div>
+          <div class="villa-distance">
+            <p class="villa-distance__label">Port de Pollen&ccedil;a</p>
+            <p class="villa-distance__value">20 min</p>
+          </div>
+          <div class="villa-distance">
+            <p class="villa-distance__label">Cap Lighthouse</p>
+            <p class="villa-distance__value">25 min</p>
+          </div>
+          <div class="villa-distance">
+            <p class="villa-distance__label">Palma Airport</p>
+            <p class="villa-distance__value">60 min</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -373,6 +451,18 @@
     </div>
   </section>
 
+  <!-- ========== QUIETLY LOOKED AFTER (concierge + Sangnoir protection) ========== -->
+  <section class="section section--cream" aria-labelledby="held-heading">
+    <div class="container">
+      <div class="about-full">
+        <p class="section__eyebrow">How the Villa is Held</p>
+        <h2 class="section__title" id="held-heading">Quietly looked after</h2>
+        <p class="section__body">Behind the day-to-day, the villa is held by a small roster of partners we keep on quiet call. Transfers move from Palma airport by car, helicopter or boat, with vetted drivers we hold accounts with across the island. Concierge access to the Four Seasons next door covers spa treatments, dinner at Shima or Mel, and a tender pickup from Port de Pollen&ccedil;a.</p>
+        <p class="section__body">For guests who require it, our sister company Sangnoir provides discreet close protection, advance risk assessment, residence security and medical readiness. The work is designed to stay out of view, the villa to stay felt rather than guarded, and the week to run frictionless from arrival to departure.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== CLOSING / ENQUIRE ========== -->
   <section class="section section--cream" aria-labelledby="enquire-heading">
     <div class="container">
@@ -381,7 +471,7 @@
         <h2 class="section__title" id="enquire-heading">Speak to us directly</h2>
         <p class="section__body villa-cta__lede">Villa Azzurra takes a small number of weeks each year through ProLuxe Travel directly. Enquiries are handled by Myles personally. Availability moves quickly in the shoulder months and we recommend reaching out at least twelve weeks ahead for a summer stay.</p>
         <div class="villa-cta__buttons">
-          <a href="https://villa-azzurra.proluxetravels.com" class="btn btn--primary" target="_blank" rel="noopener">View the Property</a>
+          <a href="https://villa-azzurra.pages.dev" class="btn btn--primary" target="_blank" rel="noopener">View the Property</a>
           <a href="/#contact" class="btn">Start a Conversation</a>
         </div>
       </div>
