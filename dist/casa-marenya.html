@@ -65,7 +65,10 @@
     }
     @media(max-width:860px){
       .villa-feature{
-        grid-template-columns:1fr;
+        /* !important here defeats the inline grid-template-columns overrides
+           on the reversed-layout sections, which would otherwise keep them
+           two-column on mobile portrait and squash the photo beside the text. */
+        grid-template-columns:1fr !important;
         gap:24px;
       }
       .villa-feature__photo{
