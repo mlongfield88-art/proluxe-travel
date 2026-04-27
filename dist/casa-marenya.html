@@ -734,7 +734,10 @@
     }
     .villa-totop svg{ width:18px; height:18px; }
     @media(max-width:600px){
-      .villa-totop{ bottom:12px; left:12px; width:40px; height:40px; }
+      /* Hide the back-to-top button on mobile: it overlaps the contact
+         stickybar (which stretches full-width on phone) and adds nothing
+         to UX where swipe-to-top is the obvious gesture. */
+      .villa-totop{ display:none; }
     }
 
     /* Closing CTA: tablet width gets two-column grid, mobile stacks full width */
