@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Private Travel Operations | ProLuxe Travel</title>
-  <meta name="description" content="The quiet team, handling hotels the way you would. High-touch support on the hotel side of your principal's trip. You stay engaged, we carry the coordination.">
+  <meta name="description" content="Hotels for your principal, handled the way you would handle them yourself. 1 contact who carries the file. You don't have to chase. By referral only.">
   <meta name="robots" content="noindex, nofollow">
 
   <!-- Open Graph (for clean link previews in Outlook, Apple Mail, Gmail) -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://proluxetravels.com/private">
   <meta property="og:title" content="Private Travel Operations | ProLuxe Travel">
-  <meta property="og:description" content="The quiet team, handling hotels the way you would. High-touch support on the hotel side of your principal's trip. You stay engaged, we carry the coordination.">
+  <meta property="og:description" content="Hotels for your principal, handled the way you would handle them yourself. 1 contact who carries the file. You don't have to chase. By referral only.">
   <meta property="og:image" content="https://proluxetravels.com/img/logo-green.webp">
   <meta property="og:image:alt" content="ProLuxe Travel">
   <meta property="og:site_name" content="ProLuxe Travel">
@@ -20,7 +20,7 @@
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Private Travel Operations | ProLuxe Travel">
-  <meta name="twitter:description" content="The quiet team, handling hotels the way you would. High-touch support on the hotel side of your principal's trip. You stay engaged, we carry the coordination.">
+  <meta name="twitter:description" content="Hotels for your principal, handled the way you would handle them yourself. 1 contact who carries the file. You don't have to chase. By referral only.">
   <meta name="twitter:image" content="https://proluxetravels.com/img/logo-green.webp">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,6 +141,25 @@
 
     .private-block {
       margin: 0 0 72px;
+    }
+
+    /* Letter paragraphs , prose flow inside .private-block */
+    .private-letter__para {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+      line-height: 1.7;
+      color: var(--ink);
+      margin: 0 0 22px;
+    }
+    .private-letter__para:last-child {
+      margin-bottom: 0;
+    }
+    .private-letter__regards {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      color: var(--muted);
+      margin: 0 0 14px;
     }
 
     .private-block__label {
@@ -386,65 +405,32 @@
       <canvas id="privateCanvas"></canvas>
     </div>
     <div class="private-hero__inner">
-      <p class="private-hero__eyebrow">By introduction. Hand-kept, by design.</p>
-      <h1 class="private-hero__headline">The quiet team, handling hotels the way you would.</h1>
-      <p class="private-hero__subline">High-touch support on the hotel side of your principal's trip. You stay engaged, we carry the coordination.</p>
+      <p class="private-hero__eyebrow">By introduction. Hand-kept.</p>
+      <h1 class="private-hero__headline">Hotels for your principal, handled the way you would handle them yourself.</h1>
+      <p class="private-hero__subline">1 contact who carries the file. You don't have to chase.</p>
     </div>
   </section>
 
   <main class="private-main">
 
     <section class="private-block">
-      <p class="private-block__label">The way we work</p>
-      <ol class="private-pledges">
-        <li class="private-pledges__item">
-          <span class="private-pledges__num">01</span>
-          <div>
-            <h3 class="private-pledges__title">Their usual, every time.</h3>
-            <p class="private-pledges__text">Preferences carried across cities; each hotel briefed only to the level the stay requires.</p>
-          </div>
-        </li>
-        <li class="private-pledges__item">
-          <span class="private-pledges__num">02</span>
-          <div>
-            <h3 class="private-pledges__title">Handled on our side, visible on yours.</h3>
-            <p class="private-pledges__text">Late arrivals, early check-ins, awkward swaps. You stay on every update; the fixing stays with us.</p>
-          </div>
-        </li>
-        <li class="private-pledges__item">
-          <span class="private-pledges__num">03</span>
-          <div>
-            <h3 class="private-pledges__title">The room you arranged with us is waiting for you in New York.</h3>
-            <p class="private-pledges__text">1 team across every city, with the same eye for detail.</p>
-          </div>
-        </li>
-        <li class="private-pledges__item">
-          <span class="private-pledges__num">04</span>
-          <div>
-            <h3 class="private-pledges__title">1 contact, access to every hotel.</h3>
-            <p class="private-pledges__text">Reservations leads, GMs, duty managers, concierges. Every relationship already in place, every line open through us.</p>
-          </div>
-        </li>
-      </ol>
+      <p class="private-letter__para">I run ProLuxe Travel. The hotel side of corporate, family office and private travel for principals who travel often. By referral only.</p>
+      <p class="private-letter__para">Every hotel for the principal, in every city on the schedule. The relationships are already in place: reservations leads, GMs, duty managers, concierges. The file moves with the principal, not with the city.</p>
+      <p class="private-letter__para">The work that matters is the work that doesn't show. Preferences kept on file. Hotels briefed only to the level the stay requires. Late arrivals sorted with the duty manager directly, before the principal lands. Out of hours, I pick up. Briefing materials packaged for whoever is travelling, ready to hand over.</p>
     </section>
 
-    <section class="private-vignette" aria-label="A recent trip">
-      <p class="private-vignette__label">A recent trip</p>
-      <p class="private-vignette__quote">A suite needed at short notice, in a city running at capacity. The call went direct to the reservations director; held before the conversation ended.</p>
+    <section class="private-vignette" aria-label="A recent moment">
+      <p class="private-vignette__label">A recent moment</p>
+      <p class="private-vignette__quote">A suite needed at short notice, in a city running at capacity. The call went direct to the reservations director. Held before the conversation ended. That call only worked because the relationship was already there.</p>
     </section>
 
     <section class="private-block">
-      <p class="private-block__label">Recent work</p>
-      <ul class="private-block__list">
-        <li>Currently running an international-event programme. Attendee accommodation across multiple hotels, on a booking platform built for it.</li>
-        <li>Ongoing multi-country accommodation for a global executive team: 4 countries, 1 standard, direct-dealing with each reservations desk.</li>
-        <li>Ongoing private travel for a family office: multiple cities a year, discreet bookings, hotels briefed only to the level each stay requires.</li>
-      </ul>
+      <p class="private-letter__para">The industry has gone the way of contact forms, chatbots, and account managers who don't know the file. ProLuxe Travel went the other way.</p>
+      <p class="private-letter__para">If your principal travels often and you'd like a single contact who carries it, drop me a line.</p>
     </section>
 
     <section class="private-contact">
-      <p class="private-contact__access">Enquiries are handled directly by Myles. Current availability on request.</p>
-      <p class="private-block__label">Direct line</p>
+      <p class="private-letter__regards">Kind regards,</p>
       <h2 class="private-contact__name">Myles Longfield</h2>
       <p class="private-contact__title">Founder, ProLuxe Travel</p>
       <p class="private-contact__row"><a href="mailto:myles@proluxetravels.com">myles@proluxetravels.com</a></p>
