@@ -595,33 +595,6 @@ h1,h2,h3,h4,h5,h6{
 }
 
 /* ============================================================
-   MARQUEE
-   ============================================================ */
-.marquee{
-  background:#2A2A2A;
-  padding:18px 0;
-  overflow:hidden;
-  white-space:nowrap;
-}
-.marquee__track{
-  display:inline-flex;
-  gap:32px;
-  animation:marqueeScroll 30s linear infinite;
-}
-.marquee__track span{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(14px,1.3vw,16px);
-  font-weight:400;
-  color:rgba(245,240,232,.35);
-  letter-spacing:.05em;
-  text-transform:uppercase;
-}
-@keyframes marqueeScroll{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-50%)}
-}
-
-/* ============================================================
    CONTACT FORM
    ============================================================ */
 .form{margin-top:32px}

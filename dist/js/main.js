@@ -244,25 +244,6 @@
         }
       );
 
-      /* ---------- MARQUEE SPEED ON SCROLL ---------- */
-      var marqueeTrack = document.querySelector('.marquee__track');
-      if (marqueeTrack) {
-        gsap.to(marqueeTrack, {
-          animationDuration: '15s',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.marquee',
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-            onUpdate: function (self) {
-              var speed = 30 - (self.progress * 15);
-              marqueeTrack.style.animationDuration = speed + 's';
-            }
-          }
-        });
-      }
-
       /* ---------- CONTACT SECTION ---------- */
       gsap.fromTo('#contact .section__eyebrow',
         { opacity: 0, y: 25 },
