@@ -724,8 +724,61 @@
   </header>
 
   <section class="private-hero">
+    <!-- Soft olive tree drawings behind the headline. Three trees of
+         varying sizes, low opacity, sat in the wings so they frame
+         the H1 without competing with it. The canvas-wrap class
+         keeps the same absolute positioning and z-index the broken
+         canvas previously occupied. -->
     <div class="private-hero__canvas-wrap" aria-hidden="true">
-      <canvas id="privateCanvas"></canvas>
+      <svg class="private-hero__trees" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Reusable olive tree silhouette. Wide irregular canopy
+               built from overlapping ellipses, gnarled trunk drawn
+               as a closed path so it reads as form rather than a
+               line. Two thin branches from trunk into canopy
+               suggest reach. Drawn at viewBox 0 0 200 280 then
+               scaled and positioned via use elements. -->
+          <symbol id="olive-tree" viewBox="0 0 200 280">
+            <path d="M 88 270
+                     C 84 260, 90 250, 88 240
+                     C 86 225, 96 210, 92 195
+                     C 94 180, 104 175, 100 165
+                     C 96 155, 102 145, 100 140
+                     L 112 140
+                     C 110 145, 116 155, 112 165
+                     C 108 175, 116 180, 118 195
+                     C 114 210, 122 225, 120 240
+                     C 122 250, 128 260, 124 270 Z"
+                  fill="#424632"/>
+            <path d="M 100 162 Q 80 145 68 122"
+                  stroke="#424632" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M 112 162 Q 130 142 144 120"
+                  stroke="#424632" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <ellipse cx="100" cy="100" rx="58" ry="44" fill="#424632"/>
+            <ellipse cx="74"  cy="84"  rx="34" ry="26" fill="#424632"/>
+            <ellipse cx="126" cy="90"  rx="40" ry="30" fill="#424632"/>
+            <ellipse cx="54"  cy="112" rx="26" ry="22" fill="#424632"/>
+            <ellipse cx="148" cy="118" rx="30" ry="25" fill="#424632"/>
+            <ellipse cx="100" cy="132" rx="42" ry="16" fill="#424632"/>
+            <ellipse cx="88"  cy="62"  rx="22" ry="20" fill="#424632"/>
+            <ellipse cx="116" cy="68"  rx="26" ry="18" fill="#424632"/>
+          </symbol>
+        </defs>
+
+        <!-- Tree 1: large, far left, anchored to bottom-left.
+             Sits behind the headline left edge. -->
+        <use href="#olive-tree" x="-40" y="280" width="380" height="540" opacity="0.10"/>
+
+        <!-- Tree 2: medium, far right, anchored to bottom-right.
+             Mirrors tree 1 across the headline. -->
+        <use href="#olive-tree" x="880" y="320" width="320" height="450" opacity="0.085"/>
+
+        <!-- Tree 3: small, top-right, suggests a grove behind. -->
+        <use href="#olive-tree" x="1000" y="40"  width="220" height="310" opacity="0.06"/>
+
+        <!-- Tree 4: small, top-left, balances tree 3. -->
+        <use href="#olive-tree" x="60"   y="60"  width="200" height="280" opacity="0.05"/>
+      </svg>
     </div>
     <div class="private-hero__inner">
       <p class="private-hero__eyebrow">Direct contact. By introduction.</p>
