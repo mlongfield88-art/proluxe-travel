@@ -29,6 +29,16 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
 
+  <!-- Three.js via importmap, lets the module script use bare
+       specifiers like `import * as THREE from 'three'`. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "/lib/three.module.min.js"
+    }
+  }
+  </script>
+
   <style>
     :root {
       --olive: #424632;
@@ -423,6 +433,31 @@
       margin: 0 auto 56px;
       perspective: 1800px;
     }
+
+    /* WebGL stage. Hidden by default. JS toggles body.has-webgl when
+       a real GL context is available, which shows the canvas and
+       hides the CSS envelope above. If WebGL fails to initialise the
+       CSS envelope stays as-is and visitors never see this empty
+       canvas. */
+    .envelope-3d-stage {
+      display: none;
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      height: 300px;
+      margin: 0 auto 56px;
+    }
+    .envelope-3d-stage canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    body.has-webgl .envelope-3d-stage {
+      display: block;
+    }
+    body.has-webgl .envelope-stage {
+      display: none;
+    }
     .envelope {
       position: absolute;
       inset: 0;
@@ -706,6 +741,12 @@
 
     <section class="private-envelope-section" id="envelopeReveal" aria-label="Letter from the founder">
 
+      <!-- WebGL stage. JS shows this when the browser supports it. -->
+      <div class="envelope-3d-stage" id="envelope3DStage" aria-hidden="true">
+        <canvas id="envelopeCanvas"></canvas>
+      </div>
+
+      <!-- CSS envelope. Default visible, hidden when WebGL is on. -->
       <div class="envelope-stage" aria-hidden="true">
         <div class="envelope">
           <div class="envelope__back"></div>
@@ -823,6 +864,7 @@
 
   <script src="lib/gsap.min.js" defer></script>
   <script src="js/private.js" defer></script>
+  <script type="module" src="/js/private-3d.js"></script>
 
   <script>
     // Personalise the greeting from URL parameter ?to=Name
