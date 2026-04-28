@@ -403,7 +403,7 @@
                         const inStr = b[prefix+'Arrival'];
                         const outStr = b[prefix+'Departure'];
                         const type = b[prefix+'Room Type'];
-                        const rate = (b[prefix+'Rate'] || 'TBC').replace(/n/g, '<br>');
+                        const rate = (b[prefix+'Rate'] || 'TBC').replace(/\n/g, '<br>').replace(/ \+ /g, '<br>');
                         const l1 = b[prefix+'Guest Last Name'] || '';
                         const g2First = b[prefix+'Guest 2 First Name'] || '';
                         const g2Last = b[prefix+'Guest 2 Last Name'] || '';
@@ -742,7 +742,7 @@
                         const type = bData[prefix+'Room Type'] || 'TBC';
                         const checkIn = bData[prefix+'Arrival'] || '';
                         const checkOut = bData[prefix+'Departure'] || '';
-                        const rate = (bData[prefix+'Rate'] || 'TBC').replace(/n/g, '<br>');
+                        const rate = (bData[prefix+'Rate'] || 'TBC').replace(/\n/g, '<br>').replace(/ \+ /g, '<br>');
                         
                         let guestDisplay = `${fName} ${lName}`;
                         if(g2First !== "" || g2Last !== "") {
@@ -826,7 +826,7 @@
                 const g2First = bData[prefix+'Guest 2 First Name'] || '';
                 const g2Last = bData[prefix+'Guest 2 Last Name'] || '';
                 const type = bData[prefix+'Room Type'] || 'TBC';
-                const rate = (bData[prefix+'Rate'] || 'TBC').replace(/n/g, '<br>');
+                const rate = (bData[prefix+'Rate'] || 'TBC').replace(/\n/g, '<br>').replace(/ \+ /g, '<br>');
                 
                 let guestDisplay = `${fName} ${lName}`;
                 if(g2First !== "" || g2Last !== "") {
