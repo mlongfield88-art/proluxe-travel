@@ -690,6 +690,96 @@
         };
 
         // --- THE MASTER RESEND (SENDS ALL ROOMS TO THE BOOKER) ---
+        // --- Confirmation table helpers ---
+        // Compute integer nights between two DD/MM/YYYY dates. Returns 0 on bad input.
+        window.computeNights = (arrival, departure) => {
+            if (!arrival || !departure) return 0;
+            const parse = (s) => {
+                const parts = s.split('/').map(p => parseInt(p, 10));
+                if (parts.length !== 3 || parts.some(isNaN)) return null;
+                return new Date(parts[2], parts[1] - 1, parts[0]).getTime();
+            };
+            const a = parse(arrival), d = parse(departure);
+            if (a == null || d == null) return 0;
+            return Math.max(0, Math.round((d - a) / 86400000));
+        };
+
+        // Build the room breakdown table HTML used in both master and individual confirmations.
+        // rooms: array of { idx, fName, lName, g2First, g2Last, type, checkIn, checkOut, rate, totalDKK }
+        // opts.singleRoom: if true, hide the Rm column (saves visual clutter on per-guest sends)
+        window.buildMagicTable = (rooms, opts) => {
+            opts = opts || {};
+            const single = !!opts.singleRoom || rooms.length === 1;
+            const olive = '#424632';
+            const cream = '#F5F0E8';
+            const rule = '#DDD7CC';
+            const text = '#1A1A1A';
+            const muted = '#6F6E68';
+            const fontStack = "'Helvetica Neue', Helvetica, Arial, sans-serif";
+            const wrap = `font-family:${fontStack};`;
+
+            const rmCol = single ? '' : `<th align="left" style="padding:12px 10px;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:${cream};font-weight:600;${wrap}">Rm</th>`;
+
+            let header = `
+                <tr style="background:${olive};color:${cream};">
+                    ${rmCol}
+                    <th align="left" style="padding:12px 10px;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:${cream};font-weight:600;${wrap}">Guest</th>
+                    <th align="left" style="padding:12px 10px;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:${cream};font-weight:600;${wrap}">Room</th>
+                    <th align="left" style="padding:12px 10px;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:${cream};font-weight:600;${wrap}">Stay</th>
+                    <th align="left" style="padding:12px 10px;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:${cream};font-weight:600;${wrap}">Rate</th>
+                    <th align="right" style="padding:12px 10px;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:${cream};font-weight:600;${wrap}">Total</th>
+                </tr>`;
+
+            let body = '';
+            let grand = 0;
+
+            rooms.forEach((r, i) => {
+                const altBg = i % 2 === 0 ? '#FFFFFF' : cream;
+                const nights = window.computeNights(r.checkIn, r.checkOut);
+                const rateText = (r.rate || 'TBC').replace(/\n/g, '<br>').replace(/ \+ /g, '<br>');
+                const subtotal = (typeof r.totalDKK === 'number' && r.totalDKK > 0)
+                    ? r.totalDKK
+                    : window.computeTotalDKK(r.rate || '', nights);
+                grand += subtotal;
+                const subDisplay = subtotal > 0 ? 'DKK ' + subtotal.toLocaleString('en-GB') : '—';
+
+                let guestDisplay = `${r.fName || ''} ${r.lName || ''}`.trim();
+                if (r.g2First || r.g2Last) {
+                    guestDisplay += `<br><span style="font-size:12px;color:${muted};">+ ${r.g2First || ''} ${r.g2Last || ''}</span>`;
+                }
+                const stayDisplay = (r.checkIn && r.checkOut)
+                    ? `${r.checkIn}<br><span style="font-size:12px;color:${muted};">to ${r.checkOut}${nights ? ` (${nights} ${nights === 1 ? 'night' : 'nights'})` : ''}</span>`
+                    : 'TBC';
+
+                const rmCell = single ? '' : `<td align="center" style="padding:14px 10px;font-size:12px;color:${muted};border-bottom:1px solid ${rule};vertical-align:top;${wrap}">${r.idx}</td>`;
+
+                body += `
+                <tr style="background:${altBg};">
+                    ${rmCell}
+                    <td style="padding:14px 10px;font-size:14px;color:${text};font-weight:600;border-bottom:1px solid ${rule};vertical-align:top;${wrap}">${guestDisplay}</td>
+                    <td style="padding:14px 10px;font-size:13px;color:${text};border-bottom:1px solid ${rule};vertical-align:top;${wrap}">${r.type || 'TBC'}</td>
+                    <td style="padding:14px 10px;font-size:13px;color:${text};border-bottom:1px solid ${rule};vertical-align:top;${wrap}">${stayDisplay}</td>
+                    <td style="padding:14px 10px;font-size:13px;color:${text};border-bottom:1px solid ${rule};vertical-align:top;${wrap}">${rateText}</td>
+                    <td align="right" style="padding:14px 10px;font-size:14px;color:${text};font-weight:600;border-bottom:1px solid ${rule};vertical-align:top;white-space:nowrap;${wrap}">${subDisplay}</td>
+                </tr>`;
+            });
+
+            const colspanForTotal = single ? 4 : 5;
+            const grandDisplay = grand > 0 ? 'DKK ' + grand.toLocaleString('en-GB') : '—';
+            const footer = `
+                <tr>
+                    <td colspan="${colspanForTotal}" align="right" style="padding:16px 10px 8px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:${muted};${wrap}">Total</td>
+                    <td align="right" style="padding:16px 10px 8px;font-size:18px;color:${olive};font-weight:700;border-top:2px solid ${olive};white-space:nowrap;${wrap}">${grandDisplay}</td>
+                </tr>`;
+
+            return `
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;${wrap}">
+                <thead>${header}</thead>
+                <tbody>${body}</tbody>
+                <tfoot>${footer}</tfoot>
+            </table>`;
+        };
+
         window.resendConfirmation = async (docId) => {
             const btn = document.getElementById(`resend-btn-${docId}`);
             const originalText = btn.textContent;

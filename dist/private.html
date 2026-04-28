@@ -29,18 +29,6 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
 
-  <!-- Three.js via importmap, lets the module script use bare
-       specifiers like `import * as THREE from 'three'` and
-       `import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'`. -->
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "/lib/three.module.min.js",
-      "three/addons/": "/lib/three-addons/"
-    }
-  }
-  </script>
-
   <style>
     :root {
       --olive: #424632;
@@ -427,169 +415,59 @@
       position: relative;
     }
 
-    .envelope-stage {
+    /* Real envelope photograph (cream cardstock + bronze wax seal
+       with embossed olive tree, by Diana Light on Unsplash).
+       Container is sized smaller than the photo's natural height
+       so object-position: top crops to just the topmost envelope
+       in the stack, dropping the two below it cleanly. The photo
+       and the letter beneath it share the same visual real estate,
+       with the letter using a negative top margin to overlap. */
+    .envelope-photo {
       position: relative;
       width: 100%;
       max-width: 460px;
-      height: 300px;
-      margin: 0 auto 56px;
-      perspective: 1800px;
+      height: 380px;
+      margin: 0 auto;
+      overflow: hidden;
+      z-index: 2;
+      filter:
+        drop-shadow(0 12px 28px rgba(0, 0, 0, 0.14))
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+      transition:
+        opacity 0.9s ease 0.15s,
+        transform 1.3s cubic-bezier(0.5, 0, 0.5, 1) 0.15s,
+        filter 0.9s ease 0.15s;
     }
-
-    /* WebGL stage. Hidden by default. JS toggles body.has-webgl when
-       a real GL context is available, which shows the canvas and
-       hides the CSS envelope above. If WebGL fails to initialise the
-       CSS envelope stays as-is and visitors never see this empty
-       canvas. */
-    .envelope-3d-stage {
-      display: none;
-      position: relative;
-      width: 100%;
-      max-width: 460px;
-      height: 300px;
-      margin: 0 auto 56px;
-    }
-    .envelope-3d-stage canvas {
+    .envelope-photo img {
+      display: block;
       width: 100%;
       height: 100%;
-      display: block;
-    }
-    body.has-webgl .envelope-3d-stage {
-      display: block;
-    }
-    body.has-webgl .envelope-stage {
-      display: none;
-    }
-    .envelope {
-      position: absolute;
-      inset: 0;
-      transform-style: preserve-3d;
+      object-fit: cover;
+      object-position: center 8%;
+      margin: 0;
     }
 
-    /* Envelope back: heavy olive cardstock with paper grain.
-       The SVG noise gives it a subtle linen weave look without
-       costing much on render. */
-    .envelope__back {
-      position: absolute;
-      inset: 0;
-      border-radius: 3px;
-      background-color: #424632;
-      background-image:
-        url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-        radial-gradient(ellipse 70% 100% at 50% 100%, rgba(0, 0, 0, 0.15) 0%, transparent 60%),
-        linear-gradient(140deg, #4a4e36 0%, #424632 50%, #3b3f2c 100%);
-      box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.28),
-        0 8px 20px rgba(0, 0, 0, 0.18),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.15);
-      z-index: 1;
-    }
-
-    /* Slight V-shape mark suggesting the envelope's bottom seam. */
-    .envelope__back::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 65%;
-      background-image:
-        linear-gradient(220deg, transparent 49%, rgba(0, 0, 0, 0.08) 50%, transparent 51%),
-        linear-gradient(140deg, transparent 49%, rgba(0, 0, 0, 0.08) 50%, transparent 51%);
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      pointer-events: none;
-    }
-
-    /* Two-sided flap. Outside is the olive cardstock (matches back).
-       Inside is a cream/biscuit colour, what you see when the flap
-       folds back. preserve-3d on the wrapper, backface-visibility on
-       each face. The easing is a hand-tuned cubic-bezier that gives
-       a slow start (the flap "resists" first), accelerates through
-       the middle of the rotation, then settles slowly at the end,
-       like a real envelope flap with paper weight. */
-    .envelope__flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 65%;
-      transform-origin: top center;
-      transition: transform 1.4s cubic-bezier(0.45, 0.0, 0.18, 1.0) 0.35s;
-      transform-style: preserve-3d;
-      z-index: 3;
-    }
-    .envelope__flap-outside,
-    .envelope__flap-inside {
-      position: absolute;
-      inset: 0;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      backface-visibility: hidden;
-    }
-    .envelope__flap-outside {
-      background-color: #424632;
-      background-image:
-        url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-        linear-gradient(180deg, #50543c 0%, #474b34 35%, #3f4330 100%);
-      box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.2);
-    }
-    .envelope__flap-inside {
-      transform: rotateX(180deg);
-      background-color: #ece4d2;
-      background-image:
-        url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-        linear-gradient(180deg, #ece4d2 0%, #ddd2bc 60%, #cfc3aa 100%);
-    }
-
-    /* Wax seal: SVG-based for real depth and detail.
-       Hand-drawn irregular path, multi-stop gradients,
-       surface highlight, embossed P. The SVG sits in a
-       wrapper that handles position + drop shadow. */
-    .envelope__seal {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 110px;
-      height: 110px;
-      transform: translate(-50%, -50%);
-      z-index: 4;
-      transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.55, 1.5, 0.7, 1.0);
-      filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35))
-              drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
-      pointer-events: none;
-    }
-    .envelope__seal svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    /* Letter starts inside the envelope, then emerges.
-       Initial state: positioned over the envelope (translateY -340px),
-       slightly scaled down (0.95), and invisible. As it animates,
-       it becomes visible while sliding DOWN past the envelope's
-       bottom edge, settling into reading position with a subtle
-       scale-up. The cubic-bezier eases out of motion gracefully,
-       like paper settling on a desk. The z-index pop after the
-       transform completes ensures the letter sits above the envelope
-       once it has fully cleared. */
+    /* Letter sits beneath the envelope photo. Negative top margin
+       overlaps the two so they share the same visual block. The
+       letter starts hidden + nudged down 32px; on reveal it eases
+       up into place with the box-shadow growing as if the paper
+       has just landed on the desk. */
     .envelope__letter {
       position: relative;
       background: #fdfcf8;
-      border: 1px solid rgba(66, 70, 50, 0.12);
+      border: 1px solid rgba(66, 70, 50, 0.10);
       padding: clamp(40px, 5vw, 64px) clamp(28px, 4vw, 56px);
+      margin: -380px auto 0;
+      max-width: 720px;
+      z-index: 1;
       box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.04),
-        0 16px 50px rgba(0, 0, 0, 0.10);
+        0 14px 40px rgba(0, 0, 0, 0.08);
       opacity: 0;
-      transform: translateY(-340px) scale(0.95);
-      transform-origin: top center;
-      z-index: 0;
+      transform: translateY(36px);
       transition:
-        opacity 0.7s ease 0.95s,
-        transform 1.5s cubic-bezier(0.16, 0.84, 0.32, 1) 0.85s,
-        z-index 0s 2.35s,
+        opacity 1s ease 0.95s,
+        transform 1.2s cubic-bezier(0.16, 0.84, 0.32, 1) 0.95s,
         box-shadow 1s ease 1.4s;
     }
     .letter__greeting {
@@ -641,22 +519,20 @@
       border-color: var(--olive);
     }
 
-    /* Reveal: triggered when section enters viewport */
-    /* Seal cracks and falls. Slight rotation suggests the wax
-       splitting under tension before the flap pushes through. */
-    .private-envelope-section.is-revealed .envelope__seal {
+    /* Reveal: when the section enters the viewport, the envelope
+       photo fades and lifts away while the letter rises into the
+       same space and the box-shadow grows underneath it. */
+    .private-envelope-section.is-revealed .envelope-photo {
       opacity: 0;
-      transform: translate(-50%, -38%) rotate(7deg) scale(0.62);
-      transition: opacity 0.6s ease 0.2s,
-                  transform 0.7s cubic-bezier(0.36, 0, 0.66, -0.56) 0.1s;
-    }
-    .private-envelope-section.is-revealed .envelope__flap {
-      transform: rotateX(-178deg);
+      transform: translateY(-24px) scale(0.97);
+      filter:
+        drop-shadow(0 4px 10px rgba(0, 0, 0, 0.05))
+        drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+      pointer-events: none;
     }
     .private-envelope-section.is-revealed .envelope__letter {
       opacity: 1;
-      transform: translateY(0) scale(1);
-      z-index: 8;
+      transform: translateY(0);
       box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.06),
         0 30px 80px rgba(0, 0, 0, 0.16);
@@ -669,37 +545,24 @@
       .private-envelope-section {
         padding: 56px 24px 72px;
       }
-      .envelope-stage {
+      .envelope-photo {
         max-width: 320px;
-        height: 220px;
-        margin-bottom: 40px;
+        height: 280px;
       }
-      .envelope__seal {
-        width: 68px;
-        height: 68px;
-      }
-      .envelope__seal-mark {
-        font-size: 30px;
-      }
-      /* iOS Safari can be twitchy on rotateX; fall back to fade */
-      .envelope__flap {
-        transition: opacity 0.7s ease;
-      }
-      .private-envelope-section.is-revealed .envelope__flap {
-        opacity: 0;
-        transform: none;
+      .envelope__letter {
+        margin-top: -280px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .envelope__flap,
-      .envelope__seal,
+      .envelope-photo,
       .envelope__letter {
-        transition: opacity 0.3s ease;
+        transition: opacity 0.4s ease;
       }
-      .private-envelope-section.is-revealed .envelope__flap,
-      .private-envelope-section.is-revealed .envelope__seal {
-        opacity: 0;
+      .private-envelope-section.is-revealed .envelope-photo {
+        transform: none;
+      }
+      .private-envelope-section.is-revealed .envelope__letter {
         transform: none;
       }
     }
@@ -724,61 +587,10 @@
   </header>
 
   <section class="private-hero">
-    <!-- Soft olive tree drawings behind the headline. Three trees of
-         varying sizes, low opacity, sat in the wings so they frame
-         the H1 without competing with it. The canvas-wrap class
-         keeps the same absolute positioning and z-index the broken
-         canvas previously occupied. -->
+    <!-- Olive branch canvas, same fractal-growth animation as the
+         homepage hero. private.js wires this up on load. -->
     <div class="private-hero__canvas-wrap" aria-hidden="true">
-      <svg class="private-hero__trees" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <!-- Reusable olive tree silhouette. Wide irregular canopy
-               built from overlapping ellipses, gnarled trunk drawn
-               as a closed path so it reads as form rather than a
-               line. Two thin branches from trunk into canopy
-               suggest reach. Drawn at viewBox 0 0 200 280 then
-               scaled and positioned via use elements. -->
-          <symbol id="olive-tree" viewBox="0 0 200 280">
-            <path d="M 88 270
-                     C 84 260, 90 250, 88 240
-                     C 86 225, 96 210, 92 195
-                     C 94 180, 104 175, 100 165
-                     C 96 155, 102 145, 100 140
-                     L 112 140
-                     C 110 145, 116 155, 112 165
-                     C 108 175, 116 180, 118 195
-                     C 114 210, 122 225, 120 240
-                     C 122 250, 128 260, 124 270 Z"
-                  fill="#424632"/>
-            <path d="M 100 162 Q 80 145 68 122"
-                  stroke="#424632" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M 112 162 Q 130 142 144 120"
-                  stroke="#424632" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <ellipse cx="100" cy="100" rx="58" ry="44" fill="#424632"/>
-            <ellipse cx="74"  cy="84"  rx="34" ry="26" fill="#424632"/>
-            <ellipse cx="126" cy="90"  rx="40" ry="30" fill="#424632"/>
-            <ellipse cx="54"  cy="112" rx="26" ry="22" fill="#424632"/>
-            <ellipse cx="148" cy="118" rx="30" ry="25" fill="#424632"/>
-            <ellipse cx="100" cy="132" rx="42" ry="16" fill="#424632"/>
-            <ellipse cx="88"  cy="62"  rx="22" ry="20" fill="#424632"/>
-            <ellipse cx="116" cy="68"  rx="26" ry="18" fill="#424632"/>
-          </symbol>
-        </defs>
-
-        <!-- Tree 1: large, far left, anchored to bottom-left.
-             Sits behind the headline left edge. -->
-        <use href="#olive-tree" x="-40" y="280" width="380" height="540" opacity="0.10"/>
-
-        <!-- Tree 2: medium, far right, anchored to bottom-right.
-             Mirrors tree 1 across the headline. -->
-        <use href="#olive-tree" x="880" y="320" width="320" height="450" opacity="0.085"/>
-
-        <!-- Tree 3: small, top-right, suggests a grove behind. -->
-        <use href="#olive-tree" x="1000" y="40"  width="220" height="310" opacity="0.06"/>
-
-        <!-- Tree 4: small, top-left, balances tree 3. -->
-        <use href="#olive-tree" x="60"   y="60"  width="200" height="280" opacity="0.05"/>
-      </svg>
+      <canvas id="privateCanvas"></canvas>
     </div>
     <div class="private-hero__inner">
       <p class="private-hero__eyebrow">Direct contact. By introduction.</p>
@@ -796,92 +608,14 @@
 
     <section class="private-envelope-section" id="envelopeReveal" aria-label="Letter from the founder">
 
-      <!-- WebGL stage. JS shows this when the browser supports it. -->
-      <div class="envelope-3d-stage" id="envelope3DStage" aria-hidden="true">
-        <canvas id="envelopeCanvas"></canvas>
-      </div>
-
-      <!-- CSS envelope. Default visible, hidden when WebGL is on. -->
-      <div class="envelope-stage" aria-hidden="true">
-        <div class="envelope">
-          <div class="envelope__back"></div>
-          <div class="envelope__flap">
-            <div class="envelope__flap-outside"></div>
-            <div class="envelope__flap-inside"></div>
-          </div>
-          <div class="envelope__seal">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <defs>
-                <radialGradient id="waxBody" cx="32%" cy="28%" r="78%">
-                  <stop offset="0%" stop-color="#c8434a"/>
-                  <stop offset="35%" stop-color="#9c252d"/>
-                  <stop offset="72%" stop-color="#641015"/>
-                  <stop offset="100%" stop-color="#380709"/>
-                </radialGradient>
-                <radialGradient id="waxHighlight" cx="32%" cy="24%" r="38%">
-                  <stop offset="0%" stop-color="#ffd0d0" stop-opacity="0.55"/>
-                  <stop offset="60%" stop-color="#ffd0d0" stop-opacity="0.06"/>
-                  <stop offset="100%" stop-color="#ffd0d0" stop-opacity="0"/>
-                </radialGradient>
-                <filter id="waxGrain" x="0" y="0" width="100%" height="100%">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="2" seed="4"/>
-                  <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"/>
-                  <feComposite in2="SourceGraphic" operator="in"/>
-                  <feBlend in="SourceGraphic" mode="multiply"/>
-                </filter>
-              </defs>
-
-              <!-- Hand-drawn irregular wax body, perturbed circle.
-                   The path is deliberately uneven so the eye reads
-                   it as molten wax rather than a perfect disc. -->
-              <path d="M 50 3
-                       C 60 3, 70 6, 78 12
-                       C 86 18, 92 28, 95 38
-                       C 98 50, 96 62, 91 72
-                       C 86 82, 78 90, 68 95
-                       C 58 99, 46 99, 36 95
-                       C 25 91, 15 84, 9 74
-                       C 4 64, 2 52, 4 41
-                       C 7 30, 14 20, 24 13
-                       C 32 7, 41 4, 50 3 Z"
-                    fill="url(#waxBody)"/>
-
-              <!-- Surface grain (subtle wax pitting) -->
-              <path d="M 50 3
-                       C 60 3, 70 6, 78 12
-                       C 86 18, 92 28, 95 38
-                       C 98 50, 96 62, 91 72
-                       C 86 82, 78 90, 68 95
-                       C 58 99, 46 99, 36 95
-                       C 25 91, 15 84, 9 74
-                       C 4 64, 2 52, 4 41
-                       C 7 30, 14 20, 24 13
-                       C 32 7, 41 4, 50 3 Z"
-                    fill="url(#waxBody)" filter="url(#waxGrain)" opacity="0.6"/>
-
-              <!-- Top-left highlight, the "wet wax" gleam -->
-              <ellipse cx="36" cy="32" rx="22" ry="14" fill="url(#waxHighlight)"/>
-
-              <!-- Inner ring impression, like a real seal die's raised border -->
-              <circle cx="50" cy="50" r="32" fill="none" stroke="rgba(20,5,5,0.45)" stroke-width="0.9"/>
-              <circle cx="50" cy="50" r="31" fill="none" stroke="rgba(255,200,200,0.10)" stroke-width="0.5"/>
-
-              <!-- Embossed P. Two text layers offset by 1px give the
-                   illusion of a recessed letter pressed into the wax:
-                   the top layer is the dark "shadow side" of the
-                   indent; the bottom is the slightly highlighted edge. -->
-              <text x="50" y="65" text-anchor="middle"
-                    font-family="Playfair Display, Georgia, serif"
-                    font-size="46" font-weight="600"
-                    fill="rgba(40,5,5,0.85)">P</text>
-              <text x="50" y="64" text-anchor="middle"
-                    font-family="Playfair Display, Georgia, serif"
-                    font-size="46" font-weight="600"
-                    fill="#3a0809">P</text>
-            </svg>
-          </div>
-        </div>
-      </div>
+      <!-- Real envelope photograph by Diana Light on Unsplash.
+           Cream cardstock with a bronze wax seal embossed with an
+           olive tree, which carries the brand connection in the
+           asset itself. On is-revealed the photo fades and gently
+           rises away, and the letter slides up into its place. -->
+      <figure class="envelope-photo" aria-hidden="true">
+        <img src="/img/envelope/envelope-with-seal.jpg" alt="" loading="lazy">
+      </figure>
 
       <article class="envelope__letter" aria-label="Letter">
         <p class="letter__greeting" id="letterGreeting"></p>
@@ -919,7 +653,6 @@
 
   <script src="lib/gsap.min.js" defer></script>
   <script src="js/private.js" defer></script>
-  <script type="module" src="/js/private-3d.js"></script>
 
   <script>
     // Personalise the greeting from URL parameter ?to=Name
