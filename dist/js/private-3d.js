@@ -205,74 +205,152 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
     });
 
     // -----------------------------------------------------------------
-    // 7. Envelope geometry. Procedural primitives standing in for the
-    //    Phase 2 GLB import. Group hierarchy:
+    // 8. Envelope geometry. ExtrudeGeometry from 2D shapes gives us
+    //    real paper thickness with beveled edges, vs. a flat
+    //    BoxGeometry which always reads as a slab. The bevel is
+    //    where light catches first, so it does most of the work
+    //    selling "this is a paper object" to the eye.
     //
+    //    Group hierarchy:
     //      envelope
-    //        body         (BoxGeometry)
-    //        seal         (CylinderGeometry)
-    //        flapPivot    (Group, rotates around top edge)
-    //          flapOuter  (BufferGeometry triangle, olive)
-    //          flapInner  (BufferGeometry triangle, cream, behind)
-    //
-    //    The flap pivot sits at the top edge of the body so rotation
-    //    around X opens the flap upwards/backwards.
+    //        body          (rounded rectangle, extruded)
+    //        letter        (paper plane, hidden inside body)
+    //        seal          (irregular disc, extruded)
+    //        flapPivot     (rotates around top edge)
+    //          flapOuter   (triangle, extruded)
+    //          flapInner   (triangle, extruded, cream)
     // -----------------------------------------------------------------
+
+    // Envelope body: rounded rectangle with rounded corners and a
+    // beveled extrude for paper thickness. Corners use
+    // quadraticCurveTo for smooth arcs. The bevel produces a soft
+    // edge that catches highlights — the single biggest "this is
+    // paper" tell vs. a sharp box.
+    function makeBodyShape() {
+      const w = 4.6, h = 3.0, r = 0.08;
+      const s = new THREE.Shape();
+      s.moveTo(-w/2 + r, -h/2);
+      s.lineTo(w/2 - r, -h/2);
+      s.quadraticCurveTo(w/2, -h/2, w/2, -h/2 + r);
+      s.lineTo(w/2, h/2 - r);
+      s.quadraticCurveTo(w/2, h/2, w/2 - r, h/2);
+      s.lineTo(-w/2 + r, h/2);
+      s.quadraticCurveTo(-w/2, h/2, -w/2, h/2 - r);
+      s.lineTo(-w/2, -h/2 + r);
+      s.quadraticCurveTo(-w/2, -h/2, -w/2 + r, -h/2);
+      return s;
+    }
+
     const envelope = new THREE.Group();
 
-    const bodyGeo = new THREE.BoxGeometry(4.6, 3, 0.06);
+    const bodyGeo = new THREE.ExtrudeGeometry(makeBodyShape(), {
+      depth: 0.05,
+      bevelEnabled: true,
+      bevelThickness: 0.018,
+      bevelSize: 0.018,
+      bevelSegments: 6,
+      curveSegments: 16,
+    });
+    bodyGeo.center();
     const body = new THREE.Mesh(bodyGeo, cardstockBack);
     body.castShadow = true;
     body.receiveShadow = true;
     envelope.add(body);
 
+    // Inner letter: cream paper plane sitting just inside the
+    // envelope body, will slide out during the animation.
+    const letterGeo = new THREE.PlaneGeometry(4.3, 2.7, 1, 1);
+    const letterMat = new THREE.MeshPhysicalMaterial({
+      color: 0xfaf6ec,
+      roughness: 0.94,
+      metalness: 0.0,
+      side: THREE.DoubleSide,
+    });
+    const letterPaper = new THREE.Mesh(letterGeo, letterMat);
+    letterPaper.position.set(0, 0, 0.001);
+    letterPaper.castShadow = true;
+    letterPaper.receiveShadow = true;
+    envelope.add(letterPaper);
+
+    // Flap shape: triangle with a slightly rounded V tip, extruded
+    // for thickness. Origin at top-edge midpoint so rotation pivots
+    // around the fold line.
+    function makeFlapShape() {
+      const s = new THREE.Shape();
+      s.moveTo(-2.3, 0);
+      s.lineTo(2.3, 0);
+      s.lineTo(0.06, -1.92);
+      s.quadraticCurveTo(0, -1.96, -0.06, -1.92);
+      s.lineTo(-2.3, 0);
+      return s;
+    }
     function makeFlapGeometry() {
-      const geo = new THREE.BufferGeometry();
-      // Vertices placed so the top edge is at y=0 (rotation pivot)
-      // and the V tip points down to y=-1.95.
-      const verts = new Float32Array([
-        -2.3, 0, 0,
-         2.3, 0, 0,
-         0, -1.95, 0,
-      ]);
-      const uvs = new Float32Array([
-        0, 1,
-        1, 1,
-        0.5, 0,
-      ]);
-      geo.setAttribute('position', new THREE.BufferAttribute(verts, 3));
-      geo.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
-      geo.setIndex([0, 1, 2]);
-      geo.computeVertexNormals();
-      return geo;
+      const g = new THREE.ExtrudeGeometry(makeFlapShape(), {
+        depth: 0.014,
+        bevelEnabled: true,
+        bevelThickness: 0.005,
+        bevelSize: 0.005,
+        bevelSegments: 3,
+        curveSegments: 8,
+      });
+      return g;
     }
 
     const flapPivot = new THREE.Group();
-    flapPivot.position.set(0, 1.5, 0.031);
+    flapPivot.position.set(0, 1.5, 0.025);
 
     const flapOuter = new THREE.Mesh(makeFlapGeometry(), flapOuterMat);
     flapOuter.castShadow = true;
     flapPivot.add(flapOuter);
 
-    // Inner face: same triangle, flipped to face the other way.
-    // Rotated 180° around its X axis so its front faces opposite.
+    // Inner face: same flap, flipped to face the other way and
+    // offset back slightly. The cream interior shows when the flap
+    // rotates open. Flipping via rotateY(PI) and pushing in z so
+    // the back face becomes the front-facing surface.
     const flapInner = new THREE.Mesh(makeFlapGeometry(), flapInnerMat);
-    flapInner.position.z = -0.005;
-    flapInner.rotation.y = Math.PI; // flip horizontally so its normal faces back
+    flapInner.rotation.y = Math.PI;
+    flapInner.position.z = -0.001;
     flapPivot.add(flapInner);
 
     envelope.add(flapPivot);
 
-    // Wax seal. Cylinder rotated to face camera, sits slightly in
-    // front of the envelope body so it appears to bridge body+flap.
-    const sealGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.05, 48, 1);
+    // Wax seal: irregular extruded disc. The 16-vertex hand-tuned
+    // path mimics melted wax bleed, vs. a perfect cylinder which
+    // reads as a hockey puck. Bevel softens the top edge so the
+    // light catches it like a wet wax dome.
+    function makeSealShape() {
+      const s = new THREE.Shape();
+      const pts = [
+        [0.42, 0.00], [0.40, 0.18], [0.34, 0.30], [0.24, 0.36],
+        [0.10, 0.40], [-0.08, 0.39], [-0.22, 0.34], [-0.32, 0.26],
+        [-0.39, 0.14], [-0.41, -0.02], [-0.38, -0.16], [-0.30, -0.27],
+        [-0.18, -0.36], [-0.04, -0.40], [0.14, -0.38], [0.28, -0.30],
+        [0.36, -0.18], [0.41, -0.04],
+      ];
+      s.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length; i++) s.lineTo(pts[i][0], pts[i][1]);
+      s.lineTo(pts[0][0], pts[0][1]);
+      return s;
+    }
+
+    const sealGeo = new THREE.ExtrudeGeometry(makeSealShape(), {
+      depth: 0.07,
+      bevelEnabled: true,
+      bevelThickness: 0.022,
+      bevelSize: 0.022,
+      bevelSegments: 6,
+      curveSegments: 4,
+    });
+    sealGeo.center();
     const seal = new THREE.Mesh(sealGeo, waxMat);
-    seal.rotation.x = Math.PI / 2;
-    seal.position.set(0, 0, 0.06);
+    // Sit the seal slightly proud of the envelope front, with the
+    // flat (unbevelled) face toward the body and the bevelled dome
+    // facing the camera.
+    seal.position.set(0, 0, 0.07);
     seal.castShadow = true;
     envelope.add(seal);
 
-    // Slight camera-up tilt on the whole envelope so the lighting
+    // Slight upward tilt on the whole envelope so the lighting
     // reads from above. About 4 degrees.
     envelope.rotation.x = -0.07;
 
@@ -294,27 +372,36 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
       if (gsap) {
         const tl = gsap.timeline();
 
-        // Seal cracks: scales down, drops, rotates, fades.
-        tl.to(seal.scale, { x: 0.6, y: 0.6, z: 0.6, duration: 0.5, ease: 'power2.in' }, 0)
-          .to(seal.position, { z: 0.4, y: -0.3, duration: 0.55, ease: 'power2.in' }, 0)
-          .to(seal.rotation, { z: 0.45, duration: 0.6, ease: 'power2.in' }, 0)
+        // Seal cracks: scale, drop, rotate, fade.
+        tl.to(seal.scale, { x: 0.55, y: 0.55, z: 0.55, duration: 0.5, ease: 'power2.in' }, 0)
+          .to(seal.position, { z: 0.45, y: -0.32, duration: 0.55, ease: 'power2.in' }, 0)
+          .to(seal.rotation, { z: 0.45, x: 0.2, duration: 0.6, ease: 'power2.in' }, 0)
           .to(seal.material, { opacity: 0, duration: 0.4 }, 0.25)
 
-          // Flap rotates back. -179deg (not full -180) so the flap
-          // never disappears flat from view; small offset preserves
-          // some lighting on its back face.
+          // Flap rotates back. -177deg so the flap never disappears
+          // flat from view, preserving some lighting on its inner face.
           .to(flapPivot.rotation, {
             x: -Math.PI * 0.985,
             duration: 1.45,
             ease: 'power3.inOut',
           }, 0.3)
 
+          // Letter slides up and out of the envelope. Starts inside
+          // the body, ends visible above the open envelope. Subtle
+          // forward-z so it sits proud of the body, not flush.
+          .to(letterPaper.position, {
+            y: 1.6,
+            z: 0.18,
+            duration: 1.3,
+            ease: 'power2.out',
+          }, 0.95)
+
           // Subtle camera push-in as the seal cracks. Communicates
-          // attention/intimacy. Hand-tuned values, not maths.
+          // attention/intimacy without screaming "cinematic".
           .to(camera.position, {
-            z: 6.6,
-            y: 0.65,
-            duration: 1.7,
+            z: 6.4,
+            y: 0.7,
+            duration: 1.9,
             ease: 'power2.inOut',
           }, 0.1);
       } else {
