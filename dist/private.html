@@ -30,11 +30,13 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
 
   <!-- Three.js via importmap, lets the module script use bare
-       specifiers like `import * as THREE from 'three'`. -->
+       specifiers like `import * as THREE from 'three'` and
+       `import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'`. -->
   <script type="importmap">
   {
     "imports": {
-      "three": "/lib/three.module.min.js"
+      "three": "/lib/three.module.min.js",
+      "three/addons/": "/lib/three-addons/"
     }
   }
   </script>

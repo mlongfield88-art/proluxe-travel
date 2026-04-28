@@ -17,6 +17,7 @@
  */
 
 import * as THREE from 'three';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
 (function () {
 
@@ -90,13 +91,27 @@ import * as THREE from 'three';
     camera.lookAt(0, 0, 0);
 
     // -----------------------------------------------------------------
-    // 5. Lights. Three-point setup approximating a luxury invitation
-    //    photographed in a softbox studio. Phase 2 swaps this for an
-    //    HDRi environment via PMREMGenerator + scene.environment.
+    // 5. Environment lighting via HDRi. Soft studio hdr from
+    //    polyhaven.com lit our envelope from a 360-degree dome of
+    //    real-world light sources. Eliminates the "computer-graphics
+    //    plastic" look of fake directional lights. PMREMGenerator
+    //    converts the equirectangular hdr into a cubemap environment
+    //    that PBR materials can sample for reflections.
     // -----------------------------------------------------------------
-    scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
 
-    const key = new THREE.DirectionalLight(0xfff2dc, 1.6);
+    new RGBELoader().load('/img/hdri/studio.hdr', (hdrTexture) => {
+      const envMap = pmremGenerator.fromEquirectangular(hdrTexture).texture;
+      scene.environment = envMap;
+      hdrTexture.dispose();
+      pmremGenerator.dispose();
+    });
+
+    // Subtle key light from above-right for shadow definition. The
+    // HDRi handles ambient and reflections, this just gives the
+    // shadow some shape on the desk surface (envelope onto itself).
+    const key = new THREE.DirectionalLight(0xfff2dc, 0.9);
     key.position.set(2.4, 3.6, 4.2);
     key.castShadow = true;
     key.shadow.mapSize.set(1024, 1024);
@@ -109,54 +124,82 @@ import * as THREE from 'three';
     key.shadow.camera.bottom = -4;
     scene.add(key);
 
-    const fill = new THREE.DirectionalLight(0xc9d4f5, 0.45);
-    fill.position.set(-3.5, 1.2, 2.5);
-    scene.add(fill);
-
-    const rim = new THREE.DirectionalLight(0xffffff, 0.6);
-    rim.position.set(0, 2, -3);
-    scene.add(rim);
+    // -----------------------------------------------------------------
+    // 6. Texture loading. Cardboard maps from ambientCG.com applied
+    //    to the cardstock as normal + roughness only. The base colour
+    //    stays olive, the texture only adds surface detail (paper
+    //    grain, fibre direction, slight roughness variation). This
+    //    is how real PBR pipelines tint cardstock without losing the
+    //    brand colour.
+    // -----------------------------------------------------------------
+    const texLoader = new THREE.TextureLoader();
+    function loadTex(path, sRGB) {
+      const t = texLoader.load(path);
+      t.wrapS = t.wrapT = THREE.RepeatWrapping;
+      t.repeat.set(1.4, 1.0);
+      if (sRGB) t.colorSpace = THREE.SRGBColorSpace;
+      return t;
+    }
+    const paperColor = loadTex('/img/textures/paper/color.jpg', true);
+    const paperNormal = loadTex('/img/textures/paper/normal.jpg', false);
+    const paperRoughness = loadTex('/img/textures/paper/roughness.jpg', false);
 
     // -----------------------------------------------------------------
-    // 6. Materials. Olive cardstock, cream interior, burgundy wax.
-    //    Phase 2: replace the colour-only Standard materials with
-    //    MeshPhysicalMaterial driven by ambientCG paper texture maps
-    //    (basecolor, normal, roughness, ambient occlusion).
+    // 7. Materials. Olive cardstock outside, cream cardstock inside,
+    //    burgundy wax. MeshPhysicalMaterial gives us clearcoat for
+    //    the wax (subtle wet sheen) and proper sheen on the paper.
+    //    Normal + roughness maps add tactile detail. Base colour is
+    //    set via .color to preserve brand olive, since the texture
+    //    is brown cardboard.
     // -----------------------------------------------------------------
     const COLOURS = {
       olive: 0x424632,
-      oliveLight: 0x4e5240,
       cream: 0xece4d2,
       wax: 0x8a1f24,
-      waxDark: 0x5e1015,
     };
 
-    const cardstockBack = new THREE.MeshStandardMaterial({
+    const cardstockBack = new THREE.MeshPhysicalMaterial({
       color: COLOURS.olive,
-      roughness: 0.86,
-      metalness: 0.02,
+      roughness: 0.92,
+      roughnessMap: paperRoughness,
+      normalMap: paperNormal,
+      normalScale: new THREE.Vector2(0.4, 0.4),
+      metalness: 0.0,
+      sheen: 0.15,
+      sheenColor: 0x4d513c,
     });
 
-    // Flap is double-sided so we can show olive outside, cream inside
-    // by using two stacked meshes back-to-back. Two materials, one
-    // mesh each, offset by 0.001 in z.
-    const flapOuterMat = new THREE.MeshStandardMaterial({
+    const flapOuterMat = new THREE.MeshPhysicalMaterial({
       color: COLOURS.olive,
-      roughness: 0.86,
-      metalness: 0.02,
+      roughness: 0.92,
+      roughnessMap: paperRoughness,
+      normalMap: paperNormal,
+      normalScale: new THREE.Vector2(0.4, 0.4),
+      metalness: 0.0,
+      sheen: 0.15,
+      sheenColor: 0x4d513c,
       side: THREE.FrontSide,
     });
-    const flapInnerMat = new THREE.MeshStandardMaterial({
+
+    const flapInnerMat = new THREE.MeshPhysicalMaterial({
       color: COLOURS.cream,
-      roughness: 0.92,
+      roughness: 0.94,
+      roughnessMap: paperRoughness,
+      normalMap: paperNormal,
+      normalScale: new THREE.Vector2(0.3, 0.3),
       metalness: 0.0,
       side: THREE.FrontSide,
     });
 
-    const waxMat = new THREE.MeshStandardMaterial({
+    // Wax: clearcoat for wet sheen, slight clearcoatRoughness so it
+    // doesn't read as polished plastic. Lower roughness on the body
+    // gives the gleam.
+    const waxMat = new THREE.MeshPhysicalMaterial({
       color: COLOURS.wax,
-      roughness: 0.4,
-      metalness: 0.06,
+      roughness: 0.32,
+      metalness: 0.0,
+      clearcoat: 0.6,
+      clearcoatRoughness: 0.25,
       transparent: true,
       opacity: 1,
     });
