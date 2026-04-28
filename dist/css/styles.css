@@ -965,7 +965,9 @@ a.info-block__value:hover{color:#424632}
   position:absolute;
   inset:0;
   z-index:1;
-  background:linear-gradient(180deg, rgba(26,26,23,0.35) 0%, rgba(26,26,23,0.1) 40%, rgba(26,26,23,0.55) 100%);
+  background:
+    radial-gradient(ellipse 75% 60% at 50% 55%, rgba(26,26,23,0.55) 0%, rgba(26,26,23,0.25) 70%, rgba(26,26,23,0.15) 100%),
+    linear-gradient(180deg, rgba(26,26,23,0.45) 0%, rgba(26,26,23,0.4) 40%, rgba(26,26,23,0.65) 100%);
 }
 .cumbria-hero__content{
   position:relative;
@@ -1141,7 +1143,8 @@ a.info-block__value:hover{color:#424632}
 
 /* ----- Hero: photograph version ----- */
 .cumbria-hero__bg--photo{
-  background:url('../img/cumbria/hero.jpg') center 40% / cover no-repeat;
+  background:url('../img/cumbria/hero.jpg') center 50% / cover no-repeat;
+  filter:brightness(0.78) saturate(0.9);
 }
 
 /* ----- Journey section wrapper ----- */
