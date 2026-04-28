@@ -144,6 +144,19 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
     const paperNormal = loadTex('/img/textures/paper/normal.jpg', false);
     const paperRoughness = loadTex('/img/textures/paper/roughness.jpg', false);
 
+    // Wax surface maps. Stand-in is a plaster texture from ambientCG
+    // because pure-wax PBR sets are rare. Plaster gives the same
+    // matte-with-tiny-imperfections surface that thick wax cools to.
+    function loadWaxTex(path, sRGB) {
+      const t = texLoader.load(path);
+      t.wrapS = t.wrapT = THREE.RepeatWrapping;
+      t.repeat.set(2, 2);
+      if (sRGB) t.colorSpace = THREE.SRGBColorSpace;
+      return t;
+    }
+    const waxNormal = loadWaxTex('/img/textures/wax/wax-normal.jpg', false);
+    const waxRoughness = loadWaxTex('/img/textures/wax/wax-roughness.jpg', false);
+
     // -----------------------------------------------------------------
     // 7. Materials. Olive cardstock outside, cream cardstock inside,
     //    burgundy wax. MeshPhysicalMaterial gives us clearcoat for
@@ -191,15 +204,26 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
       side: THREE.FrontSide,
     });
 
-    // Wax: clearcoat for wet sheen, slight clearcoatRoughness so it
-    // doesn't read as polished plastic. Lower roughness on the body
-    // gives the gleam.
+    // Wax: thicker clearcoat with rougher coat surface mimics the way
+    // thick sealing wax has a slightly cloudy outer skin over a darker
+    // core. Plaster normal+roughness maps add the natural imperfection
+    // of cooled wax (small bumps, valleys, uneven sheen). Sheen layer
+    // adds the characteristic colour shift wax has at grazing angles.
+    // Note: full subsurface scattering (transmission + thickness) is
+    // possible here but tanks performance on integrated GPUs, so we
+    // fake it with a slight emissive tint on the inner colour.
     const waxMat = new THREE.MeshPhysicalMaterial({
       color: COLOURS.wax,
-      roughness: 0.32,
+      roughness: 0.55,
+      roughnessMap: waxRoughness,
+      normalMap: waxNormal,
+      normalScale: new THREE.Vector2(0.7, 0.7),
       metalness: 0.0,
-      clearcoat: 0.6,
-      clearcoatRoughness: 0.25,
+      clearcoat: 0.55,
+      clearcoatRoughness: 0.45,
+      sheen: 0.4,
+      sheenColor: 0xff5060,
+      sheenRoughness: 0.6,
       transparent: true,
       opacity: 1,
     });
@@ -333,21 +357,50 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
       return s;
     }
 
+    // Wax seal geometry: thin base + big rounded bevel = dome shape,
+    // not a hockey puck. bevelThickness > bevelSize makes the front
+    // bulge out further than its inset, mimicking a wax blob that
+    // cooled in a slight mound. 14 bevel segments + 8 curve segments
+    // give a smooth top, then we displace those vertices slightly so
+    // it doesn't read as machined-perfect.
     const sealGeo = new THREE.ExtrudeGeometry(makeSealShape(), {
-      depth: 0.07,
+      depth: 0.025,
       bevelEnabled: true,
-      bevelThickness: 0.022,
-      bevelSize: 0.022,
-      bevelSegments: 6,
-      curveSegments: 4,
+      bevelThickness: 0.075,
+      bevelSize: 0.04,
+      bevelSegments: 14,
+      curveSegments: 8,
     });
     sealGeo.center();
+
+    // Vertex noise: jitter front-face positions slightly so the dome
+    // surface has organic micro-imperfections rather than reading as
+    // a perfect mathematical curve. Only the front (positive z) face
+    // is displaced; the back (sat against the envelope body) stays
+    // flat. Uses pseudo-random hash, not Three's noise utility, to
+    // keep this scene zero-extra-imports.
+    const sealPos = sealGeo.getAttribute('position');
+    function hash3(x, y, z) {
+      const s = Math.sin(x * 12.9898 + y * 78.233 + z * 37.719) * 43758.5453;
+      return s - Math.floor(s);
+    }
+    for (let i = 0; i < sealPos.count; i++) {
+      const x = sealPos.getX(i);
+      const y = sealPos.getY(i);
+      const z = sealPos.getZ(i);
+      // Only displace front-facing vertices (z above mid-plane).
+      if (z > 0.02) {
+        const n = (hash3(x, y, z) - 0.5) * 0.012;
+        sealPos.setZ(i, z + n);
+      }
+    }
+    sealGeo.computeVertexNormals();
+
     const seal = new THREE.Mesh(sealGeo, waxMat);
-    // Sit the seal slightly proud of the envelope front, with the
-    // flat (unbevelled) face toward the body and the bevelled dome
-    // facing the camera.
-    seal.position.set(0, 0, 0.07);
+    // Sit the seal proud of the envelope front, dome facing camera.
+    seal.position.set(0, 0, 0.06);
     seal.castShadow = true;
+    seal.receiveShadow = true;
     envelope.add(seal);
 
     // Slight upward tilt on the whole envelope so the lighting
