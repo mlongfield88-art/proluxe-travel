@@ -20,9 +20,16 @@ const DEFAULT_PATH_VARIANTS = [
   "/casa-marenya.html",
   "/casa-marenya/"
 ];
+const REALM = "Casa Marenya Insights";
 
 export async function onRequest(context) {
   const { env, request } = context;
+
+  // Same Basic Auth realm as /insights/* so the browser auto-sends the
+  // credentials it already collected when the user opened the page.
+  const auth = checkBasicAuth(request, env);
+  if (auth.error) return auth.response;
+
   const url = new URL(request.url);
 
   const days = clampDays(parseInt(url.searchParams.get("days") || "7", 10));
@@ -251,4 +258,65 @@ function json(payload, status = 200, headers = {}) {
     status,
     headers: { "content-type": "application/json", ...headers }
   });
+}
+
+// --- HTTP Basic Auth, same realm as /insights/[[path]].js ---
+
+function checkBasicAuth(request, env) {
+  const expectedUser = env.INSIGHTS_USER || "casamarenya";
+  const expectedPass = env.INSIGHTS_PASSWORD;
+
+  if (!expectedPass) {
+    return {
+      error: true,
+      response: new Response(
+        "INSIGHTS_PASSWORD not set as a Pages env var.",
+        { status: 500 }
+      )
+    };
+  }
+
+  const header = request.headers.get("Authorization") || "";
+  if (!header.startsWith("Basic ")) {
+    return { error: true, response: authChallenge() };
+  }
+
+  let decoded;
+  try {
+    decoded = atob(header.slice(6).trim());
+  } catch (e) {
+    return { error: true, response: authChallenge() };
+  }
+
+  const sep = decoded.indexOf(":");
+  if (sep < 0) return { error: true, response: authChallenge() };
+
+  const user = decoded.slice(0, sep);
+  const pass = decoded.slice(sep + 1);
+
+  if (!constantTimeEquals(user, expectedUser) || !constantTimeEquals(pass, expectedPass)) {
+    return { error: true, response: authChallenge() };
+  }
+
+  return { error: false };
+}
+
+function authChallenge() {
+  return new Response(JSON.stringify({ error: "unauthorized" }), {
+    status: 401,
+    headers: {
+      "WWW-Authenticate": `Basic realm="${REALM}", charset="UTF-8"`,
+      "content-type": "application/json"
+    }
+  });
+}
+
+function constantTimeEquals(a, b) {
+  if (typeof a !== "string" || typeof b !== "string") return false;
+  if (a.length !== b.length) return false;
+  let r = 0;
+  for (let i = 0; i < a.length; i++) {
+    r |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return r === 0;
 }
