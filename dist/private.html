@@ -365,19 +365,246 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      .private-block,
-      .private-vignette,
-      .private-contact {
+      .private-statement,
+      .private-envelope-section {
         opacity: 0;
         transform: translateY(12px);
         animation: fade-up 0.8s ease forwards;
       }
-      .private-block:nth-of-type(1) { animation-delay: 0.2s; }
-      .private-vignette { animation-delay: 0.35s; }
-      .private-block:nth-of-type(2) { animation-delay: 0.5s; }
-      .private-contact { animation-delay: 0.65s; }
+      .private-statement { animation-delay: 0.2s; }
+      .private-envelope-section { animation-delay: 0.35s; }
       @keyframes fade-up {
         to { opacity: 1; transform: translateY(0); }
+      }
+    }
+
+    /* ============================================================
+       FROM THE FOUNDER STATEMENT
+       ============================================================ */
+    .private-statement {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 48px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .private-statement__label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin: 0 0 20px;
+    }
+    .private-statement__intro {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(1.05rem, 1.7vw, 1.25rem);
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 0;
+      max-width: 580px;
+    }
+
+    /* ============================================================
+       ENVELOPE SECTION + OPEN ANIMATION
+       ============================================================ */
+    .private-envelope-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 48px 96px;
+      position: relative;
+    }
+
+    .envelope-stage {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      height: 300px;
+      margin: 0 auto 56px;
+      perspective: 1500px;
+    }
+    .envelope {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+    }
+    .envelope__back {
+      position: absolute;
+      inset: 0;
+      background: var(--olive);
+      border-radius: 4px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.2),
+                  inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+      z-index: 1;
+    }
+    .envelope__flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 65%;
+      background: linear-gradient(180deg, #4d513a 0%, #424632 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+      z-index: 3;
+      backface-visibility: hidden;
+    }
+    .envelope__flap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0.06) 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
+    .envelope__seal {
+      position: absolute;
+      top: 47%;
+      left: 50%;
+      width: 88px;
+      height: 88px;
+      background: radial-gradient(circle at 35% 30%, #b03030 0%, #7a1a1a 60%, #581010 100%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3),
+                  inset 0 2px 3px rgba(255, 255, 255, 0.18),
+                  inset 0 -4px 8px rgba(0, 0, 0, 0.35);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .envelope__seal::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(245, 240, 232, 0.25);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .envelope__seal-mark {
+      font-family: 'Playfair Display', serif;
+      color: var(--cream);
+      font-size: 38px;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5),
+                   0 -1px 1px rgba(255, 255, 255, 0.15);
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .envelope__letter {
+      background: #fdfcf8;
+      border: 1px solid rgba(66, 70, 50, 0.12);
+      padding: clamp(40px, 5vw, 64px) clamp(28px, 4vw, 56px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+    }
+    .letter__greeting {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+      margin: 0 0 24px;
+      color: var(--ink);
+      font-style: italic;
+    }
+    .letter__greeting--hidden {
+      display: none;
+    }
+    .envelope__letter .private-letter__para:first-of-type {
+      margin-top: 0;
+    }
+    .letter__regards {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      color: var(--muted);
+      margin: 32px 0 8px;
+    }
+    .letter__signature {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 2vw, 1.55rem);
+      font-weight: 500;
+      margin: 0 0 4px;
+      color: var(--ink);
+    }
+    .letter__signature-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+    .letter__signature-contact {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(1rem, 1.4vw, 1.1rem);
+      margin: 4px 0;
+    }
+    .letter__signature-contact a {
+      color: var(--olive);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      transition: border-color 0.3s;
+    }
+    .letter__signature-contact a:hover {
+      border-color: var(--olive);
+    }
+
+    /* Reveal: triggered when section enters viewport */
+    .private-envelope-section.is-revealed .envelope__seal {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+    .private-envelope-section.is-revealed .envelope__flap {
+      transform: rotateX(-178deg);
+    }
+    .private-envelope-section.is-revealed .envelope__letter {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 640px) {
+      .private-statement {
+        padding: 32px 24px 0;
+      }
+      .private-envelope-section {
+        padding: 56px 24px 72px;
+      }
+      .envelope-stage {
+        max-width: 320px;
+        height: 220px;
+        margin-bottom: 40px;
+      }
+      .envelope__seal {
+        width: 68px;
+        height: 68px;
+      }
+      .envelope__seal-mark {
+        font-size: 30px;
+      }
+      /* iOS Safari can be twitchy on rotateX; fall back to fade */
+      .envelope__flap {
+        transition: opacity 0.7s ease;
+      }
+      .private-envelope-section.is-revealed .envelope__flap {
+        opacity: 0;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .envelope__flap,
+      .envelope__seal,
+      .envelope__letter {
+        transition: opacity 0.3s ease;
+      }
+      .private-envelope-section.is-revealed .envelope__flap,
+      .private-envelope-section.is-revealed .envelope__seal {
+        opacity: 0;
+        transform: none;
       }
     }
 
@@ -411,30 +638,40 @@
     </div>
   </section>
 
-  <main class="private-main">
+  <main>
 
-    <section class="private-block">
-      <p class="private-letter__para">I run ProLuxe Travel. The hotel side of corporate, family office and private travel for principals who travel often. By referral only.</p>
-      <p class="private-letter__para">Every hotel for the principal, in every city on the schedule. The relationships are already in place: reservations leads, GMs, duty managers, concierges. Each new booking starts from the existing file.</p>
-      <p class="private-letter__para">Preferences held with us, not in a hotel chain's database. Hotels briefed only to the level the stay requires. Late arrivals sorted with the duty manager directly, before the principal lands. Out of hours, I pick up. Briefing materials packaged for whoever is travelling, ready to hand over.</p>
+    <section class="private-statement">
+      <p class="private-statement__label">From the founder</p>
+      <p class="private-statement__intro">Most travel companies run on contact forms, chatbots, and account managers who don't know the file. We do not.</p>
     </section>
 
-    <section class="private-vignette" aria-label="A recent moment">
-      <p class="private-vignette__label">A recent moment</p>
-      <p class="private-vignette__quote">A suite needed at short notice, in a city running at capacity. The call went direct to the reservations director. Held before the conversation ended.</p>
-    </section>
+    <section class="private-envelope-section" id="envelopeReveal" aria-label="Letter from the founder">
 
-    <section class="private-block">
-      <p class="private-letter__para">Most travel companies run on contact forms, chatbots, and account managers who don't know the file. We do not.</p>
-      <p class="private-letter__para">If your principal travels often, please get in touch.</p>
-    </section>
+      <div class="envelope-stage" aria-hidden="true">
+        <div class="envelope">
+          <div class="envelope__back"></div>
+          <div class="envelope__flap"></div>
+          <div class="envelope__seal">
+            <span class="envelope__seal-mark">P</span>
+          </div>
+        </div>
+      </div>
 
-    <section class="private-contact">
-      <p class="private-letter__regards">Kind regards,</p>
-      <h2 class="private-contact__name">Myles Longfield</h2>
-      <p class="private-contact__title">Founder, ProLuxe Travel</p>
-      <p class="private-contact__row"><a href="mailto:myles@proluxetravels.com">myles@proluxetravels.com</a></p>
-      <p class="private-contact__row"><a href="tel:+442070888291">+44 20 7088 8291</a></p>
+      <article class="envelope__letter" aria-label="Letter">
+        <p class="letter__greeting" id="letterGreeting"></p>
+
+        <p class="private-letter__para">I run ProLuxe Travel. The hotel side of corporate, family office and private travel for principals who travel often. By referral only.</p>
+        <p class="private-letter__para">Every hotel for the principal, in every city on the schedule. The relationships are already in place: reservations leads, GMs, duty managers, concierges. Each new booking starts from the existing file.</p>
+        <p class="private-letter__para">Preferences held with us, not in a hotel chain's database. Hotels briefed only to the level the stay requires. Late arrivals sorted with the duty manager directly, before the principal lands. Out of hours, I pick up. Briefing materials packaged for whoever is travelling, ready to hand over.</p>
+        <p class="private-letter__para">If your principal travels often, please get in touch.</p>
+
+        <p class="letter__regards">Kind regards,</p>
+        <p class="letter__signature">Myles Longfield</p>
+        <p class="letter__signature-title">Founder, ProLuxe Travel</p>
+        <p class="letter__signature-contact"><a href="mailto:myles@proluxetravels.com">myles@proluxetravels.com</a></p>
+        <p class="letter__signature-contact"><a href="tel:+442070888291">+44 20 7088 8291</a></p>
+      </article>
+
     </section>
 
   </main>
@@ -456,6 +693,47 @@
 
   <script src="lib/gsap.min.js" defer></script>
   <script src="js/private.js" defer></script>
+
+  <script>
+    // Personalise the greeting from URL parameter ?to=Name
+    // Reveal the envelope when the section enters the viewport.
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var toName = params.get('to');
+      var greeting = document.getElementById('letterGreeting');
+      if (greeting) {
+        if (toName && toName.trim()) {
+          var name = toName.trim().slice(0, 40);
+          name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+          // textContent escapes HTML, safe against injection.
+          greeting.textContent = 'Dear ' + name + ',';
+        } else {
+          greeting.classList.add('letter__greeting--hidden');
+        }
+      }
+
+      var section = document.getElementById('envelopeReveal');
+      if (!section) return;
+
+      function reveal() {
+        section.classList.add('is-revealed');
+      }
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              reveal();
+              observer.unobserve(section);
+            }
+          });
+        }, { threshold: 0.35, rootMargin: '0px 0px -10% 0px' });
+        observer.observe(section);
+      } else {
+        reveal();
+      }
+    })();
+  </script>
 
 </body>
 </html>
