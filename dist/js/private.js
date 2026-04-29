@@ -402,7 +402,8 @@
      Boot
      ------------------------------------------------------------ */
   function init() {
-    splitHeadline();
+    // Hero text renders static, no entrance animation. splitHeadline() retained
+    // in source for future use but not called.
     wireCanvas();
   }
 
