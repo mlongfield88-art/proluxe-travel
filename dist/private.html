@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Private Travel Operations | ProLuxe Travel</title>
-  <meta name="description" content="Hotels for your principal, handled the way you would handle them yourself. 1 contact across every booking. By referral only.">
+  <meta name="description" content="Hotels for your principal, their team, and your conferences. Multi-city itineraries for one. Hotels for the principal plus team. Group programmes at conference scale. One person on point. By referral only.">
   <meta name="robots" content="noindex, nofollow">
 
   <!-- Open Graph (for clean link previews in Outlook, Apple Mail, Gmail) -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://proluxetravels.com/private">
   <meta property="og:title" content="Private Travel Operations | ProLuxe Travel">
-  <meta property="og:description" content="Hotels for your principal, handled the way you would handle them yourself. 1 contact across every booking. By referral only.">
+  <meta property="og:description" content="Hotels for your principal, their team, and your conferences. Multi-city itineraries for one. Hotels for the principal plus team. Group programmes at conference scale. One person on point. By referral only.">
   <meta property="og:image" content="https://proluxetravels.com/img/logo-green.webp">
   <meta property="og:image:alt" content="ProLuxe Travel">
   <meta property="og:site_name" content="ProLuxe Travel">
@@ -20,7 +20,7 @@
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Private Travel Operations | ProLuxe Travel">
-  <meta name="twitter:description" content="Hotels for your principal, handled the way you would handle them yourself. 1 contact across every booking. By referral only.">
+  <meta name="twitter:description" content="Hotels for your principal, their team, and your conferences. Multi-city itineraries for one. Hotels for the principal plus team. Group programmes at conference scale. One person on point. By referral only.">
   <meta name="twitter:image" content="https://proluxetravels.com/img/logo-green.webp">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -417,34 +417,37 @@
 
     /* Real envelope photograph (cream cardstock + bronze wax seal
        with embossed olive tree, by Diana Light on Unsplash).
-       Container is sized smaller than the photo's natural height
-       so object-position: top crops to just the topmost envelope
-       in the stack, dropping the two below it cleanly. The photo
-       and the letter beneath it share the same visual real estate,
-       with the letter using a negative top margin to overlap. */
+       The photo's white background blends into the cream page via
+       mix-blend-mode: multiply, so the envelope sits on the page
+       rather than in a hard white tile. The container is sized to
+       crop tight to the topmost envelope and seal in the photo's
+       three-envelope composition. No drop-shadow on the box itself
+       (would re-create the rectangle); shadow is in the image. */
     .envelope-photo {
       position: relative;
       width: 100%;
-      max-width: 460px;
-      height: 380px;
+      max-width: 420px;
+      height: 360px;
       margin: 0 auto;
       overflow: hidden;
       z-index: 2;
-      filter:
-        drop-shadow(0 12px 28px rgba(0, 0, 0, 0.14))
-        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
       transition:
         opacity 0.9s ease 0.15s,
-        transform 1.3s cubic-bezier(0.5, 0, 0.5, 1) 0.15s,
-        filter 0.9s ease 0.15s;
+        transform 1.3s cubic-bezier(0.5, 0, 0.5, 1) 0.15s;
     }
     .envelope-photo img {
       display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 8%;
+      object-position: center 5%;
       margin: 0;
+      /* multiply makes the photo's white background read as the
+         cream of the page beneath, dissolving the rectangular tile.
+         Subtle contrast/brightness adjust keeps the envelope
+         readable through the blend. */
+      mix-blend-mode: multiply;
+      filter: contrast(1.04) brightness(1.02);
     }
 
     /* Letter sits beneath the envelope photo. Negative top margin
@@ -457,7 +460,7 @@
       background: #fdfcf8;
       border: 1px solid rgba(66, 70, 50, 0.10);
       padding: clamp(40px, 5vw, 64px) clamp(28px, 4vw, 56px);
-      margin: -380px auto 0;
+      margin: -360px auto 0;
       max-width: 720px;
       z-index: 1;
       box-shadow:
@@ -482,6 +485,27 @@
     }
     .envelope__letter .private-letter__para:first-of-type {
       margin-top: 0;
+    }
+    /* In-letter inline links (e.g. ProLuxe Bureau preview).
+       Olive-tinted, hairline underline, restrained on hover. */
+    .envelope__letter .private-letter__para a {
+      color: var(--olive);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1px;
+      transition: border-color 0.3s ease;
+    }
+    .envelope__letter .private-letter__para a:hover {
+      border-color: var(--olive);
+    }
+    /* Credentials for the Bureau preview, sat below the link.
+       Smaller and softer so they read as a footnote, not part
+       of the body voice. */
+    .envelope__letter .letter-credentials {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: -8px;
+      margin-bottom: 26px;
     }
     .letter__regards {
       font-family: 'EB Garamond', Georgia, serif;
@@ -538,6 +562,86 @@
         0 30px 80px rgba(0, 0, 0, 0.16);
     }
 
+    /* Scroll cue below the founder statement, gives the eye somewhere
+       to land before deciding whether to keep scrolling. Anchored to
+       the envelope reveal section. */
+    .private-statement__more {
+      display: inline-block;
+      margin: 36px 0 0;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+    }
+    .private-statement__more:hover { color: var(--ink); }
+    .private-statement__more-arrow {
+      display: inline-block;
+      margin-left: 6px;
+      transition: transform 0.3s ease;
+    }
+    .private-statement__more:hover .private-statement__more-arrow {
+      transform: translateY(2px);
+    }
+
+    /* Closing actions: ghost button "Write to Myles" + secondary
+       Bureau link. Sits after the closing paragraph and before the
+       sign-off, giving the EA a clear next step. */
+    .letter__actions {
+      margin: 28px 0 32px;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .letter__write-back {
+      display: inline-block;
+      padding: 13px 32px;
+      border: 1px solid var(--olive);
+      color: var(--olive);
+      text-decoration: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .letter__write-back:hover {
+      background: var(--olive);
+      color: var(--cream);
+      border-color: var(--olive);
+    }
+    .letter__bureau-link {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 2px;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .letter__bureau-link:hover {
+      color: var(--olive);
+      border-color: var(--olive);
+    }
+
+    /* Letter date, italic line below the title. Reads as a real
+       letter convention rather than a marketing dateline. */
+    .letter__date {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--muted);
+      margin: -10px 0 18px;
+      letter-spacing: 0.02em;
+    }
+
     @media (max-width: 640px) {
       .private-statement {
         padding: 32px 24px 0;
@@ -551,6 +655,26 @@
       }
       .envelope__letter {
         margin-top: -280px;
+      }
+      /* Simpler animation on mobile to avoid mix-blend-mode and
+         transform stutter on iOS Safari. Fade only, no overlap. */
+      .envelope-photo,
+      .envelope__letter {
+        transition: opacity 0.5s ease;
+      }
+      .private-envelope-section.is-revealed .envelope-photo {
+        transform: none;
+      }
+      .private-envelope-section.is-revealed .envelope__letter {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* Tighter H1 on small screens so it lands in fewer lines. */
+      .private-hero__headline {
+        font-size: clamp(1.65rem, 7.4vw, 2rem);
+        line-height: 1.18;
       }
     }
 
@@ -587,15 +711,10 @@
   </header>
 
   <section class="private-hero">
-    <!-- Olive branch canvas, same fractal-growth animation as the
-         homepage hero. private.js wires this up on load. -->
-    <div class="private-hero__canvas-wrap" aria-hidden="true">
-      <canvas id="privateCanvas"></canvas>
-    </div>
     <div class="private-hero__inner">
       <p class="private-hero__eyebrow">Direct contact. By introduction.</p>
-      <h1 class="private-hero__headline">Hotels for your principal, handled the way you would handle them yourself.</h1>
-      <p class="private-hero__subline">1 contact across every booking.</p>
+      <h1 class="private-hero__headline">Hotels for your principal, their team, and your conferences.</h1>
+      <p class="private-hero__subline">Multi-city itineraries for one. Hotels for the principal plus team. Group programmes at conference scale. One person on point.</p>
     </div>
   </section>
 
@@ -603,7 +722,8 @@
 
     <section class="private-statement">
       <p class="private-statement__label">From the founder</p>
-      <p class="private-statement__intro">Most travel companies run on contact forms, chatbots, and account managers who don't know the file. We do not.</p>
+      <p class="private-statement__intro">By introduction. By hand.</p>
+      <a class="private-statement__more" href="#envelopeReveal">A note from Myles<span class="private-statement__more-arrow" aria-hidden="true">&nbsp;&darr;</span></a>
     </section>
 
     <section class="private-envelope-section" id="envelopeReveal" aria-label="Letter from the founder">
@@ -620,14 +740,21 @@
       <article class="envelope__letter" aria-label="Letter">
         <p class="letter__greeting" id="letterGreeting"></p>
 
-        <p class="private-letter__para">I run ProLuxe Travel. The hotel side of corporate, family office and private travel for principals who travel often. By referral only.</p>
-        <p class="private-letter__para">Every hotel for the principal, in every city on the schedule. The relationships are already in place: reservations leads, GMs, duty managers, concierges. Each new booking starts from the existing file.</p>
-        <p class="private-letter__para">Preferences held with us, not in a hotel chain's database. Hotels briefed only to the level the stay requires. Late arrivals sorted with the duty manager directly, before the principal lands. Out of hours, I pick up. Briefing materials packaged for whoever is travelling, ready to hand over.</p>
-        <p class="private-letter__para">If your principal travels often, please get in touch.</p>
+        <p class="private-letter__para">I founded ProLuxe Travel for a small number of principals whose travel cannot afford to fail.</p>
+        <p class="private-letter__para">After 20 years on the floor of luxury hotels, the work narrows to two things: who you know, and being there when it matters. By the time your principal arrives, the people at the hotel who matter already know them. The room is as it should be before they ask.</p>
+        <p class="private-letter__para">Whether the principal is travelling alone or with twenty, the work lives in ProLuxe Bureau. A live view across hotels and cities for your office, a private link for each attendee. <a href="/bureau-preview" target="_blank" rel="noopener">A preview is here.</a></p>
+        <p class="private-letter__para">The team's work has ranged from 1,800 rooms across 11 hotels in one city for a corporate association, down to 4-city C-suite trips coast-to-coast.</p>
+        <p class="private-letter__para">I would be glad to be on hand for your office. If the time finds you, please write.</p>
 
-        <p class="letter__regards">Kind regards,</p>
+        <div class="letter__actions">
+          <a class="letter__write-back" href="mailto:myles@proluxetravels.com?subject=Introduction%20%2F%20ProLuxe%20Travel">Write to Myles</a>
+          <a class="letter__bureau-link" href="/bureau-preview" target="_blank" rel="noopener">See ProLuxe Bureau &rarr;</a>
+        </div>
+
+        <p class="letter__regards">With my best regards,</p>
         <p class="letter__signature">Myles Longfield</p>
         <p class="letter__signature-title">Founder, ProLuxe Travel</p>
+        <p class="letter__date">London, April 2026</p>
         <p class="letter__signature-contact"><a href="mailto:myles@proluxetravels.com">myles@proluxetravels.com</a></p>
         <p class="letter__signature-contact"><a href="tel:+442070888291">+44 20 7088 8291</a></p>
       </article>
