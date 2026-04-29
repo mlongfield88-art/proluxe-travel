@@ -1160,12 +1160,362 @@
   </section>
 
   <!-- ============================================================
-       STAGE 1: ATTENDEE BOOKING SCREEN
+       SECTION 1: EA HOME VIEW
+       The dashboard is the primary story. Pull it to the top.
        ============================================================ -->
   <section class="stage">
-    <p class="stage__step">Stage one</p>
-    <h2 class="stage__title">The attendee opens the link.</h2>
-    <p class="stage__body">A page, just for them, against the venue. They choose a room from the rooms ProLuxe has already held, write a few preferences, and confirm. About 90 seconds, no account to create.</p>
+    <p class="stage__step">The EA's view</p>
+    <h2 class="stage__title">Every booking, visible the moment you log in.</h2>
+    <p class="stage__body">The principal's rooming list, the team's, the full programme. Status flags across every booking: confirmed, pending, payment due. Filter by trip, person, date, or hotel. Nothing to chase, nothing to piece together from emails.</p>
+
+    <div class="browser">
+      <div class="browser__bar">
+        <span class="browser__dot browser__dot--r"></span>
+        <span class="browser__dot browser__dot--y"></span>
+        <span class="browser__dot browser__dot--g"></span>
+        <span class="browser__url">bureau.proluxetravels.com/admin/spring-programme-27</span>
+      </div>
+      <div class="browser__screen">
+        <div class="dashboard">
+
+          <div class="dashboard__head">
+            <div>
+              <h3 class="dashboard__title">Spring Programme, Geneva</h3>
+              <p class="dashboard__sub">March 2027 &middot; Principal plus team &middot; 3 hotels</p>
+            </div>
+            <span class="dashboard__live">Live</span>
+          </div>
+
+          <div class="dashboard__stats">
+            <div class="dashboard__stat">
+              <p class="dashboard__stat-label">Held</p>
+              <p class="dashboard__stat-value">12<small>/ 12</small></p>
+            </div>
+            <div class="dashboard__stat">
+              <p class="dashboard__stat-label">Confirmed</p>
+              <p class="dashboard__stat-value">9<small>/ 12</small></p>
+            </div>
+            <div class="dashboard__stat">
+              <p class="dashboard__stat-label">Pending</p>
+              <p class="dashboard__stat-value">2<small>/ 12</small></p>
+            </div>
+            <div class="dashboard__stat">
+              <p class="dashboard__stat-label">Attention</p>
+              <p class="dashboard__stat-value dashboard__stat-value--attention">1<small>/ 12</small></p>
+            </div>
+          </div>
+
+          <div class="dashboard__filters">
+            <button class="dashboard__filter is-active" type="button">All<span class="dashboard__filter-count">12</span></button>
+            <button class="dashboard__filter" type="button">Principal<span class="dashboard__filter-count">3</span></button>
+            <button class="dashboard__filter" type="button">Team<span class="dashboard__filter-count">7</span></button>
+            <button class="dashboard__filter" type="button">Beau-Rivage<span class="dashboard__filter-count">6</span></button>
+            <button class="dashboard__filter" type="button">Four Seasons<span class="dashboard__filter-count">4</span></button>
+            <button class="dashboard__filter" type="button">Mandarin Oriental<span class="dashboard__filter-count">2</span></button>
+          </div>
+
+          <div class="dashboard__layout">
+            <div class="dashboard__list">
+              <div class="dashboard__row">
+                <div class="dashboard__row-name">
+                  Anders, Markus
+                  <small>Principal</small>
+                </div>
+                <div class="dashboard__row-hotel">
+                  Beau-Rivage
+                  <small>Lake-view king</small>
+                </div>
+                <div class="dashboard__row-arrival">11 Mar, evening</div>
+                <span class="dashboard__row-status dashboard__row-status--confirmed">Confirmed</span>
+                <span class="dashboard__row-actions">⋯</span>
+              </div>
+
+              <div class="dashboard__row is-attention">
+                <div class="dashboard__row-name">
+                  Müller, Klaus
+                  <small>CFO direct</small>
+                </div>
+                <div class="dashboard__row-hotel">
+                  Mandarin Oriental
+                  <small>Executive king</small>
+                </div>
+                <div class="dashboard__row-arrival">11 Mar, evening</div>
+                <span class="dashboard__row-status dashboard__row-status--attention">Attention</span>
+                <span class="dashboard__row-actions">⋯</span>
+              </div>
+
+              <div class="dashboard__row">
+                <div class="dashboard__row-name">
+                  Hammond, Laura
+                  <small>EA, Office of the Principal</small>
+                </div>
+                <div class="dashboard__row-hotel">
+                  Beau-Rivage
+                  <small>Lake-view king</small>
+                </div>
+                <div class="dashboard__row-arrival">12 Mar, late</div>
+                <span class="dashboard__row-status dashboard__row-status--confirmed">Confirmed</span>
+                <span class="dashboard__row-actions">⋯</span>
+              </div>
+
+              <div class="dashboard__row">
+                <div class="dashboard__row-name">
+                  Chen, Diana
+                  <small>Chief of Staff</small>
+                </div>
+                <div class="dashboard__row-hotel">
+                  Four Seasons des Bergues
+                  <small>River-view suite</small>
+                </div>
+                <div class="dashboard__row-arrival">12 Mar, morning</div>
+                <span class="dashboard__row-status dashboard__row-status--pending">Pending</span>
+                <span class="dashboard__row-actions">⋯</span>
+              </div>
+
+              <div class="dashboard__row">
+                <div class="dashboard__row-name">
+                  Patel, Aria
+                  <small>VP, Strategy</small>
+                </div>
+                <div class="dashboard__row-hotel">
+                  Four Seasons des Bergues
+                  <small>River-view king</small>
+                </div>
+                <div class="dashboard__row-arrival">12 Mar, morning</div>
+                <span class="dashboard__row-status dashboard__row-status--held">Held</span>
+                <span class="dashboard__row-actions">⋯</span>
+              </div>
+
+              <div class="dashboard__row">
+                <div class="dashboard__row-name">
+                  Sato, Yuki
+                  <small>Board observer</small>
+                </div>
+                <div class="dashboard__row-hotel">
+                  Beau-Rivage
+                  <small>Twin</small>
+                </div>
+                <div class="dashboard__row-arrival">12 Mar, afternoon</div>
+                <span class="dashboard__row-status dashboard__row-status--held">Held</span>
+                <span class="dashboard__row-actions">⋯</span>
+              </div>
+            </div>
+
+            <aside class="dashboard__feed">
+              <p class="dashboard__feed-h">Activity</p>
+              <div class="dashboard__feed-item">
+                <span class="dashboard__feed-time">10:42, today</span>
+                Diana Chen confirmed at Four Seasons des Bergues. Dietary noted.
+              </div>
+              <div class="dashboard__feed-item">
+                <span class="dashboard__feed-time">09:38, today</span>
+                Mandarin Oriental flagged a bath preference for Klaus Müller. Awaiting confirmation.
+              </div>
+              <div class="dashboard__feed-item">
+                <span class="dashboard__feed-time">Yesterday</span>
+                Beau-Rivage held 3 additional rooms for late arrivals.
+              </div>
+              <div class="dashboard__feed-item">
+                <span class="dashboard__feed-time">2 days ago</span>
+                Four Seasons confirmed the contracted rooming list.
+              </div>
+            </aside>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: EDITING IN PLACE
+       ============================================================ -->
+  <section class="stage">
+    <p class="stage__step">Editing in place</p>
+    <h2 class="stage__title">Change a date, swap a name, request a room category. No email required.</h2>
+    <p class="stage__body">2 clicks from any row. The change saves immediately, the audit log entry is created, and the booking file is updated. If the hotel needs to be contacted, Bureau flags it. You do not write the email.</p>
+
+    <div class="browser">
+      <div class="browser__bar">
+        <span class="browser__dot browser__dot--r"></span>
+        <span class="browser__dot browser__dot--y"></span>
+        <span class="browser__dot browser__dot--g"></span>
+        <span class="browser__url">bureau.proluxetravels.com/admin/spring-programme-27/muller</span>
+      </div>
+      <div class="browser__screen">
+        <div class="portal-confirm">
+          <p class="portal-confirm__step">Edit booking</p>
+          <h2 class="portal-confirm__title">Klaus Müller, Mandarin Oriental</h2>
+          <p class="portal-confirm__body">Executive king, quiet floor requested. Bath preference flagged by reservations. Change room category or note the preference below.</p>
+          <div class="portal-confirm__detail">
+            <div class="portal-confirm__detail-row">
+              <span class="portal-confirm__detail-label">Arrival</span>
+              <span class="portal-confirm__detail-value">11 Mar, evening</span>
+            </div>
+            <div class="portal-confirm__detail-row">
+              <span class="portal-confirm__detail-label">Room</span>
+              <span class="portal-confirm__detail-value">Executive king</span>
+            </div>
+            <div class="portal-confirm__detail-row">
+              <span class="portal-confirm__detail-label">Preference</span>
+              <span class="portal-confirm__detail-value">Bath. Being confirmed.</span>
+            </div>
+            <div class="portal-confirm__detail-row">
+              <span class="portal-confirm__detail-label">Status</span>
+              <span class="portal-confirm__detail-value">Attention</span>
+            </div>
+          </div>
+          <p class="portal-confirm__body">Save your change and the audit log updates. The file moves forward without a paper trail in your inbox.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;">
+            <button class="portal-cta" type="button" style="flex:1;min-width:160px;">Save change</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: PASS TO PROLUXE
+       The key new section. The handoff button.
+       ============================================================ -->
+  <section class="stage">
+    <p class="stage__step">Or hand it back to us</p>
+    <h2 class="stage__title">One button on any booking. We take it from there.</h2>
+    <p class="stage__body">Bureau is not a self-serve portal that replaces the team. The EA always has a third option: pass the change request to ProLuxe. We handle the hotel contact, the amendment, the follow-up. You see the result when it lands. This is what makes Bureau different from a booking tool.</p>
+
+    <div class="browser">
+      <div class="browser__bar">
+        <span class="browser__dot browser__dot--r"></span>
+        <span class="browser__dot browser__dot--y"></span>
+        <span class="browser__dot browser__dot--g"></span>
+        <span class="browser__url">bureau.proluxetravels.com/admin/spring-programme-27</span>
+      </div>
+      <div class="browser__screen">
+        <div class="dashboard">
+
+          <div class="dashboard__head">
+            <div>
+              <h3 class="dashboard__title">Spring Programme, Geneva</h3>
+              <p class="dashboard__sub">March 2027 &middot; Principal plus team &middot; 3 hotels</p>
+            </div>
+            <span class="dashboard__live">Live</span>
+          </div>
+
+          <div class="dashboard__handoff" style="margin-top:0;border-top:0;">
+            <strong>Klaus Müller, Mandarin Oriental:</strong> bath preference flagged by reservations.
+            <button class="dashboard__handoff-btn" type="button">Pass to ProLuxe</button>
+          </div>
+
+          <div class="dashboard__layout" style="border-top:1px solid var(--rule-soft);">
+            <div class="dashboard__list">
+              <div class="dashboard__row is-attention">
+                <div class="dashboard__row-name">
+                  Müller, Klaus
+                  <small>CFO direct</small>
+                </div>
+                <div class="dashboard__row-hotel">
+                  Mandarin Oriental
+                  <small>Executive king</small>
+                </div>
+                <div class="dashboard__row-arrival">11 Mar, evening</div>
+                <span class="dashboard__row-status dashboard__row-status--attention">Attention</span>
+                <span class="dashboard__row-actions">⋯</span>
+              </div>
+              <div class="dashboard__row">
+                <div class="dashboard__row-name">
+                  Anders, Markus
+                  <small>Principal</small>
+                </div>
+                <div class="dashboard__row-hotel">
+                  Beau-Rivage
+                  <small>Lake-view king</small>
+                </div>
+                <div class="dashboard__row-arrival">11 Mar, evening</div>
+                <span class="dashboard__row-status dashboard__row-status--confirmed">Confirmed</span>
+                <span class="dashboard__row-actions">⋯</span>
+              </div>
+              <div class="dashboard__row">
+                <div class="dashboard__row-name">
+                  Hammond, Laura
+                  <small>EA, Office of the Principal</small>
+                </div>
+                <div class="dashboard__row-hotel">
+                  Beau-Rivage
+                  <small>Lake-view king</small>
+                </div>
+                <div class="dashboard__row-arrival">12 Mar, late</div>
+                <span class="dashboard__row-status dashboard__row-status--confirmed">Confirmed</span>
+                <span class="dashboard__row-actions">⋯</span>
+              </div>
+            </div>
+
+            <aside class="dashboard__feed">
+              <p class="dashboard__feed-h">After passing to ProLuxe</p>
+              <div class="dashboard__feed-item">
+                <span class="dashboard__feed-time">Pending</span>
+                ProLuxe ops team picking up Klaus Müller, Mandarin Oriental. Bath preference to be confirmed with reservations.
+              </div>
+              <div class="dashboard__feed-item">
+                <span class="dashboard__feed-time">10:42, today</span>
+                Diana Chen confirmed at Four Seasons des Bergues. Dietary noted.
+              </div>
+              <div class="dashboard__feed-item">
+                <span class="dashboard__feed-time">Yesterday</span>
+                Beau-Rivage held 3 additional rooms for late arrivals.
+              </div>
+            </aside>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: THREE MODES, ONE SCREEN
+       ============================================================ -->
+  <section class="management">
+    <p class="management__eyebrow">Across every programme type</p>
+    <h2 class="management__title">The same screen handles all 3.</h2>
+    <p class="management__body">A single principal across multiple cities. The principal plus accompanying staff. A conference programme at delegate scale. Bureau does not require a different tool for each. The EA is not switching views.</p>
+
+    <div class="management__split">
+      <article class="management__option">
+        <p class="management__option-label">Principal, multi-city</p>
+        <h3 class="management__option-title">One itinerary, several destinations.</h3>
+        <p class="management__option-body">Geneva, Singapore, New York across a 3-week trip. All bookings in a single view, filtered by city or date. ProLuxe holds inventory at each property before the itinerary is confirmed.</p>
+      </article>
+
+      <article class="management__option">
+        <p class="management__option-label">Principal plus team</p>
+        <h3 class="management__option-title">The whole party on one rooming list.</h3>
+        <p class="management__option-body">The principal, accompanying staff, board observers. Separate rooms, separate preferences, separate arrival times. All visible together. The EA can filter by person or by hotel without leaving the screen.</p>
+      </article>
+    </div>
+
+    <div class="management__split" style="margin-top:28px;">
+      <article class="management__option">
+        <p class="management__option-label">Conference programme</p>
+        <h3 class="management__option-title">Delegate scale, same interface.</h3>
+        <p class="management__option-body">Multiple hotels, room blocks held in advance, individual attendee links sent from Bureau. The EA sees the full programme status. ProLuxe manages the hotel relationships. The workload on the EA's desk stays flat regardless of how many delegates are in the list.</p>
+      </article>
+
+      <article class="management__option" style="display:flex;flex-direction:column;justify-content:center;background:var(--cream-warm);">
+        <p class="management__option-label">The common thread</p>
+        <h3 class="management__option-title">You choose the level of involvement.</h3>
+        <p class="management__option-body">Bureau gives you the view and the tools. ProLuxe stands behind it. At any point on any booking, you can act yourself or pass it to us. The access level is set per office and does not change the interface.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: THE ATTENDEE EXPERIENCE
+       Downstream consequence of the EA's setup.
+       ============================================================ -->
+  <section class="stage">
+    <p class="stage__step">What each booking-holder receives</p>
+    <h2 class="stage__title">A personal link, a confirmation, and nothing else to manage.</h2>
+    <p class="stage__body">Each person on the rooming list receives a page built for them. They choose from the rooms ProLuxe has already held, note preferences, and confirm. About 90 seconds. No account to create. The EA sees the confirmation land in Bureau the moment it happens.</p>
 
     <div class="browser">
       <div class="browser__bar">
@@ -1179,7 +1529,7 @@
         <div class="portal-hero">
           <div class="portal-hero__card">
             <p class="portal-hero__eyebrow">Welcome, Laura</p>
-            <p class="portal-hero__title">Q1 Senior Leadership Offsite</p>
+            <p class="portal-hero__title">Spring Programme, Geneva</p>
             <p class="portal-hero__meta">Geneva &middot; March 2027</p>
           </div>
         </div>
@@ -1255,73 +1605,18 @@
                 <span class="portal-summary__value">2</span>
               </div>
             </div>
-            <p class="portal-policy">The room is held under your principal's allocation. No payment required at this stage. The general manager will be briefed before arrival.</p>
+            <p class="portal-policy">The room is held under the principal's allocation. No payment required at this stage. The general manager will be briefed before arrival.</p>
           </div>
         </div>
 
       </div>
     </div>
-  </section>
 
-  <!-- ============================================================
-       STAGE 2: CONFIRMATION SCREEN
-       ============================================================ -->
-  <section class="stage">
-    <p class="stage__step">Stage two</p>
-    <h2 class="stage__title">They confirm. The hotel is briefed.</h2>
-    <p class="stage__body">A held room becomes a confirmed room. ProLuxe sends the file to the property and notes anything the general manager should know about the arrival.</p>
-
-    <div class="browser">
-      <div class="browser__bar">
-        <span class="browser__dot browser__dot--r"></span>
-        <span class="browser__dot browser__dot--y"></span>
-        <span class="browser__dot browser__dot--g"></span>
-        <span class="browser__url">bureau.proluxetravels.com/laura/confirmed</span>
-      </div>
-      <div class="browser__screen">
-        <div class="portal-confirm">
-          <p class="portal-confirm__step">Confirmed</p>
-          <h2 class="portal-confirm__title">Laura, you are held at Beau-Rivage in March.</h2>
-          <p class="portal-confirm__body">The general manager has been briefed on the late arrival, the dietary preference, and the quiet floor. The car will be at the door of arrivals.</p>
-          <div class="portal-confirm__detail">
-            <div class="portal-confirm__detail-row">
-              <span class="portal-confirm__detail-label">Confirmation</span>
-              <span class="portal-confirm__detail-value">PLX-2703-LH</span>
-            </div>
-            <div class="portal-confirm__detail-row">
-              <span class="portal-confirm__detail-label">Hotel</span>
-              <span class="portal-confirm__detail-value">Beau-Rivage Genève</span>
-            </div>
-            <div class="portal-confirm__detail-row">
-              <span class="portal-confirm__detail-label">Room</span>
-              <span class="portal-confirm__detail-value">Lake-view king, quiet floor</span>
-            </div>
-            <div class="portal-confirm__detail-row">
-              <span class="portal-confirm__detail-label">Dates</span>
-              <span class="portal-confirm__detail-value">March 2027</span>
-            </div>
-          </div>
-          <p class="portal-confirm__body">Anything you add later moves forward with the file.</p>
-          <p class="portal-confirm__signoff">With my best regards,</p>
-          <p class="portal-confirm__signature">Myles Longfield</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       STAGE 3: EMAIL CONFIRMATION
-       ============================================================ -->
-  <section class="stage">
-    <p class="stage__step">Stage three</p>
-    <h2 class="stage__title">A short note follows by email.</h2>
-    <p class="stage__body">Same content as the screen, in the inbox. From a real address, with a real signature. Forwardable to the principal's office without a tidy-up.</p>
-
-    <div class="email">
+    <div class="email" style="margin-top:48px;">
       <div class="email__head">
         <div class="email__head-row">
           <span class="email__head-label">From</span>
-          <span class="email__head-value">Myles Longfield &lt;myles@proluxetravels.com&gt;</span>
+          <span class="email__head-value">Danny Barnard &lt;danny@proluxetravels.com&gt;</span>
         </div>
         <div class="email__head-row">
           <span class="email__head-label">To</span>
@@ -1338,214 +1633,18 @@
         <p>You are held at Beau-Rivage in March, lake-view king on a quiet floor. The general manager has been briefed on the late arrival, the dietary, and the car at the door.</p>
         <p>Confirmation reference is PLX-2703-LH. Anything else you need to add to the file, please send to me directly.</p>
         <p>With my best regards,</p>
-        <p class="email__sign">Myles Longfield</p>
-        <p class="email__sign-title">Founder, ProLuxe Travel</p>
+        <p class="email__sign">Danny</p>
+        <p class="email__sign-title">ProLuxe Travel</p>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       STAGE 4: EA DASHBOARD
-       What the EA sees of the same Bureau the attendees use.
-       Live status, filterable across hotels and destinations,
-       edit-or-handoff in one row.
-       ============================================================ -->
-  <section class="stage">
-    <p class="stage__step">Stage four</p>
-    <h2 class="stage__title">What you see, from your desk.</h2>
-    <p class="stage__body">The same Bureau, opened to your office. Live as confirmations come in. Filter by hotel or destination across the whole rooming list. Edit a preference or move a room yourself, or pass anything back to the team with one click.</p>
-
-    <div class="browser">
-      <div class="browser__bar">
-        <span class="browser__dot browser__dot--r"></span>
-        <span class="browser__dot browser__dot--y"></span>
-        <span class="browser__dot browser__dot--g"></span>
-        <span class="browser__url">bureau.proluxetravels.com/admin/q1-senior-leadership-mar27</span>
-      </div>
-      <div class="browser__screen">
-        <div class="dashboard">
-
-          <div class="dashboard__head">
-            <div>
-              <h3 class="dashboard__title">Q1 Senior Leadership Offsite, Geneva</h3>
-              <p class="dashboard__sub">March 2027 &middot; 47 attendees &middot; 3 hotels</p>
-            </div>
-            <span class="dashboard__live">Live</span>
-          </div>
-
-          <div class="dashboard__stats">
-            <div class="dashboard__stat">
-              <p class="dashboard__stat-label">Held</p>
-              <p class="dashboard__stat-value">47<small>/ 47</small></p>
-            </div>
-            <div class="dashboard__stat">
-              <p class="dashboard__stat-label">Confirmed</p>
-              <p class="dashboard__stat-value">31<small>/ 47</small></p>
-            </div>
-            <div class="dashboard__stat">
-              <p class="dashboard__stat-label">Pending</p>
-              <p class="dashboard__stat-value">14<small>/ 47</small></p>
-            </div>
-            <div class="dashboard__stat">
-              <p class="dashboard__stat-label">Attention</p>
-              <p class="dashboard__stat-value dashboard__stat-value--attention">2<small>/ 47</small></p>
-            </div>
-          </div>
-
-          <div class="dashboard__filters">
-            <button class="dashboard__filter is-active" type="button">All hotels<span class="dashboard__filter-count">47</span></button>
-            <button class="dashboard__filter" type="button">Beau-Rivage<span class="dashboard__filter-count">24</span></button>
-            <button class="dashboard__filter" type="button">Four Seasons<span class="dashboard__filter-count">15</span></button>
-            <button class="dashboard__filter" type="button">Mandarin Oriental<span class="dashboard__filter-count">8</span></button>
-          </div>
-
-          <div class="dashboard__layout">
-            <div class="dashboard__list">
-              <div class="dashboard__row">
-                <div class="dashboard__row-name">
-                  Anders, Markus
-                  <small>Office of the CEO</small>
-                </div>
-                <div class="dashboard__row-hotel">
-                  Beau-Rivage
-                  <small>Lake-view king</small>
-                </div>
-                <div class="dashboard__row-arrival">11 Mar, evening</div>
-                <span class="dashboard__row-status dashboard__row-status--confirmed">Confirmed</span>
-                <span class="dashboard__row-actions">⋯</span>
-              </div>
-
-              <div class="dashboard__row is-attention">
-                <div class="dashboard__row-name">
-                  Müller, Klaus
-                  <small>CFO direct</small>
-                </div>
-                <div class="dashboard__row-hotel">
-                  Mandarin Oriental
-                  <small>Executive king</small>
-                </div>
-                <div class="dashboard__row-arrival">11 Mar, evening</div>
-                <span class="dashboard__row-status dashboard__row-status--attention">Attention</span>
-                <span class="dashboard__row-actions">⋯</span>
-              </div>
-
-              <div class="dashboard__row">
-                <div class="dashboard__row-name">
-                  Hammond, Laura
-                  <small>EA, Office of the CEO</small>
-                </div>
-                <div class="dashboard__row-hotel">
-                  Beau-Rivage
-                  <small>Lake-view king</small>
-                </div>
-                <div class="dashboard__row-arrival">12 Mar, late</div>
-                <span class="dashboard__row-status dashboard__row-status--confirmed">Confirmed</span>
-                <span class="dashboard__row-actions">⋯</span>
-              </div>
-
-              <div class="dashboard__row">
-                <div class="dashboard__row-name">
-                  Chen, Diana
-                  <small>Chief of Staff</small>
-                </div>
-                <div class="dashboard__row-hotel">
-                  Four Seasons des Bergues
-                  <small>River-view suite</small>
-                </div>
-                <div class="dashboard__row-arrival">12 Mar, morning</div>
-                <span class="dashboard__row-status dashboard__row-status--pending">Pending</span>
-                <span class="dashboard__row-actions">⋯</span>
-              </div>
-
-              <div class="dashboard__row">
-                <div class="dashboard__row-name">
-                  Patel, Aria
-                  <small>VP, Strategy</small>
-                </div>
-                <div class="dashboard__row-hotel">
-                  Four Seasons des Bergues
-                  <small>River-view king</small>
-                </div>
-                <div class="dashboard__row-arrival">12 Mar, morning</div>
-                <span class="dashboard__row-status dashboard__row-status--held">Held</span>
-                <span class="dashboard__row-actions">⋯</span>
-              </div>
-
-              <div class="dashboard__row">
-                <div class="dashboard__row-name">
-                  Sato, Yuki
-                  <small>Board observer</small>
-                </div>
-                <div class="dashboard__row-hotel">
-                  Beau-Rivage
-                  <small>Twin</small>
-                </div>
-                <div class="dashboard__row-arrival">12 Mar, afternoon</div>
-                <span class="dashboard__row-status dashboard__row-status--held">Held</span>
-                <span class="dashboard__row-actions">⋯</span>
-              </div>
-            </div>
-
-            <aside class="dashboard__feed">
-              <p class="dashboard__feed-h">Activity</p>
-              <div class="dashboard__feed-item">
-                <span class="dashboard__feed-time">10:42, today</span>
-                Diana Chen confirmed at Four Seasons des Bergues. Dietary noted.
-              </div>
-              <div class="dashboard__feed-item">
-                <span class="dashboard__feed-time">09:38, today</span>
-                Mandarin Oriental flagged a bath preference for Klaus Müller. ProLuxe to confirm.
-              </div>
-              <div class="dashboard__feed-item">
-                <span class="dashboard__feed-time">Yesterday</span>
-                Beau-Rivage held three additional rooms for late arrivals.
-              </div>
-              <div class="dashboard__feed-item">
-                <span class="dashboard__feed-time">2 days ago</span>
-                Four Seasons confirmed the contracted rooming list.
-              </div>
-            </aside>
-          </div>
-
-          <div class="dashboard__handoff">
-            <strong>Klaus Müller, Mandarin Oriental:</strong> bath preference flagged by reservations.
-            <button class="dashboard__handoff-btn" type="button">Pass to ProLuxe</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       MANAGEMENT NOTE
-       ============================================================ -->
-  <section class="management">
-    <p class="management__eyebrow">Behind the scenes</p>
-    <h2 class="management__title">How your office uses Bureau is up to your office.</h2>
-    <p class="management__body">ProLuxe Bureau runs whichever way fits the operation. Access is private to your office, gated behind secure login, with each attendee's link unique to them. Your two options below.</p>
-
-    <div class="management__split">
-      <article class="management__option">
-        <p class="management__option-label">Option one</p>
-        <h3 class="management__option-title">We run the rooming list.</h3>
-        <p class="management__option-body">The team block-books inventory across the cities, briefs each property, manages preferences and amendments, sends confirmations. You receive a single weekly status note. The principal's office hears nothing it does not need to.</p>
-      </article>
-
-      <article class="management__option">
-        <p class="management__option-label">Option two</p>
-        <h3 class="management__option-title">You manage Bureau privately.</h3>
-        <p class="management__option-body">The same view as ours, opened to your office. You see the rooming list, hold and release rooms, edit preferences, send the confirmations under your own signature. The team is on standby for anything you would rather pass back.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       FOOTER
+       FOOTER / CTA
        ============================================================ -->
   <footer class="bureau-footer">
-    <p class="bureau-footer__note">A static preview of ProLuxe Bureau. The live system is built around your event with personalised attendee links, your inventory, your preferences, and ProLuxe staff briefed on the file before any attendee logs in.</p>
-    <a href="/" class="bureau-footer__back">Back to ProLuxe Travel</a>
+    <p class="bureau-footer__note">Bureau is built around your programme. We set up the view, hold the inventory, brief the hotels, and hand you access. If a change lands that you would rather not handle, pass it back. That option is always there.</p>
+    <a href="/" class="bureau-footer__back">Speak to us about Bureau</a>
   </footer>
 
 </body>
