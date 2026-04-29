@@ -11,3 +11,13 @@ https://proluxetravels.com/* https://www.proluxetravels.com/:splat 301!
 /privacy/ /privacy-policy.html 301
 /privacy-policy/ /privacy-policy.html 301
 /cookie-policy/ /privacy-policy.html#cookies 301
+
+# Bureau migration. /iba2026/* (public booker form) stays as-is until
+# Bureau Phase 5 builds its own booker portal. Staff URLs redirect to
+# the new Bureau dashboard, where the same data now lives.
+/adminiba2026 https://bureau.proluxetravels.com/events/dashboard/?slug=iba-2026 301
+/adminiba2026/ https://bureau.proluxetravels.com/events/dashboard/?slug=iba-2026 301
+/adminiba2026/* https://bureau.proluxetravels.com/events/dashboard/?slug=iba-2026 301
+/report https://bureau.proluxetravels.com/events/dashboard/?slug=iba-2026 301
+/report/ https://bureau.proluxetravels.com/events/dashboard/?slug=iba-2026 301
+/report/* https://bureau.proluxetravels.com/events/dashboard/?slug=iba-2026 301
