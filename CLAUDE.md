@@ -10,10 +10,16 @@ Corporate website for ProLuxe Travel Ltd, a luxury hospitality and travel manage
 - Deploys from dist/ directory
 
 ## Brand rules
-- Olive #424632, cream #F5F0E8, Garamond font
+- Olive #424632, cream #F5F0E8, Garamond font.
 - No gold. No flights or airport imagery. No stats or counters.
 - Private banking tone. Understated luxury.
 - No em dashes, en dashes, or double hyphens in copy.
+- **No icons, no emojis, no illustrations.** Type does the work.
+  Decoration may use hairlines, rules, geometric data viz (bars,
+  marks, calendar grids), browser-chrome dots, and pulsing live
+  indicators. SVG schematics, line drawings, and stylised glyphs
+  are out. Photography is permitted as a visual anchor (hero
+  imagery only); it is not iconography.
 
 ## Key files
 - `dist/index.html`, single-page site
@@ -27,6 +33,10 @@ Push to main triggers GitHub Action which deploys dist/ to Cloudflare Pages (pro
 
 ## Corporate context
 ProLuxe Travel Ltd: Myles Longfield 70%, Sang Noir Limited 30%.
+
+## Model routing
+
+Inherits from `../CLAUDE.md` (Web Design parent). Default **Sonnet** for build, code, animation, and deploy work. Use **Opus** for group-level brand voice (LX Sixty corporate, ProLuxe agency, Sangnoir corporate, Capsian Invest investor copy) and any client-facing proposal narrative. Use **Haiku** for asset rename, sitemap regeneration, deploy status checks, and simple find-replace.
 
 ## Connected Projects
 - **Part of**: Web Design (LX Sixty Group in-house capability)
