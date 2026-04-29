@@ -107,6 +107,104 @@
     }
 
     /* ============================================================
+       JOURNEY: 5-step workflow strip between hero and operational
+       stages. Five blocks, one per step, numbered 01-05. Stacks on
+       narrow screens, two-column on tablet, three-column on desktop.
+       ============================================================ */
+    .journey {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 48px 64px;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .journey__eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .journey__eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--olive);
+    }
+    .journey__title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: clamp(24px, 2.6vw, 32px);
+      line-height: 1.2;
+      color: var(--ink);
+      margin: 0 0 40px;
+      max-width: 720px;
+    }
+    .journey__steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 720px) {
+      .journey__steps { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 1080px) {
+      .journey__steps {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0;
+      }
+    }
+    .journey__step {
+      padding: 24px 24px 28px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--rule-soft);
+    }
+    @media (min-width: 1080px) {
+      .journey__step {
+        background: transparent;
+        border: 0;
+        border-left: 1px solid var(--rule-soft);
+        padding: 8px 20px 0;
+      }
+      .journey__step:first-child {
+        border-left: 0;
+        padding-left: 0;
+      }
+    }
+    .journey__step-num {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 28px;
+      color: var(--olive);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .journey__step-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.25;
+      color: var(--ink);
+      margin: 0 0 10px;
+    }
+    .journey__step-body {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ============================================================
        STAGE: each step has an annotation + a browser mockup
        ============================================================ */
     .stage {
@@ -1157,6 +1255,44 @@
     <p class="bureau-intro__eyebrow">ProLuxe Bureau, for the office</p>
     <h1 class="bureau-intro__title">Every booking in one view.</h1>
     <p class="bureau-intro__body">Multi-city itineraries, the principal plus team, conference programmes, all visible from one screen.</p>
+  </section>
+
+  <!-- ============================================================
+       JOURNEY: how a programme begins
+       Sits between hero and the operational stages so prospects
+       see the setup path before the dashboard view.
+       ============================================================ -->
+  <section class="journey">
+    <p class="journey__eyebrow">How a programme begins</p>
+    <h2 class="journey__title">Five steps from enquiry to a live programme.</h2>
+
+    <ol class="journey__steps">
+      <li class="journey__step">
+        <span class="journey__step-num">01</span>
+        <h3 class="journey__step-title">Enquiry</h3>
+        <p class="journey__step-body">You tell us the shape. Dates, city, the people involved, the room count. We come back with the hotels we recommend and the rates we have agreed in your name.</p>
+      </li>
+      <li class="journey__step">
+        <span class="journey__step-num">02</span>
+        <h3 class="journey__step-title">Approval</h3>
+        <p class="journey__step-body">You confirm the proposal. The rates are fixed, the inventory is held, the hotels know who you are. No moving parts on your end yet.</p>
+      </li>
+      <li class="journey__step">
+        <span class="journey__step-num">03</span>
+        <h3 class="journey__step-title">Bureau built around the programme</h3>
+        <p class="journey__step-body">We configure the dashboard before your team logs in. Hotels, room categories, rates, daily holds, all reflecting what we have already negotiated.</p>
+      </li>
+      <li class="journey__step">
+        <span class="journey__step-num">04</span>
+        <h3 class="journey__step-title">Access for your office</h3>
+        <p class="journey__step-body">You get a sign-in. So does each named member of your team who needs to see bookings. Roles are set per office. Bureau hides what isn't yours.</p>
+      </li>
+      <li class="journey__step">
+        <span class="journey__step-num">05</span>
+        <h3 class="journey__step-title">Each guest receives a personal link</h3>
+        <p class="journey__step-body">On the day you decide, every named guest receives a page built for them. They pick from the rooms held for them, note any preferences, and confirm. About 90 seconds. No account to create. The confirmation lands in Bureau immediately.</p>
+      </li>
+    </ol>
   </section>
 
   <!-- ============================================================
