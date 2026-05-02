@@ -373,6 +373,46 @@
       background:rgba(245,240,232, 0.55);
     }
 
+    /* Phone-only: replace the 6 journey waypoint photos with the same
+       olive placeholder treatment used by the property cards. The
+       location name is read from the data-location attribute on each
+       .journey__photo div. Real photos still show on tablet and
+       desktop; phones get the typographic treatment so the page reads
+       editorial rather than image-heavy on small screens. */
+    @media(max-width:600px){
+      .journey__photo{
+        background:linear-gradient(135deg, #424632 0%, #353828 100%);
+        height:240px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        position:relative;
+      }
+      .journey__photo img{ display:none; }
+      .journey__photo[data-location]::before{
+        content:attr(data-location);
+        font-family:'Cormorant Garamond', serif;
+        font-style:italic;
+        font-weight:300;
+        font-size:clamp(24px, 7vw, 32px);
+        letter-spacing:0.02em;
+        color:rgba(245,240,232, 0.92);
+        text-shadow:0 2px 12px rgba(0,0,0,0.3);
+        text-align:center;
+        padding:0 24px;
+      }
+      .journey__photo[data-location]::after{
+        content:'';
+        position:absolute;
+        bottom:18px;
+        left:50%;
+        transform:translateX(-50%);
+        width:28px;
+        height:1px;
+        background:rgba(245,240,232, 0.55);
+      }
+    }
+
     .cumbria-clients{
       text-align:center;
       font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
@@ -606,7 +646,7 @@
       <!-- WAYPOINT 1: Askham Hall -->
       <article class="journey__panel" aria-labelledby="wp1-title">
         <span class="journey__number" aria-hidden="true">01 / 06</span>
-        <div class="journey__photo">
+        <div class="journey__photo" data-location="Askham Hall">
           <!--
             Photo: Askham Hall, Rob Farrow / Wikimedia Commons, CC-BY-SA 2.0.
             https://commons.wikimedia.org/wiki/File:Askham_Hall_-_geograph.org.uk_-_8201856.jpg
@@ -634,7 +674,7 @@
       <!-- WAYPOINT 2: Forest Side -->
       <article class="journey__panel" aria-labelledby="wp2-title">
         <span class="journey__number" aria-hidden="true">02 / 06</span>
-        <div class="journey__photo">
+        <div class="journey__photo" data-location="Forest Side">
           <!--
             Photo: A view across Grasmere lake, Malcolm Neal / Wikimedia Commons, CC-BY-SA 2.0.
             https://commons.wikimedia.org/wiki/File:A_view_across_Grasmere_-_geograph.org.uk_-_6026584.jpg
@@ -662,7 +702,7 @@
       <!-- WAYPOINT 3: Linthwaite House + Gilpin -->
       <article class="journey__panel" aria-labelledby="wp3-title">
         <span class="journey__number" aria-hidden="true">03 / 06</span>
-        <div class="journey__photo">
+        <div class="journey__photo" data-location="Linthwaite + Gilpin">
           <!--
             Photo: Lake Windermere from Gummer's How, Mattbuck (Matt Buck) / Wikimedia Commons, CC-BY-SA 2.0.
             https://commons.wikimedia.org/wiki/File:Gummer%27s_How_MMB_03_Lake_Windermere.jpg
@@ -690,7 +730,7 @@
       <!-- WAYPOINT 4: Coniston / Heft -->
       <article class="journey__panel" aria-labelledby="wp4-title">
         <span class="journey__number" aria-hidden="true">04 / 06</span>
-        <div class="journey__photo">
+        <div class="journey__photo" data-location="Coniston and Heft">
           <!--
             Photo: Coniston Water, Lake District, Robert Linsdell / Wikimedia Commons, CC-BY 2.0.
             https://commons.wikimedia.org/wiki/File:Coniston_Water,_Lake_District,_Cumbria_(200302)_(9451146431).jpg
@@ -718,7 +758,7 @@
       <!-- WAYPOINT 5: L'Enclume -->
       <article class="journey__panel" aria-labelledby="wp5-title">
         <span class="journey__number" aria-hidden="true">05 / 06</span>
-        <div class="journey__photo">
+        <div class="journey__photo" data-location="L'Enclume">
           <!--
             Photo: L'Enclume building facade, Cartmel, Bill Boaden / Wikimedia Commons, CC-BY-SA 2.0.
             https://commons.wikimedia.org/wiki/File:L%27Enclume,_Cartmel.jpg
@@ -746,7 +786,7 @@
       <!-- WAYPOINT 6: Keswick and Bassenthwaite -->
       <article class="journey__panel" aria-labelledby="wp6-title">
         <span class="journey__number" aria-hidden="true">06 / 06</span>
-        <div class="journey__photo">
+        <div class="journey__photo" data-location="Armathwaite Hall">
           <!--
             Photo: Armathwaite Hall on Bassenthwaite Lake.
             Armathwaite Hall Hotels and Spa, Sam inspired / Wikimedia Commons, CC-BY-SA 4.0.
