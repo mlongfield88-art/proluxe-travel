@@ -1112,15 +1112,18 @@
                     if(b[`Room ${i} - Guest First Name`] || b[`Room ${i} - Guests`]) activeRoomCount++;
                 }
 
+                // SEC-2026-010: same esc() pattern as renderTable. Booking
+                // reference and booker name are user-controlled in the
+                // booker form path, so escape before HTML interpolation.
                 const div = document.createElement('div');
-                div.className = 'merge-item-row'; 
+                div.className = 'merge-item-row';
                 div.style.marginBottom = '10px';
                 div.style.padding = '5px 0';
                 div.style.borderBottom = '1px dashed #eee';
                 div.innerHTML = `
                     <label style="display:flex; align-items:center; font-weight:normal; text-transform:none; cursor:pointer;">
-                        <input type="checkbox" value="${b.id}" class="merge-checkbox" onchange="window.updateMergeBookerSelect()" style="width:auto; margin-right:15px; transform: scale(1.2);"> 
-                        <span style="font-size:0.95rem;"><strong>${b.Reference}</strong> &nbsp;|&nbsp; ${b['Booker Name']} &nbsp;|&nbsp; <span style="color:var(--primary-gold);">${activeRoomCount} Rooms</span></span>
+                        <input type="checkbox" value="${esc(b.id)}" class="merge-checkbox" onchange="window.updateMergeBookerSelect()" style="width:auto; margin-right:15px; transform: scale(1.2);">
+                        <span style="font-size:0.95rem;"><strong>${esc(b.Reference)}</strong> &nbsp;|&nbsp; ${esc(b['Booker Name'])} &nbsp;|&nbsp; <span style="color:var(--primary-gold);">${activeRoomCount} Rooms</span></span>
                     </label>
                 `;
                 container.appendChild(div);
