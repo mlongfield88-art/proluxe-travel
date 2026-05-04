@@ -218,6 +218,39 @@
     mouse.moving = false;
   });
 
+  /* ---------- TOUCH TRACKING ---------- */
+  var touchThrottle = 0;
+  hero.addEventListener('touchstart', function (e) {
+    var touch = e.touches[0];
+    var rect = canvas.getBoundingClientRect();
+    mouse.px = mouse.x;
+    mouse.py = mouse.y;
+    mouse.x = touch.clientX - rect.left;
+    mouse.y = touch.clientY - rect.top;
+    mouse.moving = true;
+    clearTimeout(moveTimeout);
+    moveTimeout = setTimeout(function () { mouse.moving = false; }, 200);
+  }, { passive: true });
+
+  hero.addEventListener('touchmove', function (e) {
+    var now = Date.now();
+    if (now - touchThrottle < 200) return;
+    touchThrottle = now;
+    var touch = e.touches[0];
+    var rect = canvas.getBoundingClientRect();
+    mouse.px = mouse.x;
+    mouse.py = mouse.y;
+    mouse.x = touch.clientX - rect.left;
+    mouse.y = touch.clientY - rect.top;
+    mouse.moving = true;
+    clearTimeout(moveTimeout);
+    moveTimeout = setTimeout(function () { mouse.moving = false; }, 200);
+  }, { passive: true });
+
+  hero.addEventListener('touchend', function () {
+    mouse.moving = false;
+  }, { passive: true });
+
   /* ---------- ANIMATION LOOP ---------- */
   var t = 0;
 

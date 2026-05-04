@@ -120,7 +120,7 @@ h1,h2,h3,h4,h5,h6{
   transition:transform .3s,opacity .3s;
 }
 
-@media(max-width:768px){
+@media(max-width:900px){
   .nav__links{display:none}
   .nav__hamburger{display:flex}
 }
@@ -216,7 +216,19 @@ h1,h2,h3,h4,h5,h6{
   inset:0;
   z-index:0;
 }
+.hero__bg-img{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+  z-index:0;
+  filter:sepia(.2) saturate(.75) brightness(.72) hue-rotate(15deg);
+}
 .hero__bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
   width:100%;height:100%;
   background:linear-gradient(
     135deg,
@@ -291,7 +303,7 @@ h1,h2,h3,h4,h5,h6{
 .hero__scroll-hint span{
   display:block;
   width:1px;height:48px;
-  background:linear-gradient(180deg,rgba(245,240,232,0),rgba(245,240,232,.5));
+  background:linear-gradient(180deg,rgba(245,240,232,0),rgba(245,240,232,.75));
   animation:scrollPulse 2s ease-in-out infinite;
 }
 @keyframes scrollPulse{
@@ -401,7 +413,7 @@ h1,h2,h3,h4,h5,h6{
   font-size:clamp(15px,1.2vw,17px);
   color:#2A2A2A;
   margin-bottom:16px;
-  max-width:520px;
+  max-width:640px;
   line-height:1.8;
 }
 
@@ -508,14 +520,18 @@ h1,h2,h3,h4,h5,h6{
 }
 .card__text{
   font-size:14px;
-  color:rgba(245,240,232,.55);
+  color:rgba(245,240,232,.78);
   line-height:1.7;
 }
 
 /* Card image overflow for parallax */
 .card__image-wrap{position:relative}
 
-@media(max-width:1024px){
+@media(min-width:641px) and (max-width:1024px){
+  .card-grid{grid-template-columns:repeat(3,1fr)}
+  .card-grid .card{grid-column:auto}
+}
+@media(max-width:640px){
   .card-grid{grid-template-columns:repeat(2,1fr)}
   .card-grid .card{grid-column:auto}
 }
@@ -543,36 +559,18 @@ h1,h2,h3,h4,h5,h6{
   border-color:rgba(245,240,232,.25);
   background:rgba(245,240,232,.04);
 }
-.pillar__icon{
-  width:48px;height:48px;
-  color:rgba(245,240,232,.45);
-  margin-bottom:24px;
+.pillar__numeral{
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px;
+  font-weight:300;
+  color:rgba(245,240,232,.35);
+  letter-spacing:.04em;
+  margin-bottom:20px;
+  line-height:1;
+  transition:color .35s ease;
 }
-.pillar__icon svg{width:100%;height:100%}
-.pillar__icon .olive-stem,
-.pillar__icon .olive-leaf{
-  stroke:rgba(245,240,232,.35);
-  stroke-width:1.5;
-  fill:none;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-dasharray:60;
-  stroke-dashoffset:60;
-  transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1), stroke .4s ease;
-}
-.pillar:hover .olive-stem,
-.pillar:hover .olive-leaf{
-  stroke-dashoffset:0;
-  stroke:rgba(245,240,232,.7);
-}
-.pillar__icon .olive-leaf{
-  stroke-dasharray:30;
-  stroke-dashoffset:30;
-  transition-delay:.15s;
-}
-.pillar:hover .olive-leaf{
-  stroke-dashoffset:0;
-  fill:rgba(66,70,50,.35);
+.pillar:hover .pillar__numeral{
+  color:rgba(245,240,232,.6);
 }
 .pillar__title{
   font-size:20px;
@@ -721,6 +719,8 @@ a.info-block__value:hover{color:#424632}
 .footer__policy-links{
   display:flex;
   gap:16px;
+  flex-wrap:wrap;
+  row-gap:8px;
 }
 .footer__policy-links a{
   font-size:13px;
@@ -840,6 +840,7 @@ a.info-block__value:hover{color:#424632}
 }
 
 @media(max-width:600px){
+  .cookie-banner{max-height:50vh;overflow-y:auto}
   .cookie-banner__inner{flex-direction:column;text-align:center}
   .cookie-banner__actions{width:100%}
   .cookie-banner__btn{flex:1}
@@ -858,8 +859,11 @@ a.info-block__value:hover{color:#424632}
     animation-iteration-count:1 !important;
     transition-duration:.01ms !important;
   }
-  .reveal-hero{
+  .reveal-hero,.reveal,.reveal-card,.reveal-pillar{
     opacity:1;
+  }
+  .hero__bg{
+    animation:none;
   }
 }
 
@@ -901,6 +905,19 @@ a.info-block__value:hover{color:#424632}
   .private-header{
     padding:24px 20px 0;
   }
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.visually-hidden{
+  position:absolute;
+  width:1px;height:1px;
+  padding:0;margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
 }
 
 /* ============================================================
@@ -1945,6 +1962,17 @@ a.info-block__value:hover{color:#424632}
   background-position:center;
   transition:transform .5s ease;
   overflow:hidden;
+}
+.property-card__photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  transition:transform .5s ease;
+}
+.property-card:hover .property-card__photo img{
+  transform:scale(1.03);
 }
 
 .property-card:hover .property-card__photo{

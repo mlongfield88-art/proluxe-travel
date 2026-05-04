@@ -25,15 +25,6 @@
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
-
-    // Connect Lenis to GSAP ScrollTrigger
-    if (window.gsap && window.ScrollTrigger) {
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(function (time) {
-        lenis.raf(time * 1000);
-      });
-      gsap.ticker.lagSmoothing(0);
-    }
   }
 
   /* ==========================================================
@@ -229,21 +220,6 @@
         }
       );
 
-      // Pillar icon rotate-in
-      gsap.fromTo('.pillar__icon svg',
-        { opacity: 0, scale: 0.5, rotation: -15 },
-        {
-          opacity: 1, scale: 1, rotation: 0,
-          duration: 0.6,
-          stagger: 0.12,
-          ease: 'back.out(1.4)',
-          scrollTrigger: {
-            trigger: '.pillars',
-            start: 'top 78%',
-          }
-        }
-      );
-
       /* ---------- CONTACT SECTION ---------- */
       gsap.fromTo('#contact .section__eyebrow',
         { opacity: 0, y: 25 },
@@ -263,12 +239,6 @@
         { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
           scrollTrigger: { trigger: '#contact', start: 'top 70%' },
           delay: 0.15
-        }
-      );
-      gsap.fromTo('#contact .form',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: '#contact .form', start: 'top 85%' }
         }
       );
       gsap.fromTo('.info-block',
@@ -428,78 +398,9 @@
   }
 
   /* ==========================================================
-     CONTACT FORM
-     ========================================================== */
-  var form = document.getElementById('contactForm');
-  var submitBtn = document.getElementById('formSubmit');
-
-  if (form) {
-    form.addEventListener('submit', function (e) {
-      var action = form.getAttribute('action');
-
-      // If Formspree not configured, use mailto fallback
-      if (!action || action.indexOf('YOUR_FORM_ID') !== -1) {
-        e.preventDefault();
-        var name = form.querySelector('#name').value;
-        var email = form.querySelector('#email').value;
-        var company = form.querySelector('#company').value;
-        var message = form.querySelector('#message').value;
-        var subject = encodeURIComponent('ProLuxe Travel Enquiry from ' + name);
-        var body = encodeURIComponent(
-          'Name: ' + name + '\n' +
-          'Email: ' + email + '\n' +
-          'Company: ' + company + '\n\n' +
-          message
-        );
-        window.location.href = 'mailto:info@proluxetravels.com?subject=' + subject + '&body=' + body;
-        return;
-      }
-
-      // Formspree handling
-      e.preventDefault();
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
-
-      fetch(action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      }).then(function (response) {
-        if (response.ok) {
-          form.reset();
-          submitBtn.textContent = 'Message Sent';
-          submitBtn.classList.add('btn--success');
-          setTimeout(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Message';
-            submitBtn.classList.remove('btn--success');
-          }, 4000);
-        } else {
-          submitBtn.textContent = 'Something went wrong';
-          submitBtn.classList.add('btn--error');
-          setTimeout(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Message';
-            submitBtn.classList.remove('btn--error');
-          }, 3000);
-        }
-      }).catch(function () {
-        submitBtn.textContent = 'Connection error';
-        submitBtn.classList.add('btn--error');
-        setTimeout(function () {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send Message';
-          submitBtn.classList.remove('btn--error');
-        }, 3000);
-      });
-    });
-  }
-
-  /* ==========================================================
      OFF-CANVAS FOCUS TRAP
      ========================================================== */
-  var offcanvas = document.getElementById('offcanvas');
-  if (offcanvas) {
+  if (offcanvas) { // offcanvas declared above at line 326
     offcanvas.addEventListener('keydown', function (e) {
       if (e.key !== 'Tab') return;
       var focusable = offcanvas.querySelectorAll('a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])');

@@ -9,10 +9,13 @@
   <meta property="og:description" content="Accommodation sourcing, group accommodation, and venue sourcing for corporate and luxury clients worldwide.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://proluxetravels.com">
+  <meta property="og:image" content="/img/og-card.jpg">
+  <meta name="twitter:image" content="/img/og-card.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:wght@400;500;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <noscript><style>.reveal-hero,.reveal,.reveal-card,.reveal-pillar{opacity:1}</style></noscript>
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
   <script type="application/ld+json">
@@ -80,11 +83,21 @@
   <!-- ========== HERO ========== -->
   <section class="hero" id="hero">
     <div class="hero__bg-wrap">
-      <div class="hero__bg" role="img" aria-label="Luxury hotel interior"></div>
+      <img
+        src="img/hero-banner.webp"
+        alt=""
+        aria-hidden="true"
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+        class="hero__bg-img"
+      >
+      <div class="hero__bg"></div>
       <div class="hero__overlay"></div>
     </div>
     <canvas class="hero__canvas" id="waypointCanvas" aria-hidden="true"></canvas>
     <div class="hero__content">
+      <p class="visually-hidden">Luxury hotel interior setting for ProLuxe Travel</p>
       <p class="hero__eyebrow reveal-hero">Global &bull; Corporate &bull; Hospitality</p>
       <h1 class="hero__title reveal-hero">Travel, Refined.</h1>
       <p class="hero__subtitle reveal-hero">The quiet side of hospitality.</p>
@@ -172,50 +185,22 @@
 
       <div class="pillars">
         <div class="pillar reveal-pillar">
-          <div class="pillar__icon">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path class="olive-stem" d="M8 40 C16 32, 24 24, 40 8"/>
-              <path class="olive-leaf" d="M14 34 C12 30, 16 26, 20 28 C16 30, 14 34, 14 34Z"/>
-              <path class="olive-leaf" d="M22 26 C24 22, 28 20, 30 24 C26 24, 22 26, 22 26Z"/>
-              <path class="olive-leaf" d="M30 18 C32 14, 36 13, 37 17 C34 16, 30 18, 30 18Z"/>
-            </svg>
-          </div>
+          <div class="pillar__numeral" aria-hidden="true">01</div>
           <h3 class="pillar__title">Precision</h3>
           <p class="pillar__text">Every detail is confirmed before it's booked.</p>
         </div>
         <div class="pillar reveal-pillar">
-          <div class="pillar__icon">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path class="olive-stem" d="M40 40 C32 32, 24 24, 8 8"/>
-              <path class="olive-leaf" d="M34 34 C36 30, 32 26, 28 28 C32 30, 34 34, 34 34Z"/>
-              <path class="olive-leaf" d="M26 26 C24 22, 20 20, 18 24 C22 24, 26 26, 26 26Z"/>
-              <path class="olive-leaf" d="M18 18 C16 14, 12 13, 11 17 C14 16, 18 18, 18 18Z"/>
-            </svg>
-          </div>
+          <div class="pillar__numeral" aria-hidden="true">02</div>
           <h3 class="pillar__title">Discretion</h3>
           <p class="pillar__text">Your business is your business. That is the whole proposition.</p>
         </div>
         <div class="pillar reveal-pillar">
-          <div class="pillar__icon">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path class="olive-stem" d="M6 24 C14 20, 24 20, 42 24"/>
-              <path class="olive-leaf" d="M12 24 C10 20, 14 16, 18 18 C14 20, 12 24, 12 24Z"/>
-              <path class="olive-leaf" d="M24 22 C22 18, 26 14, 30 16 C26 18, 24 22, 24 22Z"/>
-              <path class="olive-leaf" d="M34 24 C33 20, 37 17, 39 20 C36 20, 34 24, 34 24Z"/>
-            </svg>
-          </div>
+          <div class="pillar__numeral" aria-hidden="true">03</div>
           <h3 class="pillar__title">Partnership</h3>
           <p class="pillar__text">We work to your team's brief, then to its rhythm.</p>
         </div>
         <div class="pillar reveal-pillar">
-          <div class="pillar__icon">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path class="olive-stem" d="M8 38 C18 30, 28 22, 40 10"/>
-              <path class="olive-leaf" d="M16 32 C14 28, 18 24, 22 26 C18 28, 16 32, 16 32Z"/>
-              <path class="olive-leaf" d="M26 22 C28 18, 32 17, 33 21 C30 20, 26 22, 26 22Z"/>
-              <path class="olive-leaf" d="M34 14 C32 10, 36 8, 38 11 C36 12, 34 14, 34 14Z"/>
-            </svg>
-          </div>
+          <div class="pillar__numeral" aria-hidden="true">04</div>
           <h3 class="pillar__title">Experience</h3>
           <p class="pillar__text">Real relationships, run by senior hands.</p>
         </div>
