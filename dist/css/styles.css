@@ -1104,16 +1104,13 @@ a.info-block__value:hover{color:#424632}
 /* ----- Journey section wrapper ----- */
 .journey{
   position:relative;
-  background:#EDE8DF; /* slightly deeper cream for the map canvas */
-  overflow:hidden;
+  background:#EDE8DF;
 }
 
-/* Desktop: the pinned horizontal track */
+/* Vertical stacked track (no horizontal pin) */
 .journey__track{
   display:flex;
-  flex-direction:row;
-  align-items:stretch;
-  will-change:transform;
+  flex-direction:column;
 }
 
 /* Map canvas layer — sits behind everything in the journey */
@@ -1132,15 +1129,14 @@ a.info-block__value:hover{color:#424632}
 .journey__intro-panel{
   position:relative;
   z-index:1;
-  width:100vw;
-  min-width:100vw;
-  height:100vh;
+  width:100%;
+  min-height:60vh;
   display:flex;
   align-items:center;
   justify-content:center;
   flex-direction:column;
   gap:28px;
-  padding:0 clamp(40px,7vw,120px);
+  padding:clamp(80px,10vw,140px) clamp(40px,7vw,120px);
   text-align:center;
 }
 .journey__intro-panel::before{
@@ -1187,13 +1183,12 @@ a.info-block__value:hover{color:#424632}
 .journey__panel{
   position:relative;
   z-index:1;
-  width:100vw;
-  min-width:100vw;
-  height:100vh;
+  width:100%;
   display:flex;
   flex-direction:row;
   align-items:stretch;
   overflow:hidden;
+  min-height:560px;
 }
 
 /* Alternate photo left / right */
@@ -1299,15 +1294,13 @@ a.info-block__value:hover{color:#424632}
 .journey__close{
   position:relative;
   z-index:1;
-  width:100vw;
-  min-width:100vw;
-  height:100vh;
+  width:100%;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:0 clamp(40px,8vw,160px);
+  padding:clamp(80px,10vw,140px) clamp(40px,8vw,160px);
   gap:24px;
   background:#424632;
 }
@@ -1516,42 +1509,10 @@ a.info-block__value:hover{color:#424632}
   }
 }
 
-/* ----- reduced-motion: flat layout, no translate, no pin ----- */
+/* ----- reduced-motion: no translate residuals ----- */
 @media(prefers-reduced-motion:reduce){
   .journey__track{
-    flex-direction:column;
     transform:none !important;
-  }
-  .journey__panel{
-    width:100%;
-    min-width:0;
-    height:auto;
-    flex-direction:column;
-  }
-  .journey__panel:nth-child(even) .journey__photo,
-  .journey__panel:nth-child(even) .journey__text{
-    order:unset;
-  }
-  .journey__photo{
-    flex:none;
-    height:480px;
-    width:100%;
-  }
-  .journey__text{
-    flex:none;
-    width:100%;
-  }
-  .journey__close{
-    width:100%;
-    min-width:0;
-    height:auto;
-    padding:80px 40px;
-  }
-  .journey__intro-panel{
-    width:100%;
-    min-width:0;
-    height:auto;
-    padding:80px 40px;
   }
 }
 

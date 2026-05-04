@@ -288,6 +288,58 @@
   /* 9. Init on DOM ready                                                */
   /* ------------------------------------------------------------------ */
 
+  /* ------------------------------------------------------------------ */
+  /* 9b. Panel reveals: vertical stacked panels, all viewports            */
+  /* ------------------------------------------------------------------ */
+
+  function initPanelReveals() {
+    var panels = gsap.utils.toArray('.journey__panel');
+    var introPanel = document.querySelector('.journey__intro-panel');
+    var closeFrame = document.querySelector('.journey__close');
+
+    panels.forEach(function (panel) {
+      gsap.fromTo(panel,
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1, y: 0, duration: 0.75, ease: 'power2.out',
+          scrollTrigger: {
+            trigger: panel,
+            start: 'top 84%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    if (introPanel) {
+      gsap.fromTo(introPanel,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+          scrollTrigger: {
+            trigger: introPanel,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    }
+
+    if (closeFrame) {
+      gsap.fromTo(closeFrame,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+          scrollTrigger: {
+            trigger: closeFrame,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    }
+  }
+
   function init() {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -300,12 +352,7 @@
 
     initHeroParallax();
     initSectionReveals();
-
-    if (isMobile()) {
-      initMobile();
-    } else {
-      initDesktop();
-    }
+    initPanelReveals();
 
     /* Refresh on resize (debounced) */
     var resizeTimer;
