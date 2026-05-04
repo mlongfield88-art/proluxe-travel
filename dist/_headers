@@ -1,0 +1,16 @@
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+
+/adminiba2026/*
+  X-Robots-Tag: noindex, nofollow
+
+/iba2026/*
+  X-Robots-Tag: noindex, nofollow
+
+/report/*
+  X-Robots-Tag: noindex, nofollow

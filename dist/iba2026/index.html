@@ -561,14 +561,36 @@
 
         window.updateSummary = () => {
             const count = parseInt(document.getElementById('room-count').value);
-            const container = document.getElementById('dynamic-rooms-summary'); container.innerHTML = '';
+            const container = document.getElementById('dynamic-rooms-summary');
+            // SEC-2026-005: build via DOM API + textContent rather than innerHTML
+            // string interpolation. Removes self-XSS surface in the form summary
+            // preview and aligns with the SEC-2026-002 admin sanitiser pattern.
+            container.textContent = '';
             for(let i=1; i<=count; i++) {
                 const f = document.querySelector(`[name="Guest_First_${i}"]`).value || '...';
                 const l = document.querySelector(`[name="Guest_Last_${i}"]`).value || '...';
                 const t = document.querySelector(`[name="Room_Type_${i}"]`).value.split('|')[0] || '...';
                 const g2F = document.querySelector(`[name="Guest_2_First_${i}"]`).value;
                 const g2L = document.querySelector(`[name="Guest_2_Last_${i}"]`).value;
-                container.innerHTML += `<div class="summary-room-item"><strong>Room ${i}: ${t}</strong><span>Guest 1: ${f} ${l}</span>${(g2F || g2L) ? `<span>Guest 2: ${g2F} ${g2L}</span>` : ''}</div>`;
+
+                const item = document.createElement('div');
+                item.className = 'summary-room-item';
+
+                const title = document.createElement('strong');
+                title.textContent = `Room ${i}: ${t}`;
+                item.appendChild(title);
+
+                const guest1 = document.createElement('span');
+                guest1.textContent = `Guest 1: ${f} ${l}`;
+                item.appendChild(guest1);
+
+                if (g2F || g2L) {
+                    const guest2 = document.createElement('span');
+                    guest2.textContent = `Guest 2: ${g2F} ${g2L}`;
+                    item.appendChild(guest2);
+                }
+
+                container.appendChild(item);
             }
         };
 

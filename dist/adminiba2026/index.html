@@ -379,10 +379,55 @@
             return dates;
         };
 
+        // SEC-2026-002: HTML-escape helper. Booker form data (guest names,
+        // company names, hotel names, notes, emails) is user-controlled and
+        // anonymous before SEC-2026-001 lands in production. Until rules
+        // enforcement is in the live Firebase project, treat every
+        // Firestore string value as untrusted on the way INTO the admin DOM.
+        function esc(s) {
+            if (s == null) return '';
+            return String(s)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;');
+        }
+
+        // SEC-2026-002: replace inline onclick handlers with data attributes
+        // and a single delegated listener. This removes the JS-string
+        // injection vector that the old `'${b['Selected Hotel']}'`
+        // interpolation created (a hotel name containing a single quote
+        // would break out of the JS string). Bind once on the static
+        // tbody element after the dashboard mounts.
+        let _tableListenerBound = false;
+        function bindTableActions() {
+            if (_tableListenerBound) return;
+            const tbody = document.getElementById('bookings-table-body');
+            if (!tbody) return;
+            tbody.addEventListener('click', (ev) => {
+                const btn = ev.target.closest('button[data-action]');
+                if (!btn) return;
+                const action = btn.dataset.action;
+                const docId  = btn.dataset.docId  || '';
+                const hotel  = btn.dataset.hotel  || '';
+                const roomIdx = btn.dataset.roomIdx ? parseInt(btn.dataset.roomIdx, 10) : null;
+                if      (action === 'edit')         window.openEditModal(docId, roomIdx, hotel);
+                else if (action === 'cancel')       window.cancelRoom(docId, roomIdx, hotel);
+                else if (action === 'email')        window.sendIndividualGuestEmail(docId, roomIdx, hotel);
+                else if (action === 'moveHotel')    window.openMoveHotelModal(docId, hotel);
+                else if (action === 'addRoom')      window.openAddRoomModal(docId, hotel);
+                else if (action === 'cancelEntire') window.cancelEntireBooking(docId, hotel);
+                else if (action === 'resend')       window.resendConfirmation(docId);
+            });
+            _tableListenerBound = true;
+        }
+
         function renderTable() {
             const tbody = document.getElementById('bookings-table-body');
             tbody.innerHTML = '';
-            
+            bindTableActions();
+
             const term = document.getElementById('search-input').value.toLowerCase();
             const filteredData = rawData.filter(b => {
                 const s = JSON.stringify(b).toLowerCase();
@@ -393,7 +438,7 @@
                 const b = d;
                 let roomListHtml = '';
                 let activeRoomCount = 0;
-                
+
                 for(let i=1; i<=150; i++) {
                     const prefix = `Room ${i} - `;
                     const f1 = b[prefix+'Guest First Name'];
@@ -403,26 +448,35 @@
                         const inStr = b[prefix+'Arrival'];
                         const outStr = b[prefix+'Departure'];
                         const type = b[prefix+'Room Type'];
-                        const rate = (b[prefix+'Rate'] || 'TBC').replace(/\n/g, '<br>').replace(/ \+ /g, '<br>');
+                        // Rate is escaped first, then the staff-controlled
+                        // formatting tokens (newlines and " + ") are
+                        // converted to <br> on the already-escaped string.
+                        // This preserves the visual breakdown while denying
+                        // arbitrary HTML in the field.
+                        const rate = esc(b[prefix+'Rate'] || 'TBC')
+                            .replace(/\n/g, '<br>')
+                            .replace(/ \+ /g, '<br>');
                         const l1 = b[prefix+'Guest Last Name'] || '';
                         const g2First = b[prefix+'Guest 2 First Name'] || '';
                         const g2Last = b[prefix+'Guest 2 Last Name'] || '';
                         const gEmail = b[prefix+'Guest Email'] || '';
                         const notes = b[prefix+'Notes'] || '';
-                        
+
                         const primaryDisplay = f1 ? `${f1} ${l1}` : legacyG;
-                        
+                        const docIdAttr = esc(d.id);
+                        const hotelAttr = esc(b['Selected Hotel'] || '');
+
                         roomListHtml += `
                             <div class="room-block">
-                                <strong>Room ${i}:</strong> ${primaryDisplay} ${g2First ? '<span style="color:#666; font-size:0.8rem;">(+ '+g2First+' '+g2Last+')</span>' : ''}<br>
-                                ${gEmail ? `<span style="color:#2980b9; font-size:0.8rem;">✉️ ${gEmail}</span><br>` : ''}
-                                <span style="color:#666;">${type} | ${inStr} to ${outStr}</span><br>
+                                <strong>Room ${i}:</strong> ${esc(primaryDisplay)} ${g2First ? '<span style="color:#666; font-size:0.8rem;">(+ ' + esc(g2First) + ' ' + esc(g2Last) + ')</span>' : ''}<br>
+                                ${gEmail ? `<span style="color:#2980b9; font-size:0.8rem;">✉️ ${esc(gEmail)}</span><br>` : ''}
+                                <span style="color:#666;">${esc(type)} | ${esc(inStr)} to ${esc(outStr)}</span><br>
                                 <span style="color:var(--primary-gold); font-weight:bold; display:block; margin-top:5px;">${rate}</span>
-                                ${notes ? `<br><span style="color:var(--danger-red); font-size:0.75rem;">📝 Notes: ${notes}</span>` : ''}
+                                ${notes ? `<br><span style="color:var(--danger-red); font-size:0.75rem;">📝 Notes: ${esc(notes)}</span>` : ''}
                                 <div style="margin-top:8px;">
-                                    <button class="btn-action-small" onclick="window.openEditModal('${d.id}', ${i}, '${b['Selected Hotel']}')">✏️ Amend Room</button>
-                                    <button class="btn-action-small btn-cancel" onclick="window.cancelRoom('${d.id}', ${i}, '${b['Selected Hotel']}')">❌ Cancel Room</button>
-                                    <button class="btn-action-small btn-guest-email" id="guest-btn-${d.id}-${i}" onclick="window.sendIndividualGuestEmail('${d.id}', ${i}, '${b['Selected Hotel']}')">✉️ Email Guest</button>
+                                    <button class="btn-action-small" data-action="edit" data-doc-id="${docIdAttr}" data-room-idx="${i}" data-hotel="${hotelAttr}">✏️ Amend Room</button>
+                                    <button class="btn-action-small btn-cancel" data-action="cancel" data-doc-id="${docIdAttr}" data-room-idx="${i}" data-hotel="${hotelAttr}">❌ Cancel Room</button>
+                                    <button class="btn-action-small btn-guest-email" id="guest-btn-${docIdAttr}-${i}" data-action="email" data-doc-id="${docIdAttr}" data-room-idx="${i}" data-hotel="${hotelAttr}">✉️ Email Guest</button>
                                 </div>
                             </div>
                         `;
@@ -431,23 +485,24 @@
 
                 if(!roomListHtml) roomListHtml = '<div style="color:red; font-size:0.8rem;">All rooms cancelled.</div>';
 
-                const safeHotelName = (b['Selected Hotel'] || '').replace(/'/g, "'");
+                const docIdAttr = esc(d.id);
+                const hotelAttr = esc(b['Selected Hotel'] || '');
 
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>
-                        <span class="ref-badge">${b['Reference']}</span><br>
-                        <small style="color:#888; display:block; margin-top:5px;">${b.Date ? new Date(b.Date).toLocaleDateString() : 'N/A'}</small>
-                        ${b.MergedFrom ? `<small style="color:var(--primary-gold); display:block; margin-top:5px; font-weight:bold;">Merged From:<br>${b.MergedFrom}</small>` : ''}
+                        <span class="ref-badge">${esc(b['Reference'])}</span><br>
+                        <small style="color:#888; display:block; margin-top:5px;">${b.Date ? esc(new Date(b.Date).toLocaleDateString()) : 'N/A'}</small>
+                        ${b.MergedFrom ? `<small style="color:var(--primary-gold); display:block; margin-top:5px; font-weight:bold;">Merged From:<br>${esc(b.MergedFrom)}</small>` : ''}
                     </td>
                     <td>
-                        <div class="hotel-name">${b['Selected Hotel']}</div>
+                        <div class="hotel-name">${esc(b['Selected Hotel'])}</div>
                         <small>Active Rooms: ${activeRoomCount}</small><br>
-                        <button class="btn-action-small" style="background:#555; margin-top:15px;" onclick="window.openMoveHotelModal('${d.id}', '${safeHotelName}')">🏨 Change Hotel</button>
-                        <button class="btn-action-small" style="background:#8e44ad; margin-top:15px;" onclick="window.openAddRoomModal('${d.id}', '${safeHotelName}')">➕ Add Room to Ref</button>
-                        <button class="btn-cancel-group" onclick="window.cancelEntireBooking('${d.id}', '${safeHotelName}')">🚨 Cancel Entire Booking</button>
+                        <button class="btn-action-small" style="background:#555; margin-top:15px;" data-action="moveHotel" data-doc-id="${docIdAttr}" data-hotel="${hotelAttr}">🏨 Change Hotel</button>
+                        <button class="btn-action-small" style="background:#8e44ad; margin-top:15px;" data-action="addRoom" data-doc-id="${docIdAttr}" data-hotel="${hotelAttr}">➕ Add Room to Ref</button>
+                        <button class="btn-cancel-group" data-action="cancelEntire" data-doc-id="${docIdAttr}" data-hotel="${hotelAttr}">🚨 Cancel Entire Booking</button>
                     </td>
-                    <td><strong>${b['Booker Name']}</strong><br><a href="mailto:${b['Booker Email']}" style="color:var(--primary-gold); text-decoration:none;">${b['Booker Email']}</a><br><small>${b['Booker Company'] || ''}</small><br><button class="btn-resend" id="resend-btn-${d.id}" onclick="window.resendConfirmation('${d.id}')">✉️ Resend Master</button></td>
+                    <td><strong>${esc(b['Booker Name'])}</strong><br><a href="mailto:${esc(b['Booker Email'])}" style="color:var(--primary-gold); text-decoration:none;">${esc(b['Booker Email'])}</a><br><small>${esc(b['Booker Company'] || '')}</small><br><button class="btn-resend" id="resend-btn-${docIdAttr}" data-action="resend" data-doc-id="${docIdAttr}">✉️ Resend Master</button></td>
                     <td>${roomListHtml}</td>
                 `;
                 tbody.appendChild(tr);
