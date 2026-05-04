@@ -451,7 +451,7 @@ h1,h2,h3,h4,h5,h6{
 .about-full .section__title{text-align:center}
 .about-full .section__body{
   text-align:center;
-  max-width:700px;
+  max-width:640px;
   margin-left:auto;
   margin-right:auto;
 }
@@ -590,44 +590,6 @@ h1,h2,h3,h4,h5,h6{
 }
 @media(max-width:600px){
   .pillars{grid-template-columns:1fr}
-}
-
-/* ============================================================
-   CONTACT FORM
-   ============================================================ */
-.form{margin-top:32px}
-.form__row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-.form__group{margin-bottom:20px}
-.form__label{
-  display:block;
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:#8A8A80;
-  margin-bottom:8px;
-}
-.form__input{
-  width:100%;
-  padding:14px 16px;
-  font-family:'Raleway',sans-serif;
-  font-size:15px;
-  color:#1A1A1A;
-  background:#fff;
-  border:1px solid rgba(138,138,128,.25);
-  border-radius:2px;
-  transition:border-color .3s;
-  outline:none;
-}
-.form__input:focus{border-color:#424632}
-.form__input--textarea{resize:vertical;min-height:120px}
-
-@media(max-width:600px){
-  .form__row{grid-template-columns:1fr}
 }
 
 /* Contact info blocks */
