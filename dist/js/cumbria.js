@@ -90,6 +90,7 @@
     };
 
     /* Pin the section and drive translateX */
+    /* GSAP pin retained: horizontal-translate scroll, not card-stack; CSS sticky cannot drive horizontal pan from vertical scroll. */
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
