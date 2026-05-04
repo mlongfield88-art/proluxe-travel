@@ -20,15 +20,18 @@
   var isMobile = function () { return window.innerWidth <= 900; };
 
   /* ------------------------------------------------------------------ */
-  /* 1. Lenis smooth scroll — integrate with GSAP ticker                 */
+  /* 1. Lenis smooth scroll on its own rAF loop                          */
+  /*    Group standing rule: never connect Lenis to gsap.ticker          */
+  /*    (causes ticker freeze on HMR reload).                            */
   /* ------------------------------------------------------------------ */
 
   var lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
 
-  gsap.ticker.add(function (time) {
-    lenis.raf(time * 1000);
-  });
-  gsap.ticker.lagSmoothing(0);
+  function lenisRaf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(lenisRaf);
+  }
+  requestAnimationFrame(lenisRaf);
 
   /* ------------------------------------------------------------------ */
   /* 2. Route path animation helper                                      */
