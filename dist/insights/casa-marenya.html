@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Casa Marenya Performance | ProLuxe Travel</title>
-  <meta name="description" content="Page-level performance for Casa Marenya, ProLuxe Travel.">
+  <title>Casa Marenya, page views | ProLuxe Travel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -13,473 +12,188 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
 
   <style>
-    /* ------------- Page-scoped overrides ------------- */
     body{ background:#F5F0E8; }
-
-    /* Quieter top nav for an internal dashboard */
     .header{ background:rgba(245,240,232,.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(66,70,50,.08); }
     .nav__wordmark, .nav__link{ color:#1A1A1A; }
     .nav__link::after{ background:#424632; }
-    .nav__hamburger span{ background:#1A1A1A; }
 
-    /* Page wrapper */
-    .perf{ padding:120px 0 80px; }
+    .perf{ padding:120px 0 80px; max-width:760px; margin:0 auto; }
     @media(max-width:720px){ .perf{ padding:96px 0 56px; } }
 
-    /* Header strip */
-    .perf__head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:32px;
-      flex-wrap:wrap;
-      margin:0 0 48px;
-      padding:0 0 32px;
-      border-bottom:1px solid rgba(66,70,50,.18);
-    }
-    .perf__eyebrow{
-      font-family:'Raleway',sans-serif;
-      font-size:11px;
-      font-weight:500;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:#8A8A80;
-      margin:0 0 12px;
-    }
-    .perf__title{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(34px, 4.5vw, 56px);
-      font-weight:500;
-      color:#1A1A1A;
-      margin:0;
-      letter-spacing:-0.01em;
-    }
-    .perf__subtitle{
-      font-family:'EB Garamond','Cormorant Garamond',Georgia,serif;
-      font-size:18px;
-      font-style:italic;
-      color:#5C5E54;
-      margin:10px 0 0;
-    }
+    .perf__head{ margin:0 0 40px; padding:0 0 24px; border-bottom:1px solid rgba(66,70,50,.18); }
+    .perf__eyebrow{ font-family:'Raleway',sans-serif; font-size:11px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:#8A8A80; margin:0 0 10px; }
+    .perf__title{ font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,44px); font-weight:500; color:#1A1A1A; margin:0; letter-spacing:-0.01em; }
+    .perf__subtitle{ font-family:'EB Garamond','Cormorant Garamond',Georgia,serif; font-size:16px; font-style:italic; color:#5C5E54; margin:8px 0 0; }
 
-    /* Range selector */
-    .perf__range{
-      display:inline-flex;
-      gap:0;
-      border:1px solid rgba(66,70,50,.28);
-      border-radius:999px;
-      padding:4px;
-      background:#FFF;
-    }
-    .perf__range-btn{
-      font-family:'Raleway',sans-serif;
-      font-size:12px;
-      font-weight:500;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#5C5E54;
-      padding:10px 22px;
-      border-radius:999px;
-      background:transparent;
-      border:none;
-      cursor:pointer;
-      transition:background .2s ease, color .2s ease;
-    }
+    .perf__range{ display:inline-flex; gap:0; border:1px solid rgba(66,70,50,.28); border-radius:999px; padding:4px; background:#FFF; margin:0 0 32px; }
+    .perf__range-btn{ font-family:'Raleway',sans-serif; font-size:12px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:#5C5E54; padding:10px 22px; border-radius:999px; background:transparent; border:none; cursor:pointer; }
     .perf__range-btn:hover{ color:#1A1A1A; }
-    .perf__range-btn.is-active{
-      background:#424632;
-      color:#F5F0E8;
-    }
+    .perf__range-btn.is-active{ background:#424632; color:#F5F0E8; }
 
-    /* Stat cards */
-    .perf__stats{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:24px;
-      margin:0 0 48px;
-    }
-    @media(max-width:720px){
-      .perf__stats{ grid-template-columns:1fr; }
-    }
-    .perf__stat{
-      background:#FFF;
-      border:1px solid rgba(66,70,50,.10);
-      padding:32px;
-    }
-    .perf__stat-label{
-      font-family:'Raleway',sans-serif;
-      font-size:11px;
-      font-weight:500;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:#8A8A80;
-      margin:0 0 16px;
-    }
-    .perf__stat-value{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(38px, 4.4vw, 52px);
-      font-weight:500;
-      color:#1A1A1A;
-      line-height:1;
-      margin:0;
-    }
-    .perf__stat-note{
-      font-family:'EB Garamond','Cormorant Garamond',Georgia,serif;
-      font-size:14px;
-      color:#5C5E54;
-      margin:12px 0 0;
-      font-style:italic;
-    }
+    .perf__hero{ background:#FFF; border:1px solid rgba(66,70,50,.10); padding:40px; margin:0 0 32px; text-align:center; }
+    .perf__hero-label{ font-family:'Raleway',sans-serif; font-size:11px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:#8A8A80; margin:0 0 12px; }
+    .perf__hero-value{ font-family:'Playfair Display',serif; font-size:clamp(56px,8vw,96px); font-weight:500; color:#424632; line-height:1; margin:0; }
+    .perf__hero-helper{ font-family:'EB Garamond','Cormorant Garamond',Georgia,serif; font-size:15px; color:#5C5E54; margin:14px 0 0; }
 
-    /* Section title */
-    .perf__section-title{
-      font-family:'Playfair Display',serif;
-      font-size:22px;
-      font-weight:500;
-      color:#1A1A1A;
-      margin:0 0 16px;
-    }
+    .perf__row{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    @media(max-width:720px){ .perf__row{ grid-template-columns:1fr; } }
 
-    /* Two-column block grid */
-    .perf__grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:24px;
-      margin:0 0 48px;
-    }
-    @media(max-width:880px){
-      .perf__grid{ grid-template-columns:1fr; }
-    }
+    .perf__panel{ background:#FFF; border:1px solid rgba(66,70,50,.10); padding:24px 28px; }
+    .perf__panel-title{ font-family:'Raleway',sans-serif; font-size:11px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:#8A8A80; margin:0 0 16px; }
 
-    .perf__card{
-      background:#FFF;
-      border:1px solid rgba(66,70,50,.10);
-      padding:28px 32px;
-    }
+    .perf__list{ list-style:none; padding:0; margin:0; }
+    .perf__list-item{ display:flex; align-items:baseline; justify-content:space-between; padding:8px 0; border-bottom:1px dashed rgba(66,70,50,.10); font-family:'EB Garamond','Cormorant Garamond',Georgia,serif; font-size:16px; }
+    .perf__list-item:last-child{ border-bottom:none; }
+    .perf__list-key{ color:#1A1A1A; }
+    .perf__list-value{ color:#424632; font-weight:600; font-variant-numeric:tabular-nums; }
+    .perf__list-empty{ color:#8A8A80; font-style:italic; padding:8px 0; font-family:'EB Garamond','Cormorant Garamond',Georgia,serif; font-size:15px; }
 
-    /* Tables (clean, restrained) */
-    .perf__table{
-      width:100%;
-      border-collapse:collapse;
-      font-family:'Raleway',sans-serif;
-      font-size:14px;
-    }
-    .perf__table th{
-      text-align:left;
-      font-weight:500;
-      font-size:11px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:#8A8A80;
-      padding:0 0 12px;
-      border-bottom:1px solid rgba(66,70,50,.12);
-    }
-    .perf__table th.num,
-    .perf__table td.num{ text-align:right; font-variant-numeric:tabular-nums; }
-    .perf__table td{
-      padding:12px 0;
-      border-bottom:1px solid rgba(66,70,50,.06);
-      color:#1A1A1A;
-    }
-    .perf__table tr:last-child td{ border-bottom:0; }
-    .perf__table tr.is-empty td{
-      color:#8A8A80;
-      font-style:italic;
-      text-align:center;
-      padding:24px 0;
-    }
+    .perf__state{ background:#FFF; border:1px solid rgba(66,70,50,.10); padding:24px; text-align:center; font-family:'EB Garamond','Cormorant Garamond',Georgia,serif; font-size:15px; color:#5C5E54; }
+    .perf__state--error{ border-color:rgba(180,90,60,.40); color:#A8543E; background:#FBF1ED; }
 
-    /* Empty / loading / error states */
-    .perf__state{
-      padding:48px 0;
-      text-align:center;
-      color:#8A8A80;
-      font-family:'EB Garamond','Cormorant Garamond',Georgia,serif;
-      font-size:18px;
-      font-style:italic;
-    }
-    .perf__state--error{
-      color:#9A3838;
-      font-style:normal;
-      font-family:'Raleway',sans-serif;
-      font-size:14px;
-    }
-
-    /* Footer note */
-    .perf__foot{
-      margin:64px 0 0;
-      padding:32px 0 0;
-      border-top:1px solid rgba(66,70,50,.18);
-      font-family:'EB Garamond','Cormorant Garamond',Georgia,serif;
-      font-size:14px;
-      font-style:italic;
-      color:#5C5E54;
-      max-width:680px;
-    }
+    .perf__footnote{ font-family:'EB Garamond','Cormorant Garamond',Georgia,serif; font-style:italic; font-size:13px; color:#8A8A80; margin:32px 0 0; text-align:center; line-height:1.6; }
   </style>
 </head>
 <body>
 
-  <!-- Top nav: matches other pages -->
-  <header class="header">
-    <nav class="nav" aria-label="Main navigation">
-      <a href="/" class="nav__wordmark">ProLuxe Travel</a>
-      <div class="nav__links">
-        <a href="/#about" class="nav__link">About</a>
-        <a href="/#services" class="nav__link">Services</a>
-        <a href="/#approach" class="nav__link">Our Approach</a>
-        <a href="/explore-cumbria" class="nav__link">Explore Cumbria</a>
-        <a href="/casa-marenya" class="nav__link">Casa Marenya</a>
-        <a href="/#contact" class="nav__link">Contact</a>
-      </div>
-      <button class="nav__hamburger" id="navToggle" aria-label="Open navigation menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </nav>
+<header class="header">
+  <nav class="nav">
+    <a href="/" class="nav__wordmark"><span>ProLuxe Travel</span></a>
+  </nav>
+</header>
+
+<main class="perf">
+  <header class="perf__head">
+    <p class="perf__eyebrow">Internal · Casa Marenya</p>
+    <h1 class="perf__title">Page views</h1>
+    <p class="perf__subtitle">Live traffic on <span style="font-style:normal">proluxetravels.com/casa-marenya</span>.</p>
   </header>
 
-  <div class="offcanvas" id="offcanvas" aria-hidden="true">
-    <div class="offcanvas__overlay" id="offcanvasOverlay"></div>
-    <div class="offcanvas__panel">
-      <button class="offcanvas__close" id="offcanvasClose" aria-label="Close navigation menu">&times;</button>
-      <nav class="offcanvas__nav" aria-label="Mobile navigation">
-        <a href="/#about" class="offcanvas__link">About</a>
-        <a href="/#services" class="offcanvas__link">Services</a>
-        <a href="/#approach" class="offcanvas__link">Our Approach</a>
-        <a href="/explore-cumbria" class="offcanvas__link">Explore Cumbria</a>
-        <a href="/casa-marenya" class="offcanvas__link">Casa Marenya</a>
-        <a href="/#contact" class="offcanvas__link">Contact</a>
-      </nav>
-    </div>
+  <div class="perf__range" role="tablist" aria-label="Date range">
+    <button class="perf__range-btn is-active" data-days="7" type="button">Last 7 days</button>
+    <button class="perf__range-btn" data-days="30" type="button">Last 30 days</button>
   </div>
 
-  <main class="perf">
-    <div class="container">
+  <div class="perf__hero">
+    <p class="perf__hero-label">Page views</p>
+    <p class="perf__hero-value" id="pageviews">.</p>
+    <p class="perf__hero-helper" id="pageviewsHelper">Loading.</p>
+  </div>
 
-      <!-- Header strip -->
-      <header class="perf__head">
-        <div>
-          <p class="perf__eyebrow">Performance</p>
-          <h1 class="perf__title">Casa Marenya</h1>
-          <p class="perf__subtitle" id="rangeLabel">Last 7 days</p>
-        </div>
-        <div class="perf__range" role="tablist" aria-label="Date range">
-          <button class="perf__range-btn is-active" data-days="7" type="button">7 days</button>
-          <button class="perf__range-btn" data-days="30" type="button">30 days</button>
-          <button class="perf__range-btn" data-days="90" type="button">90 days</button>
-        </div>
-      </header>
+  <div class="perf__state" id="errorBanner" hidden></div>
 
-      <!-- Stat cards -->
-      <section class="perf__stats" id="statsRow">
-        <article class="perf__stat">
-          <p class="perf__stat-label">Page views</p>
-          <p class="perf__stat-value" data-stat="pageviews">--</p>
-          <p class="perf__stat-note">Total over the window.</p>
-        </article>
-        <article class="perf__stat">
-          <p class="perf__stat-label">Visits</p>
-          <p class="perf__stat-value" data-stat="visits">--</p>
-          <p class="perf__stat-note">Distinct sessions.</p>
-        </article>
-        <article class="perf__stat">
-          <p class="perf__stat-label">Top country</p>
-          <p class="perf__stat-value" data-stat="topCountry" style="font-size:clamp(24px, 3vw, 36px);">--</p>
-          <p class="perf__stat-note" data-stat="topCountryShare">--</p>
-        </article>
-      </section>
+  <div class="perf__row">
+    <section class="perf__panel">
+      <p class="perf__panel-title">When</p>
+      <ul class="perf__list" id="byDay" aria-label="Page views by day"></ul>
+    </section>
+    <section class="perf__panel">
+      <p class="perf__panel-title">Where from</p>
+      <ul class="perf__list" id="byReferer" aria-label="Top referrers"></ul>
+    </section>
+  </div>
 
-      <!-- Two column tables -->
-      <section class="perf__grid">
-        <div class="perf__card">
-          <h2 class="perf__section-title">Top pages</h2>
-          <table class="perf__table" aria-label="Top pages">
-            <thead>
-              <tr><th>Path</th><th class="num">Views</th></tr>
-            </thead>
-            <tbody id="byPathBody">
-              <tr class="is-empty"><td colspan="2">Loading.</td></tr>
-            </tbody>
-          </table>
-        </div>
+  <p class="perf__footnote">
+    Cloudflare Web Analytics. Bot and ad-blocker traffic excluded by design, so the count is conservative.
+    Referrers from <em>proluxetravels.com</em> mean someone navigated from another page on this site.
+    A direct visit (no referrer) usually means a typed URL or a click from an email client.
+  </p>
+</main>
 
-        <div class="perf__card">
-          <h2 class="perf__section-title">Top countries</h2>
-          <table class="perf__table" aria-label="Top countries">
-            <thead>
-              <tr><th>Country</th><th class="num">Views</th></tr>
-            </thead>
-            <tbody id="byCountryBody">
-              <tr class="is-empty"><td colspan="2">Loading.</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+<script>
+  (function(){
+    var hero    = document.getElementById('pageviews');
+    var helper  = document.getElementById('pageviewsHelper');
+    var errorEl = document.getElementById('errorBanner');
+    var byDay   = document.getElementById('byDay');
+    var byRef   = document.getElementById('byReferer');
+    var rangeBtns = document.querySelectorAll('.perf__range-btn');
 
-      <section class="perf__grid">
-        <div class="perf__card">
-          <h2 class="perf__section-title">Top referrers</h2>
-          <table class="perf__table" aria-label="Top referrers">
-            <thead>
-              <tr><th>Source</th><th class="num">Views</th></tr>
-            </thead>
-            <tbody id="byRefererBody">
-              <tr class="is-empty"><td colspan="2">Loading.</td></tr>
-            </tbody>
-          </table>
-        </div>
+    var fmt = new Intl.NumberFormat('en-GB');
+    var fmtNum = function(n){ return (n == null ? '0' : fmt.format(n)); };
 
-        <div class="perf__card">
-          <h2 class="perf__section-title">Devices and browsers</h2>
-          <table class="perf__table" aria-label="Devices">
-            <thead>
-              <tr><th>Device</th><th class="num">Views</th></tr>
-            </thead>
-            <tbody id="byDeviceBody">
-              <tr class="is-empty"><td colspan="2">Loading.</td></tr>
-            </tbody>
-          </table>
-          <table class="perf__table" aria-label="Browsers" style="margin-top:24px;">
-            <thead>
-              <tr><th>Browser</th><th class="num">Views</th></tr>
-            </thead>
-            <tbody id="byBrowserBody">
-              <tr class="is-empty"><td colspan="2">Loading.</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+    var monthShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function formatDay(iso){
+      if (!iso) return '';
+      var p = iso.split('-');
+      if (p.length !== 3) return iso;
+      return parseInt(p[2],10) + ' ' + monthShort[parseInt(p[1],10) - 1];
+    }
 
-      <!-- Error / empty banner (hidden by default) -->
-      <div class="perf__state perf__state--error" id="errorBanner" hidden></div>
+    function showError(msg){
+      hero.textContent = '0';
+      helper.textContent = '';
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+      errorEl.classList.add('perf__state--error');
+      [byDay, byRef].forEach(function(el){ el.innerHTML = '<li class="perf__list-empty">No data.</li>'; });
+    }
 
-      <p class="perf__foot">
-        Data: Cloudflare Web Analytics, cookieless RUM. Updated every 5 minutes after first traffic. Counts include all variants of the Casa Marenya path on proluxetravels.com.
-      </p>
-    </div>
-  </main>
+    function setListEmpty(el, msg){
+      el.innerHTML = '<li class="perf__list-empty">' + msg + '</li>';
+    }
 
-  <script>
-    (function(){
-      var rangeBtns = document.querySelectorAll('.perf__range-btn');
-      var rangeLabel = document.getElementById('rangeLabel');
-      var errorBanner = document.getElementById('errorBanner');
-
-      var els = {
-        pageviews: document.querySelector('[data-stat="pageviews"]'),
-        visits: document.querySelector('[data-stat="visits"]'),
-        topCountry: document.querySelector('[data-stat="topCountry"]'),
-        topCountryShare: document.querySelector('[data-stat="topCountryShare"]'),
-        byPath: document.getElementById('byPathBody'),
-        byCountry: document.getElementById('byCountryBody'),
-        byReferer: document.getElementById('byRefererBody'),
-        byDevice: document.getElementById('byDeviceBody'),
-        byBrowser: document.getElementById('byBrowserBody')
-      };
-
-      function fmtNum(n){
-        if (n === null || n === undefined || isNaN(n)) return '--';
-        return Number(n).toLocaleString('en-GB');
+    function renderList(el, rows, keyField){
+      if (!rows || rows.length === 0){
+        setListEmpty(el, 'No data yet.');
+        return;
       }
+      el.innerHTML = rows.map(function(r){
+        var key = (r[keyField] || '').toString().trim() || 'Direct (no referrer)';
+        return '<li class="perf__list-item"><span class="perf__list-key">' +
+                  key.replace(/[<>&]/g, '') +
+                '</span><span class="perf__list-value">' + fmtNum(r.count) + '</span></li>';
+      }).join('');
+    }
 
-      function setLoading(){
-        ['byPath','byCountry','byReferer','byDevice','byBrowser'].forEach(function(k){
-          els[k].innerHTML = '<tr class="is-empty"><td colspan="2">Loading.</td></tr>';
-        });
-        els.pageviews.textContent = '--';
-        els.visits.textContent = '--';
-        els.topCountry.textContent = '--';
-        els.topCountryShare.textContent = '--';
-        errorBanner.hidden = true;
-      }
+    function load(days){
+      hero.textContent = '.';
+      helper.textContent = 'Loading.';
+      errorEl.hidden = true;
+      [byDay, byRef].forEach(function(el){ setListEmpty(el, 'Loading.'); });
 
-      function showError(msg){
-        errorBanner.textContent = msg;
-        errorBanner.hidden = false;
-      }
-
-      function renderRows(tbody, rows, labelKey){
-        if (!rows || !rows.length){
-          tbody.innerHTML = '<tr class="is-empty"><td colspan="2">No data yet.</td></tr>';
-          return;
-        }
-        tbody.innerHTML = rows.map(function(r){
-          var label = r[labelKey] || 'Unknown';
-          if (labelKey === 'path' && label.length > 38) label = label.slice(0, 38) + '...';
-          return '<tr><td>' + escapeHtml(label) + '</td><td class="num">' + fmtNum(r.count) + '</td></tr>';
-        }).join('');
-      }
-
-      function escapeHtml(s){
-        return String(s).replace(/[&<>"']/g, function(c){
-          return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-        });
-      }
-
-      function load(days){
-        setLoading();
-        rangeLabel.textContent = 'Last ' + days + ' days';
-
-        fetch('/api/casa-marenya-analytics?days=' + days, {
-          headers: { 'accept': 'application/json' }
-        })
+      fetch('/api/casa-marenya-analytics?days=' + days, { credentials: 'same-origin' })
         .then(function(r){
-          if (!r.ok) {
+          if (!r.ok){
             return r.json().then(function(j){ throw new Error(j.message || ('HTTP ' + r.status)); });
           }
           return r.json();
         })
         .then(function(d){
-          els.pageviews.textContent = fmtNum(d.totals && d.totals.pageviews);
-          els.visits.textContent = fmtNum(d.totals && d.totals.visits);
-
-          var topCountry = (d.byCountry || [])[0];
-          if (topCountry && topCountry.country) {
-            els.topCountry.textContent = topCountry.country;
-            var totalCount = (d.byCountry || []).reduce(function(s, x){ return s + (x.count || 0); }, 0);
-            var share = totalCount ? Math.round((topCountry.count / totalCount) * 100) : 0;
-            els.topCountryShare.textContent = share + '% of views';
+          var pv = (d.totals && d.totals.pageviews) || 0;
+          var vs = (d.totals && d.totals.visits) || 0;
+          hero.textContent = fmtNum(pv);
+          if (pv === 0){
+            helper.textContent = 'No views in the last ' + days + ' days.';
           } else {
-            els.topCountry.textContent = '--';
-            els.topCountryShare.textContent = '--';
+            helper.textContent = pv + ' page view' + (pv === 1 ? '' : 's') +
+                                  ' from approximately ' + vs + ' visit' + (vs === 1 ? '' : 's') +
+                                  ' over the last ' + days + ' days.';
           }
+          var dayRows = (d.byDay || []).slice().sort(function(a,b){
+            return (b.date || '').localeCompare(a.date || '');
+          }).map(function(r){ return { date: formatDay(r.date), count: r.count }; });
+          renderList(byDay, dayRows, 'date');
 
-          renderRows(els.byPath, d.byPath, 'path');
-          renderRows(els.byCountry, d.byCountry, 'country');
-          renderRows(els.byReferer, d.byReferer, 'host');
-          renderRows(els.byDevice, d.byDevice, 'device');
-          renderRows(els.byBrowser, d.byBrowser, 'browser');
+          renderList(byRef, d.byReferer || [], 'host');
         })
         .catch(function(err){
-          showError('Could not load analytics: ' + (err.message || err) + '. If this is the first deploy, set CLOUDFLARE_ANALYTICS_TOKEN and CLOUDFLARE_ACCOUNT_TAG as Pages env vars.');
+          showError('Could not load page views: ' + (err.message || err) +
+                    '. If the dashboard has just been redeployed, the env vars CLOUDFLARE_ANALYTICS_TOKEN and CLOUDFLARE_ACCOUNT_TAG must be set on the Pages project.');
         });
-      }
+    }
 
-      rangeBtns.forEach(function(btn){
-        btn.addEventListener('click', function(){
-          rangeBtns.forEach(function(b){ b.classList.remove('is-active'); });
-          btn.classList.add('is-active');
-          load(parseInt(btn.dataset.days, 10));
-        });
+    rangeBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        rangeBtns.forEach(function(b){ b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        load(parseInt(btn.dataset.days, 10) || 7);
       });
+    });
 
-      load(7);
-    })();
+    load(7);
+  })();
+</script>
 
-    // Mobile nav toggle (mirrors other pages)
-    (function(){
-      var toggle = document.getElementById('navToggle');
-      var offcanvas = document.getElementById('offcanvas');
-      var overlay = document.getElementById('offcanvasOverlay');
-      var closeBtn = document.getElementById('offcanvasClose');
-      if(!toggle || !offcanvas) return;
-      function openNav(){ offcanvas.classList.add('is-open'); offcanvas.setAttribute('aria-hidden','false'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-      function closeNav(){ offcanvas.classList.remove('is-open'); offcanvas.setAttribute('aria-hidden','true'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-      toggle.addEventListener('click', openNav);
-      if(closeBtn) closeBtn.addEventListener('click', closeNav);
-      if(overlay) overlay.addEventListener('click', closeNav);
-      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
-      offcanvas.querySelectorAll('.offcanvas__link').forEach(function(a){ a.addEventListener('click', closeNav); });
-    })();
-  </script></body>
+</body>
 </html>
