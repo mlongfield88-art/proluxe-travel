@@ -1,0 +1,19 @@
+title = "LX Sixty Group gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known-public values that gitleaks would otherwise flag"
+regexes = [
+  # Firebase web API key, public-by-design per Firebase model
+  '''AIzaSyD05JCADypvwknCwtu05rfz30wD4pmFjYs''',
+  # Cloudflare Web Analytics beacon token, public-by-design per CF model
+  '''3ce857dbd57e40b3bd26e184735e6c54''',
+]
+paths = [
+  '''node_modules/''',
+  '''dist/lib/''',
+  '''.wrangler/''',
+  '''public/lib/''',
+]
