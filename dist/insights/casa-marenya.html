@@ -145,16 +145,31 @@
       errorEl.hidden = true;
       [byDay, byRef].forEach(function(el){ setListEmpty(el, 'Loading.'); });
 
+      // Defensive load: read response as text first, then attempt to parse JSON.
+      // If parse fails, show the actual response text in the error so we can see
+      // what the function or upstream actually returned.
       fetch('/api/casa-marenya-analytics?days=' + days, { credentials: 'same-origin' })
         .then(function(r){
-          if (!r.ok){
-            return r.json().then(function(j){ throw new Error(j.message || ('HTTP ' + r.status)); });
-          }
-          return r.json();
+          return r.text().then(function(body){
+            return { status: r.status, ok: r.ok, body: body };
+          });
         })
-        .then(function(d){
-          var pv = (d.totals && d.totals.pageviews) || 0;
-          var vs = (d.totals && d.totals.visits) || 0;
+        .then(function(resp){
+          var d;
+          try {
+            d = JSON.parse(resp.body);
+          } catch (parseErr) {
+            throw new Error('HTTP ' + resp.status + ', non-JSON response. First 200 chars: ' +
+                            (resp.body || '').slice(0, 200));
+          }
+          if (!resp.ok){
+            throw new Error('HTTP ' + resp.status + ': ' + (d.message || JSON.stringify(d).slice(0, 300)));
+          }
+          var totalsRow = (d.totals && (d.totals.pageviews != null ? d.totals : null)) ||
+                          (Array.isArray(d.totals) ? { pageviews: d.totals[0] && d.totals[0].count, visits: 0 } : null) ||
+                          { pageviews: 0, visits: 0 };
+          var pv = Number(totalsRow.pageviews) || 0;
+          var vs = Number(totalsRow.visits) || 0;
           hero.textContent = fmtNum(pv);
           if (pv === 0){
             helper.textContent = 'No views recorded yet.';
@@ -163,15 +178,13 @@
                                   ' across the last 90 days.';
           }
           var dayRows = (d.byDay || []).slice().sort(function(a,b){
-            return (b.date || '').localeCompare(a.date || '');
+            return String(b.date || '').localeCompare(String(a.date || ''));
           }).map(function(r){ return { date: formatDay(r.date), count: r.count }; });
           renderList(byDay, dayRows, 'date');
-
           renderList(byRef, d.byReferer || [], 'host');
         })
         .catch(function(err){
-          showError('Could not load page views: ' + (err.message || err) +
-                    '. If the dashboard has just been redeployed, the env vars CLOUDFLARE_ANALYTICS_TOKEN and CLOUDFLARE_ACCOUNT_TAG must be set on the Pages project.');
+          showError(err.message || String(err));
         });
     }
 
