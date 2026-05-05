@@ -66,13 +66,8 @@
   <header class="perf__head">
     <p class="perf__eyebrow">Internal · Casa Marenya</p>
     <h1 class="perf__title">Page views</h1>
-    <p class="perf__subtitle">Live traffic on <span style="font-style:normal">proluxetravels.com/casa-marenya</span>.</p>
+    <p class="perf__subtitle">All page views on <span style="font-style:normal">proluxetravels.com/casa-marenya</span>, last 90 days.</p>
   </header>
-
-  <div class="perf__range" role="tablist" aria-label="Date range">
-    <button class="perf__range-btn is-active" data-days="7" type="button">Last 7 days</button>
-    <button class="perf__range-btn" data-days="30" type="button">Last 30 days</button>
-  </div>
 
   <div class="perf__hero">
     <p class="perf__hero-label">Page views</p>
@@ -107,8 +102,6 @@
     var errorEl = document.getElementById('errorBanner');
     var byDay   = document.getElementById('byDay');
     var byRef   = document.getElementById('byReferer');
-    var rangeBtns = document.querySelectorAll('.perf__range-btn');
-
     var fmt = new Intl.NumberFormat('en-GB');
     var fmtNum = function(n){ return (n == null ? '0' : fmt.format(n)); };
 
@@ -164,11 +157,10 @@
           var vs = (d.totals && d.totals.visits) || 0;
           hero.textContent = fmtNum(pv);
           if (pv === 0){
-            helper.textContent = 'No views in the last ' + days + ' days.';
+            helper.textContent = 'No views recorded yet.';
           } else {
-            helper.textContent = pv + ' page view' + (pv === 1 ? '' : 's') +
-                                  ' from approximately ' + vs + ' visit' + (vs === 1 ? '' : 's') +
-                                  ' over the last ' + days + ' days.';
+            helper.textContent = 'From approximately ' + vs + ' visit' + (vs === 1 ? '' : 's') +
+                                  ' across the last 90 days.';
           }
           var dayRows = (d.byDay || []).slice().sort(function(a,b){
             return (b.date || '').localeCompare(a.date || '');
@@ -183,15 +175,7 @@
         });
     }
 
-    rangeBtns.forEach(function(btn){
-      btn.addEventListener('click', function(){
-        rangeBtns.forEach(function(b){ b.classList.remove('is-active'); });
-        btn.classList.add('is-active');
-        load(parseInt(btn.dataset.days, 10) || 7);
-      });
-    });
-
-    load(7);
+    load(90);
   })();
 </script>
 
