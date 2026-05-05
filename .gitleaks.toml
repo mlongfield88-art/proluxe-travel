@@ -1,19 +1,32 @@
 title = "LX Sixty Group gitleaks config"
 
+# This repo intentionally contains two known-public values in its built
+# HTML pages:
+#
+#   1. Firebase web API key in dist/iba2026/index.html and
+#      dist/adminiba2026/index.html. Public-by-design per Firebase model;
+#      security rests on Firestore Security Rules, not on this key being
+#      secret. https://firebase.google.com/docs/projects/api-keys
+#
+#   2. Cloudflare Web Analytics beacon token (the data-cf-beacon attribute
+#      on <script src="static.cloudflareinsights.com/beacon.min.js">).
+#      Public-by-design per Cloudflare model; identifies the analytics
+#      project, grants no access. The same token appears in every HTML
+#      page on the site so visitor analytics work.
+#
+# Path-based allowlist below excludes scanner findings in those files
+# WITHOUT repeating the literal values in this config (which would
+# itself trigger every secret-scanning tool on every push).
+
 [extend]
 useDefault = true
 
 [allowlist]
-description = "Known-public values that gitleaks would otherwise flag"
-regexes = [
-  # Firebase web API key, public-by-design per Firebase model
-  '''AIzaSyD05JCADypvwknCwtu05rfz30wD4pmFjYs''',
-  # Cloudflare Web Analytics beacon token, public-by-design per CF model
-  '''3ce857dbd57e40b3bd26e184735e6c54''',
-]
+description = "Path exclusions for vendored libs and the public-by-design Firebase + Cloudflare Web Analytics tokens embedded in built HTML"
 paths = [
   '''node_modules/''',
   '''dist/lib/''',
-  '''.wrangler/''',
   '''public/lib/''',
+  '''.wrangler/''',
+  '''dist/.*\.html''',
 ]
