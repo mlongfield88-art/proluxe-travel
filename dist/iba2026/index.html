@@ -747,6 +747,9 @@
             magicTableHTML += `</tbody></table>`;
             zapierData.append('Magic_Table_HTML', magicTableHTML);
 
+            // Standing BCC so every portal-submitted confirmation lands in the IBA inbox.
+            zapierData.append('_bcc', 'iba2026@proluxetravels.com');
+
             try {
                 const invRef = doc(db, 'artifacts', appId, 'public', 'data', 'inventory', hotelId);
                 await runTransaction(db, async (transaction) => {
