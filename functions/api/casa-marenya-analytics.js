@@ -14,7 +14,12 @@
  *   ?path=/casa-marenya.html   Path prefix to filter on (default casa-marenya)
  */
 
-const SITE_TAG = "3ce857dbd57e40b3bd26e184735e6c54";
+// Use the WORKING site tag that's actually registered against proluxetravels.com
+// in this Cloudflare account. The previous tag (3ce857dbd57e40b3bd26e184735e6c54)
+// had zero data ever recorded against it. Verified 2026-05-05 by querying
+// the Cloudflare GraphQL Analytics API: tag 9000d55e23e340938946225c8431dd4e
+// has 350+ events recorded across the proluxetravels.com path tree.
+const SITE_TAG = "9000d55e23e340938946225c8431dd4e";
 const DEFAULT_PATH_VARIANTS = [
   "/casa-marenya",
   "/casa-marenya.html",
