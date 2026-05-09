@@ -1,32 +1,31 @@
 title = "LX Sixty Group gitleaks config"
 
-# This repo intentionally contains two known-public values in its built
-# HTML pages:
-#
-#   1. Firebase web API key in dist/iba2026/index.html and
-#      dist/adminiba2026/index.html. Public-by-design per Firebase model;
-#      security rests on Firestore Security Rules, not on this key being
-#      secret. https://firebase.google.com/docs/projects/api-keys
-#
-#   2. Cloudflare Web Analytics beacon token (the data-cf-beacon attribute
-#      on <script src="static.cloudflareinsights.com/beacon.min.js">).
-#      Public-by-design per Cloudflare model; identifies the analytics
-#      project, grants no access. The same token appears in every HTML
-#      page on the site so visitor analytics work.
-#
-# Path-based allowlist below excludes scanner findings in those files
-# WITHOUT repeating the literal values in this config (which would
-# itself trigger every secret-scanning tool on every push).
-
 [extend]
 useDefault = true
 
+# LX Sixty Group extension rules. Explicit AWS patterns not reliably caught
+# by the gitleaks v8 default ruleset in isolation test (2026-05-09, SEC-2026-016).
+
+[[rules]]
+id = "lxs-aws-access-key-id"
+description = "AWS Access Key ID. AKIA, ABIA, ACCA, or ASIA prefix plus 16 uppercase alphanumeric chars."
+regex = '''\b(AKIA|ABIA|ACCA|ASIA)[0-9A-Z]{16}\b'''
+tags = ["aws", "key-id"]
+keywords = ["AKIA", "ABIA", "ACCA", "ASIA"]
+
+[[rules]]
+id = "lxs-aws-secret-access-key"
+description = "AWS Secret Access Key. 40-char base64-like value on a line whose key name contains aws plus secret or access plus key."
+regex = '''(?i)aws[_\-\.\s]?(?:secret|access)[_\-\.\s]?(?:access[_\-\.\s]?)?key(?:[_\-\.\s]?id)?\s*[=:]\s*["']?([A-Za-z0-9+/=]{40})["']?'''
+secretGroup = 1
+tags = ["aws", "secret-key"]
+keywords = ["aws", "secret", "access", "key"]
+
 [allowlist]
-description = "Path exclusions for vendored libs and the public-by-design Firebase + Cloudflare Web Analytics tokens embedded in built HTML"
+description = "Path exclusions only. No literal secrets in this file."
 paths = [
   '''node_modules/''',
   '''dist/lib/''',
-  '''public/lib/''',
   '''.wrangler/''',
-  '''dist/.*\.html''',
+  '''public/lib/''',
 ]
