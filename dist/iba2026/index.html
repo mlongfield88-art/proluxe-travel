@@ -515,7 +515,7 @@
                         <div class="date-group"><label>Check In</label><input type="date" name="In_${i}" min="${selectedHotel.contractStart}" max="${selectedHotel.contractEnd}" value="${selectedHotel.contractStart}" onchange="window.enforceDateLimits(this, ${i})" required></div>
                         <div class="date-group"><label>Check Out</label><input type="date" name="Out_${i}" min="${selectedHotel.contractStart}" max="${selectedHotel.contractEnd}" value="${selectedHotel.contractEnd}" onchange="window.enforceDateLimits(this, ${i})" required></div>
                     </div>
-                    ${i === 1 ? `<span class="helper-link" onclick="window.applyDatesToAll()">‚Ü≥ Apply these dates to all rooms</span>` : ''}
+                    ${i === 1 ? `<span class="helper-link" onclick="window.applyDatesToAll()">Apply these dates to all rooms</span>` : ''}
                     <label style="margin-top:15px;">Accessibility Notes (Optional)</label>
                     <textarea name="Notes_${i}" rows="2" oninput="window.updateSummary()"></textarea>
                 `;
