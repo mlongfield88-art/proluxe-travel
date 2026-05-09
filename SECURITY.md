@@ -13,7 +13,6 @@ Please **do not** open a public GitHub issue for security findings. Email gets a
 This policy covers:
 
 - `proluxetravels.com` (ProLuxe Travel agency site)
-- `casa-marenya.proluxetravels.com` (Casa Marenya single-property site)
 - The public booker page at `proluxetravels.com/iba2026/`
 
 Out of scope:
