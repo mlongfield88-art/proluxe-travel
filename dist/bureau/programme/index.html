@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>ProLuxe Bureau, for programmes | ProLuxe Travel</title>
+  <meta name="description" content="Bureau lets event teams run a 200-person hotel programme without chasing 200 people. Delegates confirm their own rooms. You see the status, not the inbox.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:wght@400;500;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <style>
+    /* ============================================================
+       BUREAU PROGRAMME PAGE - page-specific styles only
+       Shared site styles loaded from ../../css/styles.css
+       Mirrors /bureau/office/ skeleton exactly. Different data.
+    ============================================================ */
+
+    /* Page intro / hero variant (no background image) */
+    .bureau-hero {
+      background: #1A1A1A;
+      padding: clamp(120px, 14vw, 180px) 0 clamp(80px, 10vw, 120px);
+    }
+    .bureau-hero__inner {
+      max-width: 800px;
+    }
+    .bureau-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.5);
+      margin-bottom: 24px;
+    }
+    .bureau-hero__title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 500;
+      color: #F5F0E8;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+    .bureau-hero__sub {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(15px, 1.35vw, 18px);
+      font-weight: 300;
+      color: rgba(245,240,232,.72);
+      line-height: 1.8;
+      max-width: 620px;
+    }
+
+    /* Benefits strip */
+    .benefits {
+      background: #F5F0E8;
+      padding: clamp(80px, 10vw, 130px) 0;
+    }
+    .benefits__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(24px, 4vw, 56px);
+    }
+    .benefit {
+      padding: 0;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .benefit.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .benefit:nth-child(2) { transition-delay: .12s; }
+    .benefit:nth-child(3) { transition-delay: .24s; }
+    .benefit__numeral {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: .12em;
+      color: #424632;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .benefit__rule {
+      width: 32px;
+      height: 1px;
+      background: #424632;
+      opacity: .4;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .benefit__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(17px, 1.5vw, 20px);
+      font-weight: 500;
+      color: #1A1A1A;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .benefit__body {
+      font-family: 'Raleway', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: #2A2A2A;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 768px) {
+      .benefits__grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .benefit:nth-child(2),
+      .benefit:nth-child(3) {
+        transition-delay: 0s;
+      }
+    }
+
+    /* How it works section */
+    .how-it-works {
+      background: #1A1A1A;
+      padding: clamp(80px, 10vw, 130px) 0;
+    }
+    .how-it-works__inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: clamp(48px, 7vw, 96px);
+      align-items: start;
+    }
+    .how-it-works__text .section__eyebrow {
+      color: rgba(245,240,232,.4);
+      margin-bottom: 20px;
+    }
+    .how-it-works__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 500;
+      color: #F5F0E8;
+      margin-bottom: 28px;
+      line-height: 1.15;
+    }
+    .how-it-works__para {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(14px, 1.2vw, 16px);
+      font-weight: 400;
+      color: rgba(245,240,232,.65);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .how-it-works__para:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 860px) {
+      .how-it-works__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+    }
+
+    /* Deadline section */
+    .deadline-section {
+      background: #2A2A2A;
+      padding: clamp(80px, 10vw, 130px) 0;
+    }
+    .deadline-section__inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: clamp(48px, 7vw, 96px);
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .deadline-section__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+    }
+
+    .deadline-section__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 500;
+      color: #F5F0E8;
+      margin-bottom: 24px;
+      line-height: 1.15;
+    }
+    .deadline-section__para {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(14px, 1.2vw, 16px);
+      font-weight: 400;
+      color: rgba(245,240,232,.65);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .deadline-section__para:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Escape valve section */
+    .escape-valve {
+      background: #111;
+      padding: clamp(80px, 10vw, 130px) 0;
+    }
+    .escape-valve__inner {
+      max-width: 640px;
+    }
+    .escape-valve__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 500;
+      color: #F5F0E8;
+      margin-bottom: 24px;
+      line-height: 1.15;
+    }
+    .escape-valve__para {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(14px, 1.2vw, 16px);
+      font-weight: 400;
+      color: rgba(245,240,232,.65);
+      line-height: 1.8;
+    }
+
+    /* CTA section */
+    .bureau-cta {
+      background: #424632;
+      padding: clamp(80px, 10vw, 130px) 0;
+    }
+    .bureau-cta__inner {
+      max-width: 680px;
+    }
+    .bureau-cta__para {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(15px, 1.3vw, 18px);
+      font-weight: 300;
+      color: rgba(245,240,232,.82);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+    .btn--olive-inverse {
+      background: #F5F0E8;
+      color: #424632;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 42px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 0;
+      transition: background .3s, transform .3s, box-shadow .3s;
+    }
+    .btn--olive-inverse:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+    }
+
+    /* ============================================================
+       REVEAL utility (IntersectionObserver driven)
+    ============================================================ */
+    .io-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .io-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       MOCKUP SHARED CHROME
+    ============================================================ */
+    .mockup-wrap {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,.5);
+    }
+    .mockup-chrome {
+      background: #2C2C2E;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .chrome-dots {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .chrome-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .chrome-dot--red   { background: #FF5F57; }
+    .chrome-dot--amber { background: #FEBC2E; }
+    .chrome-dot--green { background: #28C840; }
+    .chrome-url {
+      flex: 1;
+      background: #3A3A3C;
+      border-radius: 4px;
+      padding: 4px 12px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      color: rgba(245,240,232,.55);
+      letter-spacing: .01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mockup-body {
+      background: #1C1C1E;
+    }
+
+    /* ============================================================
+       MOCKUP 1 - Rooming list dashboard (programme, 30+ rows)
+    ============================================================ */
+    .prog-shell {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      min-height: 520px;
+    }
+    @media (max-width: 640px) {
+      .prog-shell {
+        grid-template-columns: 1fr;
+      }
+      .prog-sidebar { display: none; }
+    }
+
+    .prog-sidebar {
+      background: #111;
+      border-right: 1px solid rgba(245,240,232,.06);
+      padding: 24px 0;
+    }
+    .prog-sidebar__label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.3);
+      padding: 0 18px 12px;
+    }
+    .prog-sidebar__item {
+      padding: 9px 18px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      color: rgba(245,240,232,.4);
+      border-left: 2px solid transparent;
+      cursor: default;
+      line-height: 1.4;
+    }
+    .prog-sidebar__item.is-active {
+      color: #F5F0E8;
+      border-left-color: #424632;
+      background: rgba(66,70,50,.12);
+    }
+    .prog-sidebar__meta {
+      font-size: 10px;
+      color: rgba(245,240,232,.22);
+      margin-top: 2px;
+    }
+
+    .prog-main {
+      padding: 20px 24px;
+      overflow: hidden;
+    }
+
+    /* Topbar: programme name + live count */
+    .prog-topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .prog-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #F5F0E8;
+      line-height: 1.2;
+    }
+    .prog-sub {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.35);
+      margin-top: 3px;
+    }
+    .prog-count {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #F5F0E8;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .prog-count__fraction {
+      font-weight: 300;
+      color: rgba(245,240,232,.45);
+      font-size: 11px;
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4CAF50;
+      flex-shrink: 0;
+      animation: livePulse 2.2s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .35; }
+    }
+
+    /* Filter chips */
+    .prog-filters {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .prog-filter {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 4px 11px;
+      border: 1px solid rgba(245,240,232,.1);
+      border-radius: 2px;
+      color: rgba(245,240,232,.35);
+      white-space: nowrap;
+    }
+    .prog-filter.is-active {
+      border-color: rgba(245,240,232,.32);
+      color: #F5F0E8;
+    }
+    .prog-filter--more {
+      color: rgba(245,240,232,.22);
+      border-color: rgba(245,240,232,.06);
+    }
+
+    /* Table header */
+    .prog-table-head {
+      display: grid;
+      grid-template-columns: 24px 1.6fr 1.4fr 1fr 90px;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(245,240,232,.07);
+      margin-bottom: 2px;
+    }
+    .prog-table-head span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.22);
+    }
+
+    /* Table rows */
+    .prog-row {
+      display: grid;
+      grid-template-columns: 24px 1.6fr 1.4fr 1fr 90px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(245,240,232,.04);
+      align-items: center;
+    }
+    .prog-row:last-child { border-bottom: none; }
+
+    /* Status dot */
+    .row-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .row-dot--confirmed { background: #9BB87A; }
+    .row-dot--pending   { background: #FEBC2E; }
+    .row-dot--dropped   { background: rgba(245,240,232,.18); }
+
+    .prog-row__delegate {
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #F5F0E8;
+    }
+    .prog-row__dates {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.48);
+    }
+    .prog-row__room {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.38);
+    }
+    .prog-row__ts {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      color: rgba(245,240,232,.28);
+      letter-spacing: .02em;
+    }
+
+    /* Status pill */
+    .status-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .status-pill--confirmed {
+      background: rgba(66,70,50,.5);
+      color: #9BB87A;
+      border: 1px solid rgba(155,184,122,.22);
+    }
+    .status-pill--pending {
+      background: rgba(254,188,46,.08);
+      color: #FEBC2E;
+      border: 1px solid rgba(254,188,46,.18);
+    }
+    .status-pill--dropped {
+      background: rgba(245,240,232,.04);
+      color: rgba(245,240,232,.3);
+      border: 1px solid rgba(245,240,232,.1);
+    }
+
+    /* Mobile: hide columns, show count */
+    .prog-mobile-note {
+      display: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.3);
+      padding: 10px 0 6px;
+      letter-spacing: .04em;
+    }
+
+    @media (max-width: 520px) {
+      .prog-table-head { display: none; }
+      .prog-row {
+        grid-template-columns: 24px 1fr auto;
+      }
+      .prog-row__dates,
+      .prog-row__room,
+      .prog-row__ts { display: none; }
+      .prog-mobile-note { display: block; }
+    }
+
+    /* ============================================================
+       MOCKUP 2 - Inventory hold panel
+    ============================================================ */
+    .hold-panel {
+      padding: 28px 32px;
+    }
+
+    .hold-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      gap: 16px;
+    }
+    .hold-hotel-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: #F5F0E8;
+      line-height: 1.2;
+    }
+    .hold-hotel-city {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.35);
+      margin-top: 3px;
+    }
+    .hold-status-badge {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #9BB87A;
+      background: rgba(66,70,50,.4);
+      border: 1px solid rgba(155,184,122,.2);
+      padding: 4px 10px;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Room count bar */
+    .hold-count-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .hold-count-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      color: #F5F0E8;
+      line-height: 1;
+    }
+    .hold-count-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      color: rgba(245,240,232,.4);
+    }
+    .hold-count-total {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.25);
+      margin-left: auto;
+    }
+
+    /* Fill bar */
+    .hold-fill-track {
+      height: 3px;
+      background: rgba(245,240,232,.08);
+      border-radius: 2px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .hold-fill-bar {
+      height: 100%;
+      width: 40%;
+      background: #9BB87A;
+      border-radius: 2px;
+    }
+
+    /* Release schedule */
+    .hold-schedule-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.28);
+      margin-bottom: 12px;
+    }
+
+    /* Timeline viz */
+    .hold-timeline {
+      display: flex;
+      gap: 4px;
+      align-items: flex-end;
+      margin-bottom: 14px;
+      height: 36px;
+    }
+    .hold-day {
+      flex: 1;
+      border-radius: 1px;
+      position: relative;
+    }
+    .hold-day--held {
+      background: rgba(66,70,50,.6);
+    }
+    .hold-day--release {
+      background: rgba(254,188,46,.25);
+    }
+    .hold-day--gone {
+      background: rgba(245,240,232,.05);
+    }
+    .hold-day--marker {
+      position: relative;
+    }
+    .hold-day--marker::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 4px;
+      background: #FEBC2E;
+    }
+
+    .hold-legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hold-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      color: rgba(245,240,232,.35);
+      letter-spacing: .04em;
+    }
+    .hold-legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+    .hold-legend-swatch--held    { background: rgba(66,70,50,.7); }
+    .hold-legend-swatch--release { background: rgba(254,188,46,.35); }
+    .hold-legend-swatch--gone    { background: rgba(245,240,232,.08); }
+
+    .hold-note {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.38);
+      line-height: 1.6;
+      border-top: 1px solid rgba(245,240,232,.06);
+      margin-top: 18px;
+      padding-top: 14px;
+    }
+    .hold-note strong {
+      color: rgba(245,240,232,.6);
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       REDUCED MOTION
+    ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      .io-reveal,
+      .benefit {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .live-dot { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <header class="header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/" class="nav__wordmark">ProLuxe Travel</a>
+      <div class="nav__links" id="navLinks">
+        <a href="/#about" class="nav__link">About</a>
+        <a href="/#services" class="nav__link">Services</a>
+        <a href="/#approach" class="nav__link">Our Approach</a>
+        <a href="/#contact" class="nav__link">Contact</a>
+      </div>
+      <button class="nav__hamburger" id="navToggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Off-canvas mobile nav -->
+  <div class="offcanvas" id="offcanvas" aria-hidden="true">
+    <div class="offcanvas__overlay" id="offcanvasOverlay"></div>
+    <div class="offcanvas__panel">
+      <button class="offcanvas__close" id="offcanvasClose" aria-label="Close navigation menu">&times;</button>
+      <nav class="offcanvas__nav" aria-label="Mobile navigation">
+        <a href="/#about" class="offcanvas__link">About</a>
+        <a href="/#services" class="offcanvas__link">Services</a>
+        <a href="/#approach" class="offcanvas__link">Our Approach</a>
+        <a href="/#contact" class="offcanvas__link">Contact</a>
+      </nav>
+      <div class="offcanvas__contact">
+        <p>info@proluxetravels.com</p>
+        <p>London, United Kingdom</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HERO ========== -->
+  <section class="bureau-hero">
+    <div class="container">
+      <div class="bureau-hero__inner">
+        <p class="bureau-eyebrow io-reveal">ProLuxe Bureau</p>
+        <h1 class="bureau-hero__title io-reveal">Run a 200-person hotel programme without chasing 200 people.</h1>
+        <p class="bureau-hero__sub io-reveal">Bureau is the console we built for our office. Each delegate gets a personal link, confirms their own room, and the status updates live. You see the programme, not the inbox.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BENEFITS STRIP ========== -->
+  <section class="benefits" aria-label="Bureau benefits for event programmes">
+    <div class="container">
+      <div class="benefits__grid">
+
+        <article class="benefit">
+          <span class="benefit__numeral">01 / Delegates confirm their own rooms.</span>
+          <span class="benefit__rule" aria-hidden="true"></span>
+          <h2 class="benefit__heading">Delegates confirm their own rooms.</h2>
+          <p class="benefit__body">Each guest receives a personal link, picks dates and preferences, confirms in under 2 minutes. No account creation, no app download. You stop chasing.</p>
+        </article>
+
+        <article class="benefit">
+          <span class="benefit__numeral">02 / Rooms held until the deadline.</span>
+          <span class="benefit__rule" aria-hidden="true"></span>
+          <h2 class="benefit__heading">Rooms held until the deadline.</h2>
+          <p class="benefit__body">Daily inventory holds protect your block. Unconfirmed rooms release on a schedule you set, not a hotel surprise. No more 6pm scrambles the day before.</p>
+        </article>
+
+        <article class="benefit">
+          <span class="benefit__numeral">03 / One status view across every delegate.</span>
+          <span class="benefit__rule" aria-hidden="true"></span>
+          <h2 class="benefit__heading">One status view across every delegate.</h2>
+          <p class="benefit__body">Confirmed, pending, dropped. Filter by hotel, by date, by guest. Export the rooming list when you need it. The hotel works from the same record you do.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section class="how-it-works">
+    <div class="container">
+      <div class="how-it-works__inner">
+
+        <div class="how-it-works__text io-reveal">
+          <h2 class="how-it-works__heading">How it works for a programme</h2>
+          <p class="how-it-works__para">We configure Bureau before your event opens. Rooming categories, daily holds, hotel contracts, all reflecting what we have already negotiated. From there, every delegate sits in one programme view.</p>
+          <p class="how-it-works__para">You send each delegate their personal link. They confirm. The dashboard updates. If someone needs a hand, you adjust their booking in 2 clicks, or pass it back to us with one.</p>
+        </div>
+
+        <!-- TODO: replace with real screenshot from bureau.proluxetravels.com once captured -->
+        <div class="mockup-wrap io-reveal" role="img" aria-label="Bureau rooming list dashboard showing 30-plus delegate rows with status, hotel, dates, and room category columns">
+          <div class="mockup-chrome">
+            <div class="chrome-dots" aria-hidden="true">
+              <span class="chrome-dot chrome-dot--red"></span>
+              <span class="chrome-dot chrome-dot--amber"></span>
+              <span class="chrome-dot chrome-dot--green"></span>
+            </div>
+            <span class="chrome-url">bureau.proluxetravels.com/programmes/[programme]/rooming</span>
+          </div>
+          <div class="mockup-body">
+            <div class="prog-shell">
+              <nav class="prog-sidebar" aria-hidden="true">
+                <p class="prog-sidebar__label">Programmes</p>
+                <div class="prog-sidebar__item is-active">
+                  Annual Conference 2026
+                  <div class="prog-sidebar__meta">200 delegates</div>
+                </div>
+                <div class="prog-sidebar__item">
+                  Leadership Summit Q4
+                  <div class="prog-sidebar__meta">48 delegates</div>
+                </div>
+                <div class="prog-sidebar__item">
+                  Archive
+                </div>
+              </nav>
+              <div class="prog-main" aria-hidden="true">
+                <div class="prog-topbar">
+                  <div>
+                    <div class="prog-name">Annual Conference 2026</div>
+                    <div class="prog-sub">14 to 17 Sep 2026 &bull; 3 hotels</div>
+                  </div>
+                  <div class="prog-count">
+                    <span class="live-dot"></span>
+                    127 confirmed
+                    <span class="prog-count__fraction">of 200</span>
+                  </div>
+                </div>
+
+                <div class="prog-filters">
+                  <span class="prog-filter is-active">All</span>
+                  <span class="prog-filter">Confirmed</span>
+                  <span class="prog-filter">Pending</span>
+                  <span class="prog-filter">Dropped</span>
+                  <span class="prog-filter">Hotel A</span>
+                  <span class="prog-filter">Hotel B</span>
+                  <span class="prog-filter">Hotel C</span>
+                  <span class="prog-filter prog-filter--more">+more</span>
+                </div>
+
+                <p class="prog-mobile-note">Showing 8 of 200 delegates</p>
+
+                <div class="prog-table-head">
+                  <span></span>
+                  <span>Delegate</span>
+                  <span>Check in / out</span>
+                  <span>Room</span>
+                  <span>Confirmed</span>
+                </div>
+
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 001</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">09:12, 2 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 002</div>
+                  <div class="prog-row__dates">14 to 16 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">09:44, 2 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--pending"></span>
+                  <div class="prog-row__delegate">Delegate 003</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Superior, Hotel B</div>
+                  <div class="prog-row__ts">Pending</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 004</div>
+                  <div class="prog-row__dates">15 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">11:03, 3 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 005</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Superior, Hotel B</div>
+                  <div class="prog-row__ts">14:22, 3 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--pending"></span>
+                  <div class="prog-row__delegate">Delegate 006</div>
+                  <div class="prog-row__dates">14 to 16 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel C</div>
+                  <div class="prog-row__ts">Pending</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--dropped"></span>
+                  <div class="prog-row__delegate">Delegate 007</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts"><span class="status-pill status-pill--dropped">Dropped</span></div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 008</div>
+                  <div class="prog-row__dates">15 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Superior, Hotel B</div>
+                  <div class="prog-row__ts">08:55, 4 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 009</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel C</div>
+                  <div class="prog-row__ts">10:17, 4 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--pending"></span>
+                  <div class="prog-row__delegate">Delegate 010</div>
+                  <div class="prog-row__dates">14 to 16 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">Pending</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 011</div>
+                  <div class="prog-row__dates">15 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">13:08, 4 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 012</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Superior, Hotel C</div>
+                  <div class="prog-row__ts">15:41, 4 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--dropped"></span>
+                  <div class="prog-row__delegate">Delegate 013</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel B</div>
+                  <div class="prog-row__ts"><span class="status-pill status-pill--dropped">Dropped</span></div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 014</div>
+                  <div class="prog-row__dates">15 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">09:02, 5 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--pending"></span>
+                  <div class="prog-row__delegate">Delegate 015</div>
+                  <div class="prog-row__dates">14 to 16 Sep 2026</div>
+                  <div class="prog-row__room">Superior, Hotel B</div>
+                  <div class="prog-row__ts">Pending</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 016</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel C</div>
+                  <div class="prog-row__ts">11:55, 5 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 017</div>
+                  <div class="prog-row__dates">15 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">14:33, 5 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--pending"></span>
+                  <div class="prog-row__delegate">Delegate 018</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Superior, Hotel B</div>
+                  <div class="prog-row__ts">Pending</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 019</div>
+                  <div class="prog-row__dates">14 to 16 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel C</div>
+                  <div class="prog-row__ts">08:19, 6 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 020</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">10:44, 6 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--dropped"></span>
+                  <div class="prog-row__delegate">Delegate 021</div>
+                  <div class="prog-row__dates">15 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel B</div>
+                  <div class="prog-row__ts"><span class="status-pill status-pill--dropped">Dropped</span></div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 022</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">12:05, 6 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--pending"></span>
+                  <div class="prog-row__delegate">Delegate 023</div>
+                  <div class="prog-row__dates">14 to 16 Sep 2026</div>
+                  <div class="prog-row__room">Superior, Hotel C</div>
+                  <div class="prog-row__ts">Pending</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 024</div>
+                  <div class="prog-row__dates">15 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel B</div>
+                  <div class="prog-row__ts">09:38, 7 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 025</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">11:12, 7 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--pending"></span>
+                  <div class="prog-row__delegate">Delegate 026</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel C</div>
+                  <div class="prog-row__ts">Pending</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 027</div>
+                  <div class="prog-row__dates">15 to 16 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">14:50, 7 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 028</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Superior, Hotel B</div>
+                  <div class="prog-row__ts">08:27, 8 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--pending"></span>
+                  <div class="prog-row__delegate">Delegate 029</div>
+                  <div class="prog-row__dates">14 to 16 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel A</div>
+                  <div class="prog-row__ts">Pending</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 030</div>
+                  <div class="prog-row__dates">15 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel C</div>
+                  <div class="prog-row__ts">10:03, 8 Aug</div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--dropped"></span>
+                  <div class="prog-row__delegate">Delegate 031</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Standard, Hotel B</div>
+                  <div class="prog-row__ts"><span class="status-pill status-pill--dropped">Dropped</span></div>
+                </div>
+                <div class="prog-row">
+                  <span class="row-dot row-dot--confirmed"></span>
+                  <div class="prog-row__delegate">Delegate 032</div>
+                  <div class="prog-row__dates">14 to 17 Sep 2026</div>
+                  <div class="prog-row__room">Superior, Hotel A</div>
+                  <div class="prog-row__ts">13:40, 8 Aug</div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DEADLINE SECTION ========== -->
+  <section class="deadline-section">
+    <div class="container">
+      <div class="deadline-section__inner">
+
+        <div class="io-reveal">
+          <h2 class="deadline-section__heading">When the deadline matters</h2>
+          <p class="deadline-section__para">Daily inventory hold is set when we configure the programme. Rooms stay held against your block until the date you set. After that, unconfirmed rooms release back to the hotel on a schedule, not a phone call.</p>
+          <p class="deadline-section__para">You see the count drop in real time. The hotel sees the same. No reconciling, no late surprises.</p>
+        </div>
+
+        <!-- TODO: replace with real screenshot from bureau.proluxetravels.com once captured -->
+        <div class="mockup-wrap io-reveal" role="img" aria-label="Bureau inventory hold panel showing rooms held against a programme block with a release schedule timeline">
+          <div class="mockup-chrome">
+            <div class="chrome-dots" aria-hidden="true">
+              <span class="chrome-dot chrome-dot--red"></span>
+              <span class="chrome-dot chrome-dot--amber"></span>
+              <span class="chrome-dot chrome-dot--green"></span>
+            </div>
+            <span class="chrome-url">bureau.proluxetravels.com/programmes/[programme]/inventory</span>
+          </div>
+          <div class="mockup-body">
+            <div class="hold-panel" aria-hidden="true">
+
+              <div class="hold-header">
+                <div>
+                  <div class="hold-hotel-name">Hotel A</div>
+                  <div class="hold-hotel-city">Berlin</div>
+                </div>
+                <div class="hold-status-badge">Held</div>
+              </div>
+
+              <div class="hold-count-row">
+                <div class="hold-count-big">80</div>
+                <div class="hold-count-label">rooms held</div>
+                <div class="hold-count-total">200 total programme</div>
+              </div>
+
+              <div class="hold-fill-track">
+                <div class="hold-fill-bar"></div>
+              </div>
+
+              <div class="hold-schedule-label">Release schedule</div>
+
+              <div class="hold-timeline">
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--held" style="height:36px"></div>
+                <div class="hold-day hold-day--marker hold-day--release" style="height:28px"></div>
+                <div class="hold-day hold-day--release" style="height:24px"></div>
+                <div class="hold-day hold-day--release" style="height:24px"></div>
+                <div class="hold-day hold-day--release" style="height:24px"></div>
+                <div class="hold-day hold-day--release" style="height:24px"></div>
+                <div class="hold-day hold-day--release" style="height:24px"></div>
+                <div class="hold-day hold-day--release" style="height:24px"></div>
+                <div class="hold-day hold-day--release" style="height:24px"></div>
+                <div class="hold-day hold-day--gone" style="height:8px"></div>
+                <div class="hold-day hold-day--gone" style="height:8px"></div>
+                <div class="hold-day hold-day--gone" style="height:8px"></div>
+              </div>
+
+              <div class="hold-legend">
+                <div class="hold-legend-item">
+                  <span class="hold-legend-swatch hold-legend-swatch--held"></span>
+                  Held
+                </div>
+                <div class="hold-legend-item">
+                  <span class="hold-legend-swatch hold-legend-swatch--release"></span>
+                  Releasing 10/day from 12 Aug
+                </div>
+                <div class="hold-legend-item">
+                  <span class="hold-legend-swatch hold-legend-swatch--gone"></span>
+                  Released
+                </div>
+              </div>
+
+              <div class="hold-note">
+                <strong>Held until 12 Aug 2026,</strong> then 10 rooms release per day to 20 Aug 2026.
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ESCAPE VALVE ========== -->
+  <section class="escape-valve">
+    <div class="container">
+      <div class="escape-valve__inner io-reveal">
+        <h2 class="escape-valve__heading">The escape valve</h2>
+        <p class="escape-valve__para">Same record, same handoff. If a booking needs us, a complex amendment, a last-minute relocation, a payment question, pass it back. We pick it up, the audit log shows the handoff, and you carry on with the next 50 delegates.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="bureau-cta" aria-label="Contact ProLuxe">
+    <div class="container">
+      <div class="bureau-cta__inner io-reveal">
+        <p class="bureau-cta__para">If you are running a programme of 50 or more delegates in 2026, we should talk. We take a small number of new programmes per quarter.</p>
+        <a href="mailto:info@proluxetravels.com?subject=ProLuxe%20Bureau%20programme%20enquiry" class="btn--olive-inverse">Speak with us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__wordmark">ProLuxe Travel</a>
+        <p class="footer__tagline">Corporate &amp; luxury travel management.</p>
+      </div>
+      <div class="footer__links">
+        <a href="/#about">About</a>
+        <a href="/#services">Services</a>
+        <a href="/#approach">Our Approach</a>
+        <a href="/explore-cumbria">Explore Cumbria</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <div class="footer__legal">
+        <p>&copy; 2026 ProLuxe Travel Ltd. All rights reserved.</p>
+        <p class="footer__reg">45 Welbeck Street, London, W1G 8DZ</p>
+        <div class="footer__policy-links">
+          <a href="/privacy-policy.html">Privacy Policy</a>
+          <a href="/privacy-policy.html#cookies">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== COOKIE CONSENT ========== -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
+    <div class="cookie-banner__inner">
+      <p class="cookie-banner__text">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. <a href="/privacy-policy.html#cookies">Learn more</a></p>
+      <div class="cookie-banner__actions">
+        <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept">Accept</button>
+        <button class="cookie-banner__btn cookie-banner__btn--decline" id="cookieDecline">Decline</button>
+      </div>
+    </div>
+  </div>
+
+  <noscript><style>.io-reveal,.benefit{opacity:1;transform:none}</style></noscript>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---- Nav scroll state ---- */
+      var header = document.querySelector('.header');
+      if (header) {
+        var onScroll = function () {
+          header.classList.toggle('nav--scrolled', window.scrollY > 40);
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+
+      /* ---- Hamburger / off-canvas ---- */
+      var toggle    = document.getElementById('navToggle');
+      var offcanvas = document.getElementById('offcanvas');
+      var overlay   = document.getElementById('offcanvasOverlay');
+      var closeBtn  = document.getElementById('offcanvasClose');
+
+      function openMenu() {
+        offcanvas.classList.add('is-open');
+        offcanvas.setAttribute('aria-hidden', 'false');
+        if (toggle) toggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        offcanvas.classList.remove('is-open');
+        offcanvas.setAttribute('aria-hidden', 'true');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      if (toggle)   toggle.addEventListener('click', openMenu);
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      if (overlay)  overlay.addEventListener('click', closeMenu);
+
+      document.querySelectorAll('.offcanvas__link').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      /* ---- Cookie banner ---- */
+      var cookieBanner = document.getElementById('cookieBanner');
+      var cookieKey    = 'plx_cookie_consent';
+
+      if (cookieBanner && !localStorage.getItem(cookieKey)) {
+        setTimeout(function () { cookieBanner.classList.add('is-visible'); }, 900);
+      }
+      function dismissCookie() {
+        cookieBanner.classList.remove('is-visible');
+      }
+      var acceptBtn  = document.getElementById('cookieAccept');
+      var declineBtn = document.getElementById('cookieDecline');
+      if (acceptBtn)  acceptBtn.addEventListener('click', function () { localStorage.setItem(cookieKey, 'accepted');  dismissCookie(); });
+      if (declineBtn) declineBtn.addEventListener('click', function () { localStorage.setItem(cookieKey, 'declined'); dismissCookie(); });
+
+      /* ---- IntersectionObserver reveals ---- */
+      var revealTargets = document.querySelectorAll('.io-reveal, .benefit');
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+
+        revealTargets.forEach(function (el) { observer.observe(el); });
+      } else {
+        revealTargets.forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
