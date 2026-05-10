@@ -127,7 +127,7 @@
       display: grid;
       grid-template-columns: 1fr 1.4fr;
       gap: clamp(48px, 7vw, 96px);
-      align-items: start;
+      align-items: center;
     }
     .how-it-works__text .section__eyebrow {
       color: rgba(245,240,232,.4);
@@ -163,7 +163,7 @@
     /* Hands-on or hands-off section */
     .hands-on-off {
       background: #F5F0E8;
-      padding: clamp(70px, 8vw, 100px) 0;
+      padding: clamp(80px, 10vw, 130px) 0;
     }
     .hands-on-off__inner {
       max-width: 640px;
@@ -193,7 +193,7 @@
       display: grid;
       grid-template-columns: 1.4fr 1fr;
       gap: clamp(48px, 7vw, 96px);
-      align-items: start;
+      align-items: center;
     }
 
     @media (max-width: 860px) {
@@ -275,6 +275,7 @@
       font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
+      text-decoration: none;
       border-radius: 0;
       transition: background .3s, transform .3s, box-shadow .3s;
     }
@@ -282,6 +283,7 @@
       background: #fff;
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      text-decoration: none;
     }
 
     /* ============================================================
@@ -348,11 +350,13 @@
     .prog-shell {
       display: grid;
       grid-template-columns: 200px 1fr;
-      min-height: 520px;
+      height: 420px;
     }
     @media (max-width: 640px) {
       .prog-shell {
         grid-template-columns: 1fr;
+        height: auto;
+        min-height: 320px;
       }
       .prog-sidebar { display: none; }
     }
@@ -361,6 +365,7 @@
       background: #111;
       border-right: 1px solid rgba(245,240,232,.06);
       padding: 24px 0;
+      overflow: hidden;
     }
     .prog-sidebar__label {
       font-family: 'Raleway', sans-serif;
@@ -393,7 +398,8 @@
 
     .prog-main {
       padding: 20px 24px;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     /* Topbar: programme name + live count */
@@ -911,7 +917,7 @@
                   <span>Delegate</span>
                   <span>Check in / out</span>
                   <span>Room</span>
-                  <span>Confirmed</span>
+                  <span>Status</span>
                 </div>
 
                 <div class="prog-row">
@@ -1244,7 +1250,7 @@
               </div>
 
               <div class="hold-note">
-                <strong>Held until 12 Aug 2026,</strong> then 10 rooms release per day to 20 Aug 2026.
+                <strong>Held until 12 Aug 2026.</strong> After that, 10 rooms release per day through 20 Aug 2026.
               </div>
 
             </div>

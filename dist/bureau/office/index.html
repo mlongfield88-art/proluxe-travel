@@ -126,7 +126,7 @@
       display: grid;
       grid-template-columns: 1fr 1.4fr;
       gap: clamp(48px, 7vw, 96px);
-      align-items: start;
+      align-items: center;
     }
     .how-it-works__text .section__eyebrow {
       color: rgba(245,240,232,.4);
@@ -168,7 +168,7 @@
       display: grid;
       grid-template-columns: 1.4fr 1fr;
       gap: clamp(48px, 7vw, 96px);
-      align-items: start;
+      align-items: center;
     }
 
     @media (max-width: 860px) {
@@ -222,6 +222,7 @@
       font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
+      text-decoration: none;
       border-radius: 0;
       transition: background .3s, transform .3s, box-shadow .3s;
     }
@@ -229,6 +230,7 @@
       background: #fff;
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      text-decoration: none;
     }
 
     /* ============================================================
@@ -295,11 +297,13 @@
     .dash-shell {
       display: grid;
       grid-template-columns: 220px 1fr;
-      min-height: 440px;
+      height: 340px;
     }
     @media (max-width: 640px) {
       .dash-shell {
         grid-template-columns: 1fr;
+        height: auto;
+        min-height: 280px;
       }
       .dash-sidebar { display: none; }
     }
@@ -307,6 +311,7 @@
       background: #111;
       border-right: 1px solid rgba(245,240,232,.06);
       padding: 24px 0;
+      overflow: hidden;
     }
     .dash-sidebar__label {
       font-family: 'Raleway', sans-serif;
@@ -332,6 +337,7 @@
     }
     .dash-main {
       padding: 24px 28px;
+      overflow-y: auto;
     }
     .dash-topbar {
       display: flex;
@@ -474,6 +480,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
+      min-height: 0;
     }
     @media (max-width: 640px) {
       .edit-shell {
@@ -536,10 +543,16 @@
       background: rgba(245,240,232,.06);
       color: rgba(245,240,232,.75);
       border: 1px solid rgba(245,240,232,.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
     }
     .btn-mock--pass-label {
       font-size: 10px;
       letter-spacing: .14em;
+      color: rgba(245,240,232,.4);
+      text-transform: uppercase;
     }
     .edit-audit {
       border-left: 1px solid rgba(245,240,232,.07);
