@@ -586,11 +586,12 @@
       transform: translateY(2px);
     }
 
-    /* Closing actions: ghost button "Write to Myles" + secondary
-       Bureau link. Sits after the closing paragraph and before the
-       sign-off, giving the EA a clear next step. */
+    /* Closing actions: ghost button "Write to Myles" sits alone as the
+       primary action. Below it, a paired pair of Bureau cards offers
+       the reader the right door for their role without competing with
+       the write-back. */
     .letter__actions {
-      margin: 28px 0 32px;
+      margin: 28px 0 16px;
       display: flex;
       gap: 28px;
       align-items: center;
@@ -614,21 +615,51 @@
       color: var(--cream);
       border-color: var(--olive);
     }
-    .letter__bureau-link {
-      font-family: 'Raleway', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      border-bottom: 1px solid var(--rule);
-      padding-bottom: 2px;
-      transition: color 0.3s ease, border-color 0.3s ease;
+
+    /* Paired Bureau cards: two parallel doors, each with a noun label
+       and a small italic audience hint underneath. Cards sit side by
+       side on desktop, stack on mobile. No arrows, no UI verbs. */
+    .letter__bureau-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 8px 0 32px;
     }
-    .letter__bureau-link:hover {
-      color: var(--olive);
+    .letter__bureau-card {
+      display: block;
+      padding: 18px 22px;
+      border: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+      background: transparent;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .letter__bureau-card:hover {
       border-color: var(--olive);
+      background: rgba(66, 70, 50, 0.04);
+    }
+    .letter__bureau-card-label {
+      display: block;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+    .letter__bureau-card-hint {
+      display: block;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    @media (max-width: 600px) {
+      .letter__bureau-pair {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
     }
 
     /* Letter date, italic line below the title. Reads as a real
@@ -742,14 +773,23 @@
 
         <p class="private-letter__para">I founded ProLuxe Travel for a small number of principals whose travel cannot afford to fail.</p>
         <p class="private-letter__para">After 20 years on the floor of luxury hotels, the work narrows to two things: who you know, and being there when it matters. By the time your principal arrives, the people at the hotel who matter already know them. The room is as it should be before they ask.</p>
-        <p class="private-letter__para">Whether the principal is travelling alone or with twenty, the work lives in ProLuxe Bureau. A live view across hotels and cities for your office, a private link for each attendee. See how it works <a href="/bureau/office/" target="_blank" rel="noopener">for your office</a> or <a href="/bureau/programme/" target="_blank" rel="noopener">for a programme</a>.</p>
+        <p class="private-letter__para">Whether the principal is travelling alone or with twenty, the work lives in ProLuxe Bureau. A live view across hotels and cities for your office, a private link for each attendee. It runs <a href="/bureau/office/" target="_blank" rel="noopener">in a principal's office</a>, and <a href="/bureau/programme/" target="_blank" rel="noopener">across a conference programme</a>.</p>
         <p class="private-letter__para">The team's work has ranged from 1,800 rooms across 11 hotels in one city for a corporate association, down to 4-city C-suite trips coast-to-coast.</p>
         <p class="private-letter__para">I would be glad to be on hand for your office. If the time finds you, please write.</p>
 
         <div class="letter__actions">
           <a class="letter__write-back" href="mailto:myles@proluxetravels.com?subject=Introduction%20%2F%20ProLuxe%20Travel">Write to Myles</a>
-          <a class="letter__bureau-link" href="/bureau/office/" target="_blank" rel="noopener">See Bureau for an office &rarr;</a>
-          <a class="letter__bureau-link" href="/bureau/programme/" target="_blank" rel="noopener">See Bureau for a programme &rarr;</a>
+        </div>
+
+        <div class="letter__bureau-pair">
+          <a class="letter__bureau-card" href="/bureau/office/" target="_blank" rel="noopener">
+            <span class="letter__bureau-card-label">For a principal's office</span>
+            <span class="letter__bureau-card-hint">EAs and chiefs of staff</span>
+          </a>
+          <a class="letter__bureau-card" href="/bureau/programme/" target="_blank" rel="noopener">
+            <span class="letter__bureau-card-label">For a conference programme</span>
+            <span class="letter__bureau-card-hint">Event managers and group bookers</span>
+          </a>
         </div>
 
         <p class="letter__regards">With my best regards,</p>
