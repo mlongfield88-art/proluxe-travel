@@ -123,13 +123,15 @@
     .ops-shell {
       display: grid;
       grid-template-columns: 220px 1fr;
-      height: 420px;
+      height: 460px;
+      overflow: hidden;
     }
     @media (max-width: 640px) {
       .ops-shell {
         grid-template-columns: 1fr;
         height: auto;
         min-height: 320px;
+        overflow: hidden;
       }
       .ops-sidebar { display: none; }
     }
@@ -244,7 +246,7 @@
 
     .ops-table-head {
       display: grid;
-      grid-template-columns: 1.5fr 1.4fr 1.3fr 1.1fr 100px;
+      grid-template-columns: 1.4fr 1.2fr 1.4fr 1.3fr 90px;
       padding: 7px 0;
       border-bottom: 1px solid rgba(245,240,232,.07);
       margin-bottom: 2px;
@@ -259,7 +261,7 @@
     }
     .ops-row {
       display: grid;
-      grid-template-columns: 1.5fr 1.4fr 1.3fr 1.1fr 100px;
+      grid-template-columns: 1.4fr 1.2fr 1.4fr 1.3fr 90px;
       padding: 10px 0;
       border-bottom: 1px solid rgba(245,240,232,.04);
       align-items: center;
@@ -307,9 +309,18 @@
       letter-spacing: .02em;
     }
 
+    .ops-subline {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      color: rgba(245,240,232,.32);
+      letter-spacing: .04em;
+      padding: 6px 0 4px;
+      line-height: 1.5;
+    }
+
     .status-pill {
       display: inline-block;
-      padding: 3px 10px;
+      padding: 3px 12px;
       border-radius: 2px;
       font-family: 'Raleway', sans-serif;
       font-size: 9px;
@@ -560,7 +571,7 @@
                   </div>
                   <div><span class="status-pill status-pill--confirmed">Confirmed</span></div>
                 </div>
-                <div class="ops-row__role-sub" style="padding: 6px 0 4px; color: rgba(245,240,232,.32); font-family: 'Raleway', sans-serif; font-size: 10px; letter-spacing: .04em;">Op centre arranged via the GM. Boardroom B, service entrance, held.</div>
+                <p class="ops-subline">Op centre arranged via the GM. Boardroom B, service entrance, held.</p>
 
               </div>
             </div>
