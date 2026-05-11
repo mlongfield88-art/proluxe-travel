@@ -44,7 +44,7 @@
     .dash-shell {
       display: grid;
       grid-template-columns: 220px 1fr;
-      height: 340px;
+      height: 380px;
     }
     @media (max-width: 640px) {
       .dash-shell {
@@ -139,7 +139,7 @@
     }
     .dash-table-head {
       display: grid;
-      grid-template-columns: 2fr 1.5fr 1.2fr 1fr 100px;
+      grid-template-columns: 2fr 1fr 1.2fr 1.4fr 110px;
       padding: 8px 0;
       border-bottom: 1px solid rgba(245,240,232,.08);
       margin-bottom: 4px;
@@ -161,7 +161,7 @@
     }
     .dash-row {
       display: grid;
-      grid-template-columns: 2fr 1.5fr 1.2fr 1fr 100px;
+      grid-template-columns: 2fr 1fr 1.2fr 1.4fr 110px;
       padding: 12px 0;
       border-bottom: 1px solid rgba(245,240,232,.05);
       align-items: center;
@@ -185,16 +185,18 @@
       font-family: 'Raleway', sans-serif;
       font-size: 12px;
       color: rgba(245,240,232,.5);
+      white-space: nowrap;
     }
     .status-pill {
       display: inline-block;
-      padding: 3px 10px;
+      padding: 3px 12px;
       border-radius: 2px;
       font-family: 'Raleway', sans-serif;
       font-size: 10px;
       font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
     .status-pill--confirmed {
       background: rgba(66,70,50,.5);

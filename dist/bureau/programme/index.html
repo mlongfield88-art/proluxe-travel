@@ -223,7 +223,7 @@
     /* Table header */
     .prog-table-head {
       display: grid;
-      grid-template-columns: 24px 1.6fr 1.4fr 1fr 90px;
+      grid-template-columns: 24px 1.8fr 1.6fr 0.9fr 95px;
       padding: 7px 0;
       border-bottom: 1px solid rgba(245,240,232,.07);
       margin-bottom: 2px;
@@ -240,7 +240,7 @@
     /* Table rows */
     .prog-row {
       display: grid;
-      grid-template-columns: 24px 1.6fr 1.4fr 1fr 90px;
+      grid-template-columns: 24px 1.8fr 1.6fr 0.9fr 95px;
       padding: 9px 0;
       border-bottom: 1px solid rgba(245,240,232,.04);
       align-items: center;
@@ -268,29 +268,33 @@
       font-family: 'Raleway', sans-serif;
       font-size: 11px;
       color: rgba(245,240,232,.48);
+      white-space: nowrap;
     }
     .prog-row__room {
       font-family: 'Raleway', sans-serif;
       font-size: 11px;
       color: rgba(245,240,232,.38);
+      white-space: nowrap;
     }
     .prog-row__ts {
       font-family: 'Raleway', sans-serif;
       font-size: 10px;
       color: rgba(245,240,232,.28);
       letter-spacing: .02em;
+      white-space: nowrap;
     }
 
     /* Status pill */
     .status-pill {
       display: inline-block;
-      padding: 2px 8px;
+      padding: 3px 10px;
       border-radius: 2px;
       font-family: 'Raleway', sans-serif;
       font-size: 9px;
       font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
     .status-pill--confirmed {
       background: rgba(66,70,50,.5);
