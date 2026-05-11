@@ -19,9 +19,26 @@
        Shared site styles loaded from ../../css/styles.css
     ============================================================ */
 
-    /* Escape valve section (office-specific: dark bg, two-column layout) */
+    /* Override shared 2-column how-it-works layout to stacked */
+    .how-it-works__inner {
+      display: block;
+    }
+    .how-it-works__text {
+      max-width: 740px;
+      margin-bottom: 56px;
+    }
+    .how-it-works__inner .mockup-wrap {
+      max-width: 1080px;
+    }
+    @media (max-width: 860px) {
+      .how-it-works__text {
+        margin-bottom: 40px;
+      }
+    }
+
+    /* Escape valve section (office: dark bg, two-column layout) */
     .escape-valve {
-      background: #2A2A2A;
+      background: #1A1A1A;
       padding: clamp(80px, 10vw, 130px) 0;
     }
     .escape-valve__inner {
@@ -30,7 +47,6 @@
       gap: clamp(48px, 7vw, 96px);
       align-items: center;
     }
-
     @media (max-width: 860px) {
       .escape-valve__inner {
         grid-template-columns: 1fr;
@@ -38,291 +54,65 @@
       }
     }
 
-    /* ============================================================
-       MOCKUP 1 - Dashboard (programme view)
-    ============================================================ */
-    .dash-shell {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      height: 380px;
+    /* Compact note card for the "Always on hand" right column */
+    .ops-note-card {
+      background: #2A2A2A;
+      border: 1px solid rgba(245,240,232,.07);
+      border-radius: 6px;
+      padding: 24px 26px;
     }
-    @media (max-width: 640px) {
-      .dash-shell {
-        grid-template-columns: 1fr;
-        height: auto;
-        min-height: 280px;
-      }
-      .dash-sidebar { display: none; }
-    }
-    .dash-sidebar {
-      background: #111;
-      border-right: 1px solid rgba(245,240,232,.06);
-      padding: 24px 0;
-      overflow: hidden;
-    }
-    .dash-sidebar__label {
+    .ops-note-card__label {
       font-family: 'Raleway', sans-serif;
       font-size: 10px;
       font-weight: 600;
       letter-spacing: .16em;
       text-transform: uppercase;
-      color: rgba(245,240,232,.3);
-      padding: 0 20px 12px;
+      color: rgba(245,240,232,.32);
+      margin-bottom: 14px;
     }
-    .dash-sidebar__item {
-      padding: 10px 20px;
+    .ops-note-card__line {
       font-family: 'Raleway', sans-serif;
-      font-size: 13px;
-      color: rgba(245,240,232,.45);
-      border-left: 2px solid transparent;
-      cursor: default;
-    }
-    .dash-sidebar__item.is-active {
-      color: #F5F0E8;
-      border-left-color: #424632;
-      background: rgba(66,70,50,.12);
-    }
-    .dash-main {
-      padding: 24px 28px;
-      overflow: hidden;
-    }
-    .dash-topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .dash-programme-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      font-weight: 500;
-      color: #F5F0E8;
-    }
-    .dash-live-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,.5);
-    }
-    .dash-filters {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .dash-filter {
-      font-family: 'Raleway', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: 5px 14px;
-      border: 1px solid rgba(245,240,232,.12);
-      border-radius: 2px;
-      color: rgba(245,240,232,.4);
-    }
-    .dash-filter.is-active {
-      border-color: rgba(245,240,232,.35);
-      color: #F5F0E8;
-    }
-    .dash-table-head {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1.2fr 1.4fr 110px;
+      font-size: 12px;
+      color: rgba(245,240,232,.6);
+      line-height: 1.65;
       padding: 8px 0;
-      border-bottom: 1px solid rgba(245,240,232,.08);
-      margin-bottom: 4px;
+      border-top: 1px solid rgba(245,240,232,.06);
     }
-    @media (max-width: 520px) {
-      .dash-table-head { display: none; }
-      .dash-row { grid-template-columns: 1fr auto !important; }
-      .dash-row__city,
-      .dash-row__dates,
-      .dash-row__room { display: none; }
+    .ops-note-card__line:first-of-type {
+      border-top: none;
+      padding-top: 0;
     }
-    .dash-table-head span {
-      font-family: 'Raleway', sans-serif;
-      font-size: 10px;
+    .ops-note-card__line strong {
+      color: rgba(245,240,232,.88);
       font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,.25);
     }
-    .dash-row {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1.2fr 1.4fr 110px;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(245,240,232,.05);
-      align-items: center;
+
+    /* Filter visibility: hide rows that don't match the active filter */
+    .ops-row-wrap[data-status="confirmed"].filter-hidden,
+    .ops-row-wrap[data-status="pending"].filter-hidden,
+    .ops-row-wrap[data-status="changes"].filter-hidden {
+      display: none !important;
     }
-    .dash-row:last-child { border-bottom: none; }
-    .dash-row__hotel {
-      font-family: 'Raleway', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      color: #F5F0E8;
-    }
-    .dash-row__sub {
-      font-size: 11px;
-      color: rgba(245,240,232,.38);
-      margin-top: 2px;
-      font-weight: 400;
-    }
-    .dash-row__city,
-    .dash-row__dates,
-    .dash-row__room {
-      font-family: 'Raleway', sans-serif;
-      font-size: 12px;
-      color: rgba(245,240,232,.5);
-      white-space: nowrap;
-    }
-    .status-pill {
+
+    /* "Pass to ProLuxe" inline link inside row expansion */
+    .ops-expand-pass {
       display: inline-block;
-      padding: 3px 12px;
-      border-radius: 2px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .status-pill--confirmed {
-      background: rgba(66,70,50,.5);
-      color: #9BB87A;
-      border: 1px solid rgba(155,184,122,.25);
-    }
-    .status-pill--pending {
-      background: rgba(254,188,46,.1);
-      color: #FEBC2E;
-      border: 1px solid rgba(254,188,46,.2);
-    }
-    .status-pill--held {
-      background: rgba(245,240,232,.06);
-      color: rgba(245,240,232,.5);
-      border: 1px solid rgba(245,240,232,.12);
-    }
-
-    /* ============================================================
-       MOCKUP 2 - Edit view with Pass to ProLuxe button
-    ============================================================ */
-    .edit-shell {
-      padding: 28px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      min-height: 0;
-    }
-    @media (max-width: 640px) {
-      .edit-shell {
-        grid-template-columns: 1fr;
-        padding: 20px;
-      }
-      .edit-audit { display: none; }
-    }
-    .edit-form-pane {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .edit-label {
-      font-family: 'Raleway', sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,.35);
-      margin-bottom: 6px;
-      display: block;
-    }
-    .edit-field {
-      background: #2C2C2E;
-      border: 1px solid rgba(245,240,232,.1);
-      border-radius: 3px;
-      padding: 10px 14px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 13px;
-      color: #F5F0E8;
-      width: 100%;
-    }
-    .edit-field.is-changed {
-      border-color: rgba(66,70,50,.8);
-      background: rgba(66,70,50,.18);
-    }
-    .edit-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
       margin-top: 8px;
-    }
-    .btn-mock {
-      padding: 11px 20px;
-      border-radius: 2px;
       font-family: 'Raleway', sans-serif;
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
-      text-align: center;
-      cursor: default;
+      color: rgba(245,240,232,.42);
+      border-bottom: 1px solid rgba(245,240,232,.14);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease;
     }
-    .btn-mock--save {
-      background: #F5F0E8;
-      color: #1A1A1A;
+    .ops-expand-pass:hover {
+      color: rgba(245,240,232,.72);
+      border-bottom-color: rgba(245,240,232,.4);
     }
-    .btn-mock--pass {
-      background: rgba(245,240,232,.06);
-      color: rgba(245,240,232,.75);
-      border: 1px solid rgba(245,240,232,.2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-    }
-    .btn-mock--pass-label {
-      font-size: 10px;
-      letter-spacing: .14em;
-      color: rgba(245,240,232,.4);
-      text-transform: uppercase;
-    }
-    .edit-audit {
-      border-left: 1px solid rgba(245,240,232,.07);
-      padding-left: 24px;
-    }
-    .audit-heading {
-      font-family: 'Raleway', sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,.3);
-      margin-bottom: 16px;
-    }
-    .audit-entry {
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(245,240,232,.05);
-    }
-    .audit-entry:last-child { border-bottom: none; }
-    .audit-text {
-      font-family: 'Raleway', sans-serif;
-      font-size: 12px;
-      color: rgba(245,240,232,.55);
-      line-height: 1.6;
-      margin-bottom: 4px;
-    }
-    .audit-meta {
-      font-family: 'Raleway', sans-serif;
-      font-size: 10px;
-      color: rgba(245,240,232,.25);
-      letter-spacing: .04em;
-    }
-
   </style>
 </head>
 <body>
@@ -413,72 +203,64 @@
           <p class="how-it-works__para">If something needs to change, you adjust it in place. If it needs us, you pass it back. Either way, the trail is clean and the hotel works from the same record.</p>
         </div>
 
-        <!-- TODO: replace with real screenshot from bureau.proluxetravels.com once captured -->
-        <div class="mockup-wrap io-reveal" role="img" aria-label="Bureau dashboard showing programme view with booking status">
+        <div class="mockup-wrap io-reveal" role="region" aria-label="Bureau programme dashboard, interactive demo">
           <div class="mockup-chrome">
             <div class="chrome-dots" aria-hidden="true">
               <span class="chrome-dot chrome-dot--red"></span>
               <span class="chrome-dot chrome-dot--amber"></span>
               <span class="chrome-dot chrome-dot--green"></span>
             </div>
-            <span class="chrome-url">bureau.proluxetravels.com</span>
+            <span class="chrome-url">bureau.proluxetravels.com/programmes/autumn-run/principal</span>
           </div>
           <div class="mockup-body">
-            <div class="dash-shell">
-              <nav class="dash-sidebar" aria-hidden="true">
-                <p class="dash-sidebar__label">Programmes</p>
-                <div class="dash-sidebar__item is-active">Programme A, Q3 2026</div>
-                <div class="dash-sidebar__item">Programme B, Q4 2026</div>
-                <div class="dash-sidebar__item">Archive</div>
+            <div class="ops-shell">
+
+              <!-- SIDEBAR: 3 clickable programmes -->
+              <nav class="ops-sidebar" aria-label="Programme selector">
+                <p class="ops-sidebar__label">Programmes</p>
+                <div class="ops-sidebar__item is-active" data-programme="autumn" role="button" tabindex="0" aria-pressed="true">
+                  Autumn city run
+                  <div class="ops-sidebar__meta">Edinburgh, Amsterdam, Munich, Vienna</div>
+                </div>
+                <div class="ops-sidebar__item" data-programme="q1board" role="button" tabindex="0" aria-pressed="false">
+                  Q1 board trips
+                  <div class="ops-sidebar__meta">Geneva, Paris, Davos</div>
+                </div>
+                <div class="ops-sidebar__item" data-programme="springasia" role="button" tabindex="0" aria-pressed="false">
+                  Spring Asia tour
+                  <div class="ops-sidebar__meta">Singapore, Tokyo, Hong Kong</div>
+                </div>
               </nav>
-              <div class="dash-main">
-                <div class="dash-topbar">
-                  <span class="dash-programme-name">Programme A, Q3 2026</span>
-                  <span class="dash-live-badge"><span class="live-dot" aria-hidden="true"></span>Live</span>
+
+              <!-- MAIN PANEL -->
+              <div class="ops-main">
+                <div class="ops-topbar">
+                  <div>
+                    <div class="ops-name" id="opsTitle">Autumn city run</div>
+                    <div class="ops-sub" id="opsSub">Sep to Oct 2026 &bull; 4 bookings</div>
+                  </div>
+                  <span class="ops-live-badge"><span class="live-dot"></span>Live</span>
                 </div>
-                <div class="dash-filters" aria-hidden="true">
-                  <span class="dash-filter is-active">All</span>
-                  <span class="dash-filter">By trip</span>
-                  <span class="dash-filter">By date</span>
-                  <span class="dash-filter">By hotel</span>
+
+                <!-- FILTER TABS -->
+                <div class="ops-filters" role="tablist" aria-label="Booking filter">
+                  <span class="ops-filter is-active" data-filter="all" role="tab" tabindex="0" aria-selected="true">All bookings</span>
+                  <span class="ops-filter" data-filter="confirmed" role="tab" tabindex="0" aria-selected="false">Confirmed</span>
+                  <span class="ops-filter" data-filter="pending" role="tab" tabindex="0" aria-selected="false">Pending</span>
+                  <span class="ops-filter" data-filter="changes" role="tab" tabindex="0" aria-selected="false">Changes this week</span>
                 </div>
-                <div class="dash-table-head" aria-hidden="true">
-                  <span>Hotel</span>
-                  <span>City</span>
+
+                <!-- TABLE HEADER -->
+                <div class="ops-table-head" aria-hidden="true">
+                  <span>Record</span>
                   <span>Dates</span>
                   <span>Room</span>
                   <span>Status</span>
                 </div>
-                <div class="dash-row">
-                  <div>
-                    <div class="dash-row__hotel">Hotel A</div>
-                    <div class="dash-row__sub">Berlin</div>
-                  </div>
-                  <div class="dash-row__city">Berlin</div>
-                  <div class="dash-row__dates">14 to 16 Sep</div>
-                  <div class="dash-row__room">Suite, twin set-up</div>
-                  <div><span class="status-pill status-pill--confirmed">Confirmed</span></div>
-                </div>
-                <div class="dash-row">
-                  <div>
-                    <div class="dash-row__hotel">Hotel B</div>
-                    <div class="dash-row__sub">Hamburg</div>
-                  </div>
-                  <div class="dash-row__city">Hamburg</div>
-                  <div class="dash-row__dates">16 to 18 Sep</div>
-                  <div class="dash-row__room">Executive king</div>
-                  <div><span class="status-pill status-pill--pending">Pending</span></div>
-                </div>
-                <div class="dash-row">
-                  <div>
-                    <div class="dash-row__hotel">Hotel C</div>
-                    <div class="dash-row__sub">Munich</div>
-                  </div>
-                  <div class="dash-row__city">Munich</div>
-                  <div class="dash-row__dates">19 to 21 Sep</div>
-                  <div class="dash-row__room">Junior suite</div>
-                  <div><span class="status-pill status-pill--held">Held</span></div>
-                </div>
+
+                <!-- DATA ROWS: rendered by JS -->
+                <div id="opsTableBody"></div>
+
               </div>
             </div>
           </div>
@@ -488,70 +270,21 @@
     </div>
   </section>
 
-  <!-- ========== ESCAPE VALVE ========== -->
+  <!-- ========== ALWAYS ON HAND ========== -->
   <section class="escape-valve">
     <div class="container">
       <div class="escape-valve__inner">
 
-        <!-- TODO: replace with real screenshot from bureau.proluxetravels.com once captured -->
-        <div class="mockup-wrap io-reveal" role="img" aria-label="Bureau edit view showing the Pass to ProLuxe button">
-          <div class="mockup-chrome">
-            <div class="chrome-dots" aria-hidden="true">
-              <span class="chrome-dot chrome-dot--red"></span>
-              <span class="chrome-dot chrome-dot--amber"></span>
-              <span class="chrome-dot chrome-dot--green"></span>
-            </div>
-            <span class="chrome-url">bureau.proluxetravels.com / edit</span>
-          </div>
-          <div class="mockup-body">
-            <div class="edit-shell">
-              <div class="edit-form-pane" aria-hidden="true">
-                <div>
-                  <span class="edit-label">Programme</span>
-                  <div class="edit-field">Programme A, Q3 2026</div>
-                </div>
-                <div>
-                  <span class="edit-label">Hotel</span>
-                  <div class="edit-field">Hotel B, Hamburg</div>
-                </div>
-                <div>
-                  <span class="edit-label">Dates</span>
-                  <div class="edit-field">16 to 18 Sep 2026</div>
-                </div>
-                <div>
-                  <span class="edit-label">Room category</span>
-                  <div class="edit-field is-changed">Executive king (changed from Superior)</div>
-                </div>
-                <div class="edit-actions">
-                  <div class="btn-mock btn-mock--save">Save change</div>
-                  <div class="btn-mock btn-mock--pass">
-                    Pass to ProLuxe
-                    <div class="btn-mock--pass-label">we handle from here</div>
-                  </div>
-                </div>
-              </div>
-              <div class="edit-audit" aria-hidden="true">
-                <p class="audit-heading">Audit log</p>
-                <div class="audit-entry">
-                  <p class="audit-text">Room category changed: Superior to Executive king.</p>
-                  <p class="audit-meta">09:14, 28 Feb 2027</p>
-                </div>
-                <div class="audit-entry">
-                  <p class="audit-text">Status: Pending to Confirmed.</p>
-                  <p class="audit-meta">14:22, 1 Mar 2027</p>
-                </div>
-                <div class="audit-entry">
-                  <p class="audit-text">Booking created. Room: Superior. Dates: 16 to 18 Sep 2026.</p>
-                  <p class="audit-meta">11:05, 14 Jan 2027</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="io-reveal">
           <h2 class="escape-valve__heading">Always on hand</h2>
-          <p class="escape-valve__para">If you would rather hand a booking back, the Pass to ProLuxe button is always there. We pick it up, the audit log shows the handoff, and you carry on with the next thing.</p>
+          <p class="escape-valve__para">If you would rather hand a booking back, pass it to us directly. We pick it up, the audit log shows the handoff, and you carry on with the next thing.</p>
+        </div>
+
+        <div class="ops-note-card io-reveal" aria-hidden="true">
+          <p class="ops-note-card__label">Pass back</p>
+          <div class="ops-note-card__line"><strong>Rate or room change</strong>, new category, date shift, or upgrade request needing director-level sign-off.</div>
+          <div class="ops-note-card__line"><strong>Last-minute move</strong>, venue or hotel change inside 48 hours with knock-on bookings to rearrange.</div>
+          <div class="ops-note-card__line"><strong>Anything escalated</strong>, a complaint, a billing dispute, a property question that needs a direct hotel relationship to resolve.</div>
         </div>
 
       </div>
@@ -621,10 +354,10 @@
       }
 
       /* ---- Hamburger / off-canvas ---- */
-      var toggle   = document.getElementById('navToggle');
+      var toggle    = document.getElementById('navToggle');
       var offcanvas = document.getElementById('offcanvas');
-      var overlay  = document.getElementById('offcanvasOverlay');
-      var closeBtn = document.getElementById('offcanvasClose');
+      var overlay   = document.getElementById('offcanvasOverlay');
+      var closeBtn  = document.getElementById('offcanvasClose');
 
       function openMenu() {
         offcanvas.classList.add('is-open');
@@ -659,8 +392,8 @@
       }
       var acceptBtn  = document.getElementById('cookieAccept');
       var declineBtn = document.getElementById('cookieDecline');
-      if (acceptBtn)  acceptBtn.addEventListener('click',  function () { localStorage.setItem(cookieKey, 'accepted');  dismissCookie(); });
-      if (declineBtn) declineBtn.addEventListener('click', function () { localStorage.setItem(cookieKey, 'declined');  dismissCookie(); });
+      if (acceptBtn)  acceptBtn.addEventListener('click', function () { localStorage.setItem(cookieKey, 'accepted');  dismissCookie(); });
+      if (declineBtn) declineBtn.addEventListener('click', function () { localStorage.setItem(cookieKey, 'declined'); dismissCookie(); });
 
       /* ---- IntersectionObserver reveals ---- */
       var revealTargets = document.querySelectorAll('.io-reveal, .benefit');
@@ -677,11 +410,333 @@
 
         revealTargets.forEach(function (el) { observer.observe(el); });
       } else {
-        /* Fallback: show everything immediately */
-        revealTargets.forEach(function (el) {
-          el.classList.add('is-visible');
+        revealTargets.forEach(function (el) { el.classList.add('is-visible'); });
+      }
+
+      /* ================================================================
+         INTERACTIVE DEMO
+      ================================================================ */
+
+      /* ---- Programme data ----
+         EA context: multiple trips for a single principal.
+         status values: "confirmed" | "pending" | "changes"
+         (changes = modified this week, may be confirmed or pending)
+      ---- */
+      var programmes = {
+        autumn: {
+          title: 'Autumn city run',
+          sub: 'Sep to Oct 2026 &bull; 4 bookings',
+          rows: [
+            {
+              record: 'Hotel A',
+              recordSub: 'Edinburgh',
+              dates: '8 to 10 Sep',
+              room: 'Junior suite',
+              roomNote: 'City view',
+              status: 'confirmed',
+              expand: {
+                contact: 'GM, Hotel A Edinburgh',
+                roomDetail: 'Junior suite, city-facing. Check-in 8 Sep 15:00, check-out 10 Sep 11:00.',
+                audit: 'Room confirmed &bull; 14:30, 2 Sep &bull; M.L.'
+              }
+            },
+            {
+              record: 'Hotel B',
+              recordSub: 'Amsterdam',
+              dates: '12 to 15 Sep',
+              room: 'Executive king',
+              roomNote: 'Canal view',
+              status: 'confirmed',
+              expand: {
+                contact: 'GM, Hotel B Amsterdam',
+                roomDetail: 'Executive king, canal-facing. Check-in 12 Sep 14:00, check-out 15 Sep 12:00.',
+                audit: 'Early check-in confirmed &bull; 09:05, 4 Sep &bull; M.L.'
+              }
+            },
+            {
+              record: 'Hotel C',
+              recordSub: 'Munich',
+              dates: '17 to 19 Sep',
+              room: 'Suite',
+              roomNote: 'Garden view',
+              status: 'changes',
+              expand: {
+                contact: 'GM, Hotel C Munich',
+                roomDetail: 'Suite, garden-facing. Dates shifted from 16 to 18 Sep. Check-in 17 Sep 15:00, check-out 19 Sep 11:00.',
+                audit: 'Room moved &bull; 09:14, 1 Sep &bull; M.L.'
+              }
+            },
+            {
+              record: 'Hotel D',
+              recordSub: 'Vienna',
+              dates: '21 to 23 Sep',
+              room: 'Deluxe king',
+              roomNote: 'Pending confirmation',
+              status: 'pending',
+              expand: {
+                contact: 'GM, Hotel D Vienna',
+                roomDetail: 'Deluxe king requested. Confirmation pending. Check-in 21 Sep 14:00, check-out 23 Sep 12:00.',
+                audit: 'Hold placed &bull; 11:20, 5 Sep &bull; M.L.'
+              }
+            }
+          ]
+        },
+        q1board: {
+          title: 'Q1 board trips',
+          sub: 'Jan to Mar 2027 &bull; 3 bookings',
+          rows: [
+            {
+              record: 'Hotel E',
+              recordSub: 'Geneva',
+              dates: '19 to 21 Jan',
+              room: 'Suite 612',
+              roomNote: 'Lake view',
+              status: 'confirmed',
+              expand: {
+                contact: 'GM, Hotel E Geneva',
+                roomDetail: 'Suite 612, lake-facing. Check-in 19 Jan 15:00, check-out 21 Jan 11:00. Early departure on file.',
+                audit: 'Booking confirmed &bull; 10:15, 8 Jan &bull; M.L.'
+              }
+            },
+            {
+              record: 'Hotel F',
+              recordSub: 'Paris',
+              dates: '3 to 5 Feb',
+              room: 'Prestige suite',
+              roomNote: 'Floor 7',
+              status: 'confirmed',
+              expand: {
+                contact: 'GM, Hotel F Paris',
+                roomDetail: 'Prestige suite, floor 7. Check-in 3 Feb 14:00, check-out 5 Feb 12:00.',
+                audit: 'Room confirmed &bull; 16:40, 20 Jan &bull; M.L.'
+              }
+            },
+            {
+              record: 'Hotel G',
+              recordSub: 'Davos',
+              dates: '20 to 23 Jan',
+              room: 'Mountain suite',
+              roomNote: 'Pending',
+              status: 'changes',
+              expand: {
+                contact: 'GM, Hotel G Davos',
+                roomDetail: 'Mountain suite requested. Dates adjusted to align with forum schedule. Check-in 20 Jan 13:00, check-out 23 Jan 10:00.',
+                audit: 'Dates revised &bull; 08:50, 10 Jan &bull; M.L.'
+              }
+            }
+          ]
+        },
+        springasia: {
+          title: 'Spring Asia tour',
+          sub: 'Apr to May 2027 &bull; 3 bookings',
+          rows: [
+            {
+              record: 'Hotel H',
+              recordSub: 'Singapore',
+              dates: '4 to 7 Apr',
+              room: 'Club suite',
+              roomNote: 'Skyline view',
+              status: 'confirmed',
+              expand: {
+                contact: 'GM, Hotel H Singapore',
+                roomDetail: 'Club suite, skyline-facing. Check-in 4 Apr 15:00, check-out 7 Apr 12:00. Club lounge access confirmed.',
+                audit: 'Booking confirmed &bull; 13:00, 14 Mar &bull; M.L.'
+              }
+            },
+            {
+              record: 'Hotel I',
+              recordSub: 'Tokyo',
+              dates: '9 to 12 Apr',
+              room: 'Corner suite',
+              roomNote: 'City view',
+              status: 'pending',
+              expand: {
+                contact: 'GM, Hotel I Tokyo',
+                roomDetail: 'Corner suite requested. Availability confirmed by property, hold pending formal sign-off. Check-in 9 Apr 15:00, check-out 12 Apr 11:00.',
+                audit: 'Hold placed &bull; 09:30, 15 Mar &bull; M.L.'
+              }
+            },
+            {
+              record: 'Hotel J',
+              recordSub: 'Hong Kong',
+              dates: '14 to 17 Apr',
+              room: 'Harbour suite',
+              roomNote: 'Harbour view',
+              status: 'confirmed',
+              expand: {
+                contact: 'GM, Hotel J Hong Kong',
+                roomDetail: 'Harbour suite, water-facing. Check-in 14 Apr 14:00, check-out 17 Apr 12:00.',
+                audit: 'Room confirmed &bull; 11:55, 16 Mar &bull; M.L.'
+              }
+            }
+          ]
+        }
+      };
+
+      /* ---- State ---- */
+      var currentProgramme = 'autumn';
+      var currentFilter = 'all';
+      var expandedRowId = null;
+
+      /* ---- Render ---- */
+      function renderProgramme(key) {
+        var prog = programmes[key];
+        var body = document.getElementById('opsTableBody');
+        if (!prog || !body) return;
+
+        document.getElementById('opsTitle').textContent = prog.title;
+        document.getElementById('opsSub').innerHTML = prog.sub;
+
+        /* Update URL bar to reflect programme slug */
+        var slugMap = { autumn: 'autumn-run', q1board: 'q1-board-trips', springasia: 'spring-asia' };
+        var urlBar = document.querySelector('.chrome-url');
+        if (urlBar) {
+          urlBar.textContent = 'bureau.proluxetravels.com/programmes/' + (slugMap[key] || key) + '/principal';
+        }
+
+        var html = '';
+        prog.rows.forEach(function (row, ri) {
+          var rowId = key + '-' + ri;
+          var pillClass = row.status === 'confirmed'
+            ? 'status-pill--confirmed'
+            : row.status === 'pending'
+              ? 'status-pill--held'
+              : 'status-pill--changes';
+          var pillLabel = row.status === 'confirmed'
+            ? 'Confirmed'
+            : row.status === 'pending'
+              ? 'Pending'
+              : 'Changed';
+
+          html += '<div class="ops-row-wrap" data-status="' + row.status + '" data-rowid="' + rowId + '">'
+            + '<div class="ops-row" role="button" tabindex="0" aria-expanded="false" data-rowid="' + rowId + '">'
+            + '<div><div class="ops-row__role">' + row.record + '</div><div class="ops-row__role-sub">' + row.recordSub + '</div></div>'
+            + '<div class="ops-row__dates">' + row.dates + '</div>'
+            + '<div class="ops-row__placement">' + row.room + '<span class="ops-row__placement-note">' + row.roomNote + '</span></div>'
+            + '<div><span class="status-pill ' + pillClass + '">' + pillLabel + '</span></div>'
+            + '</div>'
+            + '<div class="ops-row-expand" data-rowid="' + rowId + '">'
+            + '<p class="ops-row-expand__line">' + row.expand.contact + ' &bull; ' + row.expand.roomDetail + '</p>'
+            + '<p class="ops-row-expand__audit">' + row.expand.audit + '</p>'
+            + '<a class="ops-expand-pass" role="button" tabindex="0">Pass to ProLuxe &rarr;</a>'
+            + '</div>'
+            + '</div>';
+        });
+
+        body.innerHTML = html;
+        expandedRowId = null;
+
+        /* Bind row clicks */
+        body.querySelectorAll('.ops-row').forEach(function (row) {
+          row.addEventListener('click', onRowClick);
+          row.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onRowClick.call(row, e); }
+          });
+        });
+
+        applyFilter(currentFilter);
+      }
+
+      function onRowClick() {
+        var rowId = this.getAttribute('data-rowid');
+        var wrap   = document.querySelector('.ops-row-wrap[data-rowid="' + rowId + '"]');
+        var expand = document.querySelector('.ops-row-expand[data-rowid="' + rowId + '"]');
+        if (!wrap || !expand) return;
+
+        var isOpen = expand.classList.contains('is-open');
+
+        /* Anchor scroll so expansion never jumps the page */
+        var savedScrollY = window.scrollY;
+
+        /* Close all */
+        document.querySelectorAll('.ops-row-expand.is-open').forEach(function (el) { el.classList.remove('is-open'); });
+        document.querySelectorAll('.ops-row-wrap.is-expanded').forEach(function (el) { el.classList.remove('is-expanded'); });
+        document.querySelectorAll('.ops-row[aria-expanded="true"]').forEach(function (el) { el.setAttribute('aria-expanded', 'false'); });
+
+        if (!isOpen) {
+          expand.classList.add('is-open');
+          wrap.classList.add('is-expanded');
+          this.setAttribute('aria-expanded', 'true');
+          expandedRowId = rowId;
+        } else {
+          expandedRowId = null;
+        }
+
+        /* Two-arg form for iOS Safari compatibility */
+        window.scrollTo(0, savedScrollY);
+      }
+
+      /* ---- Filter ---- */
+      function applyFilter(filter) {
+        var body = document.getElementById('opsTableBody');
+        if (!body) return;
+
+        /* Show all first */
+        body.querySelectorAll('.ops-row-wrap').forEach(function (el) {
+          el.classList.remove('filter-hidden');
+        });
+
+        if (filter === 'all') return;
+
+        body.querySelectorAll('.ops-row-wrap').forEach(function (el) {
+          var status = el.getAttribute('data-status');
+          /* "changes" filter matches rows marked as changes regardless of their base status */
+          var match = (filter === status) || (filter === 'changes' && status === 'changes');
+          if (!match) el.classList.add('filter-hidden');
         });
       }
+
+      /* ---- Sidebar programme switching ---- */
+      document.querySelectorAll('.ops-sidebar__item').forEach(function (item) {
+        item.addEventListener('click', function () {
+          var prog = this.getAttribute('data-programme');
+          if (prog === currentProgramme) return;
+          document.querySelectorAll('.ops-sidebar__item').forEach(function (el) {
+            el.classList.remove('is-active');
+            el.setAttribute('aria-pressed', 'false');
+          });
+          this.classList.add('is-active');
+          this.setAttribute('aria-pressed', 'true');
+          currentProgramme = prog;
+          currentFilter = 'all';
+          /* Reset filter tabs to "All bookings" */
+          document.querySelectorAll('.ops-filter').forEach(function (el) {
+            el.classList.remove('is-active');
+            el.setAttribute('aria-selected', 'false');
+          });
+          var allTab = document.querySelector('.ops-filter[data-filter="all"]');
+          if (allTab) {
+            allTab.classList.add('is-active');
+            allTab.setAttribute('aria-selected', 'true');
+          }
+          renderProgramme(prog);
+        });
+        item.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+        });
+      });
+
+      /* ---- Filter tab switching ---- */
+      document.querySelectorAll('.ops-filter').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var f = this.getAttribute('data-filter');
+          document.querySelectorAll('.ops-filter').forEach(function (el) {
+            el.classList.remove('is-active');
+            el.setAttribute('aria-selected', 'false');
+          });
+          this.classList.add('is-active');
+          this.setAttribute('aria-selected', 'true');
+          currentFilter = f;
+          applyFilter(f);
+        });
+        tab.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+        });
+      });
+
+      /* ---- Initial render ---- */
+      renderProgramme('autumn');
+
     })();
   </script>
 

@@ -282,3 +282,383 @@
   }
   .live-dot { animation: none; }
 }
+
+/* ============================================================
+   BUREAU DASHBOARD SHELL (.ops-*)
+   Shared interactive mockup used by operations and office pages.
+   Each page overrides .how-it-works__inner locally to stack layout.
+============================================================ */
+
+.ops-shell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  height: 560px;
+  overflow: hidden;
+}
+@media (max-width: 640px) {
+  .ops-shell {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 320px;
+    overflow: hidden;
+  }
+  .ops-sidebar { display: none; }
+}
+
+.ops-sidebar {
+  background: #111;
+  border-right: 1px solid rgba(245,240,232,.06);
+  padding: 24px 0;
+  overflow: hidden;
+}
+.ops-sidebar__label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,.3);
+  padding: 0 20px 12px;
+}
+.ops-sidebar__item {
+  padding: 10px 20px;
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  color: rgba(245,240,232,.42);
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  line-height: 1.4;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.ops-sidebar__item:hover {
+  background: rgba(245,240,232,.04);
+  color: rgba(245,240,232,.65);
+}
+.ops-sidebar__item.is-active {
+  color: #F5F0E8;
+  border-left-color: #424632;
+  background: rgba(66,70,50,.12);
+}
+.ops-sidebar__meta {
+  font-size: 10px;
+  color: rgba(245,240,232,.24);
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.ops-main {
+  padding: 22px 26px;
+  overflow: hidden;
+}
+.ops-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ops-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #F5F0E8;
+  line-height: 1.2;
+}
+.ops-sub {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  color: rgba(245,240,232,.35);
+  margin-top: 3px;
+}
+.ops-live-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,.5);
+  white-space: nowrap;
+}
+
+.ops-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.ops-filter {
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(245,240,232,.1);
+  border-bottom: 2px solid transparent;
+  border-radius: 2px;
+  color: rgba(245,240,232,.35);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.ops-filter:hover {
+  color: rgba(245,240,232,.6);
+  background: rgba(245,240,232,.03);
+}
+.ops-filter.is-active {
+  border-color: rgba(245,240,232,.32);
+  border-bottom-color: #424632;
+  color: #F5F0E8;
+}
+
+.ops-group-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,.32);
+  padding: 14px 0 6px;
+  border-top: 1px solid rgba(245,240,232,.05);
+}
+.ops-group-label:first-of-type {
+  border-top: none;
+  padding-top: 4px;
+}
+
+/* Table header: 4-column grid, Record / Dates / Room / Status */
+.ops-table-head {
+  display: grid;
+  grid-template-columns: 1.4fr 1.2fr 1.6fr 90px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(245,240,232,.08);
+  margin-bottom: 4px;
+}
+.ops-table-head span {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,.25);
+  white-space: nowrap;
+}
+
+/* Data rows */
+.ops-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1.2fr 1.6fr 90px;
+  padding: 10px 0;
+  min-height: 44px;
+  border-bottom: 1px solid rgba(245,240,232,.04);
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border-radius: 2px;
+}
+.ops-row:last-child { border-bottom: none; }
+.ops-row:hover { background: rgba(245,240,232,.03); }
+
+/* Every body cell: min-width 0 prevents blowing past its fr share */
+.ops-row > div {
+  min-width: 0;
+  overflow: hidden;
+}
+.ops-row__role {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #F5F0E8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ops-row__role-sub {
+  font-size: 10px;
+  color: rgba(245,240,232,.36);
+  margin-top: 2px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ops-row__hotel {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  color: rgba(245,240,232,.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ops-row__hotel-sub {
+  font-size: 10px;
+  color: rgba(245,240,232,.34);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ops-row__dates {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  color: rgba(245,240,232,.5);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ops-row__placement {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  color: rgba(245,240,232,.5);
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ops-row__placement-note {
+  display: block;
+  font-size: 10px;
+  color: rgba(155,184,122,.7);
+  margin-top: 2px;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pill cell: 8px left padding so pill never overlaps the Room column */
+.ops-row > div:last-child {
+  padding-left: 8px;
+}
+
+/* Row expansion */
+.ops-row-expand {
+  display: none;
+  grid-column: 1 / -1;
+  background: rgba(66,70,50,.07);
+  border-left: 2px solid #424632;
+  margin: 0 0 4px 0;
+  padding: 10px 14px 10px 16px;
+  border-radius: 0 2px 2px 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.2s ease, padding 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+}
+.ops-row-expand.is-open {
+  display: grid;
+  max-height: 160px;
+  opacity: 1;
+}
+.ops-row-expand__line {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  color: rgba(245,240,232,.6);
+  line-height: 1.7;
+}
+.ops-row-expand__audit {
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  color: rgba(245,240,232,.3);
+  letter-spacing: .03em;
+  margin-top: 4px;
+}
+
+.ops-row-wrap {
+  display: contents;
+}
+.ops-row-wrap.is-expanded .ops-row {
+  background: rgba(66,70,50,.05);
+  border-bottom-color: transparent;
+}
+
+/* Op-centre subline (operations page) */
+.ops-subline {
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  color: rgba(245,240,232,.32);
+  letter-spacing: .04em;
+  padding: 6px 0 4px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.ops-subline:hover { color: rgba(245,240,232,.52); }
+.ops-subline-expand {
+  display: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  color: rgba(245,240,232,.45);
+  line-height: 1.7;
+  padding: 6px 0 4px 12px;
+  border-left: 2px solid rgba(66,70,50,.5);
+  margin-top: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease, max-height 0.2s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+.ops-subline-expand.is-open {
+  display: block;
+  opacity: 1;
+  max-height: 80px;
+}
+
+/* Status pills */
+.status-pill {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 2px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.status-pill--confirmed {
+  background: rgba(66,70,50,.5);
+  color: #9BB87A;
+  border: 1px solid rgba(155,184,122,.25);
+}
+.status-pill--held {
+  background: rgba(245,240,232,.06);
+  color: rgba(245,240,232,.5);
+  border: 1px solid rgba(245,240,232,.12);
+}
+.status-pill--changes {
+  background: rgba(254,188,46,.08);
+  color: #FEBC2E;
+  border: 1px solid rgba(254,188,46,.2);
+}
+
+/* 520px breakpoint: hide Dates + Room, collapse to 2 columns */
+@media (max-width: 520px) {
+  .ops-table-head { display: none; }
+  .ops-row { grid-template-columns: 1fr auto; }
+  .ops-row__dates,
+  .ops-row__placement { display: none; }
+}
+
+@media (max-width: 380px) {
+  .ops-main { padding: 14px 14px; }
+  .ops-filters { gap: 6px; }
+}
