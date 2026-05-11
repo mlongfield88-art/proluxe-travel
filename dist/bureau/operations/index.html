@@ -262,7 +262,7 @@
     /* ---- Header: explicit block display on span children, min-width: 0 prevents collapse ---- */
     .ops-table-head {
       display: grid;
-      grid-template-columns: 1.2fr 1fr 1.2fr 1.6fr 90px;
+      grid-template-columns: 1.4fr 1.2fr 1.6fr 90px;
       padding: 8px 0;
       border-bottom: 1px solid rgba(245,240,232,.08);
       margin-bottom: 4px;
@@ -283,7 +283,7 @@
 
     .ops-row {
       display: grid;
-      grid-template-columns: 1.2fr 1fr 1.2fr 1.6fr 90px;
+      grid-template-columns: 1.4fr 1.2fr 1.6fr 90px;
       padding: 10px 0;
       border-bottom: 1px solid rgba(245,240,232,.04);
       align-items: center;
@@ -462,7 +462,6 @@
     @media (max-width: 520px) {
       .ops-table-head { display: none; }
       .ops-row { grid-template-columns: 1fr auto; }
-      .ops-row__hotel,
       .ops-row__dates,
       .ops-row__placement { display: none; }
     }
@@ -653,7 +652,6 @@
                 <!-- TABLE HEADER (fixed, columns match data rows) -->
                 <div class="ops-table-head" aria-hidden="true">
                   <span>Record</span>
-                  <span>Hotel</span>
                   <span>Dates</span>
                   <span>Placement</span>
                   <span>Status</span>
@@ -1061,8 +1059,7 @@
               : '<span class="status-pill status-pill--held">Held</span>';
             html += '<div class="ops-row-wrap" data-type="' + row.type + '" data-rowid="' + rowId + '">'
               + '<div class="ops-row" role="button" tabindex="0" aria-expanded="false" data-rowid="' + rowId + '">'
-              + '<div><div class="ops-row__role">' + row.role + '</div><div class="ops-row__role-sub">' + row.roleSub + '</div></div>'
-              + '<div><div class="ops-row__hotel">' + row.hotel + '</div><div class="ops-row__hotel-sub">' + row.hotelSub + '</div></div>'
+              + '<div><div class="ops-row__role">' + row.role + '</div><div class="ops-row__role-sub ops-row__hotel-line">' + row.hotel + ', ' + row.hotelSub + '</div></div>'
               + '<div class="ops-row__dates">' + row.dates + '</div>'
               + '<div class="ops-row__placement">' + row.placement + '<span class="ops-row__placement-note">' + row.placementNote + '</span></div>'
               + '<div>' + pill + '</div>'
