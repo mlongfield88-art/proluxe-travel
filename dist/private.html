@@ -668,7 +668,8 @@
 
         <p class="private-letter__para">I founded ProLuxe Travel for a small number of principals whose travel cannot afford to fail.</p>
         <p class="private-letter__para">After 20 years on the floor of luxury hotels, the work narrows to two things: who you know, and being there when it matters. By the time your principal arrives, the people at the hotel who matter already know them. The room is as it should be before they ask.</p>
-        <p class="private-letter__para">Whether the principal is travelling alone or with twenty, the work lives in ProLuxe Bureau. A live view across hotels and cities for your office, a private link for each attendee. It runs <a href="/bureau/office/" target="_blank" rel="noopener">in a principal's office</a>, and <a href="/bureau/programme/" target="_blank" rel="noopener">across a conference programme</a>.</p>
+        <p class="private-letter__para" data-letter-para="default">Whether the principal is travelling alone or with twenty, the work lives in ProLuxe Bureau. A live view across hotels and cities for your office, a private link for each attendee. It runs <a href="/bureau/office/" target="_blank" rel="noopener">in a principal's office</a>, and <a href="/bureau/programme/" target="_blank" rel="noopener">across a conference programme</a>.</p>
+        <p class="private-letter__para letter__greeting--hidden" data-letter-para="shepherd">Where a principal travels with a protection team, the work lives in ProLuxe Bureau. The principal and the team sit on one record, with rooms placed in proximity rather than across the city, because the hotel relationship is at director level rather than central reservations. One point of contact across both halves of the trip. It runs <a href="/bureau/operations/" target="_blank" rel="noopener">for operations</a>, and <a href="/bureau/office/" target="_blank" rel="noopener">for a principal's office</a>.</p>
         <p class="private-letter__para">The team's work has ranged from 1,800 rooms across 11 hotels in one city for a corporate association, down to 4-city C-suite trips coast-to-coast.</p>
         <p class="private-letter__para">I would be glad to be on hand for your office. If the time finds you, please write.</p>
 
@@ -677,13 +678,13 @@
         </div>
 
         <div class="letter__bureau-pair">
-          <a class="letter__bureau-card" href="/bureau/office/" target="_blank" rel="noopener">
-            <span class="letter__bureau-card-label">For a principal's office</span>
-            <span class="letter__bureau-card-hint">EAs and chiefs of staff</span>
+          <a class="letter__bureau-card" id="bureauCardOne" href="/bureau/office/" target="_blank" rel="noopener">
+            <span class="letter__bureau-card-label" data-card-label="one">For a principal's office</span>
+            <span class="letter__bureau-card-hint" data-card-hint="one">EAs and chiefs of staff</span>
           </a>
-          <a class="letter__bureau-card" href="/bureau/programme/" target="_blank" rel="noopener">
-            <span class="letter__bureau-card-label">For a conference programme</span>
-            <span class="letter__bureau-card-hint">Event managers and group bookers</span>
+          <a class="letter__bureau-card" id="bureauCardTwo" href="/bureau/programme/" target="_blank" rel="noopener">
+            <span class="letter__bureau-card-label" data-card-label="two">For a conference programme</span>
+            <span class="letter__bureau-card-hint" data-card-hint="two">Event managers and group bookers</span>
           </a>
         </div>
 
@@ -719,18 +720,51 @@
 
   <script>
     // Personalise the greeting from URL parameter ?to=Name
+    // and swap the bureau paragraph + CTA cards when ?context=shepherd is present.
     (function() {
       var params = new URLSearchParams(window.location.search);
+
+      // Greeting from ?to=
       var toName = params.get('to');
       var greeting = document.getElementById('letterGreeting');
-      if (!greeting) return;
-      if (toName && toName.trim()) {
-        var name = toName.trim().slice(0, 40);
-        name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-        // textContent escapes HTML, safe against injection.
-        greeting.textContent = 'Dear ' + name + ',';
-      } else {
-        greeting.classList.add('letter__greeting--hidden');
+      if (greeting) {
+        if (toName && toName.trim()) {
+          var name = toName.trim().slice(0, 40);
+          name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+          // textContent escapes HTML, safe against injection.
+          greeting.textContent = 'Dear ' + name + ',';
+        } else {
+          greeting.classList.add('letter__greeting--hidden');
+        }
+      }
+
+      // Context swap from ?context=shepherd
+      var context = (params.get('context') || '').trim().toLowerCase();
+      if (context === 'shepherd') {
+        var defaultPara  = document.querySelector('[data-letter-para="default"]');
+        var shepherdPara = document.querySelector('[data-letter-para="shepherd"]');
+        if (defaultPara && shepherdPara) {
+          defaultPara.classList.add('letter__greeting--hidden');
+          shepherdPara.classList.remove('letter__greeting--hidden');
+        }
+
+        var cardOne = document.getElementById('bureauCardOne');
+        if (cardOne) {
+          cardOne.setAttribute('href', '/bureau/operations/');
+          var cardOneLabel = cardOne.querySelector('[data-card-label="one"]');
+          var cardOneHint  = cardOne.querySelector('[data-card-hint="one"]');
+          if (cardOneLabel) cardOneLabel.textContent = 'For operations';
+          if (cardOneHint)  cardOneHint.textContent  = 'Operations leads and protection teams';
+        }
+
+        var cardTwo = document.getElementById('bureauCardTwo');
+        if (cardTwo) {
+          cardTwo.setAttribute('href', '/bureau/office/');
+          var cardTwoLabel = cardTwo.querySelector('[data-card-label="two"]');
+          var cardTwoHint  = cardTwo.querySelector('[data-card-hint="two"]');
+          if (cardTwoLabel) cardTwoLabel.textContent = "For a principal's office";
+          if (cardTwoHint)  cardTwoHint.textContent  = 'EAs and chiefs of staff';
+        }
       }
     })();
   </script>

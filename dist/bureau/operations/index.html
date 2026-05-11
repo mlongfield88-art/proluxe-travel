@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>ProLuxe Bureau, for operations | ProLuxe Travel</title>
+  <meta name="description" content="Bureau holds the principal and the protection team in one record. Rooms at the same property, hotel relationships at director level, one point of contact across travel and security.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:wght@400;500;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../bureau-shared.css">
+  <style>
+    /* ============================================================
+       BUREAU OPERATIONS PAGE - page-specific styles only
+       Shared bureau styles loaded from ../bureau-shared.css
+       Shared site styles loaded from ../../css/styles.css
+    ============================================================ */
+
+    /* Placement section (parallel to office's deadline pattern: dark bg, two-column with annotation panel) */
+    .placement-section {
+      background: #2A2A2A;
+      padding: clamp(80px, 10vw, 130px) 0;
+    }
+    .placement-section__inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: clamp(48px, 7vw, 96px);
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .placement-section__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+    }
+    .placement-section__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 500;
+      color: #F5F0E8;
+      margin-bottom: 24px;
+      line-height: 1.15;
+    }
+    .placement-section__para {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(14px, 1.2vw, 16px);
+      font-weight: 400;
+      color: rgba(245,240,232,.65);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .placement-section__para:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Annotation panel: small ledger-style call-out, sits beside the body copy */
+    .annotation-panel {
+      background: #1C1C1E;
+      border: 1px solid rgba(245,240,232,.08);
+      border-radius: 8px;
+      padding: 28px 30px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.42);
+    }
+    .annotation-panel__label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.32);
+      margin-bottom: 18px;
+    }
+    .annotation-panel__row {
+      padding: 14px 0;
+      border-top: 1px solid rgba(245,240,232,.06);
+    }
+    .annotation-panel__row:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+    .annotation-panel__row:last-of-type {
+      padding-bottom: 0;
+    }
+    .annotation-panel__when {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #F5F0E8;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .annotation-panel__detail {
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      color: rgba(245,240,232,.52);
+      line-height: 1.6;
+    }
+
+    /* Escape valve section (operations: dark bg, two-column to match office) */
+    .escape-valve {
+      background: #1A1A1A;
+      padding: clamp(80px, 10vw, 130px) 0;
+    }
+    .escape-valve__inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: clamp(48px, 7vw, 96px);
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .escape-valve__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+    }
+
+    /* ============================================================
+       MOCKUP 1 - Joint engagement dashboard
+    ============================================================ */
+    .ops-shell {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      height: 420px;
+    }
+    @media (max-width: 640px) {
+      .ops-shell {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 320px;
+      }
+      .ops-sidebar { display: none; }
+    }
+    .ops-sidebar {
+      background: #111;
+      border-right: 1px solid rgba(245,240,232,.06);
+      padding: 24px 0;
+      overflow: hidden;
+    }
+    .ops-sidebar__label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.3);
+      padding: 0 20px 12px;
+    }
+    .ops-sidebar__item {
+      padding: 10px 20px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      color: rgba(245,240,232,.42);
+      border-left: 2px solid transparent;
+      cursor: default;
+      line-height: 1.4;
+    }
+    .ops-sidebar__item.is-active {
+      color: #F5F0E8;
+      border-left-color: #424632;
+      background: rgba(66,70,50,.12);
+    }
+    .ops-sidebar__meta {
+      font-size: 10px;
+      color: rgba(245,240,232,.24);
+      margin-top: 2px;
+    }
+    .ops-main {
+      padding: 22px 26px;
+      overflow: hidden;
+    }
+    .ops-topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .ops-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #F5F0E8;
+      line-height: 1.2;
+    }
+    .ops-sub {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.35);
+      margin-top: 3px;
+    }
+    .ops-live-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.5);
+      white-space: nowrap;
+    }
+    .ops-filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .ops-filter {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border: 1px solid rgba(245,240,232,.1);
+      border-radius: 2px;
+      color: rgba(245,240,232,.35);
+      white-space: nowrap;
+    }
+    .ops-filter.is-active {
+      border-color: rgba(245,240,232,.32);
+      color: #F5F0E8;
+    }
+
+    .ops-group-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.32);
+      padding: 14px 0 6px;
+      border-top: 1px solid rgba(245,240,232,.05);
+    }
+    .ops-group-label:first-of-type {
+      border-top: none;
+      padding-top: 4px;
+    }
+
+    .ops-table-head {
+      display: grid;
+      grid-template-columns: 1.5fr 1.4fr 1.3fr 1.1fr 100px;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(245,240,232,.07);
+      margin-bottom: 2px;
+    }
+    .ops-table-head span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.22);
+    }
+    .ops-row {
+      display: grid;
+      grid-template-columns: 1.5fr 1.4fr 1.3fr 1.1fr 100px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(245,240,232,.04);
+      align-items: center;
+    }
+    .ops-row:last-child { border-bottom: none; }
+    .ops-row__role {
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #F5F0E8;
+    }
+    .ops-row__role-sub {
+      font-size: 10px;
+      color: rgba(245,240,232,.36);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+    .ops-row__hotel {
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      color: rgba(245,240,232,.7);
+    }
+    .ops-row__hotel-sub {
+      font-size: 10px;
+      color: rgba(245,240,232,.34);
+      margin-top: 2px;
+    }
+    .ops-row__dates {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.5);
+      white-space: nowrap;
+    }
+    .ops-row__placement {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.5);
+      white-space: nowrap;
+    }
+    .ops-row__placement-note {
+      display: block;
+      font-size: 10px;
+      color: rgba(155,184,122,.7);
+      margin-top: 2px;
+      letter-spacing: .02em;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 2px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .status-pill--confirmed {
+      background: rgba(66,70,50,.5);
+      color: #9BB87A;
+      border: 1px solid rgba(155,184,122,.25);
+    }
+    .status-pill--held {
+      background: rgba(245,240,232,.06);
+      color: rgba(245,240,232,.5);
+      border: 1px solid rgba(245,240,232,.12);
+    }
+
+    @media (max-width: 520px) {
+      .ops-table-head { display: none; }
+      .ops-row { grid-template-columns: 1fr auto; }
+      .ops-row__hotel,
+      .ops-row__dates,
+      .ops-row__placement { display: none; }
+    }
+
+    /* Compact escape-valve note: a small ledger card for the dark "Always on hand" right column */
+    .ops-note-card {
+      background: #2A2A2A;
+      border: 1px solid rgba(245,240,232,.07);
+      border-radius: 6px;
+      padding: 24px 26px;
+    }
+    .ops-note-card__label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.32);
+      margin-bottom: 14px;
+    }
+    .ops-note-card__line {
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      color: rgba(245,240,232,.6);
+      line-height: 1.65;
+      padding: 8px 0;
+      border-top: 1px solid rgba(245,240,232,.06);
+    }
+    .ops-note-card__line:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+    .ops-note-card__line strong {
+      color: rgba(245,240,232,.88);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <header class="header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/" class="nav__wordmark">ProLuxe Travel</a>
+      <div class="nav__links" id="navLinks">
+        <a href="/#about" class="nav__link">About</a>
+        <a href="/#services" class="nav__link">Services</a>
+        <a href="/#approach" class="nav__link">Our Approach</a>
+        <a href="/#contact" class="nav__link">Contact</a>
+      </div>
+      <button class="nav__hamburger" id="navToggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Off-canvas mobile nav -->
+  <div class="offcanvas" id="offcanvas" aria-hidden="true">
+    <div class="offcanvas__overlay" id="offcanvasOverlay"></div>
+    <div class="offcanvas__panel">
+      <button class="offcanvas__close" id="offcanvasClose" aria-label="Close navigation menu">&times;</button>
+      <nav class="offcanvas__nav" aria-label="Mobile navigation">
+        <a href="/#about" class="offcanvas__link">About</a>
+        <a href="/#services" class="offcanvas__link">Services</a>
+        <a href="/#approach" class="offcanvas__link">Our Approach</a>
+        <a href="/#contact" class="offcanvas__link">Contact</a>
+      </nav>
+      <div class="offcanvas__contact">
+        <p>info@proluxetravels.com</p>
+        <p>London, United Kingdom</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HERO ========== -->
+  <section class="bureau-hero">
+    <div class="container">
+      <div class="bureau-hero__inner">
+        <p class="bureau-eyebrow io-reveal">ProLuxe Bureau</p>
+        <h1 class="bureau-hero__title io-reveal">Rooms next to the principal, not down the road.</h1>
+        <p class="bureau-hero__sub io-reveal">Bureau is the console we built for our office. It holds the joint engagement, principal and protection team, in a single record. Hotel relationships at director level, one point of contact across travel and security, the same record the hotel works from.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BENEFITS STRIP ========== -->
+  <section class="benefits" aria-label="Bureau benefits for operations teams">
+    <div class="container">
+      <div class="benefits__grid">
+
+        <article class="benefit">
+          <span class="benefit__numeral">01 / Same property as the principal.</span>
+          <span class="benefit__rule" aria-hidden="true"></span>
+          <h2 class="benefit__heading">Same property as the principal.</h2>
+          <p class="benefit__body">Hotel relationships at director level make placement on the same floor or adjacent rooms possible. Not central reservations, not a junior duty manager. The conversation that allows it happens before the team arrives.</p>
+        </article>
+
+        <article class="benefit">
+          <span class="benefit__numeral">02 / Op centre when the property allows.</span>
+          <span class="benefit__rule" aria-hidden="true"></span>
+          <h2 class="benefit__heading">Op centre when the property allows.</h2>
+          <p class="benefit__body">Coordinated through the GM rather than pieced together by the team on arrival. Function space, secondary suites, service routes, agreed in advance and held against the engagement.</p>
+        </article>
+
+        <article class="benefit">
+          <span class="benefit__numeral">03 / One contact across travel and security.</span>
+          <span class="benefit__rule" aria-hidden="true"></span>
+          <h2 class="benefit__heading">One contact across travel and security.</h2>
+          <p class="benefit__body">The same record we work from, the same record the hotel sees, the same person to call when something moves. Travel logistics and protection coverage in one view, not two parallel inboxes.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section class="how-it-works">
+    <div class="container">
+      <div class="how-it-works__inner">
+
+        <div class="how-it-works__text io-reveal">
+          <h2 class="how-it-works__heading">How it works for operations</h2>
+          <p class="how-it-works__para">We configure Bureau before the engagement opens. Principal accommodation, protection team rooms, any op centre arrangement, all sitting on one record against one hotel relationship. From there, both halves of the trip stay in step.</p>
+          <p class="how-it-works__para">If a movement changes, you tell us once. The principal record and the team record update together. The hotel works from the same file. Nothing goes through 2 inboxes to find the same answer.</p>
+        </div>
+
+        <!-- TODO: replace with real screenshot from bureau.proluxetravels.com once captured -->
+        <div class="mockup-wrap io-reveal" role="img" aria-label="Bureau joint engagement view showing a principal booking and a protection team booking at the same property, plus an op centre arrangement">
+          <div class="mockup-chrome">
+            <div class="chrome-dots" aria-hidden="true">
+              <span class="chrome-dot chrome-dot--red"></span>
+              <span class="chrome-dot chrome-dot--amber"></span>
+              <span class="chrome-dot chrome-dot--green"></span>
+            </div>
+            <span class="chrome-url">bureau.proluxetravels.com/engagements/[engagement]/joint</span>
+          </div>
+          <div class="mockup-body">
+            <div class="ops-shell">
+              <nav class="ops-sidebar" aria-hidden="true">
+                <p class="ops-sidebar__label">Engagements</p>
+                <div class="ops-sidebar__item is-active">
+                  Berlin, Sep 2026
+                  <div class="ops-sidebar__meta">Principal + team of 4</div>
+                </div>
+                <div class="ops-sidebar__item">
+                  Geneva, Oct 2026
+                  <div class="ops-sidebar__meta">Principal + team of 6</div>
+                </div>
+                <div class="ops-sidebar__item">
+                  Archive
+                </div>
+              </nav>
+              <div class="ops-main" aria-hidden="true">
+                <div class="ops-topbar">
+                  <div>
+                    <div class="ops-name">Berlin, Sep 2026</div>
+                    <div class="ops-sub">14 to 16 Sep 2026 &bull; Hotel A, Berlin</div>
+                  </div>
+                  <span class="ops-live-badge"><span class="live-dot"></span>Live</span>
+                </div>
+
+                <div class="ops-filters">
+                  <span class="ops-filter is-active">Joint view</span>
+                  <span class="ops-filter">Principal</span>
+                  <span class="ops-filter">Team</span>
+                  <span class="ops-filter">Op centre</span>
+                </div>
+
+                <div class="ops-table-head">
+                  <span>Record</span>
+                  <span>Hotel</span>
+                  <span>Dates</span>
+                  <span>Placement</span>
+                  <span>Status</span>
+                </div>
+
+                <p class="ops-group-label">Principal</p>
+                <div class="ops-row">
+                  <div>
+                    <div class="ops-row__role">Principal</div>
+                    <div class="ops-row__role-sub">Single occupancy</div>
+                  </div>
+                  <div>
+                    <div class="ops-row__hotel">Hotel A</div>
+                    <div class="ops-row__hotel-sub">Berlin</div>
+                  </div>
+                  <div class="ops-row__dates">14 to 16 Sep 2026</div>
+                  <div class="ops-row__placement">
+                    Suite 412
+                    <span class="ops-row__placement-note">Floor 4</span>
+                  </div>
+                  <div><span class="status-pill status-pill--confirmed">Confirmed</span></div>
+                </div>
+
+                <p class="ops-group-label">Protection team</p>
+                <div class="ops-row">
+                  <div>
+                    <div class="ops-row__role">Protection team</div>
+                    <div class="ops-row__role-sub">2 operators</div>
+                  </div>
+                  <div>
+                    <div class="ops-row__hotel">Hotel A</div>
+                    <div class="ops-row__hotel-sub">Berlin</div>
+                  </div>
+                  <div class="ops-row__dates">14 to 16 Sep 2026</div>
+                  <div class="ops-row__placement">
+                    Twin 410 / 411
+                    <span class="ops-row__placement-note">Adjacent, same floor</span>
+                  </div>
+                  <div><span class="status-pill status-pill--confirmed">Confirmed</span></div>
+                </div>
+                <div class="ops-row">
+                  <div>
+                    <div class="ops-row__role">Operations lead</div>
+                    <div class="ops-row__role-sub">Single occupancy</div>
+                  </div>
+                  <div>
+                    <div class="ops-row__hotel">Hotel A</div>
+                    <div class="ops-row__hotel-sub">Berlin</div>
+                  </div>
+                  <div class="ops-row__dates">14 to 16 Sep 2026</div>
+                  <div class="ops-row__placement">
+                    Room 408
+                    <span class="ops-row__placement-note">Same floor</span>
+                  </div>
+                  <div><span class="status-pill status-pill--confirmed">Confirmed</span></div>
+                </div>
+
+                <p class="ops-group-label">Op centre</p>
+                <div class="ops-row">
+                  <div>
+                    <div class="ops-row__role">Op centre</div>
+                    <div class="ops-row__role-sub">Function space</div>
+                  </div>
+                  <div>
+                    <div class="ops-row__hotel">Hotel A</div>
+                    <div class="ops-row__hotel-sub">Berlin</div>
+                  </div>
+                  <div class="ops-row__dates">14 to 16 Sep 2026</div>
+                  <div class="ops-row__placement">
+                    Boardroom B
+                    <span class="ops-row__placement-note">Service entrance</span>
+                  </div>
+                  <div><span class="status-pill status-pill--held">Held</span></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHEN THE PLACEMENT MATTERS ========== -->
+  <section class="placement-section">
+    <div class="container">
+      <div class="placement-section__inner">
+
+        <div class="io-reveal">
+          <h2 class="placement-section__heading">When the placement matters</h2>
+          <p class="placement-section__para">Most engagements never test the room next to the principal. The ones that do tend to fall in a few predictable windows.</p>
+          <p class="placement-section__para">Pre-arrival checks 2 to 3 days out, with the property already briefed on who is staying and where. Room inspection on the day of arrival, with the GM on the same call rather than escalated to. A last-minute move at 6pm, where the existing relationship is the difference between a yes and a polite no.</p>
+          <p class="placement-section__para">Bureau holds the record. The relationship sits behind it. Both are quiet until the engagement asks for them.</p>
+        </div>
+
+        <div class="annotation-panel io-reveal" aria-hidden="true">
+          <p class="annotation-panel__label">Operational windows</p>
+          <div class="annotation-panel__row">
+            <p class="annotation-panel__when">2 to 3 days before arrival</p>
+            <p class="annotation-panel__detail">Pre-arrival checks. The property is briefed on who is staying, room set-up confirmed against the record.</p>
+          </div>
+          <div class="annotation-panel__row">
+            <p class="annotation-panel__when">Arrival day</p>
+            <p class="annotation-panel__detail">Room inspection with the duty GM. Same record, no re-briefing on the doorstep.</p>
+          </div>
+          <div class="annotation-panel__row">
+            <p class="annotation-panel__when">Last-minute movement</p>
+            <p class="annotation-panel__detail">Venue swap, late move, sweep coordination. The director-level relationship is the call you do not want to make from scratch.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ALWAYS ON HAND ========== -->
+  <section class="escape-valve">
+    <div class="container">
+      <div class="escape-valve__inner">
+
+        <div class="io-reveal">
+          <h2 class="escape-valve__heading">Always on hand</h2>
+          <p class="escape-valve__para">If a placement needs us, a late move, a venue swap, a sweep coordination, pass it back. We pick it up, the audit log shows the handoff, and the principal and team records stay in step.</p>
+        </div>
+
+        <div class="ops-note-card io-reveal" aria-hidden="true">
+          <p class="ops-note-card__label">Pass back</p>
+          <div class="ops-note-card__line"><strong>Late move</strong>, principal hotel change inside 24 hours of arrival.</div>
+          <div class="ops-note-card__line"><strong>Venue swap</strong>, dinner or meeting venue change with team accommodation knock-on.</div>
+          <div class="ops-note-card__line"><strong>Sweep coordination</strong>, room access window agreed with the GM before the team arrives.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="bureau-cta" aria-label="Contact ProLuxe">
+    <div class="container">
+      <div class="bureau-cta__inner io-reveal">
+        <p class="bureau-cta__para">If you run protection or operations for a principal who travels, we should talk. We take a small number of joint engagements per quarter, paired with the relevant property in each city.</p>
+        <a href="mailto:info@proluxetravels.com?subject=ProLuxe%20Bureau%20operations%20enquiry" class="btn--olive-inverse">Speak with us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__wordmark">ProLuxe Travel</a>
+        <p class="footer__tagline">Corporate &amp; luxury travel management.</p>
+      </div>
+      <div class="footer__links">
+        <a href="/#about">About</a>
+        <a href="/#services">Services</a>
+        <a href="/#approach">Our Approach</a>
+        <a href="/explore-cumbria">Explore Cumbria</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <div class="footer__legal">
+        <p>&copy; 2026 ProLuxe Travel Ltd. All rights reserved.</p>
+        <p class="footer__reg">45 Welbeck Street, London, W1G 8DZ</p>
+        <div class="footer__policy-links">
+          <a href="/privacy-policy.html">Privacy Policy</a>
+          <a href="/privacy-policy.html#cookies">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== COOKIE CONSENT ========== -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
+    <div class="cookie-banner__inner">
+      <p class="cookie-banner__text">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. <a href="/privacy-policy.html#cookies">Learn more</a></p>
+      <div class="cookie-banner__actions">
+        <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept">Accept</button>
+        <button class="cookie-banner__btn cookie-banner__btn--decline" id="cookieDecline">Decline</button>
+      </div>
+    </div>
+  </div>
+
+  <noscript><style>.io-reveal,.benefit{opacity:1;transform:none}</style></noscript>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---- Nav scroll state ---- */
+      var header = document.querySelector('.header');
+      if (header) {
+        var onScroll = function () {
+          header.classList.toggle('nav--scrolled', window.scrollY > 40);
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+
+      /* ---- Hamburger / off-canvas ---- */
+      var toggle    = document.getElementById('navToggle');
+      var offcanvas = document.getElementById('offcanvas');
+      var overlay   = document.getElementById('offcanvasOverlay');
+      var closeBtn  = document.getElementById('offcanvasClose');
+
+      function openMenu() {
+        offcanvas.classList.add('is-open');
+        offcanvas.setAttribute('aria-hidden', 'false');
+        if (toggle) toggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        offcanvas.classList.remove('is-open');
+        offcanvas.setAttribute('aria-hidden', 'true');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      if (toggle)   toggle.addEventListener('click', openMenu);
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      if (overlay)  overlay.addEventListener('click', closeMenu);
+
+      document.querySelectorAll('.offcanvas__link').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      /* ---- Cookie banner ---- */
+      var cookieBanner = document.getElementById('cookieBanner');
+      var cookieKey    = 'plx_cookie_consent';
+
+      if (cookieBanner && !localStorage.getItem(cookieKey)) {
+        setTimeout(function () { cookieBanner.classList.add('is-visible'); }, 900);
+      }
+      function dismissCookie() {
+        cookieBanner.classList.remove('is-visible');
+      }
+      var acceptBtn  = document.getElementById('cookieAccept');
+      var declineBtn = document.getElementById('cookieDecline');
+      if (acceptBtn)  acceptBtn.addEventListener('click', function () { localStorage.setItem(cookieKey, 'accepted');  dismissCookie(); });
+      if (declineBtn) declineBtn.addEventListener('click', function () { localStorage.setItem(cookieKey, 'declined'); dismissCookie(); });
+
+      /* ---- IntersectionObserver reveals ---- */
+      var revealTargets = document.querySelectorAll('.io-reveal, .benefit');
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+
+        revealTargets.forEach(function (el) { observer.observe(el); });
+      } else {
+        revealTargets.forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
