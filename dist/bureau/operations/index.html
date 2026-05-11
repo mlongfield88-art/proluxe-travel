@@ -1163,8 +1163,11 @@
           expandedRowId = null;
         }
 
-        /* Restore scroll position immediately after DOM mutation */
-        window.scrollTo({ top: savedScrollY, behavior: 'instant' });
+        /* Restore scroll position immediately after DOM mutation.
+           Two-argument form used deliberately: the options-object form with
+           behavior:'instant' is silently ignored on older iOS Safari,
+           turning the restore into a no-op or a smooth scroll. */
+        window.scrollTo(0, savedScrollY);
       }
 
       function onSublineClick() {
