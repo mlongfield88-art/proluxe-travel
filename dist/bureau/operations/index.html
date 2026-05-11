@@ -156,8 +156,14 @@
       font-size: 12px;
       color: rgba(245,240,232,.42);
       border-left: 2px solid transparent;
-      cursor: default;
+      cursor: pointer;
       line-height: 1.4;
+      transition: background 0.2s ease, color 0.2s ease;
+      tabindex: 0;
+    }
+    .ops-sidebar__item:hover {
+      background: rgba(245,240,232,.04);
+      color: rgba(245,240,232,.65);
     }
     .ops-sidebar__item.is-active {
       color: #F5F0E8;
@@ -168,6 +174,7 @@
       font-size: 10px;
       color: rgba(245,240,232,.24);
       margin-top: 2px;
+      font-weight: 400;
     }
     .ops-main {
       padding: 22px 26px;
@@ -220,12 +227,20 @@
       text-transform: uppercase;
       padding: 4px 12px;
       border: 1px solid rgba(245,240,232,.1);
+      border-bottom: 2px solid transparent;
       border-radius: 2px;
       color: rgba(245,240,232,.35);
       white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .ops-filter:hover {
+      color: rgba(245,240,232,.6);
+      background: rgba(245,240,232,.03);
     }
     .ops-filter.is-active {
       border-color: rgba(245,240,232,.32);
+      border-bottom-color: #424632;
       color: #F5F0E8;
     }
 
@@ -244,29 +259,41 @@
       padding-top: 4px;
     }
 
+    /* ---- Header fix: explicit block display on span children, min-width: 0 prevents collapse ---- */
     .ops-table-head {
       display: grid;
       grid-template-columns: 1.4fr 1.2fr 1.4fr 1.3fr 90px;
-      padding: 7px 0;
-      border-bottom: 1px solid rgba(245,240,232,.07);
-      margin-bottom: 2px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(245,240,232,.08);
+      margin-bottom: 4px;
     }
     .ops-table-head span {
+      display: block;
+      min-width: 0;
+      overflow: hidden;
       font-family: 'Raleway', sans-serif;
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       letter-spacing: .14em;
       text-transform: uppercase;
-      color: rgba(245,240,232,.22);
+      color: rgba(245,240,232,.25);
+      white-space: nowrap;
     }
+
     .ops-row {
       display: grid;
       grid-template-columns: 1.4fr 1.2fr 1.4fr 1.3fr 90px;
       padding: 10px 0;
       border-bottom: 1px solid rgba(245,240,232,.04);
       align-items: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      border-radius: 2px;
     }
     .ops-row:last-child { border-bottom: none; }
+    .ops-row:hover {
+      background: rgba(245,240,232,.03);
+    }
     .ops-row__role {
       font-family: 'Raleway', sans-serif;
       font-size: 12px;
@@ -309,6 +336,47 @@
       letter-spacing: .02em;
     }
 
+    /* ---- Row expansion ---- */
+    .ops-row-expand {
+      display: none;
+      grid-column: 1 / -1;
+      background: rgba(66,70,50,.07);
+      border-left: 2px solid #424632;
+      margin: 0 0 4px 0;
+      padding: 10px 14px 10px 16px;
+      border-radius: 0 2px 2px 0;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.2s ease, padding 0.2s ease, opacity 0.2s ease;
+      opacity: 0;
+    }
+    .ops-row-expand.is-open {
+      display: grid;
+      max-height: 120px;
+      opacity: 1;
+    }
+    .ops-row-expand__line {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,.6);
+      line-height: 1.7;
+    }
+    .ops-row-expand__audit {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      color: rgba(245,240,232,.3);
+      letter-spacing: .03em;
+      margin-top: 4px;
+    }
+
+    .ops-row-wrap {
+      display: contents;
+    }
+    .ops-row-wrap.is-expanded .ops-row {
+      background: rgba(66,70,50,.05);
+      border-bottom-color: transparent;
+    }
+
     .ops-subline {
       font-family: 'Raleway', sans-serif;
       font-size: 10px;
@@ -316,6 +384,30 @@
       letter-spacing: .04em;
       padding: 6px 0 4px;
       line-height: 1.5;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .ops-subline:hover {
+      color: rgba(245,240,232,.52);
+    }
+    .ops-subline-expand {
+      display: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      color: rgba(245,240,232,.45);
+      line-height: 1.7;
+      padding: 6px 0 4px 12px;
+      border-left: 2px solid rgba(66,70,50,.5);
+      margin-top: 4px;
+      opacity: 0;
+      transition: opacity 0.2s ease, max-height 0.2s ease;
+      max-height: 0;
+      overflow: hidden;
+    }
+    .ops-subline-expand.is-open {
+      display: block;
+      opacity: 1;
+      max-height: 80px;
     }
 
     .status-pill {
@@ -379,6 +471,19 @@
     .ops-note-card__line strong {
       color: rgba(245,240,232,.88);
       font-weight: 600;
+    }
+
+    /* Hidden utility for filter-based visibility */
+    .ops-row-wrap[data-type="principal"].filter-hidden,
+    .ops-row-wrap[data-type="team"].filter-hidden,
+    .ops-row-wrap[data-type="opcentre"].filter-hidden,
+    .ops-group-label.filter-hidden,
+    .ops-subline.filter-hidden,
+    .ops-subline-expand.filter-hidden {
+      display: none !important;
+    }
+    .ops-subline[data-type="opcentre"].filter-highlight {
+      color: #9BB87A;
     }
   </style>
 </head>
@@ -470,8 +575,7 @@
           <p class="how-it-works__para">If a movement changes, you tell us once. The principal record and the team record update together. The hotel works from the same file. Nothing goes through 2 inboxes to find the same answer.</p>
         </div>
 
-        <!-- TODO: replace with real screenshot from bureau.proluxetravels.com once captured -->
-        <div class="mockup-wrap io-reveal" role="img" aria-label="Bureau joint engagement view showing a principal booking and a protection team booking at the same property, plus an op centre arrangement">
+        <div class="mockup-wrap io-reveal" role="region" aria-label="Bureau joint engagement view, interactive demo">
           <div class="mockup-chrome">
             <div class="chrome-dots" aria-hidden="true">
               <span class="chrome-dot chrome-dot--red"></span>
@@ -482,37 +586,45 @@
           </div>
           <div class="mockup-body">
             <div class="ops-shell">
-              <nav class="ops-sidebar" aria-hidden="true">
+
+              <!-- SIDEBAR: 3 clickable programmes -->
+              <nav class="ops-sidebar" aria-label="Engagement selector">
                 <p class="ops-sidebar__label">Engagements</p>
-                <div class="ops-sidebar__item is-active">
-                  Berlin, Sep 2026
+                <div class="ops-sidebar__item is-active" data-programme="geneva" role="button" tabindex="0" aria-pressed="true">
+                  Geneva Archive Trip
                   <div class="ops-sidebar__meta">Principal + team of 4</div>
                 </div>
-                <div class="ops-sidebar__item">
-                  Geneva, Oct 2026
+                <div class="ops-sidebar__item" data-programme="berlin" role="button" tabindex="0" aria-pressed="false">
+                  Berlin Quarterly
                   <div class="ops-sidebar__meta">Principal + team of 6</div>
                 </div>
-                <div class="ops-sidebar__item">
-                  Archive
+                <div class="ops-sidebar__item" data-programme="madrid" role="button" tabindex="0" aria-pressed="false">
+                  Madrid Brief
+                  <div class="ops-sidebar__meta">Principal + 1 CP</div>
                 </div>
               </nav>
-              <div class="ops-main" aria-hidden="true">
+
+              <!-- MAIN PANEL -->
+              <div class="ops-main">
+                <!-- topbar: title/sub swap by programme -->
                 <div class="ops-topbar">
                   <div>
-                    <div class="ops-name">Berlin, Sep 2026</div>
-                    <div class="ops-sub">14 to 16 Sep 2026 &bull; Hotel A, Berlin</div>
+                    <div class="ops-name" id="opsTitle">Geneva Archive Trip</div>
+                    <div class="ops-sub" id="opsSub">3 to 6 Sep 2025 &bull; Hotel A, Geneva</div>
                   </div>
                   <span class="ops-live-badge"><span class="live-dot"></span>Live</span>
                 </div>
 
-                <div class="ops-filters">
-                  <span class="ops-filter is-active">Joint view</span>
-                  <span class="ops-filter">Principal</span>
-                  <span class="ops-filter">Team</span>
-                  <span class="ops-filter">Op centre</span>
+                <!-- FILTER TABS -->
+                <div class="ops-filters" role="tablist" aria-label="View filter">
+                  <span class="ops-filter is-active" data-filter="all" role="tab" tabindex="0" aria-selected="true">Joint view</span>
+                  <span class="ops-filter" data-filter="principal" role="tab" tabindex="0" aria-selected="false">Principal only</span>
+                  <span class="ops-filter" data-filter="team" role="tab" tabindex="0" aria-selected="false">Team only</span>
+                  <span class="ops-filter" data-filter="opcentre" role="tab" tabindex="0" aria-selected="false">Op centre</span>
                 </div>
 
-                <div class="ops-table-head">
+                <!-- TABLE HEADER (fixed, columns match data rows) -->
+                <div class="ops-table-head" aria-hidden="true">
                   <span>Record</span>
                   <span>Hotel</span>
                   <span>Dates</span>
@@ -520,58 +632,8 @@
                   <span>Status</span>
                 </div>
 
-                <p class="ops-group-label">Principal</p>
-                <div class="ops-row">
-                  <div>
-                    <div class="ops-row__role">Principal</div>
-                    <div class="ops-row__role-sub">Single occupancy</div>
-                  </div>
-                  <div>
-                    <div class="ops-row__hotel">Hotel A</div>
-                    <div class="ops-row__hotel-sub">Berlin</div>
-                  </div>
-                  <div class="ops-row__dates">14 to 16 Sep 2026</div>
-                  <div class="ops-row__placement">
-                    Suite 412
-                    <span class="ops-row__placement-note">Floor 4</span>
-                  </div>
-                  <div><span class="status-pill status-pill--confirmed">Confirmed</span></div>
-                </div>
-
-                <p class="ops-group-label">Protection team</p>
-                <div class="ops-row">
-                  <div>
-                    <div class="ops-row__role">Protection team</div>
-                    <div class="ops-row__role-sub">2 operators</div>
-                  </div>
-                  <div>
-                    <div class="ops-row__hotel">Hotel A</div>
-                    <div class="ops-row__hotel-sub">Berlin</div>
-                  </div>
-                  <div class="ops-row__dates">14 to 16 Sep 2026</div>
-                  <div class="ops-row__placement">
-                    Twin 410 / 411
-                    <span class="ops-row__placement-note">Adjacent, same floor</span>
-                  </div>
-                  <div><span class="status-pill status-pill--confirmed">Confirmed</span></div>
-                </div>
-                <div class="ops-row">
-                  <div>
-                    <div class="ops-row__role">Operations lead</div>
-                    <div class="ops-row__role-sub">Single occupancy</div>
-                  </div>
-                  <div>
-                    <div class="ops-row__hotel">Hotel A</div>
-                    <div class="ops-row__hotel-sub">Berlin</div>
-                  </div>
-                  <div class="ops-row__dates">14 to 16 Sep 2026</div>
-                  <div class="ops-row__placement">
-                    Room 408
-                    <span class="ops-row__placement-note">Same floor</span>
-                  </div>
-                  <div><span class="status-pill status-pill--confirmed">Confirmed</span></div>
-                </div>
-                <p class="ops-subline">Op centre arranged via the GM. Boardroom B, service entrance, held.</p>
+                <!-- DATA ROWS: rendered by JS from programme data -->
+                <div id="opsTableBody"></div>
 
               </div>
             </div>
@@ -758,6 +820,409 @@
           el.classList.add('is-visible');
         });
       }
+
+      /* ================================================================
+         INTERACTIVE DEMO
+      ================================================================ */
+
+      /* ---- Programme data ---- */
+      var programmes = {
+        geneva: {
+          title: 'Geneva Archive Trip',
+          sub: '3 to 6 Sep 2025 &bull; Hotel A, Geneva',
+          groups: [
+            {
+              label: 'Principal',
+              rows: [
+                {
+                  type: 'principal',
+                  role: 'Principal',
+                  roleSub: 'Single occupancy',
+                  hotel: 'Hotel A',
+                  hotelSub: 'Geneva',
+                  dates: '3 to 6 Sep',
+                  placement: 'Suite 512',
+                  placementNote: 'Floor 5',
+                  status: 'confirmed',
+                  expand: {
+                    detail: 'Suite 512, King. Check-in 3 Sep 14:00, check-out 6 Sep 12:00. GM, Hotel A Geneva is the on-property contact.',
+                    audit: 'Room confirmed &bull; 11:42, 28 Aug &bull; M.L.'
+                  }
+                }
+              ]
+            },
+            {
+              label: 'Protection team',
+              rows: [
+                {
+                  type: 'team',
+                  role: 'Protection team',
+                  roleSub: '2 operators',
+                  hotel: 'Hotel A',
+                  hotelSub: 'Geneva',
+                  dates: '3 to 6 Sep',
+                  placement: 'Twin 510 / 511',
+                  placementNote: 'Adjacent, same floor',
+                  status: 'confirmed',
+                  expand: {
+                    detail: 'Rooms 510 and 511, Twin configuration. Op centre: Boardroom A, service entrance access, sweep window 06:00 to 07:00 daily.',
+                    audit: 'Configuration confirmed &bull; 14:05, 29 Aug &bull; M.L.'
+                  }
+                },
+                {
+                  type: 'team',
+                  role: 'Operations lead',
+                  roleSub: 'Single occupancy',
+                  hotel: 'Hotel A',
+                  hotelSub: 'Geneva',
+                  dates: '3 to 6 Sep',
+                  placement: 'Room 508',
+                  placementNote: 'Same floor',
+                  status: 'confirmed',
+                  expand: {
+                    detail: 'Room 508, King. Adjacent to team rooms. Early check-in requested and confirmed by GM.',
+                    audit: 'Early check-in confirmed &bull; 09:30, 30 Aug &bull; M.L.'
+                  }
+                }
+              ],
+              opcentre: {
+                text: 'Op centre arranged via the GM. Boardroom A, service entrance, sweep window held.',
+                expand: 'Boardroom A, lower ground. Service entrance briefed. Sweep window: 06:00 to 07:00 daily. Held by GM for duration. Last confirmed 30 Aug.'
+              }
+            }
+          ]
+        },
+        berlin: {
+          title: 'Berlin Quarterly',
+          sub: '14 to 16 Sep 2026 &bull; Hotel B, Munich',
+          groups: [
+            {
+              label: 'Principal',
+              rows: [
+                {
+                  type: 'principal',
+                  role: 'Principal',
+                  roleSub: 'Single occupancy',
+                  hotel: 'Hotel B',
+                  hotelSub: 'Munich',
+                  dates: '14 to 16 Sep',
+                  placement: 'Suite 412',
+                  placementNote: 'Floor 4',
+                  status: 'confirmed',
+                  expand: {
+                    detail: 'Suite 412, King. Check-in 14 Sep 15:00, check-out 16 Sep 11:00. GM, Hotel B Munich briefed on team configuration.',
+                    audit: 'Room moved &bull; 09:14, 1 Sep &bull; M.L.'
+                  }
+                }
+              ]
+            },
+            {
+              label: 'Protection team',
+              rows: [
+                {
+                  type: 'team',
+                  role: 'Protection team',
+                  roleSub: '3 operators',
+                  hotel: 'Hotel B',
+                  hotelSub: 'Munich',
+                  dates: '14 to 16 Sep',
+                  placement: 'Twin 409 / 410 / 411',
+                  placementNote: 'Adjacent, same floor',
+                  status: 'confirmed',
+                  expand: {
+                    detail: 'Rooms 409, 410, 411, Twin and King mix. Interconnecting doors confirmed on 409 to 410. Sweep window 05:30 to 06:30.',
+                    audit: 'Interconnecting door confirmed &bull; 16:22, 2 Sep &bull; M.L.'
+                  }
+                },
+                {
+                  type: 'team',
+                  role: 'Operations lead',
+                  roleSub: 'Single occupancy',
+                  hotel: 'Hotel B',
+                  hotelSub: 'Munich',
+                  dates: '14 to 16 Sep',
+                  placement: 'Room 407',
+                  placementNote: 'Same floor',
+                  status: 'confirmed',
+                  expand: {
+                    detail: 'Room 407, King. Floor position confirmed adjacent to team block.',
+                    audit: 'Placement confirmed &bull; 10:55, 3 Sep &bull; M.L.'
+                  }
+                }
+              ],
+              opcentre: {
+                text: 'Op centre via GM. Meeting Room C, rear entrance access, held for engagement.',
+                expand: 'Meeting Room C, 3rd floor rear. Rear entrance and service lift briefed. Sweep window: 05:30 to 06:30. Held by GM against engagement dates.'
+              }
+            }
+          ]
+        },
+        madrid: {
+          title: 'Madrid Brief',
+          sub: '22 to 23 Nov 2026 &bull; Hotel C, Madrid',
+          groups: [
+            {
+              label: 'Principal',
+              rows: [
+                {
+                  type: 'principal',
+                  role: 'Principal',
+                  roleSub: 'Single occupancy',
+                  hotel: 'Hotel C',
+                  hotelSub: 'Madrid',
+                  dates: '22 to 23 Nov',
+                  placement: 'Junior Suite 301',
+                  placementNote: 'Floor 3',
+                  status: 'confirmed',
+                  expand: {
+                    detail: 'Junior Suite 301. Check-in 22 Nov 13:00, check-out 23 Nov 12:00. Short engagement, 1-night.',
+                    audit: 'Booking created &bull; 08:10, 14 Nov &bull; M.L.'
+                  }
+                }
+              ]
+            },
+            {
+              label: 'Protection team',
+              rows: [
+                {
+                  type: 'team',
+                  role: 'CP lead',
+                  roleSub: 'Single occupancy',
+                  hotel: 'Hotel C',
+                  hotelSub: 'Madrid',
+                  dates: '22 to 23 Nov',
+                  placement: 'Room 303',
+                  placementNote: 'Adjacent, same floor',
+                  status: 'held',
+                  expand: {
+                    detail: 'Room 303, King. Adjacent to principal suite. Held pending final team confirmation. GM briefed on proximity requirement.',
+                    audit: 'Hold placed with GM &bull; 11:30, 15 Nov &bull; M.L.'
+                  }
+                }
+              ],
+              opcentre: {
+                text: 'No dedicated op centre. Principal suite used as combined space.',
+                expand: 'Small-team engagement. No separate function space required. Suite 301 doubles as working space. GM contact standing.'
+              }
+            }
+          ]
+        }
+      };
+
+      /* ---- State ---- */
+      var currentProgramme = 'geneva';
+      var currentFilter = 'all';
+      var expandedRowId = null;
+      var sublineExpanded = false;
+
+      /* ---- Render ---- */
+      function renderProgramme(key) {
+        var prog = programmes[key];
+        var body = document.getElementById('opsTableBody');
+        if (!prog || !body) return;
+
+        document.getElementById('opsTitle').textContent = prog.title;
+        document.getElementById('opsSub').innerHTML = prog.sub;
+
+        var html = '';
+        prog.groups.forEach(function (group, gi) {
+          html += '<p class="ops-group-label" data-group="' + gi + '">' + group.label + '</p>';
+          group.rows.forEach(function (row, ri) {
+            var rowId = key + '-' + gi + '-' + ri;
+            var pill = row.status === 'confirmed'
+              ? '<span class="status-pill status-pill--confirmed">Confirmed</span>'
+              : '<span class="status-pill status-pill--held">Held</span>';
+            html += '<div class="ops-row-wrap" data-type="' + row.type + '" data-rowid="' + rowId + '">'
+              + '<div class="ops-row" role="button" tabindex="0" aria-expanded="false" data-rowid="' + rowId + '">'
+              + '<div><div class="ops-row__role">' + row.role + '</div><div class="ops-row__role-sub">' + row.roleSub + '</div></div>'
+              + '<div><div class="ops-row__hotel">' + row.hotel + '</div><div class="ops-row__hotel-sub">' + row.hotelSub + '</div></div>'
+              + '<div class="ops-row__dates">' + row.dates + '</div>'
+              + '<div class="ops-row__placement">' + row.placement + '<span class="ops-row__placement-note">' + row.placementNote + '</span></div>'
+              + '<div>' + pill + '</div>'
+              + '</div>'
+              + '<div class="ops-row-expand" data-rowid="' + rowId + '">'
+              + '<p class="ops-row-expand__line">' + row.expand.detail + '</p>'
+              + '<p class="ops-row-expand__audit">' + row.expand.audit + '</p>'
+              + '</div>'
+              + '</div>';
+          });
+          if (group.opcentre) {
+            html += '<p class="ops-subline" data-type="opcentre" role="button" tabindex="0" data-group="' + gi + '">' + group.opcentre.text + '</p>'
+              + '<div class="ops-subline-expand" data-group="' + gi + '">' + group.opcentre.expand + '</div>';
+          }
+        });
+
+        body.innerHTML = html;
+        expandedRowId = null;
+        sublineExpanded = false;
+
+        /* Bind row clicks */
+        body.querySelectorAll('.ops-row').forEach(function (row) {
+          row.addEventListener('click', onRowClick);
+          row.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onRowClick.call(row, e); }
+          });
+        });
+
+        /* Bind subline clicks */
+        body.querySelectorAll('.ops-subline').forEach(function (sl) {
+          sl.addEventListener('click', onSublineClick);
+          sl.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSublineClick.call(sl, e); }
+          });
+        });
+
+        applyFilter(currentFilter);
+      }
+
+      function onRowClick() {
+        var rowId = this.getAttribute('data-rowid');
+        var wrap = document.querySelector('.ops-row-wrap[data-rowid="' + rowId + '"]');
+        var expand = document.querySelector('.ops-row-expand[data-rowid="' + rowId + '"]');
+        if (!wrap || !expand) return;
+
+        var isOpen = expand.classList.contains('is-open');
+
+        /* Close all */
+        document.querySelectorAll('.ops-row-expand.is-open').forEach(function (el) { el.classList.remove('is-open'); });
+        document.querySelectorAll('.ops-row-wrap.is-expanded').forEach(function (el) { el.classList.remove('is-expanded'); });
+        document.querySelectorAll('.ops-row[aria-expanded="true"]').forEach(function (el) { el.setAttribute('aria-expanded', 'false'); });
+
+        if (!isOpen) {
+          expand.classList.add('is-open');
+          wrap.classList.add('is-expanded');
+          this.setAttribute('aria-expanded', 'true');
+          expandedRowId = rowId;
+        } else {
+          expandedRowId = null;
+        }
+      }
+
+      function onSublineClick() {
+        var gi = this.getAttribute('data-group');
+        var expandEl = document.querySelector('.ops-subline-expand[data-group="' + gi + '"]');
+        if (!expandEl) return;
+        var isOpen = expandEl.classList.contains('is-open');
+        /* Close all subline expands */
+        document.querySelectorAll('.ops-subline-expand.is-open').forEach(function (el) { el.classList.remove('is-open'); });
+        if (!isOpen) {
+          expandEl.classList.add('is-open');
+          sublineExpanded = true;
+        } else {
+          sublineExpanded = false;
+        }
+      }
+
+      /* ---- Filter ---- */
+      function applyFilter(filter) {
+        var body = document.getElementById('opsTableBody');
+        if (!body) return;
+
+        /* Show all first */
+        body.querySelectorAll('.ops-row-wrap, .ops-group-label, .ops-subline, .ops-subline-expand').forEach(function (el) {
+          el.classList.remove('filter-hidden', 'filter-highlight');
+        });
+
+        if (filter === 'all') {
+          /* Everything visible, no highlights */
+          return;
+        }
+
+        if (filter === 'principal') {
+          body.querySelectorAll('.ops-row-wrap[data-type="team"]').forEach(function (el) { el.classList.add('filter-hidden'); });
+          body.querySelectorAll('.ops-subline[data-type="opcentre"]').forEach(function (el) { el.classList.add('filter-hidden'); });
+          body.querySelectorAll('.ops-subline-expand').forEach(function (el) { el.classList.add('filter-hidden'); });
+          /* Hide group label for protection team if all its rows are hidden */
+          body.querySelectorAll('.ops-group-label').forEach(function (label) {
+            var next = label.nextElementSibling;
+            var allHidden = true;
+            while (next && !next.classList.contains('ops-group-label')) {
+              if (next.classList.contains('ops-row-wrap') && !next.classList.contains('filter-hidden')) {
+                allHidden = false;
+                break;
+              }
+              next = next.nextElementSibling;
+            }
+            if (allHidden) label.classList.add('filter-hidden');
+          });
+          return;
+        }
+
+        if (filter === 'team') {
+          body.querySelectorAll('.ops-row-wrap[data-type="principal"]').forEach(function (el) { el.classList.add('filter-hidden'); });
+          body.querySelectorAll('.ops-subline[data-type="opcentre"]').forEach(function (el) { el.classList.add('filter-hidden'); });
+          body.querySelectorAll('.ops-subline-expand').forEach(function (el) { el.classList.add('filter-hidden'); });
+          body.querySelectorAll('.ops-group-label').forEach(function (label) {
+            var next = label.nextElementSibling;
+            var allHidden = true;
+            while (next && !next.classList.contains('ops-group-label')) {
+              if (next.classList.contains('ops-row-wrap') && !next.classList.contains('filter-hidden')) {
+                allHidden = false;
+                break;
+              }
+              next = next.nextElementSibling;
+            }
+            if (allHidden) label.classList.add('filter-hidden');
+          });
+          return;
+        }
+
+        if (filter === 'opcentre') {
+          body.querySelectorAll('.ops-row-wrap').forEach(function (el) { el.classList.add('filter-hidden'); });
+          body.querySelectorAll('.ops-group-label').forEach(function (el) { el.classList.add('filter-hidden'); });
+          body.querySelectorAll('.ops-subline[data-type="opcentre"]').forEach(function (el) {
+            el.classList.add('filter-highlight');
+          });
+          return;
+        }
+      }
+
+      /* ---- Sidebar programme switching ---- */
+      document.querySelectorAll('.ops-sidebar__item').forEach(function (item) {
+        item.addEventListener('click', function () {
+          var prog = this.getAttribute('data-programme');
+          if (prog === currentProgramme) return;
+          document.querySelectorAll('.ops-sidebar__item').forEach(function (el) {
+            el.classList.remove('is-active');
+            el.setAttribute('aria-pressed', 'false');
+          });
+          this.classList.add('is-active');
+          this.setAttribute('aria-pressed', 'true');
+          currentProgramme = prog;
+          renderProgramme(prog);
+        });
+        item.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
+        });
+      });
+
+      /* ---- Filter tab switching ---- */
+      document.querySelectorAll('.ops-filter').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var f = this.getAttribute('data-filter');
+          document.querySelectorAll('.ops-filter').forEach(function (el) {
+            el.classList.remove('is-active');
+            el.setAttribute('aria-selected', 'false');
+          });
+          this.classList.add('is-active');
+          this.setAttribute('aria-selected', 'true');
+          currentFilter = f;
+          applyFilter(f);
+        });
+        tab.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
+        });
+      });
+
+      /* ---- Initial render ---- */
+      renderProgramme('geneva');
+
     })();
   </script>
 
