@@ -19,6 +19,24 @@
        Shared site styles loaded from ../../css/styles.css
     ============================================================ */
 
+    /* Fix 1: Override shared 2-column how-it-works layout to stacked */
+    .how-it-works__inner {
+      display: block;
+    }
+    .how-it-works__text {
+      max-width: 740px;
+      margin-bottom: 56px;
+    }
+    .how-it-works__inner .mockup-wrap {
+      max-width: 1080px;
+    }
+    /* Mobile: already single column, no change needed */
+    @media (max-width: 860px) {
+      .how-it-works__text {
+        margin-bottom: 40px;
+      }
+    }
+
     /* Placement section (parallel to office's deadline pattern: dark bg, two-column with annotation panel) */
     .placement-section {
       background: #2A2A2A;
@@ -123,7 +141,7 @@
     .ops-shell {
       display: grid;
       grid-template-columns: 220px 1fr;
-      height: 460px;
+      height: 560px;
       overflow: hidden;
     }
     @media (max-width: 640px) {
@@ -448,6 +466,11 @@
       max-height: 80px;
     }
 
+    /* Fix 6: Pill cell padding so status pill never overlaps the Room column */
+    .ops-row > div:last-child {
+      padding-left: 8px;
+    }
+
     .status-pill {
       display: inline-block;
       padding: 3px 12px;
@@ -669,7 +692,7 @@
                 <div class="ops-table-head" aria-hidden="true">
                   <span>Record</span>
                   <span>Dates</span>
-                  <span>Placement</span>
+                  <span>Room</span>
                   <span>Status</span>
                 </div>
 
@@ -1123,6 +1146,9 @@
 
         var isOpen = expand.classList.contains('is-open');
 
+        /* Anchor scroll position so row expansion never scrolls the page */
+        var savedScrollY = window.scrollY;
+
         /* Close all */
         document.querySelectorAll('.ops-row-expand.is-open').forEach(function (el) { el.classList.remove('is-open'); });
         document.querySelectorAll('.ops-row-wrap.is-expanded').forEach(function (el) { el.classList.remove('is-expanded'); });
@@ -1136,6 +1162,9 @@
         } else {
           expandedRowId = null;
         }
+
+        /* Restore scroll position immediately after DOM mutation */
+        window.scrollTo({ top: savedScrollY, behavior: 'instant' });
       }
 
       function onSublineClick() {
