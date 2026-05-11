@@ -259,10 +259,10 @@
       padding-top: 4px;
     }
 
-    /* ---- Header fix: explicit block display on span children, min-width: 0 prevents collapse ---- */
+    /* ---- Header: explicit block display on span children, min-width: 0 prevents collapse ---- */
     .ops-table-head {
       display: grid;
-      grid-template-columns: 1.4fr 1.2fr 1.4fr 1.3fr 90px;
+      grid-template-columns: 1.2fr 1fr 1.2fr 1.6fr 90px;
       padding: 8px 0;
       border-bottom: 1px solid rgba(245,240,232,.08);
       margin-bottom: 4px;
@@ -271,6 +271,7 @@
       display: block;
       min-width: 0;
       overflow: hidden;
+      text-overflow: ellipsis;
       font-family: 'Raleway', sans-serif;
       font-size: 10px;
       font-weight: 600;
@@ -282,7 +283,7 @@
 
     .ops-row {
       display: grid;
-      grid-template-columns: 1.4fr 1.2fr 1.4fr 1.3fr 90px;
+      grid-template-columns: 1.2fr 1fr 1.2fr 1.6fr 90px;
       padding: 10px 0;
       border-bottom: 1px solid rgba(245,240,232,.04);
       align-items: center;
@@ -294,38 +295,61 @@
     .ops-row:hover {
       background: rgba(245,240,232,.03);
     }
+    /* Every body cell gets the same grid discipline: min-width 0 prevents the cell
+       from blowing past its fr share; overflow + ellipsis clip without wrapping. */
+    .ops-row > div {
+      min-width: 0;
+      overflow: hidden;
+    }
     .ops-row__role {
       font-family: 'Raleway', sans-serif;
       font-size: 12px;
       font-weight: 500;
       color: #F5F0E8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .ops-row__role-sub {
       font-size: 10px;
       color: rgba(245,240,232,.36);
       margin-top: 2px;
       font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .ops-row__hotel {
       font-family: 'Raleway', sans-serif;
       font-size: 12px;
       color: rgba(245,240,232,.7);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .ops-row__hotel-sub {
       font-size: 10px;
       color: rgba(245,240,232,.34);
       margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .ops-row__dates {
       font-family: 'Raleway', sans-serif;
       font-size: 11px;
       color: rgba(245,240,232,.5);
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
       white-space: nowrap;
     }
     .ops-row__placement {
       font-family: 'Raleway', sans-serif;
       font-size: 11px;
       color: rgba(245,240,232,.5);
+      min-width: 0;
+      overflow: hidden;
       white-space: nowrap;
     }
     .ops-row__placement-note {
@@ -334,6 +358,9 @@
       color: rgba(155,184,122,.7);
       margin-top: 2px;
       letter-spacing: .02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* ---- Row expansion ---- */
@@ -861,8 +888,8 @@
                   hotel: 'Hotel A',
                   hotelSub: 'Geneva',
                   dates: '3 to 6 Sep',
-                  placement: 'Twin 510 / 511',
-                  placementNote: 'Adjacent, same floor',
+                  placement: 'Rooms 510, 511',
+                  placementNote: 'Twin, same floor',
                   status: 'confirmed',
                   expand: {
                     detail: 'Rooms 510 and 511, Twin configuration. Op centre: Boardroom A, service entrance access, sweep window 06:00 to 07:00 daily.',
@@ -926,7 +953,7 @@
                   hotel: 'Hotel B',
                   hotelSub: 'Munich',
                   dates: '14 to 16 Sep',
-                  placement: 'Twin 409 / 410 / 411',
+                  placement: 'Rooms 409, 410, 411',
                   placementNote: 'Adjacent, same floor',
                   status: 'confirmed',
                   expand: {
