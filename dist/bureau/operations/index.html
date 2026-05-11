@@ -152,6 +152,10 @@
     }
     .ops-sidebar__item {
       padding: 10px 20px;
+      min-height: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       font-family: 'Raleway', sans-serif;
       font-size: 12px;
       color: rgba(245,240,232,.42);
@@ -226,6 +230,9 @@
       letter-spacing: .1em;
       text-transform: uppercase;
       padding: 4px 12px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
       border: 1px solid rgba(245,240,232,.1);
       border-bottom: 2px solid transparent;
       border-radius: 2px;
@@ -285,6 +292,7 @@
       display: grid;
       grid-template-columns: 1.4fr 1.2fr 1.6fr 90px;
       padding: 10px 0;
+      min-height: 44px;
       border-bottom: 1px solid rgba(245,240,232,.04);
       align-items: center;
       cursor: pointer;
@@ -410,6 +418,9 @@
       color: rgba(245,240,232,.32);
       letter-spacing: .04em;
       padding: 6px 0 4px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
       line-height: 1.5;
       cursor: pointer;
       transition: color 0.2s ease;
@@ -464,6 +475,11 @@
       .ops-row { grid-template-columns: 1fr auto; }
       .ops-row__dates,
       .ops-row__placement { display: none; }
+    }
+
+    @media (max-width: 380px) {
+      .ops-main { padding: 14px 14px; }
+      .ops-filters { gap: 6px; }
     }
 
     /* Compact escape-valve note: a small ledger card for the dark "Always on hand" right column */
