@@ -268,7 +268,7 @@
 
   function initSectionReveals() {
     if (prefersReduced) return;
-    var blocks = gsap.utils.toArray('.about-full, .cumbria-food, .section--olive .pillars');
+    var blocks = gsap.utils.toArray('.about-full, .cumbria-food');
     blocks.forEach(function (block) {
       gsap.fromTo(block,
         { opacity: 0, y: 24 },

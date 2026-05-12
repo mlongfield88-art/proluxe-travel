@@ -520,58 +520,6 @@ h1,h2,h3,h4,h5,h6{
   .service-pillar__title{margin-bottom:20px}
 }
 
-/* ============================================================
-   APPROACH PILLARS
-   ============================================================ */
-.pillars{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:32px;
-  margin-top:16px;
-}
-.pillar{
-  padding:36px 28px;
-  border:1px solid rgba(245,240,232,.1);
-  border-radius:3px;
-  transition:border-color .35s,background .35s;
-}
-.pillar:hover{
-  border-color:rgba(245,240,232,.25);
-  background:rgba(245,240,232,.04);
-}
-.pillar__numeral{
-  font-family:'Cormorant Garamond',serif;
-  font-size:32px;
-  font-weight:300;
-  color:rgba(245,240,232,.35);
-  letter-spacing:.04em;
-  margin-bottom:20px;
-  line-height:1;
-  transition:color .35s ease;
-}
-.pillar:hover .pillar__numeral{
-  color:rgba(245,240,232,.6);
-}
-.pillar__title{
-  font-size:20px;
-  color:#F5F0E8;
-  margin-bottom:12px;
-}
-.pillar__text{
-  font-size:14px;
-  color:rgba(245,240,232,.5);
-  line-height:1.7;
-}
-
-/* Pillar — GSAP handles reveal */
-
-@media(max-width:1024px){
-  .pillars{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:600px){
-  .pillars{grid-template-columns:1fr}
-}
-
 /* Contact info blocks */
 .split__info{
   display:flex;
@@ -795,7 +743,7 @@ a.info-block__value:hover{color:#424632}
     animation-iteration-count:1 !important;
     transition-duration:.01ms !important;
   }
-  .reveal-hero,.reveal,.reveal-card,.reveal-pillar{
+  .reveal-hero,.reveal,.reveal-card{
     opacity:1;
   }
   .hero__bg{
@@ -967,12 +915,6 @@ a.info-block__value:hover{color:#424632}
     width:100%;
     text-align:center;
   }
-}
-
-/* Pillars on the olive section have a light border; tune slightly for this page so
-   the three cards read as restrained labels, not loud tiles. */
-.section--olive .pillars .pillar{
-  border-color:rgba(245,240,232,.14);
 }
 
 /* ----- Food destination section ----- */

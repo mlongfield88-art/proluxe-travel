@@ -186,35 +186,6 @@
         }
       });
 
-      /* ---------- APPROACH PILLARS ---------- */
-      gsap.fromTo('#approach .section__eyebrow',
-        { opacity: 0, y: 25 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-          scrollTrigger: { trigger: '#approach', start: 'top 75%' }
-        }
-      );
-      gsap.fromTo('#approach .section__title',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-          scrollTrigger: { trigger: '#approach', start: 'top 75%' },
-          delay: 0.08
-        }
-      );
-
-      gsap.fromTo('.pillar',
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1, y: 0,
-          duration: 0.65,
-          stagger: 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.pillars',
-            start: 'top 80%',
-          }
-        }
-      );
-
       /* ---------- CONTACT SECTION ---------- */
       gsap.fromTo('#contact .section__eyebrow',
         { opacity: 0, y: 25 },
