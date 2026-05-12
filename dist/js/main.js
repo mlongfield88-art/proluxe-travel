@@ -159,36 +159,31 @@
         }
       );
 
-      // Cards — staggered reveal with scale
-      gsap.fromTo('.card',
-        { opacity: 0, y: 50, scale: 0.96 },
-        {
-          opacity: 1, y: 0, scale: 1,
-          duration: 0.7,
-          stagger: { amount: 0.6, from: 'start' },
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.card-grid',
-            start: 'top 80%',
-          }
-        }
-      );
-
-      // Card image parallax on scroll
-      document.querySelectorAll('.card__image-wrap img').forEach(function (img) {
-        gsap.fromTo(img,
-          { y: -20 },
-          {
-            y: 20,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: img.closest('.card'),
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            }
+      // Service pillars — text fades up, image fades in
+      document.querySelectorAll('.service-pillar').forEach(function (pillar) {
+        gsap.fromTo(pillar.querySelector('.service-pillar__text'),
+          { opacity: 0, y: 32 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+            scrollTrigger: { trigger: pillar, start: 'top 75%' }
           }
         );
+        gsap.fromTo(pillar.querySelector('.service-pillar__image'),
+          { opacity: 0, y: 32 },
+          { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+            scrollTrigger: { trigger: pillar, start: 'top 75%' },
+            delay: 0.1
+          }
+        );
+        // Subtle image parallax
+        var img = pillar.querySelector('.service-pillar__image img');
+        if (img) {
+          gsap.fromTo(img,
+            { y: -16 },
+            { y: 16, ease: 'none',
+              scrollTrigger: { trigger: pillar, start: 'top bottom', end: 'bottom top', scrub: true }
+            }
+          );
+        }
       });
 
       /* ---------- APPROACH PILLARS ---------- */
@@ -269,7 +264,7 @@
   } else {
     /* Fallback: CSS class-based reveals if GSAP didn't load */
     if (reducedMotion) {
-      document.querySelectorAll('.reveal, .reveal-hero, .reveal-card, .reveal-pillar').forEach(function (el) {
+      document.querySelectorAll('.reveal, .reveal-hero, .reveal-pillar').forEach(function (el) {
         el.classList.add('is-visible');
       });
     }
@@ -326,21 +321,6 @@
     if (e.key === 'Escape' && offcanvas.classList.contains('is-open')) {
       closeNav();
     }
-  });
-
-  /* ==========================================================
-     SERVICE CARD VIDEO-ON-HOVER
-     ========================================================== */
-  document.querySelectorAll('.card').forEach(function (card) {
-    var video = card.querySelector('.card__video');
-    if (!video) return;
-    card.addEventListener('mouseenter', function () {
-      video.play().catch(function () {});
-    });
-    card.addEventListener('mouseleave', function () {
-      video.pause();
-      video.currentTime = 0;
-    });
   });
 
   /* ==========================================================
