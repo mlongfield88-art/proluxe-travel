@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IBA 2026 ProLuxe Travel</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     
     <style>
         /* --- VISUAL STYLES --- */
@@ -140,6 +141,7 @@
         .msg-sold-out { background: #ffebee; color: #c62828; border: 1px solid #c62828; }
         
         #form-error-msg { transition: all 0.3s; color: #d32f2f; font-weight: bold; margin-bottom: 15px; text-align: center; border-radius: 4px; }
+        .cf-turnstile { margin-top: 15px; margin-bottom: 5px; }
 
         @media (max-width: 768px) {
             header { padding: 15px 20px; flex-direction: column; gap: 15px; }
@@ -259,10 +261,10 @@
             <div id="booker-section" style="background: #f9f9f9; padding: 20px; border: 1px solid #eee; margin-bottom: 25px;">
                 <div id="booker-title" class="room-title">Booker / Main Contact</div>
                 <div class="date-row">
-                    <div class="date-group"><label>First Name *</label><input type="text" id="main-first" required oninput="window.updateSummary()"></div>
-                    <div class="date-group"><label>Last Name *</label><input type="text" id="main-last" required oninput="window.updateSummary()"></div>
+                    <div class="date-group"><label>First Name *</label><input type="text" id="main-first" required minlength="2" pattern="^[A-Za-zÀ-ɏ\s\-']{2,}$" title="Please enter at least 2 letters. Numbers and special characters are not allowed." oninput="window.updateSummary()"></div>
+                    <div class="date-group"><label>Last Name *</label><input type="text" id="main-last" required minlength="2" pattern="^[A-Za-zÀ-ɏ\s\-']{2,}$" title="Please enter at least 2 letters. Numbers and special characters are not allowed." oninput="window.updateSummary()"></div>
                 </div>
-                <label>Company Name *</label><input type="text" id="main-firm" required oninput="window.updateSummary()">
+                <label>Company Name *</label><input type="text" id="main-firm" required minlength="3" title="Please enter your firm name (at least 3 characters)." oninput="window.updateSummary()">
                 <label>Contact Number *</label><input type="text" id="main-phone" required>
                 <label>Contact Email *</label><input type="email" id="main-email" required>
                 <label>Country of Residence *</label>
@@ -272,7 +274,9 @@
             <div id="all-guests-container"></div>
             
             <div id="form-error-msg"></div>
-            
+
+            <div class="cf-turnstile" data-sitekey="TURNSTILE_SITE_KEY_PENDING" data-callback="onTurnstileSuccess" data-error-callback="onTurnstileError"></div>
+
             <button id="submit-btn" class="btn-primary" onclick="submitBooking()">Submit Request</button>
         </div>
         <div class="bg-gray padding-box sticky-summary">
@@ -594,16 +598,64 @@
             }
         };
 
+        window.onTurnstileSuccess = (token) => {
+            window._turnstileToken = token;
+        };
+        window.onTurnstileError = () => {
+            window._turnstileToken = null;
+        };
+
+        // Validate name: at least 2 letters, no digits or lone special chars
+        function isValidName(val) {
+            return /^[A-Za-zÀ-ɏ\s\-']{2,}$/.test(val.trim());
+        }
+
         window.submitBooking = async () => {
             const btn = document.getElementById('submit-btn');
-            showError(""); 
-            
+            showError("");
+
             document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
             let firstErr = null;
             document.querySelectorAll('input[required]:not(.hidden input), select[required]:not(.hidden select)').forEach(el => {
                 if (!el.value && !firstErr) { el.classList.add('input-error'); firstErr = el; }
             });
             if (firstErr) { showError("Please complete all required fields highlighted in red."); return; }
+
+            // Min-length and pattern validation on booker name fields
+            const mainFirst = document.getElementById('main-first');
+            const mainLast = document.getElementById('main-last');
+            const mainFirm = document.getElementById('main-firm');
+            if (!isValidName(mainFirst.value)) {
+                mainFirst.classList.add('input-error');
+                showError("First name must be at least 2 letters and contain only letters.");
+                mainFirst.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            if (!isValidName(mainLast.value)) {
+                mainLast.classList.add('input-error');
+                showError("Last name must be at least 2 letters and contain only letters.");
+                mainLast.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            if (mainFirm.value.trim().length < 3) {
+                mainFirm.classList.add('input-error');
+                showError("Please enter your firm name (at least 3 characters).");
+                mainFirm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            // Turnstile check — only enforced once a real sitekey is provisioned.
+            // Replace TURNSTILE_SITE_KEY_PENDING in the data-sitekey attribute before pushing live.
+            const turnstileEl = document.querySelector('.cf-turnstile');
+            const sitekeyIsLive = turnstileEl && turnstileEl.dataset.sitekey && !turnstileEl.dataset.sitekey.includes('PENDING');
+            if (sitekeyIsLive) {
+                const turnstileToken = window._turnstileToken || (typeof turnstile !== 'undefined' ? turnstile.getResponse() : null);
+                if (!turnstileToken) {
+                    showError("Please complete the verification before submitting.");
+                    turnstileEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+            }
 
             const count = parseInt(document.getElementById('room-count').value);
             
