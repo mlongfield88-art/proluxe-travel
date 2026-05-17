@@ -298,6 +298,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app-check.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, doc, runTransaction, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
@@ -313,9 +314,23 @@
         };
 
         const app = initializeApp(firebaseConfig);
+
+        // App Check (SEC-2026-018 fix). Issues reCAPTCHA Enterprise tokens
+        // on every Firestore request from this page. Enforcement stays OFF
+        // in the Firebase Console until the founder confirms tokens are
+        // arriving on legitimate bookings (24h soak). While enforcement is
+        // off, Firestore accepts requests without a token, so this init is
+        // non-breaking even if the token issue path silently fails on
+        // some browser. See IBA-2026-APP-CHECK-DEPLOY.md at the repo root.
+        // TODO: Replace with real reCAPTCHA Enterprise site key from Firebase Console before merge
+        const appCheck = initializeAppCheck(app, {
+            provider: new ReCaptchaV3Provider('SITE_KEY_PLACEHOLDER'),
+            isTokenAutoRefreshEnabled: true
+        });
+
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const appId = "iba-2026-portal"; 
+        const appId = "iba-2026-portal";
 
         let currentUser = null;
         window.liveInventory = {}; 
