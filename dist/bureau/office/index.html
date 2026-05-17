@@ -123,6 +123,18 @@
       color: #424632;
       border-bottom-color: #424632;
     }
+    /* Security overwatch tab: red accent (matches Colossus live pulse) so the
+       second specialist capability reads as distinct from the hotel ops view. */
+    .ops-main-tab[data-maintab="security"] {
+      color: rgba(193,59,59,.55);
+    }
+    .ops-main-tab[data-maintab="security"]:hover {
+      color: rgba(193,59,59,.85);
+    }
+    .ops-main-tab[data-maintab="security"].is-active {
+      color: #C13B3B;
+      border-bottom-color: #C13B3B;
+    }
     /* When hotel tab is hidden (security active), hide filter row + table head */
     .ops-hotel-panel.is-hidden {
       display: none;
