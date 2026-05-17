@@ -339,6 +339,79 @@
       border-top: 1px solid rgba(66,70,50,.07);
     }
 
+    /* ---- Mobile breakpoints: Security overwatch panel ---- */
+    @media (max-width: 860px) {
+      /* Colossus badge: pull out of float so it sits above the strip, not overlapping the tab strip */
+      .colossus-badge {
+        float: none;
+        display: block;
+        text-align: right;
+        margin-bottom: 6px;
+      }
+
+      /* Status strip: 4-cell row collapses to 2x2 grid */
+      .sec-status-strip {
+        grid-template-columns: 1fr 1fr;
+      }
+      /* Restore right border on cells 1 and 3 (left column); drop border on cells 2 and 4 */
+      .sec-status-cell:nth-child(odd) {
+        border-right: 1px solid rgba(66,70,50,.1);
+      }
+      .sec-status-cell:nth-child(even) {
+        border-right: none;
+      }
+      /* Add a bottom border between the two rows of the 2x2 */
+      .sec-status-cell:nth-child(1),
+      .sec-status-cell:nth-child(2) {
+        border-bottom: 1px solid rgba(66,70,50,.1);
+      }
+
+      /* City table: hide the timestamp column to free horizontal space */
+      .sec-city-table th:last-child,
+      .sec-city-table td:last-child {
+        display: none;
+      }
+      /* Prevent city name column from being fixed-width */
+      .sec-city-table td:first-child {
+        width: auto;
+      }
+
+      /* Shield grid: 2 columns stays fine at 860px, collapses below */
+    }
+
+    @media (max-width: 480px) {
+      /* Status strip: stack to single column */
+      .sec-status-strip {
+        grid-template-columns: 1fr;
+      }
+      /* All cells get a bottom border acting as a horizontal divider; last cell gets none */
+      .sec-status-cell {
+        border-right: none;
+        border-bottom: 1px solid rgba(66,70,50,.1);
+      }
+      .sec-status-cell:last-child {
+        border-bottom: none;
+      }
+      /* Reset the 2x2 bottom-border override from 860px breakpoint */
+      .sec-status-cell:nth-child(1),
+      .sec-status-cell:nth-child(2) {
+        border-bottom: 1px solid rgba(66,70,50,.1);
+      }
+
+      /* City table: also stack intel text naturally; table stays but wraps freely */
+      .sec-city-table td {
+        font-size: 10px;
+      }
+      .sec-city-table td:first-child {
+        width: 60px;
+      }
+
+      /* Shield grid: collapse to single column */
+      .sec-shield-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* "Pass to ProLuxe" inline link inside row expansion */
     .ops-expand-pass {
       display: inline-block;
