@@ -94,6 +94,251 @@
       display: none !important;
     }
 
+    /* ---- Main panel tab strip (Hotel programme / Security overwatch) ---- */
+    .ops-main-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(245,240,232,.12);
+      margin-bottom: 0;
+      padding: 0 18px;
+      background: #F5F0E8;
+    }
+    .ops-main-tab {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      color: rgba(66,70,50,.45);
+      padding: 11px 14px 10px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color .18s ease, border-color .18s ease;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .ops-main-tab:hover {
+      color: rgba(66,70,50,.75);
+    }
+    .ops-main-tab.is-active {
+      color: #424632;
+      border-bottom-color: #424632;
+    }
+    /* When hotel tab is hidden (security active), hide filter row + table head */
+    .ops-hotel-panel.is-hidden {
+      display: none;
+    }
+
+    /* ---- Security overwatch panel ---- */
+    .ops-security-panel {
+      display: none;
+      padding: 16px 18px 18px;
+      background: #F5F0E8;
+    }
+    .ops-security-panel.is-visible {
+      display: block;
+    }
+
+    /* Colossus badge */
+    .colossus-badge {
+      float: right;
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(66,70,50,.36);
+      margin-top: 2px;
+    }
+    .colossus-badge::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    /* Security status strip */
+    .sec-status-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid rgba(66,70,50,.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      clear: both;
+    }
+    .sec-status-cell {
+      padding: 10px 12px;
+      border-right: 1px solid rgba(66,70,50,.1);
+    }
+    .sec-status-cell:last-child {
+      border-right: none;
+    }
+    .sec-status-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: rgba(66,70,50,.42);
+      margin-bottom: 5px;
+    }
+    .sec-status-value {
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #424632;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sec-live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #C13B3B;
+      flex-shrink: 0;
+      animation: sec-pulse 2s ease-in-out infinite;
+    }
+    @keyframes sec-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    /* Per-city threat table */
+    .sec-city-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+    }
+    .sec-city-table th {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: rgba(66,70,50,.42);
+      text-align: left;
+      padding: 0 8px 7px 0;
+      border-bottom: 1px solid rgba(66,70,50,.1);
+    }
+    .sec-city-table td {
+      padding: 7px 8px 7px 0;
+      color: rgba(66,70,50,.8);
+      border-bottom: 1px solid rgba(66,70,50,.06);
+      vertical-align: top;
+      line-height: 1.45;
+    }
+    .sec-city-table tr:last-child td {
+      border-bottom: none;
+    }
+    .sec-city-table td:first-child {
+      font-weight: 600;
+      color: #424632;
+      width: 80px;
+    }
+    .sec-city-table td:last-child {
+      font-size: 9px;
+      color: rgba(66,70,50,.42);
+      white-space: nowrap;
+      width: 44px;
+      padding-right: 0;
+    }
+    /* Threat pills using existing status-pill structure */
+    .threat-pill {
+      display: inline-block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 2px;
+    }
+    .threat-pill--low {
+      background: rgba(66,70,50,.08);
+      color: rgba(66,70,50,.65);
+    }
+    .threat-pill--elevated {
+      background: rgba(193,138,40,.12);
+      color: rgba(140,90,20,.85);
+    }
+    .threat-pill--high {
+      background: rgba(193,59,59,.1);
+      color: #C13B3B;
+    }
+
+    /* Section headers inside security panel */
+    .sec-section-head {
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: rgba(66,70,50,.42);
+      margin: 14px 0 8px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid rgba(66,70,50,.08);
+    }
+
+    /* Flash report lines */
+    .sec-flash-line {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(66,70,50,.75);
+      line-height: 1.5;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(66,70,50,.05);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .sec-flash-line:last-child {
+      border-bottom: none;
+    }
+    .sec-flash-time {
+      font-size: 9px;
+      color: rgba(66,70,50,.38);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Digital shield rows */
+    .sec-shield-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px 16px;
+    }
+    .sec-shield-row {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      color: rgba(66,70,50,.75);
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(66,70,50,.05);
+    }
+    .sec-shield-key {
+      color: rgba(66,70,50,.5);
+      font-size: 10px;
+    }
+    .sec-shield-val {
+      font-weight: 500;
+      color: rgba(66,70,50,.8);
+      font-size: 10px;
+    }
+
+    /* Colossus attribution line */
+    .sec-attribution {
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: rgba(66,70,50,.28);
+      text-align: right;
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(66,70,50,.07);
+    }
+
     /* "Pass to ProLuxe" inline link inside row expansion */
     .ops-expand-pass {
       display: inline-block;
@@ -232,32 +477,47 @@
 
               <!-- MAIN PANEL -->
               <div class="ops-main">
-                <div class="ops-topbar">
-                  <div>
-                    <div class="ops-name" id="opsTitle">Autumn city run</div>
-                    <div class="ops-sub" id="opsSub">Sep to Oct 2026 &bull; 4 bookings</div>
+
+                <!-- TOP-LEVEL TAB STRIP -->
+                <div class="ops-main-tabs" role="tablist" aria-label="Dashboard view">
+                  <span class="ops-main-tab is-active" data-maintab="hotel" role="tab" tabindex="0" aria-selected="true" aria-controls="mainpanel-hotel">Hotel programme</span>
+                  <span class="ops-main-tab" data-maintab="security" role="tab" tabindex="0" aria-selected="false" aria-controls="mainpanel-security">Security overwatch</span>
+                </div>
+
+                <!-- HOTEL PROGRAMME PANEL -->
+                <div class="ops-hotel-panel" id="mainpanel-hotel" role="tabpanel" aria-labelledby="">
+                  <div class="ops-topbar">
+                    <div>
+                      <div class="ops-name" id="opsTitle">Autumn city run</div>
+                      <div class="ops-sub" id="opsSub">Sep to Oct 2026 &bull; 4 bookings</div>
+                    </div>
+                    <span class="ops-live-badge"><span class="live-dot"></span>Live</span>
                   </div>
-                  <span class="ops-live-badge"><span class="live-dot"></span>Live</span>
+
+                  <!-- FILTER TABS -->
+                  <div class="ops-filters" role="tablist" aria-label="Booking filter">
+                    <span class="ops-filter is-active" data-filter="all" role="tab" tabindex="0" aria-selected="true">All bookings</span>
+                    <span class="ops-filter" data-filter="confirmed" role="tab" tabindex="0" aria-selected="false">Confirmed</span>
+                    <span class="ops-filter" data-filter="pending" role="tab" tabindex="0" aria-selected="false">Pending</span>
+                    <span class="ops-filter" data-filter="changes" role="tab" tabindex="0" aria-selected="false">Changes this week</span>
+                  </div>
+
+                  <!-- TABLE HEADER -->
+                  <div class="ops-table-head" aria-hidden="true">
+                    <span>Record</span>
+                    <span>Dates</span>
+                    <span>Room</span>
+                    <span>Status</span>
+                  </div>
+
+                  <!-- DATA ROWS: rendered by JS -->
+                  <div id="opsTableBody"></div>
                 </div>
 
-                <!-- FILTER TABS -->
-                <div class="ops-filters" role="tablist" aria-label="Booking filter">
-                  <span class="ops-filter is-active" data-filter="all" role="tab" tabindex="0" aria-selected="true">All bookings</span>
-                  <span class="ops-filter" data-filter="confirmed" role="tab" tabindex="0" aria-selected="false">Confirmed</span>
-                  <span class="ops-filter" data-filter="pending" role="tab" tabindex="0" aria-selected="false">Pending</span>
-                  <span class="ops-filter" data-filter="changes" role="tab" tabindex="0" aria-selected="false">Changes this week</span>
+                <!-- SECURITY OVERWATCH PANEL -->
+                <div class="ops-security-panel" id="mainpanel-security" role="tabpanel" aria-labelledby="">
+                  <!-- JS renders content here -->
                 </div>
-
-                <!-- TABLE HEADER -->
-                <div class="ops-table-head" aria-hidden="true">
-                  <span>Record</span>
-                  <span>Dates</span>
-                  <span>Room</span>
-                  <span>Status</span>
-                </div>
-
-                <!-- DATA ROWS: rendered by JS -->
-                <div id="opsTableBody"></div>
 
               </div>
             </div>
@@ -570,10 +830,82 @@
         }
       };
 
+      /* ---- Security data (programme-aware) ---- */
+      var securityData = {
+        autumn: {
+          watchStatus: 'Live',
+          flashCount: 2,
+          exposure: 'Low',
+          lastSweep: '14:28',
+          cities: [
+            { name: 'Edinburgh', level: 'Low', intel: 'Routine policing, no protest activity in hotel district.', updated: '13:50' },
+            { name: 'Amsterdam', level: 'Elevated', intel: 'Climate protest forecast for canal ring 12 Sep, route advisory issued.', updated: '14:10' },
+            { name: 'Munich', level: 'Elevated', intel: 'Oktoberfest perimeter active, hotel access via south gate only.', updated: '14:22' },
+            { name: 'Vienna', level: 'Low', intel: 'No active flags.', updated: '14:28' }
+          ],
+          flashReports: [
+            { text: 'Amsterdam, Extinction Rebellion permit confirmed for Dam Square 12 Sep, no overlap with travel window.', time: '14:10' },
+            { text: 'Munich, train strike risk 18 Sep, alternate transfer pre-booked.', time: '13:42' },
+            { text: 'Edinburgh, baseline scan clean.', time: '13:50' }
+          ],
+          shield: [
+            { key: 'PII scan', val: 'Clear' },
+            { key: 'Brand mentions today', val: '3 (neutral)' },
+            { key: 'Family monitor', val: 'No flags' },
+            { key: 'Dark web mentions', val: 'None' }
+          ]
+        },
+        q1board: {
+          watchStatus: 'Live',
+          flashCount: 3,
+          exposure: 'Medium',
+          lastSweep: '09:12',
+          cities: [
+            { name: 'Geneva', level: 'Low', intel: 'Standard banking-district profile, no flags.', updated: '08:55' },
+            { name: 'Paris', level: 'Elevated', intel: 'Pension reform demonstrations scheduled Rue de Rivoli 4 Feb, alternate route on file.', updated: '09:05' },
+            { name: 'Davos', level: 'High', intel: 'WEF perimeter active 18 to 23 Jan, accreditation cleared, motorcade route locked.', updated: '09:12' }
+          ],
+          flashReports: [
+            { text: 'Davos, anti-WEF activist coach arriving 19 Jan, perimeter team briefed.', time: '09:12' },
+            { text: 'Paris, CGT strike notice 4 Feb, lunch venue rerouted.', time: '08:48' },
+            { text: 'Geneva, no active flags.', time: '08:55' }
+          ],
+          shield: [
+            { key: 'PII scan', val: 'Clear' },
+            { key: 'Brand mentions today', val: '12 (WEF coverage, mostly neutral)' },
+            { key: 'Family monitor', val: 'No flags' },
+            { key: 'Dark web mentions', val: '1 historical, monitored' }
+          ]
+        },
+        springasia: {
+          watchStatus: 'Live',
+          flashCount: 1,
+          exposure: 'Low',
+          lastSweep: '11:40',
+          cities: [
+            { name: 'Singapore', level: 'Low', intel: 'Quiet political calendar, no flags.', updated: '11:15' },
+            { name: 'Tokyo', level: 'Low', intel: 'Standard profile, no flags.', updated: '11:28' },
+            { name: 'Hong Kong', level: 'Elevated', intel: 'Police activity around Central 14 to 17 Apr possible, route advisory pending.', updated: '11:40' }
+          ],
+          flashReports: [
+            { text: 'Hong Kong, monitoring local LE comms for Central perimeter notices, advisory due 11 Apr.', time: '11:40' },
+            { text: 'Tokyo, baseline scan clean.', time: '11:28' },
+            { text: 'Singapore, baseline scan clean.', time: '11:15' }
+          ],
+          shield: [
+            { key: 'PII scan', val: 'Clear' },
+            { key: 'Brand mentions today', val: '2 (neutral)' },
+            { key: 'Family monitor', val: 'No flags' },
+            { key: 'Dark web mentions', val: 'None' }
+          ]
+        }
+      };
+
       /* ---- State ---- */
       var currentProgramme = 'autumn';
       var currentFilter = 'all';
       var expandedRowId = null;
+      var currentMainTab = 'hotel';
 
       /* ---- Render ---- */
       function renderProgramme(key) {
@@ -633,6 +965,105 @@
 
         applyFilter(currentFilter);
       }
+
+      /* ---- Render Security panel ---- */
+      function renderSecurity(key) {
+        var sec = securityData[key];
+        var panel = document.getElementById('mainpanel-security');
+        if (!sec || !panel) return;
+
+        var slugMap = { autumn: 'autumn-run', q1board: 'q1-board-trips', springasia: 'spring-asia' };
+        var urlBar = document.querySelector('.chrome-url');
+        if (urlBar && currentMainTab === 'security') {
+          urlBar.textContent = 'bureau.proluxetravels.com/programmes/' + (slugMap[key] || key) + '/security';
+        }
+
+        /* Threat pill HTML */
+        function threatPill(level) {
+          var cls = level === 'High' ? 'threat-pill--high'
+                  : level === 'Elevated' ? 'threat-pill--elevated'
+                  : 'threat-pill--low';
+          return '<span class="threat-pill ' + cls + '">' + level + '</span>';
+        }
+
+        /* Status strip */
+        var statusHtml = '<div class="colossus-badge">Powered by Colossus</div>'
+          + '<div class="sec-status-strip" role="group" aria-label="Security status">'
+          + '<div class="sec-status-cell"><div class="sec-status-label">24/7 watch</div><div class="sec-status-value"><span class="sec-live-dot" aria-hidden="true"></span>' + sec.watchStatus + '</div></div>'
+          + '<div class="sec-status-cell"><div class="sec-status-label">Open flash reports</div><div class="sec-status-value">' + sec.flashCount + '</div></div>'
+          + '<div class="sec-status-cell"><div class="sec-status-label">Digital exposure</div><div class="sec-status-value">' + sec.exposure + '</div></div>'
+          + '<div class="sec-status-cell"><div class="sec-status-label">Last sweep</div><div class="sec-status-value">' + sec.lastSweep + '</div></div>'
+          + '</div>';
+
+        /* City threat table */
+        var cityRows = '';
+        sec.cities.forEach(function (city) {
+          cityRows += '<tr>'
+            + '<td>' + city.name + '</td>'
+            + '<td>' + threatPill(city.level) + '</td>'
+            + '<td>' + city.intel + '</td>'
+            + '<td>' + city.updated + '</td>'
+            + '</tr>';
+        });
+        var cityHtml = '<table class="sec-city-table" aria-label="Per-city threat read">'
+          + '<thead><tr><th>City</th><th>Level</th><th>Intelligence</th><th>Updated</th></tr></thead>'
+          + '<tbody>' + cityRows + '</tbody>'
+          + '</table>';
+
+        /* Flash reports */
+        var flashHtml = '<div class="sec-section-head">Flash reports today</div>';
+        sec.flashReports.forEach(function (f) {
+          flashHtml += '<div class="sec-flash-line"><span>' + f.text + '</span><span class="sec-flash-time">' + f.time + '</span></div>';
+        });
+
+        /* Digital shield */
+        var shieldRows = '';
+        sec.shield.forEach(function (s) {
+          shieldRows += '<div class="sec-shield-row"><span class="sec-shield-key">' + s.key + '</span><span class="sec-shield-val">' + s.val + '</span></div>';
+        });
+        var shieldHtml = '<div class="sec-section-head">Digital shield</div>'
+          + '<div class="sec-shield-grid">' + shieldRows + '</div>';
+
+        /* Attribution */
+        var attrHtml = '<div class="sec-attribution">Provided by Colossus. 360 Covert Digital Overwatch.</div>';
+
+        panel.innerHTML = statusHtml + cityHtml + flashHtml + shieldHtml + attrHtml;
+      }
+
+      /* ---- Main tab switching ---- */
+      function switchMainTab(tab) {
+        currentMainTab = tab;
+        var hotelPanel  = document.getElementById('mainpanel-hotel');
+        var secPanel    = document.getElementById('mainpanel-security');
+        var slugMap = { autumn: 'autumn-run', q1board: 'q1-board-trips', springasia: 'spring-asia' };
+        var urlBar = document.querySelector('.chrome-url');
+
+        document.querySelectorAll('.ops-main-tab').forEach(function (el) {
+          var active = el.getAttribute('data-maintab') === tab;
+          el.classList.toggle('is-active', active);
+          el.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
+        if (tab === 'hotel') {
+          hotelPanel.classList.remove('is-hidden');
+          secPanel.classList.remove('is-visible');
+          if (urlBar) urlBar.textContent = 'bureau.proluxetravels.com/programmes/' + (slugMap[currentProgramme] || currentProgramme) + '/principal';
+        } else {
+          hotelPanel.classList.add('is-hidden');
+          secPanel.classList.add('is-visible');
+          renderSecurity(currentProgramme);
+        }
+      }
+
+      /* Bind main tabs */
+      document.querySelectorAll('.ops-main-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          switchMainTab(this.getAttribute('data-maintab'));
+        });
+        tab.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); switchMainTab(this.getAttribute('data-maintab')); }
+        });
+      });
 
       function onRowClick() {
         var rowId = this.getAttribute('data-rowid');
@@ -707,6 +1138,8 @@
             allTab.setAttribute('aria-selected', 'true');
           }
           renderProgramme(prog);
+          /* If security tab is active, re-render security for new programme */
+          if (currentMainTab === 'security') { renderSecurity(prog); }
         });
         item.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
