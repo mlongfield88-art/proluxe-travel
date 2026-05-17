@@ -315,16 +315,15 @@
 
         const app = initializeApp(firebaseConfig);
 
-        // App Check (SEC-2026-018 fix). Issues reCAPTCHA Enterprise tokens
-        // on every Firestore request from this page. Enforcement stays OFF
-        // in the Firebase Console until the founder confirms tokens are
-        // arriving on legitimate bookings (24h soak). While enforcement is
-        // off, Firestore accepts requests without a token, so this init is
-        // non-breaking even if the token issue path silently fails on
-        // some browser. See IBA-2026-APP-CHECK-DEPLOY.md at the repo root.
-        // TODO: Replace with real reCAPTCHA Enterprise site key from Firebase Console before merge
+        // App Check (SEC-2026-018 fix). Issues reCAPTCHA v3 tokens on every
+        // Firestore request from this page. Enforcement stays OFF in the
+        // Firebase Console until the founder confirms tokens are arriving on
+        // legitimate bookings (24h soak). While enforcement is off, Firestore
+        // accepts requests without a token, so this init is non-breaking even
+        // if the token issue path silently fails on some browser. See
+        // IBA-2026-APP-CHECK-DEPLOY.md at the repo root.
         const appCheck = initializeAppCheck(app, {
-            provider: new ReCaptchaV3Provider('SITE_KEY_PLACEHOLDER'),
+            provider: new ReCaptchaV3Provider('6Lf36e4sAAAAAEOos2WoR3E6N_qiMCU_Sz9w0lrk'),
             isTokenAutoRefreshEnabled: true
         });
 
