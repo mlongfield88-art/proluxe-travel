@@ -443,6 +443,428 @@
       color: rgba(245,240,232,.72);
       border-bottom-color: rgba(245,240,232,.4);
     }
+
+    /* ============================================================
+       BUREAU CAPABILITIES SECTION
+       Cream background, 3 office cards + 1 wider quote-acceptance
+       card. Each card has an inline browser-chrome mockup using
+       sanitised placeholders only.
+    ============================================================ */
+    .bureau-capabilities {
+      background: #F5F0E8;
+      padding: clamp(80px, 10vw, 130px) 0;
+    }
+    .bureau-capabilities__intro {
+      max-width: 720px;
+      margin: 0 0 56px;
+    }
+    .bureau-capabilities__eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #424632;
+      margin: 0 0 16px;
+    }
+    .bureau-capabilities__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 500;
+      color: #1A1A1A;
+      margin: 0 0 18px;
+      line-height: 1.15;
+    }
+    .bureau-capabilities__lede {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(14px, 1.2vw, 16px);
+      font-weight: 400;
+      color: rgba(26,26,26,.7);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .bureau-capabilities__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) {
+      .bureau-capabilities__grid { grid-template-columns: 1fr; gap: 18px; }
+    }
+
+    /* Quote-acceptance card sits in its own row, full width with
+       a side-by-side mockup. */
+    .bureau-capabilities__feature {
+      margin-top: 22px;
+    }
+
+    .cap-card {
+      background: #fdfcf8;
+      border: 1px solid rgba(66, 70, 50, 0.10);
+      padding: 28px 26px 26px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .cap-card { will-change: transform; }
+      .cap-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
+        border-color: rgba(66, 70, 50, 0.22);
+      }
+      .cap-card:hover .cap-mock {
+        transform: scale(1.015);
+      }
+    }
+    .cap-card__num {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: #424632;
+      letter-spacing: .04em;
+      font-variant-numeric: tabular-nums;
+      margin: 0 0 14px;
+    }
+    .cap-card__title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 1.18rem;
+      line-height: 1.3;
+      letter-spacing: -0.005em;
+      color: #1A1A17;
+      margin: 0 0 12px;
+    }
+    .cap-card__body {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: rgba(26,26,23,.62);
+      margin: 0 0 20px;
+      flex: 1 0 auto;
+    }
+
+    /* Feature card: two-column on desktop, stacked on mobile */
+    .cap-card--feature {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 36px;
+      align-items: center;
+      padding: 36px;
+    }
+    .cap-card--feature .cap-card__title { font-size: 1.45rem; }
+    .cap-card--feature .cap-card__body { margin-bottom: 0; }
+    @media (max-width: 900px) {
+      .cap-card--feature {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 28px;
+      }
+    }
+
+    /* Inline browser-chrome mockup, scaled down for cards. */
+    .cap-mock {
+      border-radius: 5px;
+      overflow: hidden;
+      background: #1C1C1E;
+      transition: transform 0.4s ease;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+      margin-top: auto;
+    }
+    .cap-mock__chrome {
+      background: #2C2C2E;
+      padding: 7px 9px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cap-mock__dots {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .cap-mock__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .cap-mock__dot--red   { background: #FF5F57; }
+    .cap-mock__dot--amber { background: #FEBC2E; }
+    .cap-mock__dot--green { background: #28C840; }
+    .cap-mock__url {
+      flex: 1;
+      background: #3A3A3C;
+      border-radius: 3px;
+      padding: 2px 8px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      color: rgba(245, 240, 232, 0.55);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cap-mock__body {
+      padding: 12px 12px 14px;
+      color: #ECEAE3;
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      line-height: 1.4;
+      min-height: 130px;
+    }
+
+    .cap-mock .live-pulse {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #4CAF50;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .cap-mock .live-pulse {
+        animation: capLivePulse 2.2s ease-in-out infinite;
+      }
+      @keyframes capLivePulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.35; }
+      }
+    }
+
+    /* KPI strip inside mock */
+    .cap-mock-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .cap-mock-kpi {
+      background: #2A2A2C;
+      padding: 6px 8px;
+      border-radius: 3px;
+    }
+    .cap-mock-kpi__num {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #F5F0E8;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .cap-mock-kpi__lbl {
+      font-size: 7.5px;
+      color: rgba(236, 234, 227, 0.55);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+    .cap-mock-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cap-mock-bar-row {
+      display: grid;
+      grid-template-columns: 56px 1fr 28px;
+      align-items: center;
+      gap: 6px;
+      font-size: 8px;
+      color: rgba(236, 234, 227, 0.7);
+      white-space: nowrap;
+    }
+    .cap-mock-bar {
+      height: 4px;
+      background: #2A2A2C;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .cap-mock-bar__fill {
+      height: 100%;
+      background: linear-gradient(90deg, #5e6b3a, #8a9b56);
+    }
+
+    /* Actions list inside mock */
+    .cap-mock-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .cap-mock-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      background: #2A2A2C;
+      border-radius: 3px;
+      font-size: 9.5px;
+      color: #ECEAE3;
+    }
+    .cap-mock-action__pill {
+      font-size: 7.5px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 2px 5px;
+      border-radius: 2px;
+      background: rgba(76, 175, 80, 0.18);
+      color: #8FCB91;
+    }
+    .cap-mock-action__pill--olive {
+      background: rgba(138, 155, 86, 0.2);
+      color: #c3d59b;
+    }
+    .cap-mock-action__pill--amber {
+      background: rgba(254, 188, 46, 0.18);
+      color: #FEDA8C;
+    }
+    .cap-mock-context {
+      margin-top: 8px;
+      font-size: 8.5px;
+      color: rgba(236, 234, 227, 0.5);
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    /* Security tabs inside mock */
+    .cap-mock-sec-tabs {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid #2A2A2C;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+    }
+    .cap-mock-sec-tab {
+      font-size: 8.5px;
+      color: rgba(236, 234, 227, 0.5);
+      letter-spacing: 0.02em;
+    }
+    .cap-mock-sec-tab.is-active {
+      color: #F5F0E8;
+      border-bottom: 1px solid #c3d59b;
+      padding-bottom: 4px;
+      margin-bottom: -7px;
+    }
+    .cap-mock-sec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+    }
+    .cap-mock-sec-cell {
+      background: #2A2A2C;
+      padding: 5px 7px;
+      border-radius: 3px;
+      font-size: 8.5px;
+      color: rgba(236, 234, 227, 0.78);
+    }
+    .cap-mock-sec-cell__lvl {
+      font-size: 7px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #c3d59b;
+      margin-top: 2px;
+    }
+    .cap-mock-sec-cell__lvl--amber { color: #FEDA8C; }
+    .cap-mock-colossus-badge {
+      display: inline-block;
+      font-size: 7.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #d9a0a0;
+      border: 1px solid rgba(193, 59, 59, 0.4);
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-top: 7px;
+    }
+
+    /* Quote-acceptance side-by-side option cards inside mock */
+    .cap-mock-quote-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+    }
+    .cap-mock-quote-card {
+      background: #2A2A2C;
+      border-radius: 3px;
+      padding: 8px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cap-mock-quote-card.is-primary {
+      border: 1px solid rgba(155, 184, 122, 0.45);
+      background: rgba(66, 70, 50, 0.5);
+    }
+    .cap-mock-quote-card.is-fallback {
+      border: 1px solid rgba(254, 188, 46, 0.4);
+    }
+    .cap-mock-quote__lbl {
+      font-size: 8px;
+      color: rgba(236, 234, 227, 0.55);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cap-mock-quote__name {
+      font-family: 'Playfair Display', serif;
+      font-size: 11px;
+      color: #F5F0E8;
+      font-weight: 500;
+      line-height: 1.15;
+    }
+    .cap-mock-quote__meta {
+      font-size: 8px;
+      color: rgba(236, 234, 227, 0.5);
+      line-height: 1.35;
+    }
+    .cap-mock-quote__btn {
+      margin-top: 4px;
+      font-size: 7.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 6px;
+      border-radius: 2px;
+      text-align: center;
+    }
+    .cap-mock-quote__btn--primary {
+      background: rgba(155, 184, 122, 0.18);
+      color: #9BB87A;
+      border: 1px solid rgba(155, 184, 122, 0.35);
+    }
+    .cap-mock-quote__btn--fallback {
+      background: rgba(254, 188, 46, 0.12);
+      color: #FEDA8C;
+      border: 1px solid rgba(254, 188, 46, 0.3);
+    }
+    .cap-mock-quote__btn--ghost {
+      background: transparent;
+      color: rgba(236, 234, 227, 0.5);
+      border: 1px solid rgba(236, 234, 227, 0.12);
+    }
+    @media (max-width: 640px) {
+      .cap-mock-quote-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Reveal stagger for capability cards. */
+    @media (prefers-reduced-motion: no-preference) {
+      .cap-card {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .cap-card.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .bureau-capabilities__grid .cap-card.is-visible:nth-child(1) { transition-delay: 0s; }
+      .bureau-capabilities__grid .cap-card.is-visible:nth-child(2) { transition-delay: 0.1s; }
+      .bureau-capabilities__grid .cap-card.is-visible:nth-child(3) { transition-delay: 0.2s; }
+    }
+
+    @media (max-width: 640px) {
+      .cap-card { padding: 22px 20px 20px; }
+      .cap-mock__body { min-height: auto; padding: 10px 10px 12px; }
+    }
   </style>
 </head>
 <body>
@@ -539,7 +961,7 @@
               <span class="chrome-dot chrome-dot--amber"></span>
               <span class="chrome-dot chrome-dot--green"></span>
             </div>
-            <span class="chrome-url">bureau.proluxetravels.com/programmes/autumn-run/principal</span>
+            <span class="chrome-url">bureau.proluxetravels.com/programmes/programme-demo/principal</span>
           </div>
           <div class="mockup-body">
             <div class="ops-shell">
@@ -548,16 +970,16 @@
               <nav class="ops-sidebar" aria-label="Programme selector">
                 <p class="ops-sidebar__label">Programmes</p>
                 <div class="ops-sidebar__item is-active" data-programme="autumn" role="button" tabindex="0" aria-pressed="true">
-                  Autumn city run
-                  <div class="ops-sidebar__meta">Edinburgh, Amsterdam, Munich, Vienna</div>
+                  Autumn programme
+                  <div class="ops-sidebar__meta">4 cities</div>
                 </div>
                 <div class="ops-sidebar__item" data-programme="q1board" role="button" tabindex="0" aria-pressed="false">
-                  Q1 board trips
-                  <div class="ops-sidebar__meta">Geneva, Paris, Davos</div>
+                  Q1 board programme
+                  <div class="ops-sidebar__meta">3 cities</div>
                 </div>
                 <div class="ops-sidebar__item" data-programme="springasia" role="button" tabindex="0" aria-pressed="false">
-                  Spring Asia tour
-                  <div class="ops-sidebar__meta">Singapore, Tokyo, Hong Kong</div>
+                  Spring programme
+                  <div class="ops-sidebar__meta">3 cities</div>
                 </div>
               </nav>
 
@@ -574,8 +996,8 @@
                 <div class="ops-hotel-panel" id="mainpanel-hotel" role="tabpanel" aria-labelledby="">
                   <div class="ops-topbar">
                     <div>
-                      <div class="ops-name" id="opsTitle">Autumn city run</div>
-                      <div class="ops-sub" id="opsSub">Sep to Oct 2026 &bull; 4 bookings</div>
+                      <div class="ops-name" id="opsTitle">Autumn programme</div>
+                      <div class="ops-sub" id="opsSub">Sep to Oct &bull; 4 bookings</div>
                     </div>
                     <span class="ops-live-badge"><span class="live-dot"></span>Live</span>
                   </div>
@@ -611,6 +1033,145 @@
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ========== BUREAU CAPABILITIES ========== -->
+  <section class="bureau-capabilities" aria-label="What Bureau gives a principal's office">
+    <div class="container">
+
+      <div class="bureau-capabilities__intro io-reveal">
+        <p class="bureau-capabilities__eyebrow">What it does</p>
+        <h2 class="bureau-capabilities__heading">The capabilities your office sees on day one.</h2>
+        <p class="bureau-capabilities__lede">Live programme view, two-way change flow, optional protective intelligence layer, and a quote-acceptance step that pins the shortlist before the dashboard goes live.</p>
+      </div>
+
+      <div class="bureau-capabilities__grid">
+
+        <article class="cap-card">
+          <p class="cap-card__num">01</p>
+          <h3 class="cap-card__title">A live programme view, not a spreadsheet.</h3>
+          <p class="cap-card__body">Every booking, every hotel, every change, live in one place. Filter by trip, date, hotel, or status. Your team sees the same view we work from, with KPI counters that animate as bookings move and a per-hotel inventory grid that updates the moment a room is taken.</p>
+          <div class="cap-mock" aria-hidden="true">
+            <div class="cap-mock__chrome">
+              <div class="cap-mock__dots">
+                <span class="cap-mock__dot cap-mock__dot--red"></span>
+                <span class="cap-mock__dot cap-mock__dot--amber"></span>
+                <span class="cap-mock__dot cap-mock__dot--green"></span>
+              </div>
+              <span class="cap-mock__url">bureau.proluxetravels.com / programme-demo</span>
+            </div>
+            <div class="cap-mock__body">
+              <div class="cap-mock-kpis">
+                <div class="cap-mock-kpi"><div class="cap-mock-kpi__num">127</div><div class="cap-mock-kpi__lbl">Confirmed</div></div>
+                <div class="cap-mock-kpi"><div class="cap-mock-kpi__num">38</div><div class="cap-mock-kpi__lbl">Pending</div></div>
+                <div class="cap-mock-kpi"><div class="cap-mock-kpi__num">11</div><div class="cap-mock-kpi__lbl">Hotels</div></div>
+              </div>
+              <div class="cap-mock-bars">
+                <div class="cap-mock-bar-row"><span>Hotel A</span><div class="cap-mock-bar"><div class="cap-mock-bar__fill" style="width:82%"></div></div><span>48/58</span></div>
+                <div class="cap-mock-bar-row"><span>Hotel B</span><div class="cap-mock-bar"><div class="cap-mock-bar__fill" style="width:64%"></div></div><span>22/34</span></div>
+                <div class="cap-mock-bar-row"><span>Hotel C</span><div class="cap-mock-bar"><div class="cap-mock-bar__fill" style="width:91%"></div></div><span>40/44</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="cap-card">
+          <p class="cap-card__num">02</p>
+          <h3 class="cap-card__title">Changes flow three ways, not one.</h3>
+          <p class="cap-card__body">Inline edits where they fit. A change request to ProLuxe when they don't. A clean audit log either way. Every action is logged with who, what, and when, and a Mark Resolved button at our end closes the loop.</p>
+          <div class="cap-mock" aria-hidden="true">
+            <div class="cap-mock__chrome">
+              <div class="cap-mock__dots">
+                <span class="cap-mock__dot cap-mock__dot--red"></span>
+                <span class="cap-mock__dot cap-mock__dot--amber"></span>
+                <span class="cap-mock__dot cap-mock__dot--green"></span>
+              </div>
+              <span class="cap-mock__url">bureau.proluxetravels.com / booking / REF-204</span>
+            </div>
+            <div class="cap-mock__body">
+              <div class="cap-mock-actions">
+                <div class="cap-mock-action"><span>Resend confirmation</span><span class="cap-mock-action__pill">Inline</span></div>
+                <div class="cap-mock-action"><span>Change dates</span><span class="cap-mock-action__pill cap-mock-action__pill--olive">Within rails</span></div>
+                <div class="cap-mock-action"><span>Pass to ProLuxe</span><span class="cap-mock-action__pill cap-mock-action__pill--amber">Escalate</span></div>
+              </div>
+              <p class="cap-mock-context">Logged: M. Carter, 09:14. Awaiting Resolved.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="cap-card">
+          <p class="cap-card__num">03</p>
+          <h3 class="cap-card__title">Intelligence layered on top.</h3>
+          <p class="cap-card__body">Each programme can carry a live Security overwatch tab. Protective intelligence, zone classifications, and pre-event briefs from Colossus, all on the same dashboard your team is already using. Optional add-on, bespoke quote per programme.</p>
+          <div class="cap-mock" aria-hidden="true">
+            <div class="cap-mock__chrome">
+              <div class="cap-mock__dots">
+                <span class="cap-mock__dot cap-mock__dot--red"></span>
+                <span class="cap-mock__dot cap-mock__dot--amber"></span>
+                <span class="cap-mock__dot cap-mock__dot--green"></span>
+              </div>
+              <span class="cap-mock__url">bureau.proluxetravels.com / programme-demo / overwatch</span>
+            </div>
+            <div class="cap-mock__body">
+              <div class="cap-mock-sec-tabs">
+                <span class="cap-mock-sec-tab">Hotel programme</span>
+                <span class="cap-mock-sec-tab is-active">Security overwatch</span>
+              </div>
+              <div class="cap-mock-sec-grid">
+                <div class="cap-mock-sec-cell">City One<div class="cap-mock-sec-cell__lvl">Zone A</div></div>
+                <div class="cap-mock-sec-cell">City Two<div class="cap-mock-sec-cell__lvl">Zone A</div></div>
+                <div class="cap-mock-sec-cell">City Three<div class="cap-mock-sec-cell__lvl cap-mock-sec-cell__lvl--amber">Zone B</div></div>
+                <div class="cap-mock-sec-cell">City Four<div class="cap-mock-sec-cell__lvl">Zone A</div></div>
+              </div>
+              <span class="cap-mock-colossus-badge">Colossus</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Quote-acceptance feature card -->
+      <article class="cap-card cap-card--feature bureau-capabilities__feature io-reveal">
+        <div>
+          <p class="cap-card__num">04</p>
+          <h3 class="cap-card__title">Quote-acceptance, before the dashboard goes live.</h3>
+          <p class="cap-card__body">Two or three quote options land in your team's view. You mark one primary, one fallback. The dashboard then opens with the approved shortlist locked in, so every booking, every audit line, and every change request flows from a decision you made on the record.</p>
+        </div>
+        <div class="cap-mock" aria-hidden="true">
+          <div class="cap-mock__chrome">
+            <div class="cap-mock__dots">
+              <span class="cap-mock__dot cap-mock__dot--red"></span>
+              <span class="cap-mock__dot cap-mock__dot--amber"></span>
+              <span class="cap-mock__dot cap-mock__dot--green"></span>
+            </div>
+            <span class="cap-mock__url">bureau.proluxetravels.com / programme-demo / quotes</span>
+          </div>
+          <div class="cap-mock__body">
+            <div class="cap-mock-quote-grid">
+              <div class="cap-mock-quote-card is-primary">
+                <span class="cap-mock-quote__lbl">Option A</span>
+                <span class="cap-mock-quote__name">Hotel A</span>
+                <span class="cap-mock-quote__meta">8 rooms &middot; 3 nights<br>Walk to venue</span>
+                <span class="cap-mock-quote__btn cap-mock-quote__btn--primary">Primary</span>
+              </div>
+              <div class="cap-mock-quote-card is-fallback">
+                <span class="cap-mock-quote__lbl">Option B</span>
+                <span class="cap-mock-quote__name">Hotel B</span>
+                <span class="cap-mock-quote__meta">8 rooms &middot; 3 nights<br>10 min by car</span>
+                <span class="cap-mock-quote__btn cap-mock-quote__btn--fallback">Fallback</span>
+              </div>
+              <div class="cap-mock-quote-card">
+                <span class="cap-mock-quote__lbl">Option C</span>
+                <span class="cap-mock-quote__name">Hotel C</span>
+                <span class="cap-mock-quote__meta">8 rooms &middot; 3 nights<br>Boutique</span>
+                <span class="cap-mock-quote__btn cap-mock-quote__btn--ghost">Mark</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -680,7 +1241,7 @@
     </div>
   </div>
 
-  <noscript><style>.io-reveal,.benefit{opacity:1;transform:none}</style></noscript>
+  <noscript><style>.io-reveal,.benefit,.cap-card{opacity:1;transform:none}</style></noscript>
 
   <script>
     (function () {
@@ -739,7 +1300,7 @@
       if (declineBtn) declineBtn.addEventListener('click', function () { localStorage.setItem(cookieKey, 'declined'); dismissCookie(); });
 
       /* ---- IntersectionObserver reveals ---- */
-      var revealTargets = document.querySelectorAll('.io-reveal, .benefit');
+      var revealTargets = document.querySelectorAll('.io-reveal, .benefit, .cap-card');
 
       if ('IntersectionObserver' in window) {
         var observer = new IntersectionObserver(function (entries) {
@@ -767,57 +1328,57 @@
       ---- */
       var programmes = {
         autumn: {
-          title: 'Autumn city run',
-          sub: 'Sep to Oct 2026 &bull; 4 bookings',
+          title: 'Autumn programme',
+          sub: 'Sep to Oct &bull; 4 bookings',
           rows: [
             {
               record: 'Hotel A',
-              recordSub: 'Edinburgh',
+              recordSub: 'City One',
               dates: '8 to 10 Sep',
               room: 'Junior suite',
               roomNote: 'City view',
               status: 'confirmed',
               expand: {
-                contact: 'GM, Hotel A Edinburgh',
+                contact: 'GM, Hotel A',
                 roomDetail: 'Junior suite, city-facing. Check-in 8 Sep 15:00, check-out 10 Sep 11:00.',
                 audit: 'Room confirmed &bull; 14:30, 2 Sep &bull; M.L.'
               }
             },
             {
               record: 'Hotel B',
-              recordSub: 'Amsterdam',
+              recordSub: 'City Two',
               dates: '12 to 15 Sep',
               room: 'Executive king',
-              roomNote: 'Canal view',
+              roomNote: 'Higher floor',
               status: 'confirmed',
               expand: {
-                contact: 'GM, Hotel B Amsterdam',
-                roomDetail: 'Executive king, canal-facing. Check-in 12 Sep 14:00, check-out 15 Sep 12:00.',
+                contact: 'GM, Hotel B',
+                roomDetail: 'Executive king, higher floor. Check-in 12 Sep 14:00, check-out 15 Sep 12:00.',
                 audit: 'Early check-in confirmed &bull; 09:05, 4 Sep &bull; M.L.'
               }
             },
             {
               record: 'Hotel C',
-              recordSub: 'Munich',
+              recordSub: 'City Three',
               dates: '17 to 19 Sep',
               room: 'Suite',
               roomNote: 'Garden view',
               status: 'changes',
               expand: {
-                contact: 'GM, Hotel C Munich',
+                contact: 'GM, Hotel C',
                 roomDetail: 'Suite, garden-facing. Dates shifted from 16 to 18 Sep. Check-in 17 Sep 15:00, check-out 19 Sep 11:00.',
                 audit: 'Room moved &bull; 09:14, 1 Sep &bull; M.L.'
               }
             },
             {
               record: 'Hotel D',
-              recordSub: 'Vienna',
+              recordSub: 'City Four',
               dates: '21 to 23 Sep',
               room: 'Deluxe king',
               roomNote: 'Pending confirmation',
               status: 'pending',
               expand: {
-                contact: 'GM, Hotel D Vienna',
+                contact: 'GM, Hotel D',
                 roomDetail: 'Deluxe king requested. Confirmation pending. Check-in 21 Sep 14:00, check-out 23 Sep 12:00.',
                 audit: 'Hold placed &bull; 11:20, 5 Sep &bull; M.L.'
               }
@@ -825,89 +1386,89 @@
           ]
         },
         q1board: {
-          title: 'Q1 board trips',
-          sub: 'Jan to Mar 2027 &bull; 3 bookings',
+          title: 'Q1 board programme',
+          sub: 'Jan to Mar &bull; 3 bookings',
           rows: [
             {
               record: 'Hotel E',
-              recordSub: 'Geneva',
+              recordSub: 'City Five',
               dates: '19 to 21 Jan',
               room: 'Suite 612',
-              roomNote: 'Lake view',
+              roomNote: 'Quiet wing',
               status: 'confirmed',
               expand: {
-                contact: 'GM, Hotel E Geneva',
-                roomDetail: 'Suite 612, lake-facing. Check-in 19 Jan 15:00, check-out 21 Jan 11:00. Early departure on file.',
+                contact: 'GM, Hotel E',
+                roomDetail: 'Suite 612, quiet wing. Check-in 19 Jan 15:00, check-out 21 Jan 11:00. Early departure on file.',
                 audit: 'Booking confirmed &bull; 10:15, 8 Jan &bull; M.L.'
               }
             },
             {
               record: 'Hotel F',
-              recordSub: 'Paris',
+              recordSub: 'City Six',
               dates: '3 to 5 Feb',
               room: 'Prestige suite',
               roomNote: 'Floor 7',
               status: 'confirmed',
               expand: {
-                contact: 'GM, Hotel F Paris',
+                contact: 'GM, Hotel F',
                 roomDetail: 'Prestige suite, floor 7. Check-in 3 Feb 14:00, check-out 5 Feb 12:00.',
                 audit: 'Room confirmed &bull; 16:40, 20 Jan &bull; M.L.'
               }
             },
             {
               record: 'Hotel G',
-              recordSub: 'Davos',
+              recordSub: 'City Seven',
               dates: '20 to 23 Jan',
               room: 'Mountain suite',
-              roomNote: 'Pending',
+              roomNote: 'Adjusted dates',
               status: 'changes',
               expand: {
-                contact: 'GM, Hotel G Davos',
-                roomDetail: 'Mountain suite requested. Dates adjusted to align with forum schedule. Check-in 20 Jan 13:00, check-out 23 Jan 10:00.',
+                contact: 'GM, Hotel G',
+                roomDetail: 'Mountain suite requested. Dates adjusted to align with the schedule. Check-in 20 Jan 13:00, check-out 23 Jan 10:00.',
                 audit: 'Dates revised &bull; 08:50, 10 Jan &bull; M.L.'
               }
             }
           ]
         },
         springasia: {
-          title: 'Spring Asia tour',
-          sub: 'Apr to May 2027 &bull; 3 bookings',
+          title: 'Spring programme',
+          sub: 'Apr to May &bull; 3 bookings',
           rows: [
             {
               record: 'Hotel H',
-              recordSub: 'Singapore',
+              recordSub: 'City Eight',
               dates: '4 to 7 Apr',
               room: 'Club suite',
               roomNote: 'Skyline view',
               status: 'confirmed',
               expand: {
-                contact: 'GM, Hotel H Singapore',
+                contact: 'GM, Hotel H',
                 roomDetail: 'Club suite, skyline-facing. Check-in 4 Apr 15:00, check-out 7 Apr 12:00. Club lounge access confirmed.',
                 audit: 'Booking confirmed &bull; 13:00, 14 Mar &bull; M.L.'
               }
             },
             {
               record: 'Hotel I',
-              recordSub: 'Tokyo',
+              recordSub: 'City Nine',
               dates: '9 to 12 Apr',
               room: 'Corner suite',
               roomNote: 'City view',
               status: 'pending',
               expand: {
-                contact: 'GM, Hotel I Tokyo',
+                contact: 'GM, Hotel I',
                 roomDetail: 'Corner suite requested. Availability confirmed by property, hold pending formal sign-off. Check-in 9 Apr 15:00, check-out 12 Apr 11:00.',
                 audit: 'Hold placed &bull; 09:30, 15 Mar &bull; M.L.'
               }
             },
             {
               record: 'Hotel J',
-              recordSub: 'Hong Kong',
+              recordSub: 'City Ten',
               dates: '14 to 17 Apr',
               room: 'Harbour suite',
               roomNote: 'Harbour view',
               status: 'confirmed',
               expand: {
-                contact: 'GM, Hotel J Hong Kong',
+                contact: 'GM, Hotel J',
                 roomDetail: 'Harbour suite, water-facing. Check-in 14 Apr 14:00, check-out 17 Apr 12:00.',
                 audit: 'Room confirmed &bull; 11:55, 16 Mar &bull; M.L.'
               }
@@ -924,15 +1485,15 @@
           exposure: 'Low',
           lastSweep: '14:28',
           cities: [
-            { name: 'Edinburgh', level: 'Low', intel: 'Routine policing, no protest activity in hotel district.', updated: '13:50' },
-            { name: 'Amsterdam', level: 'Elevated', intel: 'Climate protest forecast for canal ring 12 Sep, route advisory issued.', updated: '14:10' },
-            { name: 'Munich', level: 'Elevated', intel: 'Oktoberfest perimeter active, hotel access via south gate only.', updated: '14:22' },
-            { name: 'Vienna', level: 'Low', intel: 'No active flags.', updated: '14:28' }
+            { name: 'City One',   level: 'Low',      intel: 'Routine policing, no protest activity in the hotel district.', updated: '13:50' },
+            { name: 'City Two',   level: 'Elevated', intel: 'Demonstration forecast for the centre on day 2, route advisory issued.', updated: '14:10' },
+            { name: 'City Three', level: 'Elevated', intel: 'Local festival perimeter active, hotel access via south gate only.', updated: '14:22' },
+            { name: 'City Four',  level: 'Low',      intel: 'No active flags.', updated: '14:28' }
           ],
           flashReports: [
-            { text: 'Amsterdam, Extinction Rebellion permit confirmed for Dam Square 12 Sep, no overlap with travel window.', time: '14:10' },
-            { text: 'Munich, train strike risk 18 Sep, alternate transfer pre-booked.', time: '13:42' },
-            { text: 'Edinburgh, baseline scan clean.', time: '13:50' }
+            { text: 'City Two, permitted demonstration confirmed for the central square, no overlap with the travel window.', time: '14:10' },
+            { text: 'City Three, transport strike risk on day 3, alternate transfer pre-booked.', time: '13:42' },
+            { text: 'City One, baseline scan clean.', time: '13:50' }
           ],
           shield: [
             { key: 'PII scan', val: 'Clear' },
@@ -947,18 +1508,18 @@
           exposure: 'Medium',
           lastSweep: '09:12',
           cities: [
-            { name: 'Geneva', level: 'Low', intel: 'Standard banking-district profile, no flags.', updated: '08:55' },
-            { name: 'Paris', level: 'Elevated', intel: 'Pension reform demonstrations scheduled Rue de Rivoli 4 Feb, alternate route on file.', updated: '09:05' },
-            { name: 'Davos', level: 'High', intel: 'WEF perimeter active 18 to 23 Jan, accreditation cleared, motorcade route locked.', updated: '09:12' }
+            { name: 'City Five',  level: 'Low',      intel: 'Standard banking-district profile, no flags.', updated: '08:55' },
+            { name: 'City Six',   level: 'Elevated', intel: 'Demonstrations scheduled in the central district, alternate route on file.', updated: '09:05' },
+            { name: 'City Seven', level: 'High',     intel: 'Forum perimeter active across the travel window, accreditation cleared, motorcade route locked.', updated: '09:12' }
           ],
           flashReports: [
-            { text: 'Davos, anti-WEF activist coach arriving 19 Jan, perimeter team briefed.', time: '09:12' },
-            { text: 'Paris, CGT strike notice 4 Feb, lunch venue rerouted.', time: '08:48' },
-            { text: 'Geneva, no active flags.', time: '08:55' }
+            { text: 'City Seven, activist coach arriving day 1, perimeter team briefed.', time: '09:12' },
+            { text: 'City Six, strike notice for day 2, lunch venue rerouted.', time: '08:48' },
+            { text: 'City Five, no active flags.', time: '08:55' }
           ],
           shield: [
             { key: 'PII scan', val: 'Clear' },
-            { key: 'Brand mentions today', val: '12 (WEF coverage, mostly neutral)' },
+            { key: 'Brand mentions today', val: '12 (event coverage, mostly neutral)' },
             { key: 'Family monitor', val: 'No flags' },
             { key: 'Dark web mentions', val: '1 historical, monitored' }
           ]
@@ -969,14 +1530,14 @@
           exposure: 'Low',
           lastSweep: '11:40',
           cities: [
-            { name: 'Singapore', level: 'Low', intel: 'Quiet political calendar, no flags.', updated: '11:15' },
-            { name: 'Tokyo', level: 'Low', intel: 'Standard profile, no flags.', updated: '11:28' },
-            { name: 'Hong Kong', level: 'Elevated', intel: 'Police activity around Central 14 to 17 Apr possible, route advisory pending.', updated: '11:40' }
+            { name: 'City Eight', level: 'Low',      intel: 'Quiet political calendar, no flags.', updated: '11:15' },
+            { name: 'City Nine',  level: 'Low',      intel: 'Standard profile, no flags.', updated: '11:28' },
+            { name: 'City Ten',   level: 'Elevated', intel: 'Police activity around the central district possible, route advisory pending.', updated: '11:40' }
           ],
           flashReports: [
-            { text: 'Hong Kong, monitoring local LE comms for Central perimeter notices, advisory due 11 Apr.', time: '11:40' },
-            { text: 'Tokyo, baseline scan clean.', time: '11:28' },
-            { text: 'Singapore, baseline scan clean.', time: '11:15' }
+            { text: 'City Ten, monitoring local communications for perimeter notices, advisory due 11 Apr.', time: '11:40' },
+            { text: 'City Nine, baseline scan clean.', time: '11:28' },
+            { text: 'City Eight, baseline scan clean.', time: '11:15' }
           ],
           shield: [
             { key: 'PII scan', val: 'Clear' },
@@ -1003,7 +1564,7 @@
         document.getElementById('opsSub').innerHTML = prog.sub;
 
         /* Update URL bar to reflect programme slug */
-        var slugMap = { autumn: 'autumn-run', q1board: 'q1-board-trips', springasia: 'spring-asia' };
+        var slugMap = { autumn: 'programme-demo', q1board: 'board-programme', springasia: 'tour-programme' };
         var urlBar = document.querySelector('.chrome-url');
         if (urlBar) {
           urlBar.textContent = 'bureau.proluxetravels.com/programmes/' + (slugMap[key] || key) + '/principal';
@@ -1058,7 +1619,7 @@
         var panel = document.getElementById('mainpanel-security');
         if (!sec || !panel) return;
 
-        var slugMap = { autumn: 'autumn-run', q1board: 'q1-board-trips', springasia: 'spring-asia' };
+        var slugMap = { autumn: 'programme-demo', q1board: 'board-programme', springasia: 'tour-programme' };
         var urlBar = document.querySelector('.chrome-url');
         if (urlBar && currentMainTab === 'security') {
           urlBar.textContent = 'bureau.proluxetravels.com/programmes/' + (slugMap[key] || key) + '/security';
@@ -1121,7 +1682,7 @@
         currentMainTab = tab;
         var hotelPanel  = document.getElementById('mainpanel-hotel');
         var secPanel    = document.getElementById('mainpanel-security');
-        var slugMap = { autumn: 'autumn-run', q1board: 'q1-board-trips', springasia: 'spring-asia' };
+        var slugMap = { autumn: 'programme-demo', q1board: 'board-programme', springasia: 'tour-programme' };
         var urlBar = document.querySelector('.chrome-url');
 
         document.querySelectorAll('.ops-main-tab').forEach(function (el) {

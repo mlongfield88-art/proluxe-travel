@@ -495,6 +495,431 @@
       font-weight: 600;
     }
 
+    /* ============================================================
+       BUREAU CAPABILITIES SECTION
+       Cream background, 3 programme cards + 1 wider quote-acceptance
+       card. Each card has an inline browser-chrome mockup using
+       sanitised placeholders only.
+    ============================================================ */
+    .bureau-capabilities {
+      background: #F5F0E8;
+      padding: clamp(80px, 10vw, 130px) 0;
+    }
+    .bureau-capabilities__intro {
+      max-width: 720px;
+      margin: 0 0 56px;
+    }
+    .bureau-capabilities__eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #424632;
+      margin: 0 0 16px;
+    }
+    .bureau-capabilities__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 500;
+      color: #1A1A1A;
+      margin: 0 0 18px;
+      line-height: 1.15;
+    }
+    .bureau-capabilities__lede {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(14px, 1.2vw, 16px);
+      font-weight: 400;
+      color: rgba(26,26,26,.7);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .bureau-capabilities__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) {
+      .bureau-capabilities__grid { grid-template-columns: 1fr; gap: 18px; }
+    }
+    .bureau-capabilities__feature {
+      margin-top: 22px;
+    }
+
+    .cap-card {
+      background: #fdfcf8;
+      border: 1px solid rgba(66, 70, 50, 0.10);
+      padding: 28px 26px 26px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .cap-card { will-change: transform; }
+      .cap-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
+        border-color: rgba(66, 70, 50, 0.22);
+      }
+      .cap-card:hover .cap-mock {
+        transform: scale(1.015);
+      }
+    }
+    .cap-card__num {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: #424632;
+      letter-spacing: .04em;
+      font-variant-numeric: tabular-nums;
+      margin: 0 0 14px;
+    }
+    .cap-card__title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 1.18rem;
+      line-height: 1.3;
+      letter-spacing: -0.005em;
+      color: #1A1A17;
+      margin: 0 0 12px;
+    }
+    .cap-card__body {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: rgba(26,26,23,.62);
+      margin: 0 0 20px;
+      flex: 1 0 auto;
+    }
+
+    .cap-card--feature {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 36px;
+      align-items: center;
+      padding: 36px;
+    }
+    .cap-card--feature .cap-card__title { font-size: 1.45rem; }
+    .cap-card--feature .cap-card__body { margin-bottom: 0; }
+    @media (max-width: 900px) {
+      .cap-card--feature {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 28px;
+      }
+    }
+
+    /* Inline browser-chrome mockup, scaled down for cards. */
+    .cap-mock {
+      border-radius: 5px;
+      overflow: hidden;
+      background: #1C1C1E;
+      transition: transform 0.4s ease;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+      margin-top: auto;
+    }
+    .cap-mock__chrome {
+      background: #2C2C2E;
+      padding: 7px 9px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cap-mock__dots {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .cap-mock__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .cap-mock__dot--red   { background: #FF5F57; }
+    .cap-mock__dot--amber { background: #FEBC2E; }
+    .cap-mock__dot--green { background: #28C840; }
+    .cap-mock__url {
+      flex: 1;
+      background: #3A3A3C;
+      border-radius: 3px;
+      padding: 2px 8px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 9px;
+      color: rgba(245, 240, 232, 0.55);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cap-mock__body {
+      padding: 12px 12px 14px;
+      color: #ECEAE3;
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      line-height: 1.4;
+      min-height: 130px;
+    }
+
+    .cap-mock .live-pulse {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #4CAF50;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .cap-mock .live-pulse {
+        animation: capLivePulse 2.2s ease-in-out infinite;
+      }
+      @keyframes capLivePulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.35; }
+      }
+    }
+
+    /* Mock 1: Magic-link mail */
+    .cap-mock-mail {
+      background: #2A2A2C;
+      border-radius: 3px;
+      padding: 8px 9px;
+    }
+    .cap-mock-mail__from {
+      font-size: 7.5px;
+      color: rgba(236, 234, 227, 0.5);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .cap-mock-mail__sub {
+      font-size: 10px;
+      color: #F5F0E8;
+      margin: 3px 0 5px;
+    }
+    .cap-mock-mail__body {
+      font-size: 8.5px;
+      color: rgba(236, 234, 227, 0.65);
+      line-height: 1.4;
+    }
+    .cap-mock-mail__link {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 9px;
+      color: #c3d59b;
+      border: 1px solid rgba(195, 213, 155, 0.4);
+      padding: 4px 9px;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Mock 2: Amend modal */
+    .cap-mock-modal {
+      background: #2A2A2C;
+      border-radius: 3px;
+      padding: 8px 10px;
+    }
+    .cap-mock-modal__title {
+      font-size: 9.5px;
+      color: #F5F0E8;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .cap-mock-field {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 5px;
+    }
+    .cap-mock-input {
+      flex: 1;
+      background: #1C1C1E;
+      border: 1px solid rgba(245, 240, 232, 0.12);
+      border-radius: 2px;
+      padding: 3px 6px;
+      font-size: 8.5px;
+      color: rgba(236, 234, 227, 0.8);
+    }
+    .cap-mock-modal__footer {
+      margin-top: 7px;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(245, 240, 232, 0.12);
+      font-size: 8px;
+      color: rgba(236, 234, 227, 0.55);
+      font-style: italic;
+    }
+    .cap-mock-modal__escalate {
+      font-size: 8.5px;
+      color: #c3d59b;
+      margin-top: 3px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Mock 3: Status grid */
+    .cap-mock-grid-head {
+      display: grid;
+      grid-template-columns: 14px 1fr 56px 44px;
+      gap: 6px;
+      padding: 0 4px 5px;
+      border-bottom: 1px solid #2A2A2C;
+      font-size: 7.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(236, 234, 227, 0.45);
+      margin-bottom: 4px;
+    }
+    .cap-mock-grid-row {
+      display: grid;
+      grid-template-columns: 14px 1fr 56px 44px;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 4px;
+      font-size: 8.5px;
+      color: rgba(236, 234, 227, 0.8);
+    }
+    .cap-mock-grid-row + .cap-mock-grid-row {
+      border-top: 1px solid rgba(245, 240, 232, 0.04);
+    }
+    .cap-mock-status {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4CAF50;
+    }
+    .cap-mock-status--amber { background: #FEBC2E; }
+    .cap-mock-status--red { background: #FF5F57; }
+
+    /* Quote-acceptance side-by-side option cards inside mock */
+    .cap-mock-quote-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+    }
+    .cap-mock-quote-card {
+      background: #2A2A2C;
+      border-radius: 3px;
+      padding: 8px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cap-mock-quote-card.is-primary {
+      border: 1px solid rgba(155, 184, 122, 0.45);
+      background: rgba(66, 70, 50, 0.5);
+    }
+    .cap-mock-quote-card.is-fallback {
+      border: 1px solid rgba(254, 188, 46, 0.4);
+    }
+    .cap-mock-quote__lbl {
+      font-size: 8px;
+      color: rgba(236, 234, 227, 0.55);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cap-mock-quote__name {
+      font-family: 'Playfair Display', serif;
+      font-size: 11px;
+      color: #F5F0E8;
+      font-weight: 500;
+      line-height: 1.15;
+    }
+    .cap-mock-quote__meta {
+      font-size: 8px;
+      color: rgba(236, 234, 227, 0.5);
+      line-height: 1.35;
+    }
+    .cap-mock-quote__btn {
+      margin-top: 4px;
+      font-size: 7.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 6px;
+      border-radius: 2px;
+      text-align: center;
+    }
+    .cap-mock-quote__btn--primary {
+      background: rgba(155, 184, 122, 0.18);
+      color: #9BB87A;
+      border: 1px solid rgba(155, 184, 122, 0.35);
+    }
+    .cap-mock-quote__btn--fallback {
+      background: rgba(254, 188, 46, 0.12);
+      color: #FEDA8C;
+      border: 1px solid rgba(254, 188, 46, 0.3);
+    }
+    .cap-mock-quote__btn--ghost {
+      background: transparent;
+      color: rgba(236, 234, 227, 0.5);
+      border: 1px solid rgba(236, 234, 227, 0.12);
+    }
+    @media (max-width: 640px) {
+      .cap-mock-quote-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Reveal stagger for capability cards. */
+    @media (prefers-reduced-motion: no-preference) {
+      .cap-card {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .cap-card.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .bureau-capabilities__grid .cap-card.is-visible:nth-child(1) { transition-delay: 0s; }
+      .bureau-capabilities__grid .cap-card.is-visible:nth-child(2) { transition-delay: 0.1s; }
+      .bureau-capabilities__grid .cap-card.is-visible:nth-child(3) { transition-delay: 0.2s; }
+    }
+
+    @media (max-width: 640px) {
+      .cap-card { padding: 22px 20px 20px; }
+      .cap-mock__body { min-height: auto; padding: 10px 10px 12px; }
+    }
+
+    /* ============================================================
+       COLOSSUS INTELLIGENCE STRIP
+       Sits on cream background, distinguished only by a subtle red
+       hairline rule and red eyebrow. No icons, no badges that read as
+       decoration. Optional add-on, scoped per programme.
+    ============================================================ */
+    .colossus-add-on {
+      background: #F5F0E8;
+      padding: 0 0 clamp(80px, 10vw, 130px);
+    }
+    .colossus-add-on__inner {
+      max-width: 820px;
+      border-top: 1px solid #C13B3B;
+      padding-top: 48px;
+    }
+    .colossus-add-on__eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: #C13B3B;
+      margin: 0 0 16px;
+    }
+    .colossus-add-on__heading {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      line-height: 1.22;
+      letter-spacing: -0.01em;
+      color: #1A1A17;
+      margin: 0 0 22px;
+      max-width: 720px;
+    }
+    .colossus-add-on__body {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+      line-height: 1.65;
+      color: #1A1A17;
+      margin: 0;
+      max-width: 720px;
+    }
+
   </style>
 </head>
 <body>
@@ -746,7 +1171,7 @@
               <div class="hold-header">
                 <div>
                   <div class="hold-hotel-name">Hotel A</div>
-                  <div class="hold-hotel-city">Berlin</div>
+                  <div class="hold-hotel-city">Host city</div>
                 </div>
                 <div class="hold-status-badge">Held</div>
               </div>
@@ -816,6 +1241,157 @@
     </div>
   </section>
 
+  <!-- ========== BUREAU CAPABILITIES ========== -->
+  <section class="bureau-capabilities" aria-label="What Bureau gives a programme team">
+    <div class="container">
+
+      <div class="bureau-capabilities__intro io-reveal">
+        <p class="bureau-capabilities__eyebrow">What it does</p>
+        <h2 class="bureau-capabilities__heading">The capabilities your programme team sees on day one.</h2>
+        <p class="bureau-capabilities__lede">Delegate self-serve, edits inside rails you set, one live status grid, and a quote-acceptance step that locks the shortlist before the dashboard opens.</p>
+      </div>
+
+      <div class="bureau-capabilities__grid">
+
+        <article class="cap-card">
+          <p class="cap-card__num">01</p>
+          <h3 class="cap-card__title">Delegates confirm in under two minutes.</h3>
+          <p class="cap-card__body">A personal link, no account, no app. They pick dates, room and preferences and they are done. The link works for the lifetime of the booking window.</p>
+          <div class="cap-mock" aria-hidden="true">
+            <div class="cap-mock__chrome">
+              <div class="cap-mock__dots">
+                <span class="cap-mock__dot cap-mock__dot--red"></span>
+                <span class="cap-mock__dot cap-mock__dot--amber"></span>
+                <span class="cap-mock__dot cap-mock__dot--green"></span>
+              </div>
+              <span class="cap-mock__url">mail / inbox</span>
+            </div>
+            <div class="cap-mock__body">
+              <div class="cap-mock-mail">
+                <div class="cap-mock-mail__from">From ProLuxe Travel</div>
+                <div class="cap-mock-mail__sub">Your hotel room for the programme</div>
+                <div class="cap-mock-mail__body">Dear A. Patel, your personal link below holds your room until the deadline.</div>
+                <span class="cap-mock-mail__link">Confirm my room &rarr;</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="cap-card">
+          <p class="cap-card__num">02</p>
+          <h3 class="cap-card__title">Self-serve edits with rails you set.</h3>
+          <p class="cap-card__body">Delegates can shift dates within the event window, switch between approved hotels, request a fresh confirmation, all from the same dashboard. Anything outside the rails auto-escalates to ProLuxe with one click and a pre-filled reason.</p>
+          <div class="cap-mock" aria-hidden="true">
+            <div class="cap-mock__chrome">
+              <div class="cap-mock__dots">
+                <span class="cap-mock__dot cap-mock__dot--red"></span>
+                <span class="cap-mock__dot cap-mock__dot--amber"></span>
+                <span class="cap-mock__dot cap-mock__dot--green"></span>
+              </div>
+              <span class="cap-mock__url">bureau / booking / amend</span>
+            </div>
+            <div class="cap-mock__body">
+              <div class="cap-mock-modal">
+                <div class="cap-mock-modal__title">Amend booking</div>
+                <div class="cap-mock-field">
+                  <div class="cap-mock-input">14 Sep 2026</div>
+                  <div class="cap-mock-input">17 Sep 2026</div>
+                </div>
+                <div class="cap-mock-field">
+                  <div class="cap-mock-input">Hotel A &middot; Standard</div>
+                </div>
+                <div class="cap-mock-modal__footer">
+                  Outside event window? Pass to ProLuxe
+                  <div class="cap-mock-modal__escalate">&rarr; Escalate with reason</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="cap-card">
+          <p class="cap-card__num">03</p>
+          <h3 class="cap-card__title">One status view across every delegate.</h3>
+          <p class="cap-card__body">A live grid: who is confirmed, who is pending, who has amended, who needs a nudge. Filter, search, hover for the audit trail. The view a programme manager opens in the morning to know exactly where they stand.</p>
+          <div class="cap-mock" aria-hidden="true">
+            <div class="cap-mock__chrome">
+              <div class="cap-mock__dots">
+                <span class="cap-mock__dot cap-mock__dot--red"></span>
+                <span class="cap-mock__dot cap-mock__dot--amber"></span>
+                <span class="cap-mock__dot cap-mock__dot--green"></span>
+              </div>
+              <span class="cap-mock__url">bureau / programme-demo / rooming</span>
+            </div>
+            <div class="cap-mock__body">
+              <div class="cap-mock-grid-head">
+                <span></span><span>Delegate</span><span>Hotel</span><span>Day</span>
+              </div>
+              <div class="cap-mock-grid-row"><span class="cap-mock-status"></span><span>A. Patel</span><span>Hotel A</span><span>14 / 17</span></div>
+              <div class="cap-mock-grid-row"><span class="cap-mock-status"></span><span>J. Roux</span><span>Hotel B</span><span>14 / 16</span></div>
+              <div class="cap-mock-grid-row"><span class="cap-mock-status cap-mock-status--amber"></span><span>M. Lin</span><span>Hotel C</span><span>15 / 17</span></div>
+              <div class="cap-mock-grid-row"><span class="cap-mock-status"></span><span>S. Kowal</span><span>Hotel A</span><span>14 / 17</span></div>
+              <div class="cap-mock-grid-row"><span class="cap-mock-status cap-mock-status--red"></span><span>D. Okafor</span><span>Hotel D</span><span>14 / 15</span></div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Quote-acceptance feature card -->
+      <article class="cap-card cap-card--feature bureau-capabilities__feature io-reveal">
+        <div>
+          <p class="cap-card__num">04</p>
+          <h3 class="cap-card__title">Quote-acceptance, before the dashboard opens.</h3>
+          <p class="cap-card__body">Two or three shortlist options land in your view. Mark one primary, one fallback. The dashboard then opens with the approved hotels locked in, so the rooming list, the delegate links, and the inventory holds all flow from a decision your team made on the record.</p>
+        </div>
+        <div class="cap-mock" aria-hidden="true">
+          <div class="cap-mock__chrome">
+            <div class="cap-mock__dots">
+              <span class="cap-mock__dot cap-mock__dot--red"></span>
+              <span class="cap-mock__dot cap-mock__dot--amber"></span>
+              <span class="cap-mock__dot cap-mock__dot--green"></span>
+            </div>
+            <span class="cap-mock__url">bureau.proluxetravels.com / programme-demo / quotes</span>
+          </div>
+          <div class="cap-mock__body">
+            <div class="cap-mock-quote-grid">
+              <div class="cap-mock-quote-card is-primary">
+                <span class="cap-mock-quote__lbl">Option A</span>
+                <span class="cap-mock-quote__name">Hotel A</span>
+                <span class="cap-mock-quote__meta">200 rooms &middot; 3 nights<br>Walk to venue</span>
+                <span class="cap-mock-quote__btn cap-mock-quote__btn--primary">Primary</span>
+              </div>
+              <div class="cap-mock-quote-card is-fallback">
+                <span class="cap-mock-quote__lbl">Option B</span>
+                <span class="cap-mock-quote__name">Hotel B</span>
+                <span class="cap-mock-quote__meta">200 rooms &middot; 3 nights<br>10 min by car</span>
+                <span class="cap-mock-quote__btn cap-mock-quote__btn--fallback">Fallback</span>
+              </div>
+              <div class="cap-mock-quote-card">
+                <span class="cap-mock-quote__lbl">Option C</span>
+                <span class="cap-mock-quote__name">Hotel C</span>
+                <span class="cap-mock-quote__meta">200 rooms &middot; 3 nights<br>Boutique</span>
+                <span class="cap-mock-quote__btn cap-mock-quote__btn--ghost">Mark</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ========== COLOSSUS INTELLIGENCE STRIP ========== -->
+  <section class="colossus-add-on" aria-label="Colossus protective intelligence">
+    <div class="container">
+      <div class="colossus-add-on__inner io-reveal">
+        <p class="colossus-add-on__eyebrow">Intelligence, optional add-on</p>
+        <h2 class="colossus-add-on__heading">Pre-event briefs, live monitoring, board-ready reports.</h2>
+        <p class="colossus-add-on__body">For programmes that need it, we work with Colossus Intelligence to ship a protective intelligence cycle alongside the booking work. Threat matrix, zone classifications, pre-event briefs, and live monitoring around the event window. The briefs sit on the same dashboard your team uses, with both the operational and board-ready versions a click away. Scoped and quoted per programme, separate from the standard Bureau engagement.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== ESCAPE VALVE ========== -->
   <section class="escape-valve">
     <div class="container">
@@ -871,7 +1447,7 @@
     </div>
   </div>
 
-  <noscript><style>.io-reveal,.benefit{opacity:1;transform:none}</style></noscript>
+  <noscript><style>.io-reveal,.benefit,.cap-card{opacity:1;transform:none}</style></noscript>
 
   <script>
     (function () {
@@ -930,7 +1506,7 @@
       if (declineBtn) declineBtn.addEventListener('click', function () { localStorage.setItem(cookieKey, 'declined'); dismissCookie(); });
 
       /* ---- IntersectionObserver reveals ---- */
-      var revealTargets = document.querySelectorAll('.io-reveal, .benefit');
+      var revealTargets = document.querySelectorAll('.io-reveal, .benefit, .cap-card');
 
       if ('IntersectionObserver' in window) {
         var observer = new IntersectionObserver(function (entries) {
