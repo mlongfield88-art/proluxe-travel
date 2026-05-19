@@ -499,6 +499,12 @@
     .bureau-capabilities__feature {
       margin-top: 22px;
     }
+    /* When the feature card leads (sits before the 3-card grid), no top margin
+       and a 22px gap below to separate it from the grid that follows. */
+    .bureau-capabilities__feature--lead {
+      margin-top: 0;
+      margin-bottom: 22px;
+    }
 
     .cap-card {
       background: #fdfcf8;
@@ -970,15 +976,15 @@
               <nav class="ops-sidebar" aria-label="Programme selector">
                 <p class="ops-sidebar__label">Programmes</p>
                 <div class="ops-sidebar__item is-active" data-programme="autumn" role="button" tabindex="0" aria-pressed="true">
-                  Autumn programme
+                  Programme 1
                   <div class="ops-sidebar__meta">4 cities</div>
                 </div>
                 <div class="ops-sidebar__item" data-programme="q1board" role="button" tabindex="0" aria-pressed="false">
-                  Q1 board programme
+                  Programme 2
                   <div class="ops-sidebar__meta">3 cities</div>
                 </div>
                 <div class="ops-sidebar__item" data-programme="springasia" role="button" tabindex="0" aria-pressed="false">
-                  Spring programme
+                  Programme 3
                   <div class="ops-sidebar__meta">3 cities</div>
                 </div>
               </nav>
@@ -996,8 +1002,8 @@
                 <div class="ops-hotel-panel" id="mainpanel-hotel" role="tabpanel" aria-labelledby="">
                   <div class="ops-topbar">
                     <div>
-                      <div class="ops-name" id="opsTitle">Autumn programme</div>
-                      <div class="ops-sub" id="opsSub">Sep to Oct &bull; 4 bookings</div>
+                      <div class="ops-name" id="opsTitle">Programme 1</div>
+                      <div class="ops-sub" id="opsSub">4 bookings</div>
                     </div>
                     <span class="ops-live-badge"><span class="live-dot"></span>Live</span>
                   </div>
@@ -1043,98 +1049,13 @@
       <div class="bureau-capabilities__intro io-reveal">
         <p class="bureau-capabilities__eyebrow">What it does</p>
         <h2 class="bureau-capabilities__heading">The capabilities your office sees on day one.</h2>
-        <p class="bureau-capabilities__lede">Live programme view, two-way change flow, optional protective intelligence layer, and a quote-acceptance step that pins the shortlist before the dashboard goes live.</p>
+        <p class="bureau-capabilities__lede">A quote-acceptance step that pins the shortlist before the dashboard goes live, a live programme view, a two-way change flow, and an optional protective intelligence layer.</p>
       </div>
 
-      <div class="bureau-capabilities__grid">
-
-        <article class="cap-card">
-          <p class="cap-card__num">01</p>
-          <h3 class="cap-card__title">A live programme view, not a spreadsheet.</h3>
-          <p class="cap-card__body">Every booking, every hotel, every change, live in one place. Filter by trip, date, hotel, or status. Your team sees the same view we work from, with KPI counters that animate as bookings move and a per-hotel inventory grid that updates the moment a room is taken.</p>
-          <div class="cap-mock" aria-hidden="true">
-            <div class="cap-mock__chrome">
-              <div class="cap-mock__dots">
-                <span class="cap-mock__dot cap-mock__dot--red"></span>
-                <span class="cap-mock__dot cap-mock__dot--amber"></span>
-                <span class="cap-mock__dot cap-mock__dot--green"></span>
-              </div>
-              <span class="cap-mock__url">bureau.proluxetravels.com / programme-demo</span>
-            </div>
-            <div class="cap-mock__body">
-              <div class="cap-mock-kpis">
-                <div class="cap-mock-kpi"><div class="cap-mock-kpi__num">127</div><div class="cap-mock-kpi__lbl">Confirmed</div></div>
-                <div class="cap-mock-kpi"><div class="cap-mock-kpi__num">38</div><div class="cap-mock-kpi__lbl">Pending</div></div>
-                <div class="cap-mock-kpi"><div class="cap-mock-kpi__num">11</div><div class="cap-mock-kpi__lbl">Hotels</div></div>
-              </div>
-              <div class="cap-mock-bars">
-                <div class="cap-mock-bar-row"><span>Hotel A</span><div class="cap-mock-bar"><div class="cap-mock-bar__fill" style="width:82%"></div></div><span>48/58</span></div>
-                <div class="cap-mock-bar-row"><span>Hotel B</span><div class="cap-mock-bar"><div class="cap-mock-bar__fill" style="width:64%"></div></div><span>22/34</span></div>
-                <div class="cap-mock-bar-row"><span>Hotel C</span><div class="cap-mock-bar"><div class="cap-mock-bar__fill" style="width:91%"></div></div><span>40/44</span></div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="cap-card">
-          <p class="cap-card__num">02</p>
-          <h3 class="cap-card__title">Changes flow three ways, not one.</h3>
-          <p class="cap-card__body">Inline edits where they fit. A change request to ProLuxe when they don't. A clean audit log either way. Every action is logged with who, what, and when, and a Mark Resolved button at our end closes the loop.</p>
-          <div class="cap-mock" aria-hidden="true">
-            <div class="cap-mock__chrome">
-              <div class="cap-mock__dots">
-                <span class="cap-mock__dot cap-mock__dot--red"></span>
-                <span class="cap-mock__dot cap-mock__dot--amber"></span>
-                <span class="cap-mock__dot cap-mock__dot--green"></span>
-              </div>
-              <span class="cap-mock__url">bureau.proluxetravels.com / booking / REF-204</span>
-            </div>
-            <div class="cap-mock__body">
-              <div class="cap-mock-actions">
-                <div class="cap-mock-action"><span>Resend confirmation</span><span class="cap-mock-action__pill">Inline</span></div>
-                <div class="cap-mock-action"><span>Change dates</span><span class="cap-mock-action__pill cap-mock-action__pill--olive">Within rails</span></div>
-                <div class="cap-mock-action"><span>Pass to ProLuxe</span><span class="cap-mock-action__pill cap-mock-action__pill--amber">Escalate</span></div>
-              </div>
-              <p class="cap-mock-context">Logged: M. Carter, 09:14. Awaiting Resolved.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="cap-card">
-          <p class="cap-card__num">03</p>
-          <h3 class="cap-card__title">Intelligence layered on top.</h3>
-          <p class="cap-card__body">Each programme can carry a live Security overwatch tab. Protective intelligence, zone classifications, and pre-event briefs from Colossus, all on the same dashboard your team is already using. Optional add-on, bespoke quote per programme.</p>
-          <div class="cap-mock" aria-hidden="true">
-            <div class="cap-mock__chrome">
-              <div class="cap-mock__dots">
-                <span class="cap-mock__dot cap-mock__dot--red"></span>
-                <span class="cap-mock__dot cap-mock__dot--amber"></span>
-                <span class="cap-mock__dot cap-mock__dot--green"></span>
-              </div>
-              <span class="cap-mock__url">bureau.proluxetravels.com / programme-demo / overwatch</span>
-            </div>
-            <div class="cap-mock__body">
-              <div class="cap-mock-sec-tabs">
-                <span class="cap-mock-sec-tab">Hotel programme</span>
-                <span class="cap-mock-sec-tab is-active">Security overwatch</span>
-              </div>
-              <div class="cap-mock-sec-grid">
-                <div class="cap-mock-sec-cell">City One<div class="cap-mock-sec-cell__lvl">Zone A</div></div>
-                <div class="cap-mock-sec-cell">City Two<div class="cap-mock-sec-cell__lvl">Zone A</div></div>
-                <div class="cap-mock-sec-cell">City Three<div class="cap-mock-sec-cell__lvl cap-mock-sec-cell__lvl--amber">Zone B</div></div>
-                <div class="cap-mock-sec-cell">City Four<div class="cap-mock-sec-cell__lvl">Zone A</div></div>
-              </div>
-              <span class="cap-mock-colossus-badge">Colossus</span>
-            </div>
-          </div>
-        </article>
-
-      </div>
-
-      <!-- Quote-acceptance feature card -->
-      <article class="cap-card cap-card--feature bureau-capabilities__feature io-reveal">
+      <!-- Quote-acceptance feature card, the first thing a principal's office does -->
+      <article class="cap-card cap-card--feature bureau-capabilities__feature bureau-capabilities__feature--lead io-reveal">
         <div>
-          <p class="cap-card__num">04</p>
+          <p class="cap-card__num">01</p>
           <h3 class="cap-card__title">Quote-acceptance, before the dashboard goes live.</h3>
           <p class="cap-card__body">Two or three quote options land in your team's view. You mark one primary, one fallback. The dashboard then opens with the approved shortlist locked in, so every booking, every audit line, and every change request flows from a decision you made on the record.</p>
         </div>
@@ -1171,6 +1092,91 @@
           </div>
         </div>
       </article>
+
+      <div class="bureau-capabilities__grid">
+
+        <article class="cap-card">
+          <p class="cap-card__num">02</p>
+          <h3 class="cap-card__title">A live programme view, not a spreadsheet.</h3>
+          <p class="cap-card__body">Every booking, every hotel, every change, live in one place. Filter by trip, date, hotel, or status. Your team sees the same view we work from, with KPI counters that animate as bookings move and a per-hotel inventory grid that updates the moment a room is taken.</p>
+          <div class="cap-mock" aria-hidden="true">
+            <div class="cap-mock__chrome">
+              <div class="cap-mock__dots">
+                <span class="cap-mock__dot cap-mock__dot--red"></span>
+                <span class="cap-mock__dot cap-mock__dot--amber"></span>
+                <span class="cap-mock__dot cap-mock__dot--green"></span>
+              </div>
+              <span class="cap-mock__url">bureau.proluxetravels.com / programme-demo</span>
+            </div>
+            <div class="cap-mock__body">
+              <div class="cap-mock-kpis">
+                <div class="cap-mock-kpi"><div class="cap-mock-kpi__num">127</div><div class="cap-mock-kpi__lbl">Confirmed</div></div>
+                <div class="cap-mock-kpi"><div class="cap-mock-kpi__num">38</div><div class="cap-mock-kpi__lbl">Pending</div></div>
+                <div class="cap-mock-kpi"><div class="cap-mock-kpi__num">11</div><div class="cap-mock-kpi__lbl">Hotels</div></div>
+              </div>
+              <div class="cap-mock-bars">
+                <div class="cap-mock-bar-row"><span>Hotel A</span><div class="cap-mock-bar"><div class="cap-mock-bar__fill" style="width:82%"></div></div><span>48/58</span></div>
+                <div class="cap-mock-bar-row"><span>Hotel B</span><div class="cap-mock-bar"><div class="cap-mock-bar__fill" style="width:64%"></div></div><span>22/34</span></div>
+                <div class="cap-mock-bar-row"><span>Hotel C</span><div class="cap-mock-bar"><div class="cap-mock-bar__fill" style="width:91%"></div></div><span>40/44</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="cap-card">
+          <p class="cap-card__num">03</p>
+          <h3 class="cap-card__title">Changes flow three ways, not one.</h3>
+          <p class="cap-card__body">Inline edits where they fit. A change request to ProLuxe when they don't. A clean audit log either way. Every action is logged with who, what, and when, and a Mark Resolved button at our end closes the loop.</p>
+          <div class="cap-mock" aria-hidden="true">
+            <div class="cap-mock__chrome">
+              <div class="cap-mock__dots">
+                <span class="cap-mock__dot cap-mock__dot--red"></span>
+                <span class="cap-mock__dot cap-mock__dot--amber"></span>
+                <span class="cap-mock__dot cap-mock__dot--green"></span>
+              </div>
+              <span class="cap-mock__url">bureau.proluxetravels.com / booking / REF-204</span>
+            </div>
+            <div class="cap-mock__body">
+              <div class="cap-mock-actions">
+                <div class="cap-mock-action"><span>Resend confirmation</span><span class="cap-mock-action__pill">Inline</span></div>
+                <div class="cap-mock-action"><span>Change dates</span><span class="cap-mock-action__pill cap-mock-action__pill--olive">Within rails</span></div>
+                <div class="cap-mock-action"><span>Pass to ProLuxe</span><span class="cap-mock-action__pill cap-mock-action__pill--amber">Escalate</span></div>
+              </div>
+              <p class="cap-mock-context">Logged: M. Carter, 09:14. Awaiting Resolved.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="cap-card">
+          <p class="cap-card__num">04</p>
+          <h3 class="cap-card__title">Intelligence layered on top.</h3>
+          <p class="cap-card__body">Each programme can carry a live Security overwatch tab. Protective intelligence, zone classifications, and pre-event briefs from Colossus, all on the same dashboard your team is already using. Optional add-on, bespoke quote per programme.</p>
+          <div class="cap-mock" aria-hidden="true">
+            <div class="cap-mock__chrome">
+              <div class="cap-mock__dots">
+                <span class="cap-mock__dot cap-mock__dot--red"></span>
+                <span class="cap-mock__dot cap-mock__dot--amber"></span>
+                <span class="cap-mock__dot cap-mock__dot--green"></span>
+              </div>
+              <span class="cap-mock__url">bureau.proluxetravels.com / programme-demo / overwatch</span>
+            </div>
+            <div class="cap-mock__body">
+              <div class="cap-mock-sec-tabs">
+                <span class="cap-mock-sec-tab">Hotel programme</span>
+                <span class="cap-mock-sec-tab is-active">Security overwatch</span>
+              </div>
+              <div class="cap-mock-sec-grid">
+                <div class="cap-mock-sec-cell">City One<div class="cap-mock-sec-cell__lvl">Zone A</div></div>
+                <div class="cap-mock-sec-cell">City Two<div class="cap-mock-sec-cell__lvl">Zone A</div></div>
+                <div class="cap-mock-sec-cell">City Three<div class="cap-mock-sec-cell__lvl cap-mock-sec-cell__lvl--amber">Zone B</div></div>
+                <div class="cap-mock-sec-cell">City Four<div class="cap-mock-sec-cell__lvl">Zone A</div></div>
+              </div>
+              <span class="cap-mock-colossus-badge">Colossus</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
 
     </div>
   </section>
@@ -1327,149 +1333,149 @@
       ---- */
       var programmes = {
         autumn: {
-          title: 'Autumn programme',
-          sub: 'Sep to Oct &bull; 4 bookings',
+          title: 'Programme 1',
+          sub: '4 bookings',
           rows: [
             {
               record: 'Hotel A',
               recordSub: 'City One',
-              dates: '8 to 10 Sep',
+              dates: 'Day 1 to 3',
               room: 'Junior suite',
               roomNote: 'City view',
               status: 'confirmed',
               expand: {
                 contact: 'GM, Hotel A',
-                roomDetail: 'Junior suite, city-facing. Check-in 8 Sep 15:00, check-out 10 Sep 11:00.',
-                audit: 'Room confirmed &bull; 14:30, 2 Sep &bull; M.L.'
+                roomDetail: 'Junior suite, city-facing. Check-in Day 1 15:00, check-out Day 3 11:00.',
+                audit: 'Room confirmed &bull; 14:30 &bull; M.L.'
               }
             },
             {
               record: 'Hotel B',
               recordSub: 'City Two',
-              dates: '12 to 15 Sep',
+              dates: 'Day 5 to 8',
               room: 'Executive king',
               roomNote: 'Higher floor',
               status: 'confirmed',
               expand: {
                 contact: 'GM, Hotel B',
-                roomDetail: 'Executive king, higher floor. Check-in 12 Sep 14:00, check-out 15 Sep 12:00.',
-                audit: 'Early check-in confirmed &bull; 09:05, 4 Sep &bull; M.L.'
+                roomDetail: 'Executive king, higher floor. Check-in Day 5 14:00, check-out Day 8 12:00.',
+                audit: 'Early check-in confirmed &bull; 09:05 &bull; M.L.'
               }
             },
             {
               record: 'Hotel C',
               recordSub: 'City Three',
-              dates: '17 to 19 Sep',
+              dates: 'Day 10 to 12',
               room: 'Suite',
               roomNote: 'Garden view',
               status: 'changes',
               expand: {
                 contact: 'GM, Hotel C',
-                roomDetail: 'Suite, garden-facing. Dates shifted from 16 to 18 Sep. Check-in 17 Sep 15:00, check-out 19 Sep 11:00.',
-                audit: 'Room moved &bull; 09:14, 1 Sep &bull; M.L.'
+                roomDetail: 'Suite, garden-facing. Dates shifted from Day 9 to 11. Check-in Day 10 15:00, check-out Day 12 11:00.',
+                audit: 'Room moved &bull; 09:14 &bull; M.L.'
               }
             },
             {
               record: 'Hotel D',
               recordSub: 'City Four',
-              dates: '21 to 23 Sep',
+              dates: 'Day 14 to 16',
               room: 'Deluxe king',
               roomNote: 'Pending confirmation',
               status: 'pending',
               expand: {
                 contact: 'GM, Hotel D',
-                roomDetail: 'Deluxe king requested. Confirmation pending. Check-in 21 Sep 14:00, check-out 23 Sep 12:00.',
-                audit: 'Hold placed &bull; 11:20, 5 Sep &bull; M.L.'
+                roomDetail: 'Deluxe king requested. Confirmation pending. Check-in Day 14 14:00, check-out Day 16 12:00.',
+                audit: 'Hold placed &bull; 11:20 &bull; M.L.'
               }
             }
           ]
         },
         q1board: {
-          title: 'Q1 board programme',
-          sub: 'Jan to Mar &bull; 3 bookings',
+          title: 'Programme 2',
+          sub: '3 bookings',
           rows: [
             {
               record: 'Hotel E',
               recordSub: 'City Five',
-              dates: '19 to 21 Jan',
+              dates: 'Day 1 to 3',
               room: 'Suite 612',
               roomNote: 'Quiet wing',
               status: 'confirmed',
               expand: {
                 contact: 'GM, Hotel E',
-                roomDetail: 'Suite 612, quiet wing. Check-in 19 Jan 15:00, check-out 21 Jan 11:00. Early departure on file.',
-                audit: 'Booking confirmed &bull; 10:15, 8 Jan &bull; M.L.'
+                roomDetail: 'Suite 612, quiet wing. Check-in Day 1 15:00, check-out Day 3 11:00. Early departure on file.',
+                audit: 'Booking confirmed &bull; 10:15 &bull; M.L.'
               }
             },
             {
               record: 'Hotel F',
               recordSub: 'City Six',
-              dates: '3 to 5 Feb',
+              dates: 'Day 6 to 8',
               room: 'Prestige suite',
               roomNote: 'Floor 7',
               status: 'confirmed',
               expand: {
                 contact: 'GM, Hotel F',
-                roomDetail: 'Prestige suite, floor 7. Check-in 3 Feb 14:00, check-out 5 Feb 12:00.',
-                audit: 'Room confirmed &bull; 16:40, 20 Jan &bull; M.L.'
+                roomDetail: 'Prestige suite, floor 7. Check-in Day 6 14:00, check-out Day 8 12:00.',
+                audit: 'Room confirmed &bull; 16:40 &bull; M.L.'
               }
             },
             {
               record: 'Hotel G',
               recordSub: 'City Seven',
-              dates: '20 to 23 Jan',
+              dates: 'Day 11 to 14',
               room: 'Mountain suite',
               roomNote: 'Adjusted dates',
               status: 'changes',
               expand: {
                 contact: 'GM, Hotel G',
-                roomDetail: 'Mountain suite requested. Dates adjusted to align with the schedule. Check-in 20 Jan 13:00, check-out 23 Jan 10:00.',
-                audit: 'Dates revised &bull; 08:50, 10 Jan &bull; M.L.'
+                roomDetail: 'Mountain suite requested. Dates adjusted to align with the schedule. Check-in Day 11 13:00, check-out Day 14 10:00.',
+                audit: 'Dates revised &bull; 08:50 &bull; M.L.'
               }
             }
           ]
         },
         springasia: {
-          title: 'Spring programme',
-          sub: 'Apr to May &bull; 3 bookings',
+          title: 'Programme 3',
+          sub: '3 bookings',
           rows: [
             {
               record: 'Hotel H',
               recordSub: 'City Eight',
-              dates: '4 to 7 Apr',
+              dates: 'Day 1 to 4',
               room: 'Club suite',
               roomNote: 'Skyline view',
               status: 'confirmed',
               expand: {
                 contact: 'GM, Hotel H',
-                roomDetail: 'Club suite, skyline-facing. Check-in 4 Apr 15:00, check-out 7 Apr 12:00. Club lounge access confirmed.',
-                audit: 'Booking confirmed &bull; 13:00, 14 Mar &bull; M.L.'
+                roomDetail: 'Club suite, skyline-facing. Check-in Day 1 15:00, check-out Day 4 12:00. Club lounge access confirmed.',
+                audit: 'Booking confirmed &bull; 13:00 &bull; M.L.'
               }
             },
             {
               record: 'Hotel I',
               recordSub: 'City Nine',
-              dates: '9 to 12 Apr',
+              dates: 'Day 6 to 9',
               room: 'Corner suite',
               roomNote: 'City view',
               status: 'pending',
               expand: {
                 contact: 'GM, Hotel I',
-                roomDetail: 'Corner suite requested. Availability confirmed by property, hold pending formal sign-off. Check-in 9 Apr 15:00, check-out 12 Apr 11:00.',
-                audit: 'Hold placed &bull; 09:30, 15 Mar &bull; M.L.'
+                roomDetail: 'Corner suite requested. Availability confirmed by property, hold pending formal sign-off. Check-in Day 6 15:00, check-out Day 9 11:00.',
+                audit: 'Hold placed &bull; 09:30 &bull; M.L.'
               }
             },
             {
               record: 'Hotel J',
               recordSub: 'City Ten',
-              dates: '14 to 17 Apr',
+              dates: 'Day 11 to 14',
               room: 'Harbour suite',
               roomNote: 'Harbour view',
               status: 'confirmed',
               expand: {
                 contact: 'GM, Hotel J',
-                roomDetail: 'Harbour suite, water-facing. Check-in 14 Apr 14:00, check-out 17 Apr 12:00.',
-                audit: 'Room confirmed &bull; 11:55, 16 Mar &bull; M.L.'
+                roomDetail: 'Harbour suite, water-facing. Check-in Day 11 14:00, check-out Day 14 12:00.',
+                audit: 'Room confirmed &bull; 11:55 &bull; M.L.'
               }
             }
           ]
@@ -1534,7 +1540,7 @@
             { name: 'City Ten',   level: 'Elevated', intel: 'Police activity around the central district possible, route advisory pending.', updated: '11:40' }
           ],
           flashReports: [
-            { text: 'City Ten, monitoring local communications for perimeter notices, advisory due 11 Apr.', time: '11:40' },
+            { text: 'City Ten, monitoring local communications for perimeter notices, advisory due ahead of arrival.', time: '11:40' },
             { text: 'City Nine, baseline scan clean.', time: '11:28' },
             { text: 'City Eight, baseline scan clean.', time: '11:15' }
           ],
