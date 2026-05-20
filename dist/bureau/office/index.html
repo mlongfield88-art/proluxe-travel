@@ -851,6 +851,68 @@
       .cap-mock-quote-grid { grid-template-columns: 1fr; }
     }
 
+    /* Curated proposal mock (brief-and-curate flow) */
+    .cap-mock-proposal {
+      background: rgba(66, 70, 50, 0.42);
+      border: 1px solid rgba(155, 184, 122, 0.32);
+      border-radius: 3px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .cap-mock-proposal__eyebrow {
+      margin: 0;
+      font-size: 7.5px;
+      color: rgba(155, 184, 122, 0.85);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .cap-mock-proposal__name {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      color: #F5F0E8;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    .cap-mock-proposal__meta {
+      margin: 0;
+      font-size: 8.5px;
+      color: rgba(236, 234, 227, 0.55);
+      line-height: 1.4;
+    }
+    .cap-mock-proposal__narrative {
+      margin: 4px 0 2px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 9.5px;
+      color: rgba(236, 234, 227, 0.7);
+      line-height: 1.45;
+    }
+    .cap-mock-proposal__actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .cap-mock-proposal__btn {
+      flex: 1;
+      font-size: 7.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 6px;
+      border-radius: 2px;
+      text-align: center;
+      background: transparent;
+      color: rgba(236, 234, 227, 0.6);
+      border: 1px solid rgba(236, 234, 227, 0.14);
+    }
+    .cap-mock-proposal__btn--primary {
+      background: rgba(155, 184, 122, 0.2);
+      color: #9BB87A;
+      border-color: rgba(155, 184, 122, 0.38);
+    }
+
     /* Reveal stagger for capability cards. */
     @media (prefers-reduced-motion: no-preference) {
       .cap-card {
@@ -912,8 +974,8 @@
     <div class="container">
       <div class="bureau-hero__inner">
         <p class="bureau-eyebrow io-reveal">ProLuxe Bureau</p>
-        <h1 class="bureau-hero__title io-reveal">One name to call. One record for every booking. We handle the rest.</h1>
-        <p class="bureau-hero__sub io-reveal">Bureau is the console we built for our office. Every hotel, every room, every change held against your principal's programme. You see the output: tighter operations, fewer surprises, the same person to call when something moves.</p>
+        <h1 class="bureau-hero__title io-reveal">One name to call. One record for every booking. The desk handles the rest.</h1>
+        <p class="bureau-hero__sub io-reveal">Bureau is the console the office works from. Every hotel, every room, every change held against the principal's programme. The booker sees tighter operations, fewer surprises, the same person to call when something moves.</p>
       </div>
     </div>
   </section>
@@ -927,21 +989,21 @@
           <span class="benefit__numeral">01 / Every booking in one programme view.</span>
           <span class="benefit__rule" aria-hidden="true"></span>
           <h2 class="benefit__heading">Every booking in one programme view.</h2>
-          <p class="benefit__body">Live status across every hotel and city. Filter by trip, by date, by hotel. The view your team sees is the view we work from.</p>
+          <p class="benefit__body">Status across every hotel and city, updating as bookings move. Filter by trip, by date, by hotel. The view the office sees is the view the desk works from.</p>
         </article>
 
         <article class="benefit">
           <span class="benefit__numeral">02 / Changes handled in 2 steps.</span>
           <span class="benefit__rule" aria-hidden="true"></span>
           <h2 class="benefit__heading">Changes handled in 2 steps.</h2>
-          <p class="benefit__body">Edit a booking in place, or pass it back to us with one click. No re-explaining, no reconciling. The hotel sees the same record we do.</p>
+          <p class="benefit__body">The booker edits a booking in place, or clicks <a class="pass-back-cta" href="mailto:info@proluxetravels.com?subject=ProLuxe%20Bureau%2C%20Pass%20back&body=Hi%20ProLuxe%2C%0A%0APlease%20pick%20this%20booking%20up%3A%0A%0ABooking%20reference%3A%20%0AWhat%27s%20needed%3A%20%0A%0AThanks.">Pass back</a> to send it across. No re-explaining. The hotel sees the same booking the desk does.</p>
         </article>
 
         <article class="benefit">
           <span class="benefit__numeral">03 / Every confirmation, timestamped.</span>
           <span class="benefit__rule" aria-hidden="true"></span>
           <h2 class="benefit__heading">Every confirmation, timestamped.</h2>
-          <p class="benefit__body">Every change is logged with who, what, and when. If a question comes up later, the answer is in the file.</p>
+          <p class="benefit__body">Every change is logged with who, what, and when. If a question comes up later, the answer sits in the file.</p>
         </article>
 
       </div>
@@ -954,10 +1016,10 @@
       <div class="how-it-works__inner">
 
         <div class="how-it-works__text io-reveal">
-          <h2 class="how-it-works__heading">How it works for your office</h2>
-          <p class="how-it-works__para">We configure Bureau before your team logs in. Hotels, room categories, rates, daily holds, all reflecting what we have already negotiated. From there, every booking sits in one place.</p>
-          <p class="how-it-works__para">If something needs to change, you adjust it in place. If it needs us, you pass it back. Either way, the trail is clean and the hotel works from the same record.</p>
-          <p class="how-it-works__para">The Security overwatch tab shown in the mockup is an optional add-on. We run it with Colossus Intelligence on programmes where protective intelligence is in scope. Scoped and quoted per programme, separate from the standard Bureau engagement.</p>
+          <h2 class="how-it-works__heading">How it works for the office</h2>
+          <p class="how-it-works__para">Bureau is configured before the office logs in. Hotels, room categories, rates, daily holds, all reflecting what the desk has already negotiated. From there, every booking sits in one place.</p>
+          <p class="how-it-works__para">When something needs to change, the booker adjusts it in place. When it needs the desk, the booker clicks <a class="pass-back-cta" href="mailto:info@proluxetravels.com?subject=ProLuxe%20Bureau%2C%20Pass%20back&body=Hi%20ProLuxe%2C%0A%0APlease%20pick%20this%20booking%20up%3A%0A%0ABooking%20reference%3A%20%0AWhat%27s%20needed%3A%20%0A%0AThanks.">Pass back</a>. Either way, the trail is clean and the hotel sees the same booking.</p>
+          <p class="how-it-works__para">The Security overwatch tab shown in the mockup is an optional add-on. The desk runs it with Colossus Intelligence on programmes where protective intelligence is in scope. Scoped and quoted per programme, separate from the standard Bureau engagement.</p>
         </div>
 
         <div class="mockup-wrap io-reveal" role="region" aria-label="Bureau programme dashboard, interactive demo">
@@ -1048,8 +1110,8 @@
 
       <div class="bureau-capabilities__intro io-reveal">
         <p class="bureau-capabilities__eyebrow">What it does</p>
-        <h2 class="bureau-capabilities__heading">The capabilities your office sees on day one.</h2>
-        <p class="bureau-capabilities__lede">A quote-acceptance step that pins the selection before the dashboard goes live (booker-built combinations for principal travel, shortlisted options for programmes), a five-KPI organiser overview, group configuration per cohort, a four-way change flow, and an optional protective intelligence layer.</p>
+        <h2 class="bureau-capabilities__heading">The capabilities the office sees on day one.</h2>
+        <p class="bureau-capabilities__lede">A quote-acceptance step that pins the selection before the dashboard opens. A five-number organiser overview. Groups split per cohort. A four-way change flow. An optional protective intelligence layer for programmes that take one.</p>
       </div>
 
       <!-- Quote-acceptance feature card, the first thing a principal's office does -->
@@ -1057,7 +1119,7 @@
         <div>
           <p class="cap-card__num">01</p>
           <h3 class="cap-card__title">Quote acceptance, before the dashboard goes live.</h3>
-          <p class="cap-card__body">For principal travel, your booker builds the combination they want: hotels per leg, room types with their own quantities, dates per stay, multiple combinations saved side by side. For conferences and programmes, we shortlist two or three options and the booker picks one as primary, the others as fallback. Either way, the dashboard then opens with the approved selection locked in. From there you split the allocation into groups for VIPs, speakers, staff, and guests, and decide who books each.</p>
+          <p class="cap-card__body">For principal travel the booker sends a brief and we come back with one curated itinerary. They approve, or they steer. For a conference the booker builds the room allocation directly against the contracted hotels, sees a running total, submits when ready. From that point the dashboard sits behind the accepted plan, with rooms grouped by VIP, speaker, staff and guest.</p>
         </div>
         <div class="cap-mock" aria-hidden="true">
           <div class="cap-mock__chrome">
@@ -1066,27 +1128,17 @@
               <span class="cap-mock__dot cap-mock__dot--amber"></span>
               <span class="cap-mock__dot cap-mock__dot--green"></span>
             </div>
-            <span class="cap-mock__url">bureau.proluxetravels.com / programme-demo / quotes</span>
+            <span class="cap-mock__url">bureau.proluxetravels.com / programme-demo / proposal</span>
           </div>
           <div class="cap-mock__body">
-            <div class="cap-mock-quote-grid">
-              <div class="cap-mock-quote-card is-primary">
-                <span class="cap-mock-quote__lbl">Option A</span>
-                <span class="cap-mock-quote__name">Hotel A</span>
-                <span class="cap-mock-quote__meta">8 rooms &middot; 3 nights<br>Walk to venue</span>
-                <span class="cap-mock-quote__btn cap-mock-quote__btn--primary">Primary</span>
-              </div>
-              <div class="cap-mock-quote-card is-fallback">
-                <span class="cap-mock-quote__lbl">Option B</span>
-                <span class="cap-mock-quote__name">Hotel B</span>
-                <span class="cap-mock-quote__meta">8 rooms &middot; 3 nights<br>10 min by car</span>
-                <span class="cap-mock-quote__btn cap-mock-quote__btn--fallback">Fallback</span>
-              </div>
-              <div class="cap-mock-quote-card">
-                <span class="cap-mock-quote__lbl">Option C</span>
-                <span class="cap-mock-quote__name">Hotel C</span>
-                <span class="cap-mock-quote__meta">8 rooms &middot; 3 nights<br>Boutique</span>
-                <span class="cap-mock-quote__btn cap-mock-quote__btn--ghost">Mark</span>
+            <div class="cap-mock-proposal">
+              <p class="cap-mock-proposal__eyebrow">Your proposal</p>
+              <p class="cap-mock-proposal__name">Hotel A &middot; The Royal Suite</p>
+              <p class="cap-mock-proposal__meta">4 nights &middot; principal suite plus 3 entourage rooms</p>
+              <p class="cap-mock-proposal__narrative">Mayfair address, recently refurbished Royal Suite, discreet entry off a side street. Connecting rooms held next door for the security detail.</p>
+              <div class="cap-mock-proposal__actions">
+                <span class="cap-mock-proposal__btn cap-mock-proposal__btn--primary">Approve</span>
+                <span class="cap-mock-proposal__btn">Request changes</span>
               </div>
             </div>
           </div>
@@ -1097,8 +1149,8 @@
 
         <article class="cap-card">
           <p class="cap-card__num">02</p>
-          <h3 class="cap-card__title">A live programme view, with the five numbers that matter above the fold.</h3>
-          <p class="cap-card__body">The organiser overview opens on five KPI cards: block utilisation across the event, days to cutoff, outstanding actions, pick-up per hotel, and booking pace this week. Counters animate as bookings move. Filter by trip, date, hotel, or status. Your team sees the same view we work from.</p>
+          <h3 class="cap-card__title">The five numbers a programme manager opens in the morning.</h3>
+          <p class="cap-card__body">The organiser overview opens on five cards: block utilisation, days to cutoff, outstanding actions, pick-up per hotel, and booking pace this week. Counters move as bookings land. Filter by trip, date, hotel, or status. The view the office sees is the view the desk works from.</p>
           <div class="cap-mock" aria-hidden="true">
             <div class="cap-mock__chrome">
               <div class="cap-mock__dots">
@@ -1126,7 +1178,7 @@
         <article class="cap-card">
           <p class="cap-card__num">03</p>
           <h3 class="cap-card__title">Changes flow four ways, not one.</h3>
-          <p class="cap-card__body">Direct edits when they sit within your agreed options. Pass to ProLuxe Travel when they need our hands. Guest self-booking through personal sign-in links for the groups you have opened to attendees. A clean history of every action throughout. Every change is logged with who, what, and when, and we close the loop at our end.</p>
+          <p class="cap-card__body">Direct edits inside the agreed options. <a class="pass-back-cta" href="mailto:info@proluxetravels.com?subject=ProLuxe%20Bureau%2C%20Pass%20back&body=Hi%20ProLuxe%2C%0A%0APlease%20pick%20this%20booking%20up%3A%0A%0ABooking%20reference%3A%20%0AWhat%27s%20needed%3A%20%0A%0AThanks.">Pass back</a> when a booking needs the desk. Guests self-book through personal sign-in links for the groups the office has opened. Every action is logged with who, what, and when.</p>
           <div class="cap-mock" aria-hidden="true">
             <div class="cap-mock__chrome">
               <div class="cap-mock__dots">
@@ -1150,7 +1202,7 @@
         <article class="cap-card">
           <p class="cap-card__num">04</p>
           <h3 class="cap-card__title">Groups. The same event, different rules per cohort.</h3>
-          <p class="cap-card__body">VIPs, speakers, staff, and guests each sit in their own group under the approved hotel allocation. Each carries its own room count, rate, and rules. You manage the VIP and staff groups yourself with a rooming list. You open the guest groups to self-booking, so attendees confirm inside the limits you set without anyone in your office touching a spreadsheet.</p>
+          <p class="cap-card__body">VIPs, speakers, staff, and guests each sit in their own group under the approved hotel allocation. Each carries its own room count, rate, and rules. The office runs the VIP and staff groups against a rooming list. The guest groups open to self-booking, so attendees confirm inside the limits the office sets without anyone touching a spreadsheet.</p>
           <div class="cap-mock" aria-hidden="true">
             <div class="cap-mock__chrome">
               <div class="cap-mock__dots">
@@ -1174,8 +1226,8 @@
 
         <article class="cap-card">
           <p class="cap-card__num">05</p>
-          <h3 class="cap-card__title">Intelligence layered on top.</h3>
-          <p class="cap-card__body">Each programme can carry a live Security overwatch tab. Protective intelligence, zone classifications, and pre-event briefs from Colossus, all on the same dashboard your team is already using. Optional add-on, bespoke quote per programme.</p>
+          <h3 class="cap-card__title">Intelligence on the same dashboard.</h3>
+          <p class="cap-card__body">Each programme can carry a Security overwatch tab. Protective intelligence, zone classifications, and pre-event briefs from Colossus, on the same dashboard the office is already using. Optional add-on, quoted per programme.</p>
           <div class="cap-mock" aria-hidden="true">
             <div class="cap-mock__chrome">
               <div class="cap-mock__dots">
@@ -1213,13 +1265,13 @@
 
         <div class="io-reveal">
           <h2 class="escape-valve__heading">Always on hand</h2>
-          <p class="escape-valve__para">If you would rather hand a booking back, pass it to us directly. We pick it up, the audit log shows the handoff, and you carry on with the next thing.</p>
+          <p class="escape-valve__para">A booking can come back to the desk at any point. A late change from the principal, a question on a payment, anything that would cost the booker an hour. The booker passes it across and the desk takes it on. The booker stays with the rest of the trip.</p>
         </div>
 
         <div class="ops-note-card io-reveal" aria-hidden="true">
           <p class="ops-note-card__label">Pass back</p>
-          <div class="ops-note-card__line"><strong>Rate or room change</strong>, new category, date shift, or upgrade request needing director-level sign-off.</div>
-          <div class="ops-note-card__line"><strong>Last-minute move</strong>, venue or hotel change inside 48 hours with knock-on bookings to rearrange.</div>
+          <div class="ops-note-card__line"><strong>Rate or room change</strong>, a new category, a date shift, or an upgrade needing director-level sign-off.</div>
+          <div class="ops-note-card__line"><strong>Last-minute move</strong>, a venue or hotel change inside 48 hours with knock-on bookings to rearrange.</div>
           <div class="ops-note-card__line"><strong>Anything escalated</strong>, a complaint, a billing dispute, a property question that needs a direct hotel relationship to resolve.</div>
         </div>
 
@@ -1231,8 +1283,8 @@
   <section class="bureau-cta" aria-label="Contact ProLuxe">
     <div class="container">
       <div class="bureau-cta__inner io-reveal">
-        <p class="bureau-cta__para">We are taking on a small number of new principals' programmes for the second half of 2026. If you are setting up your principal's next year of travel, let us know.</p>
-        <a href="mailto:info@proluxetravels.com?subject=ProLuxe%20Bureau%20enquiry" class="btn--olive-inverse">Speak with us</a>
+        <p class="bureau-cta__para">The desk takes on a small number of new principals' programmes for the second half of 2026. For an office setting up the principal's next year of travel, please write.</p>
+        <a href="mailto:info@proluxetravels.com?subject=ProLuxe%20Bureau%20enquiry" class="btn--olive-inverse">Speak with the desk</a>
       </div>
     </div>
   </section>
