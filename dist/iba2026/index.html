@@ -619,9 +619,38 @@
             window._turnstileToken = null;
         };
 
-        // Validate name: at least 2 letters, no digits or lone special chars
+        // Validate name: at least 2 letters, no digits or lone special chars,
+        // and not a single repeated character ("aa", "xx").
         function isValidName(val) {
-            return /^[A-Za-zÀ-ɏ\s\-']{2,}$/.test(val.trim());
+            const v = (val || "").trim();
+            if (!/^[A-Za-zÀ-ɏ\s\-']{2,}$/.test(v)) return false;
+            // Reject single-char repeated patterns: "aa", "AAA", "bbb"
+            const letters = v.replace(/[\s\-']/g, '');
+            if (letters.length < 2) return false;
+            if (/^([A-Za-zÀ-ɏ])\1+$/.test(letters)) return false;
+            return true;
+        }
+
+        // Validate email beyond HTML5 type="email":
+        // - Local part must have at least 2 alphanumeric chars
+        // - Domain second-level label must be at least 2 chars
+        // - TLD must be at least 2 chars
+        // Blocks patterns like "-@o.com" that pass type="email" but are obviously bogus.
+        function isValidEmail(val) {
+            const v = (val || "").trim().toLowerCase();
+            if (!/^[^@\s]+@[^@\s]+$/.test(v)) return false;
+            const at = v.lastIndexOf('@');
+            const local = v.slice(0, at);
+            const domain = v.slice(at + 1);
+            const alnumLocal = (local.match(/[a-z0-9]/g) || []).length;
+            if (alnumLocal < 2) return false;
+            if (!domain.includes('.')) return false;
+            const parts = domain.split('.');
+            const tld = parts[parts.length - 1];
+            const sld = parts[parts.length - 2] || '';
+            if (tld.length < 2) return false;
+            if (sld.length < 2) return false;
+            return true;
         }
 
         window.submitBooking = async () => {
@@ -656,6 +685,61 @@
                 showError("Please enter your firm name (at least 3 characters).");
                 mainFirm.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
+            }
+
+            // Stricter email check (blocks "-@o.com", single-char domains, etc.).
+            const mainEmailEl = document.getElementById('main-email');
+            if (!isValidEmail(mainEmailEl.value)) {
+                mainEmailEl.classList.add('input-error');
+                showError("Please enter a valid email address.");
+                mainEmailEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            // Validate every visible Guest_First / Guest_Last (and Guest_2 on double rooms).
+            // Spam submission #IBA-833007 (22 May 2026) slipped through with guest names "- -"
+            // because guest fields were only `required`, not pattern-checked.
+            const roomCountVal = parseInt(document.getElementById('room-count').value);
+            for (let i = 1; i <= roomCountVal; i++) {
+                const gf = document.querySelector(`[name="Guest_First_${i}"]`);
+                const gl = document.querySelector(`[name="Guest_Last_${i}"]`);
+                const gFirm = document.querySelector(`[name="Guest_Firm_${i}"]`);
+                if (!isValidName(gf.value)) {
+                    gf.classList.add('input-error');
+                    showError(`Room ${i}: first name must be at least 2 letters and contain only letters.`);
+                    gf.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+                if (!isValidName(gl.value)) {
+                    gl.classList.add('input-error');
+                    showError(`Room ${i}: last name must be at least 2 letters and contain only letters.`);
+                    gl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+                if ((gFirm.value || "").trim().length < 3) {
+                    gFirm.classList.add('input-error');
+                    showError(`Room ${i}: company name must be at least 3 characters.`);
+                    gFirm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+                // If Double Occupancy, validate Guest 2 too.
+                const roomType = (document.querySelector(`[name="Room_Type_${i}"]`).value || "");
+                if (roomType.includes("Double")) {
+                    const g2f = document.querySelector(`[name="Guest_2_First_${i}"]`);
+                    const g2l = document.querySelector(`[name="Guest_2_Last_${i}"]`);
+                    if (!isValidName(g2f.value)) {
+                        g2f.classList.add('input-error');
+                        showError(`Room ${i} second guest: first name must be at least 2 letters and contain only letters.`);
+                        g2f.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return;
+                    }
+                    if (!isValidName(g2l.value)) {
+                        g2l.classList.add('input-error');
+                        showError(`Room ${i} second guest: last name must be at least 2 letters and contain only letters.`);
+                        g2l.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return;
+                    }
+                }
             }
 
             // Turnstile check — only enforced once a real sitekey is provisioned.
