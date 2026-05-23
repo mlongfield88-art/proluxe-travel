@@ -261,8 +261,8 @@
             <div id="booker-section" style="background: #f9f9f9; padding: 20px; border: 1px solid #eee; margin-bottom: 25px;">
                 <div id="booker-title" class="room-title">Booker / Main Contact</div>
                 <div class="date-row">
-                    <div class="date-group"><label>First Name *</label><input type="text" id="main-first" required minlength="2" pattern="^[A-Za-zÀ-ɏ\s\-'’.,()]{2,}$" title="Please enter your first name (letters, hyphens, apostrophes, and honorific punctuation allowed)." oninput="window.updateSummary()"></div>
-                    <div class="date-group"><label>Last Name *</label><input type="text" id="main-last" required minlength="2" pattern="^[A-Za-zÀ-ɏ\s\-'’.,()]{2,}$" title="Please enter your last name (letters, hyphens, apostrophes, and honorific punctuation allowed)." oninput="window.updateSummary()"></div>
+                    <div class="date-group"><label>First Name *</label><input type="text" id="main-first" required minlength="2" title="Please enter your first name." oninput="window.updateSummary()"></div>
+                    <div class="date-group"><label>Last Name *</label><input type="text" id="main-last" required minlength="2" title="Please enter your last name." oninput="window.updateSummary()"></div>
                 </div>
                 <label>Company Name *</label><input type="text" id="main-firm" required minlength="3" title="Please enter your firm name (at least 3 characters)." oninput="window.updateSummary()">
                 <label>Contact Number *</label><input type="text" id="main-phone" required>
@@ -619,32 +619,43 @@
             window._turnstileToken = null;
         };
 
-        // Validate name. Permissive — allows honorific punctuation common
-        // in legal-industry names (Dr., (Hon), Esquire, KC, O'Donnell with
-        // curly apostrophe, middle initials, etc.). What it catches:
+        // Validate name. Permissive across all scripts — IBA delegates
+        // come from 130+ countries, so we accept any Unicode letter from
+        // any script (Latin, Cyrillic, Greek, Arabic, Hebrew, Devanagari,
+        // CJK ideographs, Hangul, Hiragana, Katakana, Thai, etc.) plus
+        // common honorific punctuation used in legal-industry names
+        // (Dr., (Hon), Esquire, O'Donnell with curly apostrophe, middle
+        // initials, the Catalan middle dot).
+        //
+        // What it still catches:
         //   - empty / pure punctuation / pure whitespace
-        //   - all digits, all special chars
-        //   - single repeated character ("aa", "xx", "bbb")
-        //   - <2 actual letters
+        //   - all digits, all symbols
+        //   - single repeated character ("aa", "xx", "中中")
+        //   - <2 actual letters from any script
+        //   - any character outside the permissive set (so digits, @,
+        //     #, $, =, etc. all fail)
+        //
         // The retrospective 22 May 2026 sweep showed strict letters-only
-        // would have blocked 24 legitimate bookings (Prof. Dr. Eckart
-        // Brödermann, Jeffrey Golden KC (Hon), O'Donnell, etc.) while
-        // catching zero actual spam beyond what the email check and
-        // repeated-char heuristic already catch.
+        // (the original ASCII-plus-Latin-Extended pattern) would have
+        // blocked 24 legitimate Latin-script bookings AND every name in
+        // a non-Latin script. Strict regex catches zero actual spam that
+        // the email check + Turnstile + repeated-char heuristic don't.
         function isValidName(val) {
             const v = (val || "").trim();
             if (v.length < 2) return false;
-            // Must contain at least 2 actual letters (counts accents too).
-            const letterMatches = v.match(/[A-Za-zÀ-ɏ]/g) || [];
+            // Must contain at least 2 actual letters from ANY script.
+            // \p{L} matches every Unicode letter category.
+            const letterMatches = v.match(/\p{L}/gu) || [];
             if (letterMatches.length < 2) return false;
-            // Strip whitespace, punctuation we allow in names, and check
-            // the remaining letter sequence isn't a single repeated char.
+            // Reject single repeated character ("aa", "xx", "中中").
             const lettersOnly = letterMatches.join('');
-            if (/^([A-Za-zÀ-ɏ])\1+$/i.test(lettersOnly)) return false;
+            if (/^(.)\1+$/u.test(lettersOnly)) return false;
             // Block anything containing characters outside the permissive
-            // legal-name set (letters, accents, whitespace, hyphen, both
-            // apostrophe variants, period, comma, parentheses).
-            if (!/^[A-Za-zÀ-ɏ\s\-'’.,()]+$/.test(v)) return false;
+            // set: any letter (\p{L}), combining mark (\p{M}, for scripts
+            // where diacritics combine), whitespace, hyphen, both
+            // apostrophe variants, period, comma, parentheses, Catalan
+            // middle dot.
+            if (!/^[\p{L}\p{M}\s\-'’.,()·]+$/u.test(v)) return false;
             return true;
         }
 
