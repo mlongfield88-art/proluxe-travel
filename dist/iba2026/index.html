@@ -261,8 +261,8 @@
             <div id="booker-section" style="background: #f9f9f9; padding: 20px; border: 1px solid #eee; margin-bottom: 25px;">
                 <div id="booker-title" class="room-title">Booker / Main Contact</div>
                 <div class="date-row">
-                    <div class="date-group"><label>First Name *</label><input type="text" id="main-first" required minlength="2" title="Please enter your first name." oninput="window.updateSummary()"></div>
-                    <div class="date-group"><label>Last Name *</label><input type="text" id="main-last" required minlength="2" title="Please enter your last name." oninput="window.updateSummary()"></div>
+                    <div class="date-group"><label>First Name *</label><input type="text" id="main-first" required minlength="1" title="Please enter your first name." oninput="window.updateSummary()"></div>
+                    <div class="date-group"><label>Last Name *</label><input type="text" id="main-last" required minlength="1" title="Please enter your last name." oninput="window.updateSummary()"></div>
                 </div>
                 <label>Company Name *</label><input type="text" id="main-firm" required minlength="3" title="Please enter your firm name (at least 3 characters)." oninput="window.updateSummary()">
                 <label>Contact Number *</label><input type="text" id="main-phone" required>
@@ -619,43 +619,58 @@
             window._turnstileToken = null;
         };
 
-        // Validate name. Permissive across all scripts — IBA delegates
-        // come from 130+ countries, so we accept any Unicode letter from
-        // any script (Latin, Cyrillic, Greek, Arabic, Hebrew, Devanagari,
-        // CJK ideographs, Hangul, Hiragana, Katakana, Thai, etc.) plus
-        // common honorific punctuation used in legal-industry names
-        // (Dr., (Hon), Esquire, O'Donnell with curly apostrophe, middle
-        // initials, the Catalan middle dot).
+        // Validate name. Permissive across all scripts and traditions.
+        // IBA delegates come from 130+ countries, so we accept:
+        //   - Any Unicode letter \p{L} (Latin, Cyrillic, Greek, Arabic,
+        //     Hebrew, Devanagari, Thai, Lao, Khmer, Burmese, CJK
+        //     ideographs, Hangul, Hiragana, Katakana, etc.)
+        //   - Any Unicode combining mark \p{M} (used by Arabic, Hebrew,
+        //     Devanagari, Vietnamese, Tibetan and others for diacritics
+        //     that combine with the base letter)
+        //   - Any Unicode dash \p{Pd} (ASCII hyphen, en dash, em dash,
+        //     non-breaking hyphen, etc.)
+        //   - Whitespace
+        //   - Four apostrophe variants:
+        //       ' U+0027 ASCII (Western O'Donnell)
+        //       ’ U+2019 curly (typographic O’Donnell)
+        //       ʻ U+02BB ʻokina (Hawaiian, Polynesian: Kalaʻi)
+        //       ʼ U+02BC modifier letter (transliterations: Dʼyakov)
+        //   - Period . comma , parentheses ( ) for honorifics
+        //     (Dr., Esquire, Jr., KC (Hon), middle initials)
+        //   - Two middle dots:
+        //       · U+00B7 Catalan (Pol·la)
+        //       ・ U+30FB Japanese katakana (ジョン・スミス)
         //
         // What it still catches:
-        //   - empty / pure punctuation / pure whitespace
-        //   - all digits, all symbols
-        //   - single repeated character ("aa", "xx", "中中")
-        //   - <2 actual letters from any script
-        //   - any character outside the permissive set (so digits, @,
-        //     #, $, =, etc. all fail)
+        //   - Empty / pure punctuation / pure whitespace
+        //   - Any digit (0-9)
+        //   - Any symbol outside the explicit set (@, #, $, =, %, etc.)
+        //   - Single repeated character ("aa", "xx", "中中") when 2+ letters
         //
-        // The retrospective 22 May 2026 sweep showed strict letters-only
-        // (the original ASCII-plus-Latin-Extended pattern) would have
-        // blocked 24 legitimate Latin-script bookings AND every name in
-        // a non-Latin script. Strict regex catches zero actual spam that
-        // the email check + Turnstile + repeated-char heuristic don't.
+        // Minimum: 1 letter. Lower than the original 2 because real CJK
+        // surnames are often a single character (王, 李, 陈, 김, 박).
+        // Spam defence is the email check + Turnstile, not the length.
         function isValidName(val) {
             const v = (val || "").trim();
-            if (v.length < 2) return false;
-            // Must contain at least 2 actual letters from ANY script.
-            // \p{L} matches every Unicode letter category.
+            if (v.length < 1) return false;
+            // Must contain at least 1 actual letter from any script.
             const letterMatches = v.match(/\p{L}/gu) || [];
-            if (letterMatches.length < 2) return false;
-            // Reject single repeated character ("aa", "xx", "中中").
+            if (letterMatches.length < 1) return false;
+            // Reject single repeated character ("aa", "xx", "中中") only
+            // when there are 2+ letters. A 1-letter name (CJK surname)
+            // cannot be "repeating" so this check is skipped.
             const lettersOnly = letterMatches.join('');
-            if (/^(.)\1+$/u.test(lettersOnly)) return false;
-            // Block anything containing characters outside the permissive
-            // set: any letter (\p{L}), combining mark (\p{M}, for scripts
-            // where diacritics combine), whitespace, hyphen, both
-            // apostrophe variants, period, comma, parentheses, Catalan
-            // middle dot.
-            if (!/^[\p{L}\p{M}\s\-'’.,()·]+$/u.test(v)) return false;
+            if (lettersOnly.length >= 2 && /^(.)\1+$/u.test(lettersOnly)) return false;
+            // Block any character outside the permissive set.
+            // Includes four zero-width script-formatting characters that
+            // are required for correct rendering of many Indic and
+            // bidirectional scripts:
+            //   U+200C zero-width non-joiner (Persian, Devanagari)
+            //   U+200D zero-width joiner (Devanagari, Bengali, Sinhala,
+            //          Tamil conjuncts: ශ්‍ර in Sinhala "ශ්‍රී ලංකා")
+            //   U+200E left-to-right mark (bidi text)
+            //   U+200F right-to-left mark (bidi text)
+            if (!/^[\p{L}\p{M}\p{Pd}\s'’ʻʼ.,()·・‌‍‎‏]+$/u.test(v)) return false;
             return true;
         }
 
