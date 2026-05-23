@@ -783,18 +783,31 @@
             const mainEmail = document.getElementById('main-email').value;
             const mainCountry = document.getElementById('main-country').value;
             
-            const dbPayload = { 
-                Reference: '#' + ref, 
-                "Selected Hotel": selectedHotel.name, 
-                "Total Rooms": count, 
-                Date: new Date().toISOString(), 
-                "Booker Email": mainEmail, 
+            // Capture the Turnstile token so the server-side
+            // ibaBookingTurnstileVerify Cloud Function can validate it.
+            // If the token field is present but fails siteverify, the
+            // function archives the booking (Archived=True + IsCancellation
+            // + CancellationReason='failed_turnstile_verify').
+            // If the field is absent (e.g. portal-actions.py create), the
+            // function leaves the doc untouched.
+            const turnstileTokenValue = window._turnstileToken
+                || (typeof turnstile !== 'undefined' ? turnstile.getResponse() : '')
+                || '';
+
+            const dbPayload = {
+                Reference: '#' + ref,
+                "Selected Hotel": selectedHotel.name,
+                "Total Rooms": count,
+                Date: new Date().toISOString(),
+                "Booker Email": mainEmail,
                 "Booker First Name": document.getElementById('main-first').value,
                 "Booker Last Name": document.getElementById('main-last').value,
-                "Booker Name": document.getElementById('main-first').value + " " + document.getElementById('main-last').value, 
-                "Booker Company": document.getElementById('main-firm').value, 
+                "Booker Name": document.getElementById('main-first').value + " " + document.getElementById('main-last').value,
+                "Booker Company": document.getElementById('main-firm').value,
                 "Booker Phone": document.getElementById('main-phone').value,
-                "Booker Country": mainCountry
+                "Booker Country": mainCountry,
+                _turnstileToken: turnstileTokenValue,
+                _submittedFrom: 'iba2026-portal',
             };
 
             const zapierData = new FormData();
