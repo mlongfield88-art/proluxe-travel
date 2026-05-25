@@ -78,10 +78,15 @@
           { opacity: 0.8, y: 0, duration: 0.8, ease: 'power3.out' },
           '-=0.5'
         )
+        .fromTo('.hero__cta',
+          { opacity: 0 },
+          { opacity: 1, duration: 0.001 },
+          '-=0.4'
+        )
         .fromTo('.hero__cta .btn',
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power3.out' },
-          '-=0.4'
+          '<'
         )
         .fromTo('.hero__scroll-hint',
           { opacity: 0 },
