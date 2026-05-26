@@ -546,7 +546,7 @@
             const area = document.getElementById(`guest-2-area-${i}`);
             const inputF = document.querySelector(`[name="Guest_2_First_${i}"]`);
             const inputL = document.querySelector(`[name="Guest_2_Last_${i}"]`);
-            if(sel.includes("Double")) { area.classList.remove('hidden'); inputF.required = true; inputL.required = true; }
+            if(sel.includes("(Double")) { area.classList.remove('hidden'); inputF.required = true; inputL.required = true; }
             else { area.classList.add('hidden'); inputF.required = false; inputL.required = false; }
         };
 
@@ -767,7 +767,7 @@
                 }
                 // If Double Occupancy, validate Guest 2 too.
                 const roomType = (document.querySelector(`[name="Room_Type_${i}"]`).value || "");
-                if (roomType.includes("Double")) {
+                if (roomType.includes("(Double")) {
                     const g2f = document.querySelector(`[name="Guest_2_First_${i}"]`);
                     const g2l = document.querySelector(`[name="Guest_2_Last_${i}"]`);
                     if (!isValidName(g2f.value)) {
