@@ -332,16 +332,30 @@
         const appId = "iba-2026-portal";
 
         let currentUser = null;
-        window.liveInventory = {}; 
+        window.liveInventory = {};
+        window.inventoryLoaded = false;   // true only once live inventory has actually been read
+        window.inventoryError = false;    // true if the inventory read was rejected or failed
 
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
             if (user) {
-                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'inventory'), (snap) => {
-                    snap.forEach(d => { window.liveInventory[d.id] = d.data().dailyOccupancy || {}; });
-                    checkInitialAvailability();
-                    renderAvailabilityCalendar(); // Re-draw calendar on live changes!
-                });
+                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'inventory'),
+                    (snap) => {
+                        snap.forEach(d => { window.liveInventory[d.id] = d.data().dailyOccupancy || {}; });
+                        window.inventoryLoaded = true;
+                        window.inventoryError = false;
+                        checkInitialAvailability();
+                        renderAvailabilityCalendar(); // Re-draw calendar on live changes!
+                    },
+                    (err) => {
+                        // FAIL CLOSED: if live inventory cannot be read, never paint rooms as available.
+                        console.error('[iba2026] live inventory read failed', err);
+                        window.inventoryLoaded = false;
+                        window.inventoryError = true;
+                        checkInitialAvailability();
+                        renderAvailabilityCalendar();
+                    }
+                );
             }
         });
         signInAnonymously(auth);
@@ -401,6 +415,13 @@
         // --- NEW: VISUAL AVAILABILITY CALENDAR BUILDER ---
         window.renderAvailabilityCalendar = () => {
             if(!selectedHotel) return;
+            // FAIL CLOSED: until live inventory has loaded, show a checking/unavailable state, never an availability grid.
+            if(!window.inventoryLoaded) {
+                document.getElementById('availability-visualizer').innerHTML = window.inventoryError
+                    ? `<div style="border-top:2px solid var(--primary-gold);margin-top:30px;padding-top:20px;"><div class="msg-box msg-sold-out">Live availability is temporarily unavailable. Please refresh the page in a moment; if it persists, contact iba2026@proluxetravels.com.</div></div>`
+                    : `<div style="border-top:2px solid var(--primary-gold);margin-top:30px;padding-top:20px;"><p style="color:#666;margin:0;">Checking live availability...</p></div>`;
+                return;
+            }
             const hotelId = `hotel_${selectedHotel.id}`;
             const dailyOcc = window.liveInventory[hotelId] || {};
             const allDates = getDatesInRange(selectedHotel.contractStart, selectedHotel.contractEnd);
@@ -437,6 +458,16 @@
 
         function checkInitialAvailability() {
             if(!selectedHotel) return;
+            const msgArea = document.getElementById('hotel-msg-area');
+            const proceedBtn = document.getElementById('proceed-btn');
+            // FAIL CLOSED: do not allow anyone to proceed until live inventory has actually loaded.
+            if(!window.inventoryLoaded) {
+                proceedBtn.classList.add('hidden');
+                msgArea.innerHTML = window.inventoryError
+                    ? `<div class="msg-box msg-sold-out">Live availability is temporarily unavailable. Please refresh the page.</div>`
+                    : `<div class="msg-box" style="background:#f4f1ea;color:#555;">Checking live availability...</div>`;
+                return;
+            }
             const hotelId = `hotel_${selectedHotel.id}`;
             const dailyOcc = window.liveInventory[hotelId] || {};
             let hasAnyRoom = false;
@@ -445,8 +476,6 @@
                 const limit = selectedHotel.dailyLimits[date] || selectedHotel.dailyLimits["default"];
                 if((dailyOcc[date] || 0) < limit) hasAnyRoom = true;
             });
-            const msgArea = document.getElementById('hotel-msg-area');
-            const proceedBtn = document.getElementById('proceed-btn');
             msgArea.innerHTML = '';
             if(!hasAnyRoom) { proceedBtn.classList.add('hidden'); msgArea.innerHTML = `<div class="msg-box msg-sold-out">All nights sold out for this hotel</div>`; }
             else proceedBtn.classList.remove('hidden');
