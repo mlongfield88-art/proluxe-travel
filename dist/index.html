@@ -1,229 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ProLuxe Travel | Luxury Travel Management, London</title>
-  <meta name="description" content="We plan private travel and host the people we know. Direct hotel relationships, 20 years on the floor, London.">
-  <meta property="og:title" content="ProLuxe Travel | Luxury Travel Management, London">
-  <meta property="og:description" content="We plan private travel for individuals, families, and small groups. Direct hotel relationships, no middleman. London.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://proluxetravels.com">
-  <meta property="og:image" content="/img/og-card.jpg">
-  <meta name="twitter:image" content="/img/og-card.jpg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:wght@400;500;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
-  <noscript><style>.reveal-hero,.reveal,.reveal-card{opacity:1}</style></noscript>
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TravelAgency",
-    "name": "ProLuxe Travel",
-    "url": "https://proluxetravels.com",
-    "description": "We plan private travel and host the people we know. Direct hotel relationships, 20 years on the floor, London.",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "45 Welbeck Street",
-      "addressLocality": "London",
-      "postalCode": "W1G 8DZ",
-      "addressCountry": "GB"
-    },
-    "email": "info@proluxetravels.com",
-    "founder": { "@type": "Person", "name": "Myles Longfield" },
-    "foundingDate": "2024",
-    "areaServed": "Worldwide",
-    "serviceType": ["Luxury Travel Management", "Private Travel Planning", "Hotel Accommodation"]
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProLuxe Travel | Luxury travel, arranged direct with the hotels</title>
+<meta name="description" content="Group accommodation, events and private travel, arranged direct with the world's finest hotels. Worldwide.">
+<link rel="canonical" href="https://www.proluxetravels.com/">
+<meta property="og:title" content="ProLuxe Travel">
+<meta property="og:description" content="Group accommodation, events and private travel, arranged direct with the world's finest hotels. Worldwide.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.proluxetravels.com/">
+<meta property="og:image" content="https://www.proluxetravels.com/img/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23424632'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='600' fill='%23F5F0E8'>P</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/home-hero.jpg" fetchpriority="high">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --paper:#F7F3EC; --white:#FFFFFF; --olive:#424632; --olive-deep:#33361f; --ink:#2c2f22;
+    --stone:#8f8d76; --line:#e6e0d2; --muted:#55584a;
   }
-  </script>
+  html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,sans-serif;color:var(--ink);background:var(--paper);line-height:1.7;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{display:block}
+  .pf{font-family:'Playfair Display',Georgia,serif}
+  .eyebrow{font-family:'Inter',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.32em;font-size:11.5px;color:var(--stone)}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--olive);color:var(--paper);padding:10px 16px;z-index:200}
+  .skip:focus{left:12px;top:12px}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reduced .reveal{opacity:1!important;transform:none!important;transition:none!important}
+
+  /* header */
+  header{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;justify-content:space-between;
+    padding:22px 6vw;background:rgba(247,243,236,.82);backdrop-filter:saturate(140%) blur(8px);-webkit-backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid rgba(230,224,210,.7)}
+  .brand{font-family:'Playfair Display',serif;font-weight:500;font-size:20px;letter-spacing:.04em;color:var(--olive)}
+  nav.main{display:flex;align-items:center;gap:32px}
+  nav.main a{font-family:'Inter',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.18em;font-size:11.5px;color:var(--ink)}
+  nav.main a:not(.enquire){position:relative}
+  nav.main a:not(.enquire)::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:1px;background:var(--olive);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+  nav.main a:not(.enquire):hover::after{transform:scaleX(1)}
+  .enquire{border:1px solid var(--olive);color:var(--olive);padding:9px 22px;font-family:'Inter',sans-serif;
+    text-transform:uppercase;letter-spacing:.16em;font-size:11px;transition:background .25s,color .25s}
+  .enquire:hover{background:var(--olive);color:var(--paper)}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:90}
+  .burger span{display:block;width:24px;height:1.5px;background:var(--olive);transition:transform .3s,opacity .3s}
+  .mobile-nav{position:fixed;inset:0;z-index:85;background:var(--olive);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;padding:0 10vw;transform:translateY(-100%);transition:transform .5s cubic-bezier(.16,1,.3,1);visibility:hidden}
+  .mobile-nav.open{transform:translateY(0);visibility:visible}
+  .mobile-nav a{font-family:'Playfair Display',serif;font-size:30px;color:var(--paper);padding:12px 0;font-weight:400}
+  .mobile-nav .mn-meta{font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:.2em;font-size:11px;color:#b4b09c;margin-top:30px}
+
+  /* hero */
+  .hero{position:relative;height:94vh;height:94svh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
+  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero .veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,22,12,.22) 0%,rgba(20,22,12,0) 32%,rgba(20,22,12,.14) 60%,rgba(20,22,12,.58) 100%)}
+  .hero-inner{position:relative;z-index:2;padding:0 6vw 9vh;max-width:1100px}
+  .hero .eyebrow{color:rgba(255,255,255,.85);margin-bottom:22px}
+  .hero h1{font-family:'Playfair Display',serif;font-weight:400;color:#fff;font-size:clamp(34px,5vw,74px);line-height:1.04;letter-spacing:-0.005em;max-width:20ch}
+  .hero .lede{color:rgba(255,255,255,.9);font-family:'Inter',sans-serif;font-weight:300;font-size:clamp(16px,1.4vw,20px);max-width:50ch;margin-top:24px;line-height:1.55}
+  .hero .cta{display:inline-block;margin-top:32px;color:#fff;font-family:'Inter',sans-serif;text-transform:uppercase;
+    letter-spacing:.2em;font-size:12px;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:7px;transition:border-color .3s}
+  .hero .cta:hover{border-color:#fff}
+  .hero .reveal:nth-child(2){transition-delay:.1s}
+  .hero .reveal:nth-child(3){transition-delay:.2s}
+  .hero .reveal:nth-child(4){transition-delay:.3s}
+
+  /* generic section */
+  section.block{padding:150px 6vw}
+  .center{max-width:760px;margin:0 auto;text-align:center}
+  .center .eyebrow{margin-bottom:26px}
+  .center h2{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(30px,3.6vw,50px);line-height:1.18;color:var(--ink);letter-spacing:-0.005em}
+  .center p{font-family:'Inter',sans-serif;font-weight:300;font-size:18px;line-height:1.8;color:var(--muted);margin-top:26px}
+
+  /* what we do */
+  .do{max-width:1040px;margin:0 auto}
+  .do .eyebrow{text-align:left;margin-bottom:54px}
+  .do-row{display:grid;grid-template-columns:0.82fr 1.18fr;gap:56px;padding:50px 0;border-top:1px solid var(--line);align-items:start}
+  .do-row:last-child{border-bottom:1px solid var(--line)}
+  .do-head{display:flex;flex-direction:column;gap:14px}
+  .do-head .num{font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--stone);letter-spacing:.02em}
+  .do-head h3{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(26px,2.8vw,38px);color:var(--ink);line-height:1.08}
+  .do-row p{font-family:'Inter',sans-serif;font-weight:300;font-size:17px;line-height:1.78;color:var(--muted);max-width:44ch;margin:0}
+
+  /* image break */
+  .imgbreak{position:relative;height:74vh;min-height:460px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .imgbreak img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .imgbreak .veil{position:absolute;inset:0;background:rgba(20,22,12,.32)}
+  .imgbreak .line{position:relative;z-index:2;color:#fff;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(26px,3.4vw,46px);text-align:center;max-width:20ch;padding:0 24px;line-height:1.2}
+
+  /* enquiry */
+  .enq{padding:150px 6vw;text-align:center;background:var(--white)}
+  .enq h2{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(34px,4.4vw,62px);color:var(--ink);margin-bottom:18px}
+  .enq p{font-family:'Inter',sans-serif;font-weight:300;font-size:18px;color:var(--muted);max-width:48ch;margin:0 auto 36px;line-height:1.7}
+  .enq .cta{display:inline-block;border:1px solid var(--olive);color:var(--olive);padding:14px 36px;font-family:'Inter',sans-serif;
+    text-transform:uppercase;letter-spacing:.18em;font-size:12px;transition:background .25s,color .25s}
+  .enq .cta:hover{background:var(--olive);color:var(--paper)}
+
+  /* footer */
+  footer{padding:46px 6vw;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;background:var(--paper)}
+  footer .name{font-family:'Playfair Display',serif;font-weight:500;color:var(--olive);font-size:16px}
+  footer .meta{font-family:'Inter',sans-serif;font-size:12px;color:var(--stone);margin-top:8px;letter-spacing:.03em}
+  footer .links{display:flex;gap:24px;flex-wrap:wrap}
+  footer .links a{font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--stone)}
+  footer .links a:hover{color:var(--olive)}
+
+  /* responsive */
+  @media(max-width:860px){
+    nav.main{display:none}
+    .burger{display:flex}
+    section.block{padding:90px 7vw}
+    .enq{padding:90px 7vw}
+    .do-row{grid-template-columns:1fr;gap:16px;padding:40px 0}
+    .hero-inner{padding:0 7vw 12vh}
+    footer{flex-direction:column;align-items:flex-start}
+    footer .links{gap:10px 22px}
+    footer .links a{padding:8px 0}
+  }
+  @media(max-width:480px){
+    .hero{height:90vh;height:90svh}
+    .center h2{font-size:30px}
+  }
+</style>
 </head>
 <body>
-<!-- LINE TO REPRINT SOMEWHERE: "Your business is your business. That is the whole proposition." -->
+<a href="#main" class="skip">Skip to content</a>
 
-  <!-- ========== NAVIGATION ========== -->
-  <header class="header" role="banner">
-    <nav class="nav" aria-label="Main navigation">
-      <a href="/" class="nav__wordmark">ProLuxe Travel</a>
-      <div class="nav__links" id="navLinks">
-        <a href="#about" class="nav__link">About</a>
-        <a href="#services" class="nav__link">Services</a>
-        <a href="/casa-marenya" class="nav__link">Casa Marenya</a>
-        <a href="#contact" class="nav__link">Contact</a>
-      </div>
-      <button class="nav__hamburger" id="navToggle" aria-label="Open navigation menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+  <header>
+    <a href="/" class="brand">ProLuxe Travel</a>
+    <nav class="main" aria-label="Main">
+      <a href="#services">Groups &amp; events</a>
+      <a href="#services">Private travel</a>
+      <a href="/casa-marenya">Casa Marenya</a>
+      <a href="#about">About</a>
+      <a href="#enq" class="enquire">Write</a>
     </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
-  <!-- Off-canvas mobile nav -->
-  <div class="offcanvas" id="offcanvas" aria-hidden="true">
-    <div class="offcanvas__overlay" id="offcanvasOverlay"></div>
-    <div class="offcanvas__panel">
-      <button class="offcanvas__close" id="offcanvasClose" aria-label="Close navigation menu">&times;</button>
-      <nav class="offcanvas__nav" aria-label="Mobile navigation">
-        <a href="#about" class="offcanvas__link">About</a>
-        <a href="#services" class="offcanvas__link">Services</a>
-        <a href="/casa-marenya" class="offcanvas__link">Casa Marenya</a>
-        <a href="#contact" class="offcanvas__link">Contact</a>
-      </nav>
-      <div class="offcanvas__contact">
-        <p>info@proluxetravels.com</p>
-        <p>London, United Kingdom</p>
-      </div>
-    </div>
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <a href="#services">Groups &amp; events</a>
+    <a href="#services">Private travel</a>
+    <a href="/casa-marenya">Casa Marenya</a>
+    <a href="#about">About</a>
+    <a href="#enq">Write</a>
+    <p class="mn-meta">info@proluxetravels.com</p>
   </div>
 
-  <!-- ========== HERO ========== -->
-  <section class="hero" id="hero">
-    <div class="hero__bg-wrap">
-      <img
-        src="img/hero-banner.webp"
-        alt=""
-        aria-hidden="true"
-        fetchpriority="high"
-        loading="eager"
-        decoding="async"
-        class="hero__bg-img"
-      >
-      <div class="hero__bg"></div>
-      <div class="hero__overlay"></div>
-    </div>
-    <canvas class="hero__canvas" id="waypointCanvas" aria-hidden="true"></canvas>
-    <div class="hero__content">
-      <p class="visually-hidden">Luxury hotel interior setting for ProLuxe Travel</p>
-      <p class="hero__eyebrow reveal-hero">Private travel. London.</p>
-      <h1 class="hero__title reveal-hero">We plan trips and host the people we know.</h1>
-      <p class="hero__subtitle reveal-hero">After 20 years in this work, the General Manager already knows your name when you walk in. That is most of them.</p>
-      <div class="hero__cta reveal-hero">
-        <a href="#contact" class="btn btn--primary">Get in touch</a>
-        <a href="#services" class="btn btn--outline">See what we do</a>
-      </div>
-    </div>
-    <div class="hero__scroll-hint" aria-hidden="true">
-      <span></span>
+  <main id="main">
+  <section class="hero">
+    <img src="img/home-hero.jpg" alt="" aria-hidden="true" fetchpriority="high">
+    <div class="veil"></div>
+    <div class="hero-inner">
+      <p class="eyebrow reveal">Worldwide, from the inside</p>
+      <h1 class="reveal">The doors were always open to us. Now they open for you.</h1>
+      <p class="lede reveal">We learned this trade inside the world's finest hotels, and we never gave the key back. Group accommodation, the events that gather around it, and private travel, all held direct.</p>
+      <a href="#enq" class="cta reveal">Write</a>
     </div>
   </section>
 
-  <!-- ========== ABOUT ========== -->
-  <section class="section section--cream" id="about">
-    <div class="container">
-      <div class="about-full">
-        <p class="section__eyebrow reveal">Who we are</p>
-        <h2 class="section__title reveal">20 years on the floor.</h2>
-        <p class="section__body reveal">We started ProLuxe because the best trips are the ones where the hotel already knows you are coming. Not because someone called ahead. Because we did, and we have done this long enough that most of them know us.</p>
-        <p class="section__body reveal">Some clients come to us as families. Some as couples. Some bring their whole team. Whatever you have in mind, we will point you in the right direction.</p>
-        <a href="#contact" class="link-arrow reveal">Work with us <span>&rarr;</span></a>
+  <section class="block" id="about">
+    <div class="center">
+      <p class="eyebrow reveal">Who we are</p>
+      <h2 class="reveal">We grew up on the right side of the door.</h2>
+      <p class="reveal">ProLuxe began on the inside, in the years we spent within the finest hotels in the world. We left with the relationships intact, and the standing to use them. That is the difference between asking for a room and being expected. Everything we arrange is held directly, and everything we are told stays with us.</p>
+    </div>
+  </section>
+
+  <section class="block" id="services" style="padding-top:0">
+    <div class="do">
+      <p class="eyebrow reveal">What we do</p>
+      <div class="do-row reveal">
+        <div class="do-head"><span class="num">01</span><h3>Group accommodation</h3></div>
+        <p>A hundred people on the same dates, and the rooms that decide everything. We hold whole floors direct and run them as one, so the scale is ours to carry and never yours to feel.</p>
+      </div>
+      <div class="do-row reveal">
+        <div class="do-head"><span class="num">02</span><h3>Events</h3></div>
+        <p>The dinner that has to land, the morning that cannot slip. We arrange everything that happens around the stay with the same hotels that hold it, so the occasion feels inevitable rather than organised.</p>
+      </div>
+      <div class="do-row reveal">
+        <div class="do-head"><span class="num">03</span><h3>Private travel</h3></div>
+        <p>When it is one room, or one family, the same doors open. Journeys arranged anywhere in the world, on the same direct terms, and held just as closely.</p>
       </div>
     </div>
   </section>
 
-  <!-- ========== SERVICES ========== -->
-  <section class="section section--dark" id="services">
-    <div class="container container--narrow">
-      <p class="section__eyebrow section__eyebrow--light reveal">What we do</p>
-      <h2 class="section__title section__title--light reveal">Our services</h2>
-    </div>
+  <section class="imgbreak">
+    <img src="img/home-villa.jpg" alt="" aria-hidden="true" loading="lazy">
+    <div class="veil"></div>
+    <p class="line reveal">Anyone can find the address. We know the people who hold the keys.</p>
+  </section>
 
-    <div class="service-pillars">
-
-      <article class="service-pillar">
-        <div class="service-pillar__text reveal">
-          <p class="service-pillar__number">01</p>
-          <h3 class="service-pillar__title">Private Stays</h3>
-          <p class="service-pillar__body">A villa where the chef cooks dinner on the terrace. A suite at a hotel that pretends to be sold out. We find the room and sort everything before you get there.</p>
-          <p class="service-pillar__body">Families, couples, small groups. We handle the detail so you do not have to think about it.</p>
-        </div>
-      </article>
-
-      <article class="service-pillar">
-        <div class="service-pillar__text reveal">
-          <p class="service-pillar__number">02</p>
-          <h3 class="service-pillar__title">Venue Sourcing</h3>
-          <p class="service-pillar__body">Country houses, private estates, city hotels. UK and internationally.</p>
-          <p class="service-pillar__body">We know which rooms work, which do not, and which only look the part.</p>
-        </div>
-      </article>
-
-      <article class="service-pillar">
-        <div class="service-pillar__text reveal">
-          <p class="service-pillar__number">03</p>
-          <h3 class="service-pillar__title">Accommodation Sourcing</h3>
-          <p class="service-pillar__body">A place you have never heard of. A place you visit every year. The single trip that has to land.</p>
-          <p class="service-pillar__body">Direct hotel relationships, no middleman.</p>
-        </div>
-      </article>
-
+  <section class="block">
+    <div class="center">
+      <p class="eyebrow reveal">The firm</p>
+      <h2 class="reveal">Held direct. Held in confidence.</h2>
+      <p class="reveal">Every room, every date, every arrangement is held direct, settled with the hotel itself, and what you tell us stays with us. Operations are led by Danny Barnard as Chief Operating Officer, with a team kept small on purpose, so that every arrangement carries a name and an answer. We are quiet by design, and well connected by intent.</p>
     </div>
   </section>
 
-  <!-- ========== CONTACT ========== -->
-  <section class="section section--cream" id="contact">
-    <div class="container">
-      <div class="split split--reverse">
-        <div class="split__text">
-          <p class="section__eyebrow reveal">Get in touch</p>
-          <h2 class="section__title reveal">Write to us.</h2>
-          <p class="section__body reveal">Tell us what you have in mind. We will take it from there.</p>
-          <a href="mailto:info@proluxetravels.com" class="btn btn--primary reveal">Email us</a>
-        </div>
-        <div class="split__info reveal">
-          <div class="info-block">
-            <h4 class="info-block__label">Email</h4>
-            <a href="mailto:info@proluxetravels.com" class="info-block__value">info@proluxetravels.com</a>
-          </div>
-          <div class="info-block">
-            <h4 class="info-block__label">Location</h4>
-            <p class="info-block__value">London, United Kingdom</p>
-          </div>
-        </div>
-      </div>
-    </div>
+  <section class="enq" id="enq">
+    <h2 class="pf reveal">The inside is one message away.</h2>
+    <p class="reveal">Tell us where in the world, and for how many, and we will open the right doors.</p>
+    <a href="mailto:info@proluxetravels.com" class="cta reveal">Write</a>
   </section>
+  </main>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <a href="#top" class="footer__wordmark">ProLuxe Travel</a>
-        <p class="footer__tagline">Luxury travel management. London.</p>
-      </div>
-      <div class="footer__links">
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="/casa-marenya">Casa Marenya</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="footer__legal">
-        <p>&copy; 2026 ProLuxe Travel Ltd. All rights reserved.</p>
-        <p class="footer__reg">45 Welbeck Street, London, W1G 8DZ</p>
-        <div class="footer__policy-links">
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="privacy-policy.html#cookies">Cookie Policy</a>
-        </div>
-      </div>
+  <footer>
+    <div>
+      <div class="name">ProLuxe Travel</div>
+      <div class="meta">45 Welbeck Street, London W1G 8DZ &nbsp;·&nbsp; IATA 96189096</div>
+    </div>
+    <div class="links">
+      <a href="#services">Groups &amp; events</a><a href="#services">Private travel</a><a href="/casa-marenya">Casa Marenya</a><a href="#about">About</a><a href="mailto:info@proluxetravels.com">Contact</a>
     </div>
   </footer>
 
-  <!-- ========== COOKIE CONSENT ========== -->
-  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
-    <div class="cookie-banner__inner">
-      <p class="cookie-banner__text">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. <a href="privacy-policy.html#cookies">Learn more</a></p>
-      <div class="cookie-banner__actions">
-        <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept">Accept</button>
-        <button class="cookie-banner__btn cookie-banner__btn--decline" id="cookieDecline">Decline</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Lenis smooth scroll -->
   <script src="lib/lenis.min.js"></script>
-  <!-- GSAP + ScrollTrigger -->
-  <script src="lib/gsap.min.js"></script>
-  <script src="lib/ScrollTrigger.min.js"></script>
-  <script src="js/waypoints.js"></script>
-  <script src="js/main.js"></script></body>
+  <script>
+  (function(){
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) document.body.classList.add('reduced');
+
+    // mobile nav
+    var burger=document.getElementById('burger'), mnav=document.getElementById('mobileNav');
+    function closeNav(){ mnav.classList.remove('open'); burger.setAttribute('aria-expanded','false'); mnav.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+    burger.addEventListener('click', function(){
+      var open=mnav.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open?'true':'false');
+      mnav.setAttribute('aria-hidden', open?'false':'true');
+      document.body.style.overflow = open?'hidden':'';
+    });
+    mnav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeNav); });
+
+    // reveals
+    if (!reduced && 'IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+      document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    } else {
+      document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    }
+
+    // smooth scroll (Lenis on its own rAF loop, never gsap.ticker)
+    if (!reduced && typeof Lenis !== 'undefined'){
+      var lenis=new Lenis({lerp:0.085, smoothWheel:true});
+      function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click', function(e){
+          var id=a.getAttribute('href'); if(id.length>1){ var t=document.querySelector(id); if(t){ e.preventDefault(); lenis.scrollTo(t,{offset:-10}); } }
+        });
+      });
+    }
+  })();
+  </script>
+</body>
 </html>
