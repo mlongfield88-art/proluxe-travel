@@ -96,51 +96,33 @@
 
       /* ---------- SECTION REVEALS ---------- */
 
-      // About section — text slides in from left, image from right
-      gsap.fromTo('#about .split__text .section__eyebrow',
-        { opacity: 0, x: -40 },
-        { opacity: 1, x: 0, duration: 0.7, ease: 'power3.out',
+      // About section — centred editorial reveal
+      gsap.fromTo('#about .section__eyebrow',
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
           scrollTrigger: { trigger: '#about', start: 'top 75%' }
         }
       );
-      gsap.fromTo('#about .split__text .section__title',
-        { opacity: 0, x: -40 },
-        { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out',
+      gsap.fromTo('#about .section__title',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
           scrollTrigger: { trigger: '#about', start: 'top 75%' },
-          delay: 0.1
+          delay: 0.08
         }
       );
-      gsap.fromTo('#about .split__text .section__body',
-        { opacity: 0, y: 30 },
+      gsap.fromTo('#about .section__body',
+        { opacity: 0, y: 24 },
         { opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: 'power3.out',
           scrollTrigger: { trigger: '#about', start: 'top 70%' },
-          delay: 0.2
+          delay: 0.15
         }
       );
       gsap.fromTo('#about .link-arrow',
-        { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
           scrollTrigger: { trigger: '#about', start: 'top 65%' }
         }
       );
-      gsap.fromTo('#about .split__image',
-        { opacity: 0, x: 60, scale: 0.95 },
-        { opacity: 1, x: 0, scale: 1, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: '#about', start: 'top 70%' }
-        }
-      );
-
-      // About image parallax
-      gsap.to('#about .split__image img', {
-        y: -40,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#about',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        }
-      });
 
       /* ---------- SERVICES CARDS ---------- */
       gsap.fromTo('#services .section__eyebrow',
@@ -156,39 +138,14 @@
           delay: 0.08
         }
       );
-      gsap.fromTo('#services .section__intro',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-          scrollTrigger: { trigger: '#services', start: 'top 70%' },
-          delay: 0.15
-        }
-      );
-
-      // Service pillars — text fades up, image fades in
+      // Service pillars — text fades up
       document.querySelectorAll('.service-pillar').forEach(function (pillar) {
         gsap.fromTo(pillar.querySelector('.service-pillar__text'),
           { opacity: 0, y: 32 },
           { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-            scrollTrigger: { trigger: pillar, start: 'top 75%' }
+            scrollTrigger: { trigger: pillar, start: 'top 80%' }
           }
         );
-        gsap.fromTo(pillar.querySelector('.service-pillar__image'),
-          { opacity: 0, y: 32 },
-          { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-            scrollTrigger: { trigger: pillar, start: 'top 75%' },
-            delay: 0.1
-          }
-        );
-        // Subtle image parallax
-        var img = pillar.querySelector('.service-pillar__image img');
-        if (img) {
-          gsap.fromTo(img,
-            { y: -16 },
-            { y: 16, ease: 'none',
-              scrollTrigger: { trigger: pillar, start: 'top bottom', end: 'bottom top', scrub: true }
-            }
-          );
-        }
       });
 
       /* ---------- CONTACT SECTION ---------- */
@@ -274,16 +231,20 @@
     offcanvas.classList.add('is-open');
     offcanvas.setAttribute('aria-hidden', 'false');
     navToggle.setAttribute('aria-expanded', 'true');
+    navToggle.setAttribute('aria-label', 'Close navigation menu');
     document.body.style.overflow = 'hidden';
     if (lenis) lenis.stop();
+    if (offcanvasClose) offcanvasClose.focus();
   }
 
   function closeNav() {
     offcanvas.classList.remove('is-open');
     offcanvas.setAttribute('aria-hidden', 'true');
     navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open navigation menu');
     document.body.style.overflow = '';
     if (lenis) lenis.start();
+    if (navToggle) navToggle.focus();
   }
 
   if (navToggle) navToggle.addEventListener('click', openNav);

@@ -253,6 +253,7 @@
 
   /* ---------- ANIMATION LOOP ---------- */
   var t = 0;
+  var rafId = null;
 
   function animate() {
     t++;
@@ -329,12 +330,31 @@
       ctx.fill();
     }
 
-    requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
   }
 
   /* ---------- INIT ---------- */
+  function startLoop() {
+    if (rafId === null) rafId = requestAnimationFrame(animate);
+  }
+  function stopLoop() {
+    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+  }
+
   resize();
   window.addEventListener('resize', resize);
-  requestAnimationFrame(animate);
+
+  // Pause the canvas loop when the hero is off-screen (performance)
+  if ('IntersectionObserver' in window) {
+    var heroObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { startLoop(); }
+        else { stopLoop(); }
+      });
+    }, { threshold: 0 });
+    heroObserver.observe(hero);
+  } else {
+    startLoop();
+  }
 
 })();

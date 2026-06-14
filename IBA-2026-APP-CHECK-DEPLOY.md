@@ -1,5 +1,7 @@
 # IBA 2026 booking page: App Check rollout
 
+> **COMPLETE 10 June 2026 09:54 UTC.** Enforcement is ON for Firestore and live-verified on both the booker page and Bureau. Note for the record: the first flip attempt failed because step 4 (the verified-requests soak check) was skipped and the stored reCAPTCHA secret in App Check did not match the site key, so tokens were minted but never verified; the page also failed OPEN on a blocked read (fixed in commit 9bbe308, fail-closed now). Full incident record: Security register SEC-2026-018 / INC-2026-03. This runbook is retained as the worked example of why step 4 is not optional.
+
 Closes SEC-2026-018 (anonymous-write carve-out on the legacy IBA 2026
 booking page) before the page reaches end-of-life in September /
 October 2026.
