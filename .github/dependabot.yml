@@ -18,3 +18,20 @@ updates:
     commit-message:
       prefix: "deps"
       include: "scope"
+
+  # Track the GitHub Actions used in deploy/CI workflows themselves, so a
+  # pinned action with a security advisory or newer release surfaces as a PR.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/London"
+    labels:
+      - "security"
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
