@@ -912,6 +912,7 @@
                 <tbody>
             `;
             
+            let grandTotalDKK = 0;
             for(let i=1; i<=count; i++) {
                 const ci = document.querySelector(`[name="In_${i}"]`).value; const co = document.querySelector(`[name="Out_${i}"]`).value;
                 const dates = getDatesInRange(ci, co); dates.forEach(d => roomsNeededPerDate[d] = (roomsNeededPerDate[d] || 0) + 1);
@@ -923,6 +924,7 @@
                 const gFirm = document.querySelector(`[name="Guest_Firm_${i}"]`).value;
                 const gType = document.querySelector(`[name="Room_Type_${i}"]`).value.split('|')[0];
                 const gRate = document.querySelector(`[name="Room_Type_${i}"]`).value.split('|')[1] + " DKK";
+                grandTotalDKK += (parseInt(gRate, 10) || 0) * dates.length;
                 const notes = document.querySelector(`[name="Notes_${i}"]`).value;
                 
                 const p = `Room ${i} - `;
@@ -977,6 +979,12 @@
                 // Legacy formatted field to prevent breaking older zapier maps
                 zapierData.append(p+"Guests", `${g1F} ${g1L}${g2F ? ' & ' + g2F + ' ' + g2L : ''}`);
             }
+
+            // Booking grand total (sum of per-night rate x nights for every room) so the
+            // booking carries TotalDKKComputed from creation and reconciles with the
+            // per-room rates downstream (mint / amend / rooming-list readers).
+            dbPayload["TotalDKKComputed"] = grandTotalDKK;
+            zapierData.append("TotalDKKComputed", String(grandTotalDKK));
 
             // Append the compiled Magic Table
             magicTableHTML += `</tbody></table>`;
