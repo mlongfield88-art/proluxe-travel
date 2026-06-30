@@ -2,7 +2,7 @@
 
 **Document owner:** Website Design Lead (LX Sixty Group)
 **Drafted:** 15 April 2026
-**Status:** Draft for Myles review
+**Status:** DONE / HISTORICAL. The cutover is COMPLETE as of (at latest) 30 Jun 2026: proluxetravels.com is live on Cloudflare (Cloudflare nameservers, www 301s to apex, apex serves the live Pages site). This plan is kept for the record; the site is already public on Cloudflare.
 **Target domain:** www.proluxetravels.com (with the "s")
 
 ---

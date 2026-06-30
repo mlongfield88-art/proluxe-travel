@@ -2,22 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.proluxetravels.com/</loc>
-    <lastmod>2026-06-08</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.proluxetravels.com/casa-marenya</loc>
-    <lastmod>2026-06-08</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.proluxetravels.com/privacy-policy.html</loc>
-    <lastmod>2026-06-08</lastmod>
+    <loc>https://www.proluxetravels.com/explore-cumbria</loc>
+    <lastmod>2026-06-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.proluxetravels.com/privacy-policy</loc>
+    <lastmod>2026-06-30</lastmod>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://www.proluxetravels.com/terms-and-conditions.html</loc>
-    <lastmod>2026-06-08</lastmod>
+    <loc>https://www.proluxetravels.com/terms-and-conditions</loc>
+    <lastmod>2026-06-30</lastmod>
     <priority>0.2</priority>
   </url>
 </urlset>

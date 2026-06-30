@@ -1,5 +1,7 @@
 # IONOS DNS Records to Apply
 
+> **STATUS 30 Jun 2026: CUTOVER ALREADY COMPLETE. This sheet is HISTORICAL.** Verified live: `proluxetravels.com` runs on Cloudflare nameservers (raphaela/duke.ns.cloudflare.com), www 301s to the apex, and the apex serves the live Cloudflare Pages site. The nameserver flip + custom-domain attachment described below have effectively been done. Do NOT treat the site as pre-cutover; a push to `main` deploys straight to the live public domain.
+
 **Purpose:** Paste-sheet for when Myles regains IONOS account access.
 **Prepared:** 18 April 2026
 **Canonical domain confirmed:** www.proluxetravels.com
