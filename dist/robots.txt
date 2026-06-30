@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.proluxetravels.com/sitemap.xml
+Sitemap: https://proluxetravels.com/sitemap.xml
