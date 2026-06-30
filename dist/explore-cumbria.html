@@ -838,37 +838,10 @@
   <!-- ========== SCRIPTS ========== -->
 
   <!-- Off-canvas nav -->
-  <script>
-    (function(){
-      var toggle = document.getElementById('navToggle');
-      var offcanvas = document.getElementById('offcanvas');
-      var overlay = document.getElementById('offcanvasOverlay');
-      var closeBtn = document.getElementById('offcanvasClose');
-      if(!toggle || !offcanvas) return;
-      function openNav(){ offcanvas.classList.add('is-open'); offcanvas.setAttribute('aria-hidden','false'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-      function closeNav(){ offcanvas.classList.remove('is-open'); offcanvas.setAttribute('aria-hidden','true'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-      toggle.addEventListener('click', openNav);
-      if(closeBtn) closeBtn.addEventListener('click', closeNav);
-      if(overlay) overlay.addEventListener('click', closeNav);
-      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
-      offcanvas.querySelectorAll('.offcanvas__link').forEach(function(a){ a.addEventListener('click', closeNav); });
-    })();
-  </script>
+  <script src="js/nav-offcanvas.js" defer></script>
 
   <!-- Mobile: show the duplicate closing frame, hide the desktop one inside .journey__track -->
-  <script>
-    (function(){
-      var isMob = window.innerWidth <= 900;
-      if(isMob){
-        var mobileClose = document.querySelector('.journey__close--mobile-only');
-        if(mobileClose) mobileClose.style.display = '';
-        /* The closing frame inside .journey__track is already display:flex via CSS;
-           on mobile hide it since the track is hidden and the duplicate is shown. */
-        var trackClose = document.querySelector('.journey__track .journey__close');
-        if(trackClose) trackClose.style.display = 'none';
-      }
-    })();
-  </script>
+  <script src="js/cumbria-mobile-close.js" defer></script>
 
   <!-- GSAP + ScrollTrigger -->
   <script src="lib/gsap.min.js"></script>
@@ -882,64 +855,9 @@
   <script src="js/cumbria.js"></script>
 
   <!-- Sticky contact bar visibility (appears once user scrolls past hero) -->
-  <script>
-    (function(){
-      var bar = document.getElementById('cumbriaStickybar');
-      var hero = document.querySelector('.cumbria-hero');
-      if(!bar || !hero) return;
-      if('IntersectionObserver' in window){
-        var io = new IntersectionObserver(function(entries){
-          entries.forEach(function(entry){
-            if(entry.isIntersecting) bar.classList.remove('is-visible');
-            else bar.classList.add('is-visible');
-          });
-        }, { rootMargin: '-80px 0px 0px 0px' });
-        io.observe(hero);
-      } else {
-        window.addEventListener('scroll', function(){
-          if(window.scrollY > 320) bar.classList.add('is-visible');
-          else bar.classList.remove('is-visible');
-        });
-      }
-    })();
-  </script>
+  <script src="js/cumbria-sticky.js" defer></script>
 
   <!-- Properties filter (region / capacity / Michelin) -->
-  <script>
-    (function(){
-      var panel = document.getElementById('propertiesFilter');
-      var resetBtn = document.getElementById('propertiesFilterReset');
-      var cards = document.querySelectorAll('.property-card');
-      if(!panel || !cards.length) return;
-
-      function selectedValues(filterType){
-        var inputs = panel.querySelectorAll('input[data-filter="' + filterType + '"]:checked');
-        return Array.from(inputs).map(function(i){ return i.value; });
-      }
-
-      function apply(){
-        var regions = selectedValues('region');
-        var caps = selectedValues('capacity');
-        var michelin = selectedValues('michelin');
-        cards.forEach(function(card){
-          var r = card.getAttribute('data-region');
-          var c = card.getAttribute('data-capacity');
-          var m = card.getAttribute('data-michelin');
-          var passes = true;
-          if(regions.length && regions.indexOf(r) === -1) passes = false;
-          if(caps.length && caps.indexOf(c) === -1) passes = false;
-          if(michelin.length && michelin.indexOf(m) === -1) passes = false;
-          card.classList.toggle('is-hidden', !passes);
-        });
-      }
-
-      panel.addEventListener('change', apply);
-      if(resetBtn){
-        resetBtn.addEventListener('click', function(){
-          panel.querySelectorAll('input[type="checkbox"]').forEach(function(i){ i.checked = false; });
-          apply();
-        });
-      }
-    })();
-  </script></body>
+  <script src="js/cumbria-filter.js" defer></script>
+</body>
 </html>

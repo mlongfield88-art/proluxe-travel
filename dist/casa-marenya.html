@@ -1538,22 +1538,7 @@
   <!-- ========== SCRIPTS ========== -->
 
   <!-- Off-canvas nav -->
-  <script>
-    (function(){
-      var toggle = document.getElementById('navToggle');
-      var offcanvas = document.getElementById('offcanvas');
-      var overlay = document.getElementById('offcanvasOverlay');
-      var closeBtn = document.getElementById('offcanvasClose');
-      if(!toggle || !offcanvas) return;
-      function openNav(){ offcanvas.classList.add('is-open'); offcanvas.setAttribute('aria-hidden','false'); toggle.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-      function closeNav(){ offcanvas.classList.remove('is-open'); offcanvas.setAttribute('aria-hidden','true'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-      toggle.addEventListener('click', openNav);
-      if(closeBtn) closeBtn.addEventListener('click', closeNav);
-      if(overlay) overlay.addEventListener('click', closeNav);
-      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
-      offcanvas.querySelectorAll('.offcanvas__link').forEach(function(a){ a.addEventListener('click', closeNav); });
-    })();
-  </script>
+  <script src="js/nav-offcanvas.js" defer></script>
 
   <!-- Back-to-top floating button (bottom-left, doesn't collide with sticky enquire bar) -->
   <button class="villa-totop" id="villaToTop" type="button" aria-label="Back to top">
@@ -1563,23 +1548,7 @@
   </button>
 
   <!-- Back-to-top: visibility on scroll past first viewport, smooth scroll on click -->
-  <script>
-    (function(){
-      var btn = document.getElementById('villaToTop');
-      if(!btn) return;
-      var threshold = window.innerHeight * 1.2;
-      function update(){
-        if(window.scrollY > threshold) btn.classList.add('is-visible');
-        else btn.classList.remove('is-visible');
-      }
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', function(){ threshold = window.innerHeight * 1.2; update(); });
-      btn.addEventListener('click', function(){
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      update();
-    })();
-  </script>
+  <script src="js/casa-marenya-totop.js" defer></script>
 
   <!-- Gallery lightbox: prev/next, ESC to close, backdrop click to close -->
   <div class="villa-lightbox" id="villaLightbox" role="dialog" aria-label="Casa Marenya gallery viewer" aria-hidden="true">
@@ -1617,112 +1586,16 @@
   </div>
 
   <!-- Gallery lightbox: open on image click, prev/next, ESC, backdrop -->
-  <script>
-    (function(){
-      var lb = document.getElementById('villaLightbox');
-      var img = document.getElementById('lbImg');
-      var counter = document.getElementById('lbCounter');
-      var closeBtn = document.getElementById('lbClose');
-      var prevBtn = document.getElementById('lbPrev');
-      var nextBtn = document.getElementById('lbNext');
-      if(!lb || !img) return;
-
-      var imgs = Array.prototype.slice.call(document.querySelectorAll('.villa-gallery__item img'));
-      if(!imgs.length) return;
-      var current = 0;
-
-      function show(i){
-        current = (i + imgs.length) % imgs.length;
-        img.src = imgs[current].src;
-        img.alt = imgs[current].alt;
-        counter.textContent = (current+1) + ' / ' + imgs.length;
-        lb.classList.add('is-open');
-        lb.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      }
-      function close(){
-        lb.classList.remove('is-open');
-        lb.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-      imgs.forEach(function(el, i){
-        el.addEventListener('click', function(){ show(i); });
-      });
-      closeBtn.addEventListener('click', close);
-      prevBtn.addEventListener('click', function(){ show(current - 1); });
-      nextBtn.addEventListener('click', function(){ show(current + 1); });
-      lb.addEventListener('click', function(e){
-        if(e.target === lb || e.target === img) close();
-      });
-      document.addEventListener('keydown', function(e){
-        if(!lb.classList.contains('is-open')) return;
-        if(e.key === 'Escape') close();
-        if(e.key === 'ArrowLeft') show(current - 1);
-        if(e.key === 'ArrowRight') show(current + 1);
-      });
-    })();
-  </script>
+  <script src="js/casa-marenya-lightbox.js" defer></script>
 
   <!-- Sticky bar visibility: appears once user scrolls past the hero -->
-  <script>
-    (function(){
-      var bar = document.getElementById('villaStickybar');
-      var hero = document.querySelector('.cumbria-hero');
-      if(!bar || !hero) return;
-      if('IntersectionObserver' in window){
-        var io = new IntersectionObserver(function(entries){
-          entries.forEach(function(entry){
-            if(entry.isIntersecting){
-              bar.classList.remove('is-visible');
-            } else {
-              bar.classList.add('is-visible');
-            }
-          });
-        }, { rootMargin: '-80px 0px 0px 0px' });
-        io.observe(hero);
-      } else {
-        // Fallback: show on any scroll past 320px
-        window.addEventListener('scroll', function(){
-          if(window.scrollY > 320) bar.classList.add('is-visible');
-          else bar.classList.remove('is-visible');
-        });
-      }
-    })();
-  </script>
+  <script src="js/casa-marenya-sticky.js" defer></script>
 
   <!-- Leaflet + Cap de Formentor pinned map -->
   <script src="lib/leaflet/leaflet.js"></script>
   <script src="js/casa-marenya-map.js"></script>
 
   <!-- Hero action: Share (Web Share API w/ clipboard fallback) -->
-  <script>
-    (function(){
-      var shareBtn = document.getElementById('shareBtn');
-
-      // Share: Web Share API where supported, fall back to copying URL.
-      if(shareBtn){
-        shareBtn.addEventListener('click', async function(){
-          var url = window.location.href;
-          var data = {
-            title: 'Casa Marenya | ProLuxe Travel',
-            text: 'Casa Marenya, Cap de Formentor, Mallorca. 300m from the Four Seasons.',
-            url: url
-          };
-          if(navigator.share){
-            try { await navigator.share(data); return; } catch(e){ /* user cancelled */ }
-          }
-          // Fallback: copy URL to clipboard, show transient label change.
-          try {
-            await navigator.clipboard.writeText(url);
-            var label = shareBtn.querySelector('.villa-action__label');
-            var prev = label.textContent;
-            label.textContent = 'Link copied';
-            setTimeout(function(){ label.textContent = prev; }, 2000);
-          } catch(e){
-            window.prompt('Copy this link to share:', url);
-          }
-        });
-      }
-    })();
-  </script></body>
+  <script src="js/casa-marenya-share.js" defer></script>
+</body>
 </html>
