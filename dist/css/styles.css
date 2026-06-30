@@ -1,23 +1,23 @@
 /* ============================================================
-   ProLuxe Travel — Dark Luxe Design System
-   Palette: Olive #424632 · Black #1A1A1A · Charcoal #2A2A2A
-            Cream #F5F0E8 · White #FFF · Grey #8A8A80
-            Teal accent #2D6A6A (texture only)
-   Fonts:  Cormorant Garamond (wordmark)
-           Playfair Display (headings)
-           Raleway (body)
+   ProLuxe Travel — Evolve the Green Design System (Jun 2026)
+   Palette: Pine #1F3A2E · Black #1A1A1A · Charcoal #2A2A2A
+            Cool stone #ECEEE9 · Ink #19211C · Grey #8A8A80
+            Champagne #C2A878 (restrained accent: hairlines, rules, marks only)
+            Shades: deep pine #15291F · soft pine #586259 · ink #19211C / #3A4239
+   Fonts:  Newsreader (headings + italic accents)
+           Inter (body / UI)
    ============================================================ */
 
 /* ---------- RESET & BASE ---------- */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-weight:400;
   font-size:16px;
   line-height:1.7;
-  color:#1A1A1A;
-  background:#F5F0E8;
+  color:#19211C;
+  background:#ECEEE9;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
@@ -29,7 +29,7 @@ ul,ol{list-style:none}
 
 /* ---------- TYPOGRAPHY ---------- */
 h1,h2,h3,h4,h5,h6{
-  font-family:'Playfair Display',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-weight:500;
   line-height:1.15;
   letter-spacing:-0.01em;
@@ -66,11 +66,12 @@ h1,h2,h3,h4,h5,h6{
   padding:20px clamp(20px,5vw,48px);
 }
 .nav__wordmark{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Newsreader',Georgia,serif;
+  font-style:normal;
   font-size:clamp(28px,3vw,36px);
   font-weight:600;
   letter-spacing:.04em;
-  color:#F5F0E8;
+  color:#ECEEE9;
   transition:opacity .3s;
 }
 .nav__wordmark:hover{opacity:.8}
@@ -88,7 +89,7 @@ h1,h2,h3,h4,h5,h6{
   font-weight:500;
   letter-spacing:.08em;
   text-transform:uppercase;
-  color:#F5F0E8;
+  color:#ECEEE9;
   position:relative;
   transition:color .3s;
 }
@@ -97,7 +98,7 @@ h1,h2,h3,h4,h5,h6{
   position:absolute;
   bottom:-4px;left:0;
   width:0;height:1px;
-  background:#F5F0E8;
+  background:#C2A878;
   transition:width .3s ease;
 }
 .nav__link:hover::after{width:100%}
@@ -116,7 +117,7 @@ h1,h2,h3,h4,h5,h6{
 .nav__hamburger span{
   display:block;
   width:24px;height:2px;
-  background:#F5F0E8;
+  background:#ECEEE9;
   transition:transform .3s,opacity .3s;
 }
 
@@ -164,7 +165,7 @@ h1,h2,h3,h4,h5,h6{
   position:absolute;
   top:16px;right:16px;
   font-size:32px;
-  color:#F5F0E8;
+  color:#ECEEE9;
   line-height:1;
   transition:opacity .3s;
   padding:10px;
@@ -182,10 +183,10 @@ h1,h2,h3,h4,h5,h6{
   gap:28px;
 }
 .offcanvas__link{
-  font-family:'Playfair Display',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-size:clamp(28px,5vw,36px);
   font-weight:500;
-  color:#F5F0E8;
+  color:#ECEEE9;
   transition:color .3s;
 }
 .offcanvas__link:hover{color:#8A8A80}
@@ -193,7 +194,7 @@ h1,h2,h3,h4,h5,h6{
 .offcanvas__contact{
   margin-top:auto;
   padding-top:40px;
-  border-top:1px solid rgba(245,240,232,.1);
+  border-top:1px solid rgba(236,238,233,.1);
   color:#8A8A80;
   font-size:14px;
   line-height:1.8;
@@ -233,10 +234,10 @@ h1,h2,h3,h4,h5,h6{
   background:linear-gradient(
     135deg,
     #1A1A1A 0%,
-    #2A2A2A 25%,
-    #353828 50%,
-    #424632 75%,
-    #2A2A2A 100%
+    #15291F 25%,
+    #1F3A2E 50%,
+    #15291F 75%,
+    #1A1A1A 100%
   );
   background-size:200% 200%;
   animation:heroGradientShift 20s ease-in-out infinite alternate;
@@ -251,7 +252,7 @@ h1,h2,h3,h4,h5,h6{
   background:linear-gradient(
     180deg,
     rgba(26,26,26,.7) 0%,
-    rgba(66,70,50,.5) 40%,
+    rgba(31,58,46,.5) 40%,
     rgba(26,26,26,.85) 100%
   );
 }
@@ -273,14 +274,14 @@ h1,h2,h3,h4,h5,h6{
   font-weight:600;
   letter-spacing:.2em;
   text-transform:uppercase;
-  color:#F5F0E8;
+  color:#ECEEE9;
   opacity:.7;
   margin-bottom:20px;
 }
 .hero__title{
   font-size:clamp(34px,4.6vw,58px);
   font-weight:500;
-  color:#F5F0E8;
+  color:#ECEEE9;
   margin:0 auto 24px;
   letter-spacing:-0.02em;
   line-height:1.1;
@@ -290,7 +291,7 @@ h1,h2,h3,h4,h5,h6{
 .hero__subtitle{
   font-size:clamp(15px,1.4vw,18px);
   font-weight:300;
-  color:rgba(245,240,232,.8);
+  color:rgba(236,238,233,.8);
   max-width:640px;
   margin:0 auto 40px;
   line-height:1.65;
@@ -307,7 +308,7 @@ h1,h2,h3,h4,h5,h6{
 .hero__scroll-hint span{
   display:block;
   width:1px;height:48px;
-  background:linear-gradient(180deg,rgba(245,240,232,0),rgba(245,240,232,.75));
+  background:linear-gradient(180deg,rgba(194,168,120,0),rgba(194,168,120,.75));
   animation:scrollPulse 2s ease-in-out infinite;
 }
 @keyframes scrollPulse{
@@ -328,7 +329,7 @@ h1,h2,h3,h4,h5,h6{
   align-items:center;
   justify-content:center;
   padding:14px 36px;
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:13px;
   font-weight:600;
   letter-spacing:.1em;
@@ -337,8 +338,8 @@ h1,h2,h3,h4,h5,h6{
   transition:all .35s cubic-bezier(.4,0,.2,1);
 }
 .btn--primary{
-  background:#F5F0E8;
-  color:#1A1A1A;
+  background:#ECEEE9;
+  color:#19211C;
 }
 .btn--primary:hover{
   background:#fff;
@@ -347,12 +348,12 @@ h1,h2,h3,h4,h5,h6{
 }
 .btn--outline{
   background:transparent;
-  color:#F5F0E8;
-  border:1px solid rgba(245,240,232,.35);
+  color:#ECEEE9;
+  border:1px solid rgba(236,238,233,.35);
 }
 .btn--outline:hover{
-  border-color:#F5F0E8;
-  background:rgba(245,240,232,.08);
+  border-color:#ECEEE9;
+  background:rgba(236,238,233,.08);
 }
 .btn--full{width:100%}
 
@@ -372,7 +373,7 @@ h1,h2,h3,h4,h5,h6{
   font-weight:600;
   letter-spacing:.06em;
   text-transform:uppercase;
-  color:#424632;
+  color:#1F3A2E;
   margin-top:24px;
   transition:gap .3s;
 }
@@ -384,9 +385,9 @@ h1,h2,h3,h4,h5,h6{
 .section{
   padding:clamp(80px,10vw,140px) 0;
 }
-.section--cream{background:#F5F0E8}
+.section--cream{background:#ECEEE9}
 .section--dark{background:#1A1A1A}
-.section--olive{background:#424632}
+.section--olive{background:#1F3A2E}
 
 .section__eyebrow{
   font-size:12px;
@@ -396,18 +397,18 @@ h1,h2,h3,h4,h5,h6{
   color:#5E5E56;
   margin-bottom:12px;
 }
-.section__eyebrow--light{color:rgba(245,240,232,.5)}
+.section__eyebrow--light{color:rgba(236,238,233,.5)}
 
 .section__title{
   font-size:clamp(32px,4.5vw,52px);
-  color:#1A1A1A;
+  color:#19211C;
   margin-bottom:20px;
 }
-.section__title--light{color:#F5F0E8}
+.section__title--light{color:#ECEEE9}
 
 .section__intro{
   font-size:clamp(15px,1.3vw,17px);
-  color:rgba(245,240,232,.65);
+  color:rgba(236,238,233,.65);
   max-width:560px;
   margin-bottom:56px;
   line-height:1.75;
@@ -420,7 +421,7 @@ h1,h2,h3,h4,h5,h6{
   max-width:640px;
   line-height:1.8;
 }
-.section__body--light{color:rgba(245,240,232,.75)}
+.section__body--light{color:rgba(236,238,233,.75)}
 
 /* ============================================================
    SPLIT LAYOUT
@@ -495,27 +496,27 @@ h1,h2,h3,h4,h5,h6{
   padding:clamp(16px,3vw,32px) 0;
 }
 .service-pillar__number{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:13px;
   font-weight:600;
   letter-spacing:.24em;
-  color:rgba(245,240,232,.65);
+  color:rgba(236,238,233,.65);
   margin-bottom:24px;
 }
 .service-pillar__title{
-  font-family:'Playfair Display',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-weight:500;
   font-size:clamp(28px,3.4vw,42px);
   line-height:1.15;
   letter-spacing:-0.01em;
-  color:#F5F0E8;
+  color:#ECEEE9;
   margin-bottom:28px;
 }
 .service-pillar__body{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:clamp(15px,1.15vw,17px);
   line-height:1.8;
-  color:rgba(245,240,232,.72);
+  color:rgba(236,238,233,.72);
   margin-bottom:14px;
   max-width:460px;
 }
@@ -544,7 +545,7 @@ h1,h2,h3,h4,h5,h6{
   gap:36px;
 }
 .info-block__label{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:11px;
   font-weight:600;
   letter-spacing:.15em;
@@ -553,12 +554,12 @@ h1,h2,h3,h4,h5,h6{
   margin-bottom:6px;
 }
 .info-block__value{
-  font-family:'Playfair Display',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-size:clamp(18px,1.8vw,22px);
-  color:#1A1A1A;
+  color:#19211C;
 }
 a.info-block__value{transition:color .3s}
-a.info-block__value:hover{color:#424632}
+a.info-block__value:hover{color:#1F3A2E}
 
 /* ============================================================
    FOOTER
@@ -574,11 +575,12 @@ a.info-block__value:hover{color:#424632}
   align-items:start;
 }
 .footer__wordmark{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Newsreader',Georgia,serif;
+  font-style:normal;
   font-size:clamp(22px,2.4vw,28px);
   font-weight:600;
   letter-spacing:.04em;
-  color:#F5F0E8;
+  color:#ECEEE9;
   text-decoration:none;
   display:inline-block;
   transition:opacity .3s;
@@ -598,10 +600,10 @@ a.info-block__value:hover{color:#424632}
 }
 .footer__links a{
   font-size:14px;
-  color:rgba(245,240,232,.5);
+  color:rgba(236,238,233,.5);
   transition:color .3s;
 }
-.footer__links a:hover{color:#F5F0E8}
+.footer__links a:hover{color:#ECEEE9}
 
 .footer__legal{
   text-align:right;
@@ -613,10 +615,10 @@ a.info-block__value:hover{color:#424632}
 }
 .footer__legal a{
   font-size:13px;
-  color:rgba(245,240,232,.55);
+  color:rgba(236,238,233,.55);
   transition:color .3s;
 }
-.footer__legal a:hover{color:#F5F0E8}
+.footer__legal a:hover{color:#ECEEE9}
 .footer__reg{
   font-size:12px;
   color:#8A8A80;
@@ -632,10 +634,10 @@ a.info-block__value:hover{color:#424632}
 }
 .footer__policy-links a{
   font-size:13px;
-  color:rgba(245,240,232,.55);
+  color:rgba(236,238,233,.55);
   transition:color .3s;
 }
-.footer__policy-links a:hover{color:#F5F0E8}
+.footer__policy-links a:hover{color:#ECEEE9}
 @media(max-width:960px){
   .footer__inner{
     grid-template-columns:1fr 1fr;
@@ -665,14 +667,14 @@ a.info-block__value:hover{color:#424632}
 
 /* Form success/error states */
 .btn--success{
-  background:#424632 !important;
-  border-color:#424632 !important;
-  color:#F5F0E8 !important;
+  background:#1F3A2E !important;
+  border-color:#1F3A2E !important;
+  color:#ECEEE9 !important;
 }
 .btn--error{
   background:#8B3A3A !important;
   border-color:#8B3A3A !important;
-  color:#F5F0E8 !important;
+  color:#ECEEE9 !important;
 }
 
 /* ============================================================
@@ -685,7 +687,7 @@ a.info-block__value:hover{color:#424632}
   background:rgba(26,26,26,.95);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-  border-top:1px solid rgba(245,240,232,.08);
+  border-top:1px solid rgba(194,168,120,.15);
   padding:20px 0;
   transform:translateY(100%);
   transition:transform .5s cubic-bezier(.4,0,.2,1);
@@ -704,12 +706,12 @@ a.info-block__value:hover{color:#424632}
 }
 .cookie-banner__text{
   font-size:14px;
-  color:rgba(245,240,232,.7);
+  color:rgba(236,238,233,.7);
   line-height:1.6;
   flex:1;
 }
 .cookie-banner__text a{
-  color:#F5F0E8;
+  color:#ECEEE9;
   text-decoration:underline;
   text-underline-offset:2px;
 }
@@ -720,7 +722,7 @@ a.info-block__value:hover{color:#424632}
 }
 .cookie-banner__btn{
   padding:10px 24px;
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:12px;
   font-weight:600;
   letter-spacing:.08em;
@@ -730,8 +732,8 @@ a.info-block__value:hover{color:#424632}
   cursor:pointer;
 }
 .cookie-banner__btn--accept{
-  background:#F5F0E8;
-  color:#1A1A1A;
+  background:#ECEEE9;
+  color:#19211C;
   border:none;
 }
 .cookie-banner__btn--accept:hover{
@@ -739,12 +741,12 @@ a.info-block__value:hover{color:#424632}
 }
 .cookie-banner__btn--decline{
   background:transparent;
-  color:rgba(245,240,232,.6);
-  border:1px solid rgba(245,240,232,.2);
+  color:rgba(236,238,233,.6);
+  border:1px solid rgba(236,238,233,.2);
 }
 .cookie-banner__btn--decline:hover{
-  border-color:rgba(245,240,232,.4);
-  color:#F5F0E8;
+  border-color:rgba(236,238,233,.4);
+  color:#ECEEE9;
 }
 
 @media(max-width:600px){
@@ -832,17 +834,17 @@ a.info-block__value:hover{color:#424632}
    FOCUS VISIBLE (accessibility)
    ============================================================ */
 :focus-visible{
-  outline:2px solid #424632;
+  outline:2px solid #1F3A2E;
   outline-offset:3px;
 }
-/* Cream outline on dark surfaces */
+/* Stone outline on dark surfaces */
 .header :focus-visible,
 .hero :focus-visible,
 .section--dark :focus-visible,
 .offcanvas :focus-visible,
 .footer :focus-visible,
 .cookie-banner :focus-visible{
-  outline-color:#F5F0E8;
+  outline-color:#ECEEE9;
 }
 
 /* Skip link */
@@ -851,10 +853,10 @@ a.info-block__value:hover{color:#424632}
   left:8px;
   top:-56px;
   z-index:500;
-  background:#424632;
-  color:#F5F0E8;
+  background:#1F3A2E;
+  color:#ECEEE9;
   padding:10px 18px;
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:13px;
   font-weight:600;
   letter-spacing:.04em;
@@ -866,8 +868,8 @@ a.info-block__value:hover{color:#424632}
    SELECTION
    ============================================================ */
 ::selection{
-  background:#424632;
-  color:#F5F0E8;
+  background:#1F3A2E;
+  color:#ECEEE9;
 }
 
 /* ============================================================
@@ -886,12 +888,12 @@ a.info-block__value:hover{color:#424632}
   position:absolute;
   inset:0;
   z-index:0;
-  /* Olive/cream gradient placeholder. Replace with a Cumbrian landscape
+  /* Pine/stone gradient placeholder. Replace with a Cumbrian landscape
      photograph by swapping for: background:url('img/cumbria-hero.jpg') center/cover no-repeat; */
   background:
-    radial-gradient(ellipse at 20% 100%, rgba(66,70,50,0.35) 0%, rgba(66,70,50,0) 55%),
-    radial-gradient(ellipse at 80% 0%, rgba(245,240,232,0.08) 0%, rgba(245,240,232,0) 50%),
-    linear-gradient(180deg, #1A1A17 0%, #23261C 45%, #353828 80%, #424632 100%);
+    radial-gradient(ellipse at 20% 100%, rgba(31,58,46,0.45) 0%, rgba(31,58,46,0) 55%),
+    radial-gradient(ellipse at 80% 0%, rgba(236,238,233,0.06) 0%, rgba(236,238,233,0) 50%),
+    linear-gradient(180deg, #1A1A17 0%, #19211C 45%, #1F3A2E 80%, #15291F 100%);
 }
 .cumbria-hero__overlay{
   position:absolute;
@@ -908,12 +910,12 @@ a.info-block__value:hover{color:#424632}
   text-align:center;
 }
 .cumbria-hero__eyebrow{
-  font-family:'Raleway', sans-serif;
+  font-family:'Inter', sans-serif;
   font-size:14px;
   font-weight:600;
   letter-spacing:.18em;
   text-transform:uppercase;
-  color:#F5F0E8;
+  color:#ECEEE9;
   background:rgba(26,26,23,0.45);
   padding:8px 18px;
   border-radius:2px;
@@ -921,20 +923,20 @@ a.info-block__value:hover{color:#424632}
   margin:0 0 28px;
 }
 .cumbria-hero__title{
-  font-family:'Playfair Display', serif;
+  font-family:'Newsreader', Georgia, serif;
   font-size:clamp(40px, 7vw, 84px);
   font-weight:500;
   line-height:1.08;
   letter-spacing:-0.02em;
-  color:#F5F0E8;
+  color:#ECEEE9;
   margin:0 0 20px;
 }
 .cumbria-hero__subtitle{
-  font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+  font-family:'Newsreader', Georgia, serif;
   font-style:italic;
   font-size:clamp(18px, 2vw, 24px);
   line-height:1.5;
-  color:rgba(245,240,232,.82);
+  color:rgba(236,238,233,.82);
   margin:0 auto 40px;
   max-width:520px;
 }
@@ -1005,7 +1007,7 @@ a.info-block__value:hover{color:#424632}
   row-gap:28px;
   margin:0 0 48px;
   padding:32px 0 0;
-  border-top:1px solid rgba(66,70,50,.18);
+  border-top:1px solid rgba(194,168,120,.25);
 }
 .cumbria-food__item{
   display:flex;
@@ -1014,16 +1016,16 @@ a.info-block__value:hover{color:#424632}
   min-width:0;
 }
 .cumbria-food__name{
-  font-family:'Playfair Display', serif;
+  font-family:'Newsreader', Georgia, serif;
   font-size:clamp(17px, 1.4vw, 20px);
   font-weight:500;
-  color:#1A1A1A;
+  color:#19211C;
   letter-spacing:-0.005em;
   line-height:1.3;
   margin:0;
 }
 .cumbria-food__loc{
-  font-family:'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+  font-family:'Newsreader', Georgia, serif;
   font-style:italic;
   font-weight:400;
   font-size:.82em;
@@ -1031,7 +1033,7 @@ a.info-block__value:hover{color:#424632}
   margin-left:6px;
 }
 .cumbria-food__note{
-  font-family:'Raleway', sans-serif;
+  font-family:'Inter', sans-serif;
   font-size:13px;
   letter-spacing:.02em;
   color:#4A4A42;
@@ -1120,30 +1122,30 @@ a.info-block__value:hover{color:#424632}
   z-index:-1;
 }
 .journey__intro-eyebrow{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:13px;
   font-weight:500;
   letter-spacing:.14em;
   text-transform:uppercase;
-  color:#F5F0E8;
+  color:#ECEEE9;
   text-shadow:0 1px 10px rgba(0,0,0,0.4);
 }
 .journey__intro-title{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-size:clamp(38px,4.4vw,68px);
   font-weight:500;
   font-style:italic;
-  color:#F5F0E8;
+  color:#ECEEE9;
   line-height:1.15;
   letter-spacing:-0.005em;
   max-width:720px;
   text-shadow:0 2px 24px rgba(0,0,0,0.5);
 }
 .journey__intro-body{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:clamp(15px,1.1vw,17px);
   font-weight:400;
-  color:#F5F0E8;
+  color:#ECEEE9;
   max-width:480px;
   margin:0 auto;
   line-height:1.75;
@@ -1193,35 +1195,35 @@ a.info-block__value:hover{color:#424632}
   background:#EDE8DF;
 }
 .journey__valley{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:11px;
   font-weight:600;
   letter-spacing:.22em;
   text-transform:uppercase;
-  color:#424632;
+  color:#1F3A2E;
   opacity:0.7;
   margin-bottom:16px;
 }
 .journey__house{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-size:clamp(32px,3.2vw,52px);
   font-weight:500;
-  color:#1A1A17;
+  color:#19211C;
   line-height:1.05;
   margin-bottom:20px;
   letter-spacing:-0.01em;
 }
 .journey__body{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:clamp(14px,1.05vw,16px);
   font-weight:300;
-  color:#3A3A30;
+  color:#3A4239;
   line-height:1.85;
   max-width:380px;
   margin-bottom:24px;
 }
 .journey__meta{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-style:italic;
   font-size:clamp(13px,1vw,15px);
   color:#6A6A56;
@@ -1229,12 +1231,12 @@ a.info-block__value:hover{color:#424632}
   margin-bottom:28px;
 }
 .journey__enquire{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:12px;
   font-weight:600;
   letter-spacing:.1em;
   text-transform:uppercase;
-  color:#424632;
+  color:#1F3A2E;
   display:inline-flex;
   align-items:center;
   gap:8px;
@@ -1253,11 +1255,11 @@ a.info-block__value:hover{color:#424632}
   position:absolute;
   top:28px;
   left:28px;
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Inter',sans-serif;
   font-size:11px;
   font-weight:600;
   letter-spacing:.18em;
-  color:rgba(66,70,50,0.55);
+  color:rgba(31,58,46,0.55);
   text-transform:uppercase;
   z-index:2;
 }
@@ -1274,28 +1276,28 @@ a.info-block__value:hover{color:#424632}
   text-align:center;
   padding:clamp(80px,10vw,140px) clamp(40px,8vw,160px);
   gap:24px;
-  background:#424632;
+  background:#1F3A2E;
 }
 .journey__close-rule{
   width:48px;
   height:1px;
-  background:rgba(245,240,232,.35);
+  background:rgba(194,168,120,.4);
   margin:0 auto;
 }
 .journey__close-title{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-size:clamp(32px,4vw,58px);
   font-weight:400;
   font-style:italic;
-  color:#F5F0E8;
+  color:#ECEEE9;
   line-height:1.12;
   max-width:600px;
 }
 .journey__close-sub{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:clamp(14px,1.1vw,16px);
   font-weight:300;
-  color:rgba(245,240,232,.72);
+  color:rgba(236,238,233,.72);
   max-width:400px;
   line-height:1.8;
 }
@@ -1310,15 +1312,15 @@ a.info-block__value:hover{color:#424632}
   opacity:0.7;
 }
 .journey-valley-label{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Inter',sans-serif;
   font-style:italic;
   font-size:11px;
-  fill:rgba(66,70,50,0.45);
+  fill:rgba(31,58,46,0.45);
   letter-spacing:.04em;
 }
 .journey-route{
   fill:none;
-  stroke:#424632;
+  stroke:#C2A878;
   stroke-width:2;
   stroke-dasharray:6 5;
   stroke-linecap:round;
@@ -1326,12 +1328,12 @@ a.info-block__value:hover{color:#424632}
   opacity:0.85;
 }
 .journey-marker{
-  fill:#424632;
+  fill:#1F3A2E;
   transform-origin:center;
 }
 .journey-marker-ring{
   fill:none;
-  stroke:#424632;
+  stroke:#C2A878;
   stroke-width:1.2;
   opacity:0.4;
 }
@@ -1375,7 +1377,7 @@ a.info-block__value:hover{color:#424632}
     top:0;
     bottom:0;
     width:1px;
-    background:rgba(66,70,50,0.18);
+    background:rgba(194,168,120,0.25);
     z-index:0;
   }
 
@@ -1386,8 +1388,8 @@ a.info-block__value:hover{color:#424632}
     width:calc(100% - 48px);
     max-width:520px;
     margin:0 auto 56px;
-    background:#F5F0E8;
-    border:1px solid rgba(66,70,50,0.12);
+    background:#ECEEE9;
+    border:1px solid rgba(31,58,46,0.12);
   }
   .journey__card:last-child{
     margin-bottom:0;
@@ -1407,46 +1409,46 @@ a.info-block__value:hover{color:#424632}
     padding:28px 24px 32px;
   }
   .journey__card-valley{
-    font-family:'Raleway',sans-serif;
+    font-family:'Inter',sans-serif;
     font-size:10px;
     font-weight:600;
     letter-spacing:.22em;
     text-transform:uppercase;
-    color:#424632;
+    color:#1F3A2E;
     opacity:0.7;
     margin-bottom:10px;
   }
   .journey__card-house{
-    font-family:'Cormorant Garamond',serif;
+    font-family:'Newsreader',Georgia,serif;
     font-size:clamp(26px,5vw,36px);
     font-weight:500;
-    color:#1A1A17;
+    color:#19211C;
     line-height:1.08;
     margin-bottom:14px;
     letter-spacing:-0.01em;
   }
   .journey__card-text{
-    font-family:'Raleway',sans-serif;
+    font-family:'Inter',sans-serif;
     font-size:14px;
     font-weight:300;
-    color:#3A3A30;
+    color:#3A4239;
     line-height:1.85;
     margin-bottom:16px;
   }
   .journey__card-meta{
-    font-family:'Cormorant Garamond',serif;
+    font-family:'Newsreader',Georgia,serif;
     font-style:italic;
     font-size:13px;
     color:#6A6A56;
     margin-bottom:20px;
   }
   .journey__card-enquire{
-    font-family:'Raleway',sans-serif;
+    font-family:'Inter',sans-serif;
     font-size:11px;
     font-weight:600;
     letter-spacing:.1em;
     text-transform:uppercase;
-    color:#424632;
+    color:#1F3A2E;
     display:inline-flex;
     align-items:center;
     gap:6px;
@@ -1500,7 +1502,7 @@ a.info-block__value:hover{color:#424632}
   position:relative;
   max-width:1180px;
   margin:48px auto 0;
-  background:#F5F0E8;
+  background:#ECEEE9;
   border:1px solid rgba(26,26,26,.08);
   box-shadow:0 30px 80px -40px rgba(26,26,26,.22);
   overflow:hidden;
@@ -1522,7 +1524,7 @@ a.info-block__value:hover{color:#424632}
   letter-spacing:.22em;
   text-transform:uppercase;
   color:#5A5A52;
-  background:rgba(245,240,232,.92);
+  background:rgba(236,238,233,.92);
   padding:8px 14px;
   border:1px solid rgba(26,26,26,.1);
   backdrop-filter:blur(6px);
@@ -1544,7 +1546,7 @@ a.info-block__value:hover{color:#424632}
 #cumbriaMap .leaflet-container,
 .leaflet-container{
   background:#EAE4D8;
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
 }
 .leaflet-control-zoom{
   border:none !important;
@@ -1552,9 +1554,9 @@ a.info-block__value:hover{color:#424632}
   margin:14px !important;
 }
 .leaflet-control-zoom a{
-  background:#F5F0E8 !important;
-  color:#424632 !important;
-  border:1px solid rgba(66,70,50,.2) !important;
+  background:#ECEEE9 !important;
+  color:#1F3A2E !important;
+  border:1px solid rgba(31,58,46,.2) !important;
   font-size:18px !important;
   font-weight:300 !important;
   width:36px !important;
@@ -1563,11 +1565,11 @@ a.info-block__value:hover{color:#424632}
   transition:background .25s ease !important;
 }
 .leaflet-control-zoom a:hover{
-  background:#424632 !important;
-  color:#F5F0E8 !important;
+  background:#1F3A2E !important;
+  color:#ECEEE9 !important;
 }
 .leaflet-control-attribution{
-  background:rgba(245,240,232,.72) !important;
+  background:rgba(236,238,233,.72) !important;
   font-size:9px !important;
   letter-spacing:.04em;
   color:#8A8A80 !important;
@@ -1587,8 +1589,8 @@ a.info-block__value:hover{color:#424632}
   transform:translate(-50%,-50%);
   width:16px;height:16px;
   border-radius:50%;
-  background:#424632;
-  border:2px solid #F5F0E8;
+  background:#1F3A2E;
+  border:2px solid #ECEEE9;
   box-shadow:0 2px 8px rgba(26,26,26,.3);
   transition:width .25s ease, height .25s ease, box-shadow .25s ease;
   cursor:pointer;
@@ -1599,14 +1601,14 @@ a.info-block__value:hover{color:#424632}
   top:50%;
   left:calc(50% + 14px);
   transform:translateY(-50%) translateX(-4px);
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Inter',sans-serif;
   font-size:13px;
   font-weight:500;
   white-space:nowrap;
-  color:#1A1A1A;
-  background:rgba(245,240,232,.94);
+  color:#19211C;
+  background:rgba(236,238,233,.94);
   padding:4px 10px;
-  border:1px solid rgba(66,70,50,.18);
+  border:1px solid rgba(194,168,120,.25);
   letter-spacing:.01em;
   pointer-events:none;
   opacity:0;
@@ -1637,7 +1639,7 @@ a.info-block__value:hover{color:#424632}
   position:absolute;
   inset:-3px;
   border-radius:50%;
-  border:2px solid rgba(66,70,50,.55);
+  border:2px solid rgba(194,168,120,.55);
   animation:cumbriaPulse 2.4s ease-out infinite;
   pointer-events:none;
 }
@@ -1652,9 +1654,9 @@ a.info-block__value:hover{color:#424632}
   left:calc(50% + 18px);
   font-size:14px;
   font-weight:600;
-  background:#424632;
-  color:#F5F0E8;
-  border-color:#424632;
+  background:#1F3A2E;
+  color:#ECEEE9;
+  border-color:#1F3A2E;
   /* opacity stays 0 by default — label only appears on hover */
 }
 
@@ -1703,8 +1705,8 @@ a.info-block__value:hover{color:#424632}
 
 /* ---------- Leaflet popup override ---------- */
 .leaflet-popup-content-wrapper{
-  background:#F5F0E8 !important;
-  color:#1A1A1A !important;
+  background:#ECEEE9 !important;
+  color:#19211C !important;
   border-radius:0 !important;
   box-shadow:0 18px 60px -12px rgba(26,26,26,.25) !important;
   padding:0 !important;
@@ -1714,9 +1716,9 @@ a.info-block__value:hover{color:#424632}
   margin:0 !important;
   width:auto !important;
   line-height:1.5 !important;
-  font-family:'Raleway',sans-serif !important;
+  font-family:'Inter',sans-serif !important;
 }
-.leaflet-popup-tip{background:#F5F0E8 !important}
+.leaflet-popup-tip{background:#ECEEE9 !important}
 .leaflet-popup-close-button{
   color:#8A8A80 !important;
   font-size:22px !important;
@@ -1748,10 +1750,10 @@ a.info-block__value:hover{color:#424632}
   margin-bottom:6px;
 }
 .poi-pop__name{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-size:22px;
   font-weight:500;
-  color:#1A1A1A;
+  color:#19211C;
   margin:0 0 8px;
   line-height:1.2;
   letter-spacing:-0.005em;
@@ -1759,7 +1761,7 @@ a.info-block__value:hover{color:#424632}
 .poi-pop__distance{
   font-size:11px;
   letter-spacing:.06em;
-  color:#424632;
+  color:#1F3A2E;
   font-weight:500;
   margin-bottom:10px;
 }
@@ -1803,31 +1805,31 @@ a.info-block__value:hover{color:#424632}
 }
 
 .properties .eyebrow{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:11px;
   font-weight:600;
   letter-spacing:.2em;
   text-transform:uppercase;
-  color:#424632;
+  color:#1F3A2E;
   opacity:0.7;
   margin-bottom:16px;
 }
 
 .properties .section-head__title{
-  font-family:'Playfair Display',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-size:clamp(32px,4vw,48px);
   font-weight:500;
-  color:#1A1A17;
+  color:#19211C;
   line-height:1.1;
   letter-spacing:-0.02em;
   margin-bottom:20px;
 }
 
 .properties .section-head__lede{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:16px;
   font-weight:300;
-  color:#3A3A30;
+  color:#3A4239;
   line-height:1.85;
   max-width:560px;
   margin:0 auto;
@@ -1841,8 +1843,8 @@ a.info-block__value:hover{color:#424632}
 
 /* --- Individual property card --- */
 .property-card{
-  background:#F5F0E8;
-  border:1px solid rgba(66,70,50,0.15);
+  background:#ECEEE9;
+  border:1px solid rgba(31,58,46,0.15);
   overflow:hidden;
   transition:box-shadow .3s ease, transform .3s ease;
 }
@@ -1877,9 +1879,9 @@ a.info-block__value:hover{color:#424632}
 }
 
 /* Placeholder treatment: shown until each property approves a licensed photo.
-   Olive panel, Cormorant italic caption in cream. Same dimensions as photo. */
+   Pine panel, Newsreader italic caption in stone. Same dimensions as photo. */
 .property-card__photo--placeholder{
-  background:#424632;
+  background:#1F3A2E;
   background-image:none;
   display:flex;
   align-items:center;
@@ -1889,12 +1891,12 @@ a.info-block__value:hover{color:#424632}
 }
 .property-card__photo--placeholder::before{
   content:"Image to follow";
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-style:italic;
   font-weight:300;
   font-size:15px;
   letter-spacing:0.04em;
-  color:#F5F0E8;
+  color:#ECEEE9;
   opacity:0.7;
 }
 .property-card:hover .property-card__photo--placeholder{
@@ -1906,32 +1908,32 @@ a.info-block__value:hover{color:#424632}
 }
 
 .property-card__kind{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:10px;
   font-weight:600;
   letter-spacing:.22em;
   text-transform:uppercase;
-  color:#424632;
+  color:#1F3A2E;
   opacity:0.7;
   margin-bottom:10px;
 }
 
 .property-card__name{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Newsreader',Georgia,serif;
   font-style:italic;
   font-size:clamp(24px,2.4vw,30px);
   font-weight:400;
-  color:#1A1A17;
+  color:#19211C;
   line-height:1.1;
   letter-spacing:-0.01em;
   margin-bottom:14px;
 }
 
 .property-card__blurb{
-  font-family:'Raleway',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:14px;
   font-weight:300;
-  color:#3A3A30;
+  color:#3A4239;
   line-height:1.8;
 }
 
